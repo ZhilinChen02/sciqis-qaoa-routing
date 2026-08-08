@@ -16,6 +16,7 @@ results/*
 !results/penalty_threshold_analysis.json
 !results/qubo_coefficients.json
 !results/ising_coefficients.json
+!results/p1_state_evolution_diagnostic.json
 
 figures/*
 !figures/.gitkeep
@@ -26,3 +27,9 @@ figures/*
 !figures/03_graph_qubo_ising_structure.svg
 !figures/04_penalty_state_space_geometry.png
 !figures/04_penalty_state_space_geometry.svg
+!figures/05_explicit_p1_qaoa_circuit.png
+!figures/05_explicit_p1_qaoa_circuit.svg
+!figures/06_p1_quantum_state_evolution.png
+!figures/06_p1_quantum_state_evolution.svg
+!figures/07_cost_phase_encoding.png
+!figures/07_cost_phase_encoding.svg

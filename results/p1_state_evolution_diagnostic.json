@@ -1,0 +1,2856 @@
+{
+  "schema": "dtu-sciqis-routing-p1-state-evolution-diagnostic",
+  "version": "1.0",
+  "label": "DIAGNOSTIC_ONLY_NOT_OPTIMIZED",
+  "optimization_performed": false,
+  "interpretation_guardrail": "Mechanism visualization only; not a performance or optimization result.",
+  "backend": {
+    "qiskit_version": "2.4.2",
+    "qiskit_method": "qiskit.quantum_info.Statevector.from_instruction",
+    "independent_reference": "NumPy diagonal energy phase plus pairwise exp(-i beta X) updates"
+  },
+  "graph_sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+  "penalty_contract_sha256": "3e31dc31434dcd06c430e90e75884536cbef8cdfefec195afeb1acc1b77acd57",
+  "bit_order_convention": {
+    "edge_vector": {
+      "order": "[x0, x1, ..., x13]",
+      "direction": "q0 -> q13"
+    },
+    "canonical_bitstring": {
+      "direction": "q0 -> q13"
+    },
+    "qiskit_display_bitstring": {
+      "direction": "q13 -> q0"
+    },
+    "basis_state_index": "q0 is the least-significant bit",
+    "no_implicit_string_reversal": true,
+    "exact_route_example": {
+      "edge_vector": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "canonical_bitstring": "10010001000101",
+      "qiskit_display_bitstring": "10100010001001",
+      "state_index": 10377
+    }
+  },
+  "diagnostic_parameters": {
+    "gamma": 0.4487989505128276,
+    "gamma_rule": "pi/7",
+    "beta": 0.28559933214452665,
+    "beta_rule": "pi/11",
+    "used_for_every_frozen_penalty": true
+  },
+  "hard_equivalence_gate": {
+    "penalty_values": [
+      2,
+      5,
+      6,
+      12
+    ],
+    "parameter_pair_count": 3,
+    "checkpoint_count_per_case": 3,
+    "comparison_count": 36,
+    "minimum_fidelity": 0.9999999999999987,
+    "maximum_amplitude_absolute_error": 1.377337940786879e-16,
+    "maximum_probability_vector_error": 5.5294310796760726e-18,
+    "maximum_norm_error": 2.7755575615628914e-15,
+    "passed": true,
+    "cases": [
+      {
+        "penalty_label": "weak",
+        "A": 2,
+        "parameter_pair": "diagnostic_pi_rule",
+        "gamma": 0.4487989505128276,
+        "beta": 0.28559933214452665,
+        "checkpoints": {
+          "initial": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 8.673617379884035e-18,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.1102230246251565e-16,
+            "probability_vector_max_error": 1.3552527156068805e-19
+          },
+          "post_cost": {
+            "fidelity": 0.9999999999999998,
+            "max_amplitude_absolute_error": 3.556447555475521e-17,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.1102230246251565e-16,
+            "probability_vector_max_error": 1.8973538018496328e-19
+          },
+          "post_mixer": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 5.353104808109533e-17,
+            "reference_norm_error": 2.220446049250313e-16,
+            "qiskit_norm_error": 7.771561172376096e-16,
+            "probability_vector_max_error": 9.75781955236954e-19
+          }
+        }
+      },
+      {
+        "penalty_label": "weak",
+        "A": 2,
+        "parameter_pair": "fixed_decimal_pair",
+        "gamma": 0.173,
+        "beta": 0.271,
+        "checkpoints": {
+          "initial": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 8.673617379884035e-18,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.1102230246251565e-16,
+            "probability_vector_max_error": 1.3552527156068805e-19
+          },
+          "post_cost": {
+            "fidelity": 0.9999999999999993,
+            "max_amplitude_absolute_error": 2.168404344971009e-17,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 8.881784197001252e-16,
+            "probability_vector_max_error": 3.3881317890172014e-19
+          },
+          "post_mixer": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 4.8746674966609137e-17,
+            "reference_norm_error": 4.440892098500626e-16,
+            "qiskit_norm_error": 1.4432899320127035e-15,
+            "probability_vector_max_error": 2.6020852139652106e-18
+          }
+        }
+      },
+      {
+        "penalty_label": "weak",
+        "A": 2,
+        "parameter_pair": "fixed_signed_pi_rule",
+        "gamma": -0.241660973353061,
+        "beta": 0.18479956785822313,
+        "checkpoints": {
+          "initial": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 8.673617379884035e-18,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.1102230246251565e-16,
+            "probability_vector_max_error": 1.3552527156068805e-19
+          },
+          "post_cost": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 3.1572443831564574e-17,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 2.7755575615628914e-15,
+            "probability_vector_max_error": 4.87890977618477e-19
+          },
+          "post_mixer": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 7.410741937918043e-17,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 2.3314683517128287e-15,
+            "probability_vector_max_error": 4.553649124439119e-18
+          }
+        }
+      },
+      {
+        "penalty_label": "critical",
+        "A": 5,
+        "parameter_pair": "diagnostic_pi_rule",
+        "gamma": 0.4487989505128276,
+        "beta": 0.28559933214452665,
+        "checkpoints": {
+          "initial": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 8.673617379884035e-18,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.1102230246251565e-16,
+            "probability_vector_max_error": 1.3552527156068805e-19
+          },
+          "post_cost": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 6.209705829315427e-17,
+            "reference_norm_error": 1.1102230246251565e-16,
+            "qiskit_norm_error": 2.220446049250313e-16,
+            "probability_vector_max_error": 2.574980159653073e-19
+          },
+          "post_mixer": {
+            "fidelity": 0.9999999999999998,
+            "max_amplitude_absolute_error": 7.101791266444299e-17,
+            "reference_norm_error": 3.3306690738754696e-16,
+            "qiskit_norm_error": 0.0,
+            "probability_vector_max_error": 2.656295322589486e-18
+          }
+        }
+      },
+      {
+        "penalty_label": "critical",
+        "A": 5,
+        "parameter_pair": "fixed_decimal_pair",
+        "gamma": 0.173,
+        "beta": 0.271,
+        "checkpoints": {
+          "initial": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 8.673617379884035e-18,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.1102230246251565e-16,
+            "probability_vector_max_error": 1.3552527156068805e-19
+          },
+          "post_cost": {
+            "fidelity": 0.9999999999999996,
+            "max_amplitude_absolute_error": 2.1826688949569443e-17,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 2.220446049250313e-16,
+            "probability_vector_max_error": 2.0328790734103208e-19
+          },
+          "post_mixer": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 3.0555271774230604e-17,
+            "reference_norm_error": 5.551115123125783e-16,
+            "qiskit_norm_error": 6.661338147750939e-16,
+            "probability_vector_max_error": 7.047314121155779e-19
+          }
+        }
+      },
+      {
+        "penalty_label": "critical",
+        "A": 5,
+        "parameter_pair": "fixed_signed_pi_rule",
+        "gamma": -0.241660973353061,
+        "beta": 0.18479956785822313,
+        "checkpoints": {
+          "initial": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 8.673617379884035e-18,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.1102230246251565e-16,
+            "probability_vector_max_error": 1.3552527156068805e-19
+          },
+          "post_cost": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 3.4835130662032315e-17,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.5543122344752192e-15,
+            "probability_vector_max_error": 2.846030702774449e-19
+          },
+          "post_mixer": {
+            "fidelity": 0.9999999999999996,
+            "max_amplitude_absolute_error": 4.9674920646601394e-17,
+            "reference_norm_error": 2.220446049250313e-16,
+            "qiskit_norm_error": 9.992007221626409e-16,
+            "probability_vector_max_error": 1.5720931501039814e-18
+          }
+        }
+      },
+      {
+        "penalty_label": "just-supercritical",
+        "A": 6,
+        "parameter_pair": "diagnostic_pi_rule",
+        "gamma": 0.4487989505128276,
+        "beta": 0.28559933214452665,
+        "checkpoints": {
+          "initial": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 8.673617379884035e-18,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.1102230246251565e-16,
+            "probability_vector_max_error": 1.3552527156068805e-19
+          },
+          "post_cost": {
+            "fidelity": 0.9999999999999991,
+            "max_amplitude_absolute_error": 6.649934381645742e-17,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 2.220446049250313e-16,
+            "probability_vector_max_error": 2.0328790734103208e-19
+          },
+          "post_mixer": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 1.2634793639526558e-16,
+            "reference_norm_error": 4.440892098500626e-16,
+            "qiskit_norm_error": 9.992007221626409e-16,
+            "probability_vector_max_error": 4.119968255444917e-18
+          }
+        }
+      },
+      {
+        "penalty_label": "just-supercritical",
+        "A": 6,
+        "parameter_pair": "fixed_decimal_pair",
+        "gamma": 0.173,
+        "beta": 0.271,
+        "checkpoints": {
+          "initial": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 8.673617379884035e-18,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.1102230246251565e-16,
+            "probability_vector_max_error": 1.3552527156068805e-19
+          },
+          "post_cost": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 3.8215627450842804e-17,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 2.1094237467877974e-15,
+            "probability_vector_max_error": 5.149960319306146e-19
+          },
+          "post_mixer": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 6.226304144084063e-17,
+            "reference_norm_error": 5.551115123125783e-16,
+            "qiskit_norm_error": 2.6645352591003757e-15,
+            "probability_vector_max_error": 2.8189256484623115e-18
+          }
+        }
+      },
+      {
+        "penalty_label": "just-supercritical",
+        "A": 6,
+        "parameter_pair": "fixed_signed_pi_rule",
+        "gamma": -0.241660973353061,
+        "beta": 0.18479956785822313,
+        "checkpoints": {
+          "initial": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 8.673617379884035e-18,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.1102230246251565e-16,
+            "probability_vector_max_error": 1.3552527156068805e-19
+          },
+          "post_cost": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 5.035182435476901e-17,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 2.3314683517128287e-15,
+            "probability_vector_max_error": 3.2526065174565133e-19
+          },
+          "post_mixer": {
+            "fidelity": 0.9999999999999998,
+            "max_amplitude_absolute_error": 5.532788960946702e-17,
+            "reference_norm_error": 2.220446049250313e-16,
+            "qiskit_norm_error": 1.3322676295501878e-15,
+            "probability_vector_max_error": 1.5178830414797062e-18
+          }
+        }
+      },
+      {
+        "penalty_label": "strong",
+        "A": 12,
+        "parameter_pair": "diagnostic_pi_rule",
+        "gamma": 0.4487989505128276,
+        "beta": 0.28559933214452665,
+        "checkpoints": {
+          "initial": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 8.673617379884035e-18,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.1102230246251565e-16,
+            "probability_vector_max_error": 1.3552527156068805e-19
+          },
+          "post_cost": {
+            "fidelity": 0.9999999999999987,
+            "max_amplitude_absolute_error": 1.2129426703597995e-16,
+            "reference_norm_error": 1.1102230246251565e-16,
+            "qiskit_norm_error": 1.1102230246251565e-15,
+            "probability_vector_max_error": 4.472333961502706e-19
+          },
+          "post_mixer": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 1.377337940786879e-16,
+            "reference_norm_error": 4.440892098500626e-16,
+            "qiskit_norm_error": 2.55351295663786e-15,
+            "probability_vector_max_error": 5.5294310796760726e-18
+          }
+        }
+      },
+      {
+        "penalty_label": "strong",
+        "A": 12,
+        "parameter_pair": "fixed_decimal_pair",
+        "gamma": 0.173,
+        "beta": 0.271,
+        "checkpoints": {
+          "initial": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 8.673617379884035e-18,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.1102230246251565e-16,
+            "probability_vector_max_error": 1.3552527156068805e-19
+          },
+          "post_cost": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 5.682377955034956e-17,
+            "reference_norm_error": 1.1102230246251565e-16,
+            "qiskit_norm_error": 1.1102230246251565e-15,
+            "probability_vector_max_error": 2.846030702774449e-19
+          },
+          "post_mixer": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 6.947562107041945e-17,
+            "reference_norm_error": 4.440892098500626e-16,
+            "qiskit_norm_error": 1.6653345369377348e-15,
+            "probability_vector_max_error": 2.927345865710862e-18
+          }
+        }
+      },
+      {
+        "penalty_label": "strong",
+        "A": 12,
+        "parameter_pair": "fixed_signed_pi_rule",
+        "gamma": -0.241660973353061,
+        "beta": 0.18479956785822313,
+        "checkpoints": {
+          "initial": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 8.673617379884035e-18,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.1102230246251565e-16,
+            "probability_vector_max_error": 1.3552527156068805e-19
+          },
+          "post_cost": {
+            "fidelity": 0.9999999999999991,
+            "max_amplitude_absolute_error": 6.463445585192425e-17,
+            "reference_norm_error": 0.0,
+            "qiskit_norm_error": 1.3322676295501878e-15,
+            "probability_vector_max_error": 3.3881317890172014e-19
+          },
+          "post_mixer": {
+            "fidelity": 1.0,
+            "max_amplitude_absolute_error": 7.244417918960238e-17,
+            "reference_norm_error": 2.220446049250313e-16,
+            "qiskit_norm_error": 9.992007221626409e-16,
+            "probability_vector_max_error": 2.927345865710862e-18
+          }
+        }
+      }
+    ]
+  },
+  "frozen_penalty_diagnostics": [
+    {
+      "penalty_label": "weak",
+      "A": 2,
+      "diagnostic_label": "DIAGNOSTIC_ONLY_NOT_OPTIMIZED",
+      "gamma": 0.4487989505128276,
+      "beta": 0.28559933214452665,
+      "gate_counts": {
+        "h": 14,
+        "rz": 13,
+        "rzz": 46,
+        "rx": 14,
+        "total": 87
+      },
+      "norms": {
+        "initial": {
+          "numpy": 1.0,
+          "qiskit": 0.9999999999999999
+        },
+        "post_cost": {
+          "numpy": 1.0,
+          "qiskit": 0.9999999999999999
+        },
+        "post_mixer": {
+          "numpy": 0.9999999999999998,
+          "qiskit": 0.9999999999999992
+        }
+      },
+      "qiskit_vs_numpy": {
+        "initial": {
+          "fidelity": 1.0,
+          "max_amplitude_absolute_error": 8.673617379884035e-18,
+          "reference_norm_error": 0.0,
+          "qiskit_norm_error": 1.1102230246251565e-16,
+          "probability_vector_max_error": 1.3552527156068805e-19
+        },
+        "post_cost": {
+          "fidelity": 0.9999999999999998,
+          "max_amplitude_absolute_error": 3.556447555475521e-17,
+          "reference_norm_error": 0.0,
+          "qiskit_norm_error": 1.1102230246251565e-16,
+          "probability_vector_max_error": 1.8973538018496328e-19
+        },
+        "post_mixer": {
+          "fidelity": 1.0,
+          "max_amplitude_absolute_error": 5.353104808109533e-17,
+          "reference_norm_error": 2.220446049250313e-16,
+          "qiskit_norm_error": 7.771561172376096e-16,
+          "probability_vector_max_error": 9.75781955236954e-19
+        }
+      },
+      "max_probability_change_after_cost": 2.710505431213761e-20,
+      "cost_relative_phase_unique_count_rounded_12dp": 15,
+      "probability_distribution_change_after_mixer": {
+        "total_variation_distance": 0.3732359642298928,
+        "maximum_state_probability_change": 0.0005257552648586612,
+        "changed_state_count_above_1e-15": 16384
+      },
+      "p_feas": {
+        "initial": 0.001220703125,
+        "post_cost": 0.0012207031249999998,
+        "post_mixer": 0.0009645417539661784
+      },
+      "p_opt": {
+        "initial": 6.103515625e-05,
+        "post_cost": 6.103515625e-05,
+        "post_mixer": 4.785949562973269e-05
+      },
+      "top_representative_states_after_mixer": [
+        {
+          "state_index": 12788,
+          "edge_vector": [
+            0,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "canonical_bitstring": "00101111100011",
+          "qiskit_display_bitstring": "11000111110100",
+          "routing_cost": 37,
+          "flow_penalty": 24,
+          "qubo_energy": 85,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0005867904211086612,
+          "phase_radians": -1.5843537886649923
+        },
+        {
+          "state_index": 12542,
+          "edge_vector": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "canonical_bitstring": "01111111000011",
+          "qiskit_display_bitstring": "11000011111110",
+          "routing_cost": 35,
+          "flow_penalty": 22,
+          "qubo_energy": 79,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0005286451144924319,
+          "phase_radians": 2.9644669532001946
+        },
+        {
+          "state_index": 5971,
+          "edge_vector": [
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0
+          ],
+          "canonical_bitstring": "11001010111010",
+          "qiskit_display_bitstring": "01011101010011",
+          "routing_cost": 30,
+          "flow_penalty": 6,
+          "qubo_energy": 42,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0005177054505447271,
+          "phase_radians": -1.5154023848103093
+        },
+        {
+          "state_index": 416,
+          "edge_vector": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "canonical_bitstring": "00000101100000",
+          "qiskit_display_bitstring": "00000110100000",
+          "routing_cost": 17,
+          "flow_penalty": 12,
+          "qubo_energy": 41,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0004733415393046183,
+          "phase_radians": -0.6411406103389234
+        },
+        {
+          "state_index": 6567,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "canonical_bitstring": "11100101100110",
+          "qiskit_display_bitstring": "01100110100111",
+          "routing_cost": 37,
+          "flow_penalty": 10,
+          "qubo_energy": 57,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.00046836004724326444,
+          "phase_radians": -1.127401725998488
+        },
+        {
+          "state_index": 935,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "canonical_bitstring": "11100101110000",
+          "qiskit_display_bitstring": "00001110100111",
+          "routing_cost": 32,
+          "flow_penalty": 16,
+          "qubo_energy": 64,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.00046599450526486484,
+          "phase_radians": 2.5375647537799915
+        },
+        {
+          "state_index": 5583,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "canonical_bitstring": "11110011101010",
+          "qiskit_display_bitstring": "01010111001111",
+          "routing_cost": 35,
+          "flow_penalty": 10,
+          "qubo_energy": 55,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0004581218684298563,
+          "phase_radians": -0.06240723414893898
+        },
+        {
+          "state_index": 5496,
+          "edge_vector": [
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            0
+          ],
+          "canonical_bitstring": "00011110101010",
+          "qiskit_display_bitstring": "01010101111000",
+          "routing_cost": 30,
+          "flow_penalty": 16,
+          "qubo_energy": 62,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.00045412798507897393,
+          "phase_radians": 2.7708201690334713
+        },
+        {
+          "state_index": 1504,
+          "edge_vector": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "canonical_bitstring": "00000111101000",
+          "qiskit_display_bitstring": "00010111100000",
+          "routing_cost": 23,
+          "flow_penalty": 20,
+          "qubo_energy": 63,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0004519835819789036,
+          "phase_radians": -2.4789516781287606
+        },
+        {
+          "state_index": 8067,
+          "edge_vector": [
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0
+          ],
+          "canonical_bitstring": "11000001111110",
+          "qiskit_display_bitstring": "01111110000011",
+          "routing_cost": 29,
+          "flow_penalty": 16,
+          "qubo_energy": 61,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0004439738843258295,
+          "phase_radians": -1.965408407071486
+        }
+      ],
+      "selected_state_phase_information": [
+        {
+          "state_index": 10377,
+          "canonical_bitstring": "10010001000101",
+          "feasible": true,
+          "optimal": true,
+          "qubo_energy": 10,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 1.7951958020513106
+            },
+            "post_mixer": {
+              "probability": 4.785949562973269e-05,
+              "phase_radians": 2.312203928219904
+            }
+          }
+        },
+        {
+          "state_index": 4233,
+          "canonical_bitstring": "10010001000010",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 4.7308244792199317e-05,
+              "phase_radians": 1.5224599629210007
+            }
+          }
+        },
+        {
+          "state_index": 9289,
+          "canonical_bitstring": "10010010001001",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 4.223358922354246e-05,
+              "phase_radians": 1.4748234874999337
+            }
+          }
+        },
+        {
+          "state_index": 10370,
+          "canonical_bitstring": "01000001000101",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 5.505488854882825e-05,
+              "phase_radians": 1.3101243945779568
+            }
+          }
+        },
+        {
+          "state_index": 10825,
+          "canonical_bitstring": "10010010010101",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 1.799406919519228e-05,
+              "phase_radians": 2.002394092248493
+            }
+          }
+        },
+        {
+          "state_index": 0,
+          "canonical_bitstring": "00000000000000",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 4,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": -1.7951958020513104
+            },
+            "post_mixer": {
+              "probability": 5.666786077218515e-05,
+              "phase_radians": -2.3050846107222847
+            }
+          }
+        },
+        {
+          "state_index": 12788,
+          "canonical_bitstring": "00101111100011",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 85,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625000003e-05,
+              "phase_radians": -0.44879895051282254
+            },
+            "post_mixer": {
+              "probability": 0.0005867904211086612,
+              "phase_radians": -1.5843537886649923
+            }
+          }
+        },
+        {
+          "state_index": 12542,
+          "canonical_bitstring": "01111111000011",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 79,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 2.2439947525641357
+            },
+            "post_mixer": {
+              "probability": 0.0005286451144924319,
+              "phase_radians": 2.9644669532001946
+            }
+          }
+        },
+        {
+          "state_index": 5971,
+          "canonical_bitstring": "11001010111010",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 42,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 7.347880794884119e-16
+            },
+            "post_mixer": {
+              "probability": 0.0005177054505447271,
+              "phase_radians": -1.5154023848103093
+            }
+          }
+        },
+        {
+          "state_index": 416,
+          "canonical_bitstring": "00000101100000",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 41,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.44879895051282837
+            },
+            "post_mixer": {
+              "probability": 0.0004733415393046183,
+              "phase_radians": -0.6411406103389234
+            }
+          }
+        },
+        {
+          "state_index": 6567,
+          "canonical_bitstring": "11100101100110",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 57,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": -0.4487989505128266
+            },
+            "post_mixer": {
+              "probability": 0.00046836004724326444,
+              "phase_radians": -1.127401725998488
+            }
+          }
+        },
+        {
+          "state_index": 935,
+          "canonical_bitstring": "11100101110000",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 64,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 2.692793703076967
+            },
+            "post_mixer": {
+              "probability": 0.00046599450526486484,
+              "phase_radians": 2.5375647537799915
+            }
+          }
+        }
+      ]
+    },
+    {
+      "penalty_label": "critical",
+      "A": 5,
+      "diagnostic_label": "DIAGNOSTIC_ONLY_NOT_OPTIMIZED",
+      "gamma": 0.4487989505128276,
+      "beta": 0.28559933214452665,
+      "gate_counts": {
+        "h": 14,
+        "rz": 13,
+        "rzz": 46,
+        "rx": 14,
+        "total": 87
+      },
+      "norms": {
+        "initial": {
+          "numpy": 1.0,
+          "qiskit": 0.9999999999999999
+        },
+        "post_cost": {
+          "numpy": 0.9999999999999999,
+          "qiskit": 1.0000000000000002
+        },
+        "post_mixer": {
+          "numpy": 0.9999999999999997,
+          "qiskit": 1.0
+        }
+      },
+      "qiskit_vs_numpy": {
+        "initial": {
+          "fidelity": 1.0,
+          "max_amplitude_absolute_error": 8.673617379884035e-18,
+          "reference_norm_error": 0.0,
+          "qiskit_norm_error": 1.1102230246251565e-16,
+          "probability_vector_max_error": 1.3552527156068805e-19
+        },
+        "post_cost": {
+          "fidelity": 1.0,
+          "max_amplitude_absolute_error": 6.209705829315427e-17,
+          "reference_norm_error": 1.1102230246251565e-16,
+          "qiskit_norm_error": 2.220446049250313e-16,
+          "probability_vector_max_error": 2.574980159653073e-19
+        },
+        "post_mixer": {
+          "fidelity": 0.9999999999999998,
+          "max_amplitude_absolute_error": 7.101791266444299e-17,
+          "reference_norm_error": 3.3306690738754696e-16,
+          "qiskit_norm_error": 0.0,
+          "probability_vector_max_error": 2.656295322589486e-18
+        }
+      },
+      "max_probability_change_after_cost": 2.710505431213761e-20,
+      "cost_relative_phase_unique_count_rounded_12dp": 15,
+      "probability_distribution_change_after_mixer": {
+        "total_variation_distance": 0.41810457843019766,
+        "maximum_state_probability_change": 0.0009130426125786716,
+        "changed_state_count_above_1e-15": 16384
+      },
+      "p_feas": {
+        "initial": 0.001220703125,
+        "post_cost": 0.0012207031249999998,
+        "post_mixer": 0.0013434193030000925
+      },
+      "p_opt": {
+        "initial": 6.103515625e-05,
+        "post_cost": 6.103515625e-05,
+        "post_mixer": 3.830348630646078e-05
+      },
+      "top_representative_states_after_mixer": [
+        {
+          "state_index": 1509,
+          "edge_vector": [
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "canonical_bitstring": "10100111101000",
+          "qiskit_display_bitstring": "00010111100101",
+          "routing_cost": 32,
+          "flow_penalty": 20,
+          "qubo_energy": 132,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0009740777688286716,
+          "phase_radians": -2.709991088492264
+        },
+        {
+          "state_index": 12663,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11101110100011",
+          "qiskit_display_bitstring": "11000101110111",
+          "routing_cost": 40,
+          "flow_penalty": 16,
+          "qubo_energy": 120,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0008660953220892731,
+          "phase_radians": 2.9826249533264875
+        },
+        {
+          "state_index": 3045,
+          "edge_vector": [
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "canonical_bitstring": "10100111110100",
+          "qiskit_display_bitstring": "00101111100101",
+          "routing_cost": 32,
+          "flow_penalty": 20,
+          "qubo_energy": 132,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0008608294896108905,
+          "phase_radians": -2.7193497571315954
+        },
+        {
+          "state_index": 8764,
+          "edge_vector": [
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "canonical_bitstring": "00111100010001",
+          "qiskit_display_bitstring": "10001000111100",
+          "routing_cost": 23,
+          "flow_penalty": 16,
+          "qubo_energy": 103,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0008498030330363451,
+          "phase_radians": -1.8590246293037171
+        },
+        {
+          "state_index": 7540,
+          "edge_vector": [
+            0,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          "canonical_bitstring": "00101110101110",
+          "qiskit_display_bitstring": "01110101110100",
+          "routing_cost": 38,
+          "flow_penalty": 22,
+          "qubo_energy": 148,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0008372217374805241,
+          "phase_radians": -2.767132036579646
+        },
+        {
+          "state_index": 2005,
+          "edge_vector": [
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "canonical_bitstring": "10101011111000",
+          "qiskit_display_bitstring": "00011111010101",
+          "routing_cost": 31,
+          "flow_penalty": 20,
+          "qubo_energy": 131,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0008001303253578508,
+          "phase_radians": -2.3586546972846407
+        },
+        {
+          "state_index": 9212,
+          "edge_vector": [
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "canonical_bitstring": "00111111110001",
+          "qiskit_display_bitstring": "10001111111100",
+          "routing_cost": 35,
+          "flow_penalty": 26,
+          "qubo_energy": 165,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.000774813429857353,
+          "phase_radians": 1.1726566930464468
+        },
+        {
+          "state_index": 14583,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11101111000111",
+          "qiskit_display_bitstring": "11100011110111",
+          "routing_cost": 38,
+          "flow_penalty": 16,
+          "qubo_energy": 118,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0007636491182503359,
+          "phase_radians": -2.5088659575916563
+        },
+        {
+          "state_index": 6413,
+          "edge_vector": [
+            1,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "canonical_bitstring": "10110000100110",
+          "qiskit_display_bitstring": "01100100001101",
+          "routing_cost": 24,
+          "flow_penalty": 10,
+          "qubo_energy": 74,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0007626359156421847,
+          "phase_radians": -1.7119923214500787
+        },
+        {
+          "state_index": 6406,
+          "edge_vector": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "canonical_bitstring": "01100000100110",
+          "qiskit_display_bitstring": "01100100000110",
+          "routing_cost": 25,
+          "flow_penalty": 10,
+          "qubo_energy": 75,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0007581903214312766,
+          "phase_radians": -2.0514187371271793
+        }
+      ],
+      "selected_state_phase_information": [
+        {
+          "state_index": 10377,
+          "canonical_bitstring": "10010001000101",
+          "feasible": true,
+          "optimal": true,
+          "qubo_energy": 10,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 1.7951958020513106
+            },
+            "post_mixer": {
+              "probability": 3.830348630646078e-05,
+              "phase_radians": 1.366905839337729
+            }
+          }
+        },
+        {
+          "state_index": 4233,
+          "canonical_bitstring": "10010001000010",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 6.781299293162323e-05,
+              "phase_radians": 0.9805526872905884
+            }
+          }
+        },
+        {
+          "state_index": 9289,
+          "canonical_bitstring": "10010010001001",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 2.501420907287313e-05,
+              "phase_radians": 1.670741860863463
+            }
+          }
+        },
+        {
+          "state_index": 10370,
+          "canonical_bitstring": "01000001000101",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 7.181609861598036e-05,
+              "phase_radians": 1.2527340423203628
+            }
+          }
+        },
+        {
+          "state_index": 10825,
+          "canonical_bitstring": "10010010010101",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 2.9808492878718555e-05,
+              "phase_radians": 1.4728876566308446
+            }
+          }
+        },
+        {
+          "state_index": 0,
+          "canonical_bitstring": "00000000000000",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 10,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 1.7951958020513106
+            },
+            "post_mixer": {
+              "probability": 4.346491526116719e-05,
+              "phase_radians": 0.19722309519114178
+            }
+          }
+        },
+        {
+          "state_index": 1509,
+          "canonical_bitstring": "10100111101000",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 132,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": -2.6927937030769633
+            },
+            "post_mixer": {
+              "probability": 0.0009740777688286716,
+              "phase_radians": -2.709991088492264
+            }
+          }
+        },
+        {
+          "state_index": 12663,
+          "canonical_bitstring": "11101110100011",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 120,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 2.6927937030769677
+            },
+            "post_mixer": {
+              "probability": 0.0008660953220892731,
+              "phase_radians": 2.9826249533264875
+            }
+          }
+        },
+        {
+          "state_index": 3045,
+          "canonical_bitstring": "10100111110100",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 132,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": -2.6927937030769633
+            },
+            "post_mixer": {
+              "probability": 0.0008608294896108905,
+              "phase_radians": -2.7193497571315954
+            }
+          }
+        },
+        {
+          "state_index": 8764,
+          "canonical_bitstring": "00111100010001",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 103,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": -2.2439947525641397
+            },
+            "post_mixer": {
+              "probability": 0.0008498030330363451,
+              "phase_radians": -1.8590246293037171
+            }
+          }
+        },
+        {
+          "state_index": 7540,
+          "canonical_bitstring": "00101110101110",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 148,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 2.692793703076968
+            },
+            "post_mixer": {
+              "probability": 0.0008372217374805241,
+              "phase_radians": -2.767132036579646
+            }
+          }
+        },
+        {
+          "state_index": 2005,
+          "canonical_bitstring": "10101011111000",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 131,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": -2.2439947525641393
+            },
+            "post_mixer": {
+              "probability": 0.0008001303253578508,
+              "phase_radians": -2.3586546972846407
+            }
+          }
+        }
+      ]
+    },
+    {
+      "penalty_label": "just-supercritical",
+      "A": 6,
+      "diagnostic_label": "DIAGNOSTIC_ONLY_NOT_OPTIMIZED",
+      "gamma": 0.4487989505128276,
+      "beta": 0.28559933214452665,
+      "gate_counts": {
+        "h": 14,
+        "rz": 14,
+        "rzz": 46,
+        "rx": 14,
+        "total": 88
+      },
+      "norms": {
+        "initial": {
+          "numpy": 1.0,
+          "qiskit": 0.9999999999999999
+        },
+        "post_cost": {
+          "numpy": 1.0,
+          "qiskit": 0.9999999999999998
+        },
+        "post_mixer": {
+          "numpy": 0.9999999999999996,
+          "qiskit": 0.999999999999999
+        }
+      },
+      "qiskit_vs_numpy": {
+        "initial": {
+          "fidelity": 1.0,
+          "max_amplitude_absolute_error": 8.673617379884035e-18,
+          "reference_norm_error": 0.0,
+          "qiskit_norm_error": 1.1102230246251565e-16,
+          "probability_vector_max_error": 1.3552527156068805e-19
+        },
+        "post_cost": {
+          "fidelity": 0.9999999999999991,
+          "max_amplitude_absolute_error": 6.649934381645742e-17,
+          "reference_norm_error": 0.0,
+          "qiskit_norm_error": 2.220446049250313e-16,
+          "probability_vector_max_error": 2.0328790734103208e-19
+        },
+        "post_mixer": {
+          "fidelity": 1.0,
+          "max_amplitude_absolute_error": 1.2634793639526558e-16,
+          "reference_norm_error": 4.440892098500626e-16,
+          "qiskit_norm_error": 9.992007221626409e-16,
+          "probability_vector_max_error": 4.119968255444917e-18
+        }
+      },
+      "max_probability_change_after_cost": 2.710505431213761e-20,
+      "cost_relative_phase_unique_count_rounded_12dp": 15,
+      "probability_distribution_change_after_mixer": {
+        "total_variation_distance": 0.48865244979275557,
+        "maximum_state_probability_change": 0.002381627640746423,
+        "changed_state_count_above_1e-15": 16384
+      },
+      "p_feas": {
+        "initial": 0.001220703125,
+        "post_cost": 0.0012207031249999998,
+        "post_mixer": 0.00022311892475356427
+      },
+      "p_opt": {
+        "initial": 6.103515625e-05,
+        "post_cost": 6.103515625e-05,
+        "post_mixer": 1.1226902842837982e-05
+      },
+      "top_representative_states_after_mixer": [
+        {
+          "state_index": 16311,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11101101111111",
+          "qiskit_display_bitstring": "11111110110111",
+          "routing_cost": 49,
+          "flow_penalty": 12,
+          "qubo_energy": 121,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.002442662796996423,
+          "phase_radians": 1.7955343250498939
+        },
+        {
+          "state_index": 16367,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11110111111111",
+          "qiskit_display_bitstring": "11111111101111",
+          "routing_cost": 48,
+          "flow_penalty": 12,
+          "qubo_energy": 120,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0019305717944952613,
+          "phase_radians": 2.1597852273914078
+        },
+        {
+          "state_index": 16383,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11111111111111",
+          "qiskit_display_bitstring": "11111111111111",
+          "routing_cost": 52,
+          "flow_penalty": 16,
+          "qubo_energy": 148,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0017126810188343561,
+          "phase_radians": 2.116916678244361
+        },
+        {
+          "state_index": 16247,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11101110111111",
+          "qiskit_display_bitstring": "11111101110111",
+          "routing_cost": 48,
+          "flow_penalty": 12,
+          "qubo_energy": 120,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0015766351680717155,
+          "phase_radians": 2.2326946513636288
+        },
+        {
+          "state_index": 16119,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11101111011111",
+          "qiskit_display_bitstring": "11111011110111",
+          "routing_cost": 44,
+          "flow_penalty": 10,
+          "qubo_energy": 104,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0015109994906779452,
+          "phase_radians": 3.077934717021364
+        },
+        {
+          "state_index": 14199,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11101110111011",
+          "qiskit_display_bitstring": "11011101110111",
+          "routing_cost": 46,
+          "flow_penalty": 10,
+          "qubo_energy": 106,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0014099567471712424,
+          "phase_radians": 2.358902956824302
+        },
+        {
+          "state_index": 15287,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11101101110111",
+          "qiskit_display_bitstring": "11101110110111",
+          "routing_cost": 45,
+          "flow_penalty": 10,
+          "qubo_energy": 105,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0013250437303479598,
+          "phase_radians": 2.929979919415291
+        },
+        {
+          "state_index": 14135,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11101100111011",
+          "qiskit_display_bitstring": "11011100110111",
+          "routing_cost": 44,
+          "flow_penalty": 8,
+          "qubo_energy": 92,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.001318907929422506,
+          "phase_radians": 2.234776355254065
+        },
+        {
+          "state_index": 16319,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11111101111111",
+          "qiskit_display_bitstring": "11111110111111",
+          "routing_cost": 50,
+          "flow_penalty": 14,
+          "qubo_energy": 134,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0012830772174609775,
+          "phase_radians": 2.0215774748136375
+        },
+        {
+          "state_index": 13751,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11101101101011",
+          "qiskit_display_bitstring": "11010110110111",
+          "routing_cost": 45,
+          "flow_penalty": 10,
+          "qubo_energy": 105,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.001278100442937802,
+          "phase_radians": 2.713001104161865
+        }
+      ],
+      "selected_state_phase_information": [
+        {
+          "state_index": 10377,
+          "canonical_bitstring": "10010001000101",
+          "feasible": true,
+          "optimal": true,
+          "qubo_energy": 10,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 1.7951958020513106
+            },
+            "post_mixer": {
+              "probability": 1.1226902842837982e-05,
+              "phase_radians": 1.4384271048115882
+            }
+          }
+        },
+        {
+          "state_index": 4233,
+          "canonical_bitstring": "10010001000010",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 6.562255970458032e-06,
+              "phase_radians": 0.5392151628570695
+            }
+          }
+        },
+        {
+          "state_index": 9289,
+          "canonical_bitstring": "10010010001001",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 1.6292460017113478e-05,
+              "phase_radians": 0.8685325423381433
+            }
+          }
+        },
+        {
+          "state_index": 10370,
+          "canonical_bitstring": "01000001000101",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 9.960699472913882e-06,
+              "phase_radians": 0.6810375190584558
+            }
+          }
+        },
+        {
+          "state_index": 10825,
+          "canonical_bitstring": "10010010010101",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 1.452713411176808e-05,
+              "phase_radians": 1.200177560522717
+            }
+          }
+        },
+        {
+          "state_index": 0,
+          "canonical_bitstring": "00000000000000",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 12,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.8975979010256554
+            },
+            "post_mixer": {
+              "probability": 2.1517903758547166e-07,
+              "phase_radians": -2.135558664999015
+            }
+          }
+        },
+        {
+          "state_index": 16311,
+          "canonical_bitstring": "11101101111111",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 121,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 2.2439947525641437
+            },
+            "post_mixer": {
+              "probability": 0.002442662796996423,
+              "phase_radians": 1.7955343250498939
+            }
+          }
+        },
+        {
+          "state_index": 16367,
+          "canonical_bitstring": "11110111111111",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 120,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 2.6927937030769677
+            },
+            "post_mixer": {
+              "probability": 0.0019305717944952613,
+              "phase_radians": 2.1597852273914078
+            }
+          }
+        },
+        {
+          "state_index": 16383,
+          "canonical_bitstring": "11111111111111",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 148,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 2.692793703076968
+            },
+            "post_mixer": {
+              "probability": 0.0017126810188343561,
+              "phase_radians": 2.116916678244361
+            }
+          }
+        },
+        {
+          "state_index": 16247,
+          "canonical_bitstring": "11101110111111",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 120,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 2.6927937030769677
+            },
+            "post_mixer": {
+              "probability": 0.0015766351680717155,
+              "phase_radians": 2.2326946513636288
+            }
+          }
+        },
+        {
+          "state_index": 16119,
+          "canonical_bitstring": "11101111011111",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 104,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": -2.6927937030769638
+            },
+            "post_mixer": {
+              "probability": 0.0015109994906779452,
+              "phase_radians": 3.077934717021364
+            }
+          }
+        },
+        {
+          "state_index": 14199,
+          "canonical_bitstring": "11101110111011",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 106,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 2.6927937030769673
+            },
+            "post_mixer": {
+              "probability": 0.0014099567471712424,
+              "phase_radians": 2.358902956824302
+            }
+          }
+        }
+      ]
+    },
+    {
+      "penalty_label": "strong",
+      "A": 12,
+      "diagnostic_label": "DIAGNOSTIC_ONLY_NOT_OPTIMIZED",
+      "gamma": 0.4487989505128276,
+      "beta": 0.28559933214452665,
+      "gate_counts": {
+        "h": 14,
+        "rz": 14,
+        "rzz": 46,
+        "rx": 14,
+        "total": 88
+      },
+      "norms": {
+        "initial": {
+          "numpy": 1.0,
+          "qiskit": 0.9999999999999999
+        },
+        "post_cost": {
+          "numpy": 0.9999999999999999,
+          "qiskit": 0.9999999999999989
+        },
+        "post_mixer": {
+          "numpy": 0.9999999999999996,
+          "qiskit": 0.9999999999999974
+        }
+      },
+      "qiskit_vs_numpy": {
+        "initial": {
+          "fidelity": 1.0,
+          "max_amplitude_absolute_error": 8.673617379884035e-18,
+          "reference_norm_error": 0.0,
+          "qiskit_norm_error": 1.1102230246251565e-16,
+          "probability_vector_max_error": 1.3552527156068805e-19
+        },
+        "post_cost": {
+          "fidelity": 0.9999999999999987,
+          "max_amplitude_absolute_error": 1.2129426703597995e-16,
+          "reference_norm_error": 1.1102230246251565e-16,
+          "qiskit_norm_error": 1.1102230246251565e-15,
+          "probability_vector_max_error": 4.472333961502706e-19
+        },
+        "post_mixer": {
+          "fidelity": 1.0,
+          "max_amplitude_absolute_error": 1.377337940786879e-16,
+          "reference_norm_error": 4.440892098500626e-16,
+          "qiskit_norm_error": 2.55351295663786e-15,
+          "probability_vector_max_error": 5.5294310796760726e-18
+        }
+      },
+      "max_probability_change_after_cost": 2.710505431213761e-20,
+      "cost_relative_phase_unique_count_rounded_12dp": 15,
+      "probability_distribution_change_after_mixer": {
+        "total_variation_distance": 0.4181045784301977,
+        "maximum_state_probability_change": 0.000913042612578672,
+        "changed_state_count_above_1e-15": 16384
+      },
+      "p_feas": {
+        "initial": 0.001220703125,
+        "post_cost": 0.0012207031249999998,
+        "post_mixer": 0.0013434193030000925
+      },
+      "p_opt": {
+        "initial": 6.103515625e-05,
+        "post_cost": 6.103515625e-05,
+        "post_mixer": 3.830348630646073e-05
+      },
+      "top_representative_states_after_mixer": [
+        {
+          "state_index": 1509,
+          "edge_vector": [
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "canonical_bitstring": "10100111101000",
+          "qiskit_display_bitstring": "00010111100101",
+          "routing_cost": 32,
+          "flow_penalty": 20,
+          "qubo_energy": 272,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.000974077768828672,
+          "phase_radians": -2.7099910884922616
+        },
+        {
+          "state_index": 12663,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11101110100011",
+          "qiskit_display_bitstring": "11000101110111",
+          "routing_cost": 40,
+          "flow_penalty": 16,
+          "qubo_energy": 232,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0008660953220892729,
+          "phase_radians": 2.982624953326489
+        },
+        {
+          "state_index": 3045,
+          "edge_vector": [
+            1,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            0
+          ],
+          "canonical_bitstring": "10100111110100",
+          "qiskit_display_bitstring": "00101111100101",
+          "routing_cost": 32,
+          "flow_penalty": 20,
+          "qubo_energy": 272,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0008608294896108902,
+          "phase_radians": -2.7193497571315928
+        },
+        {
+          "state_index": 8764,
+          "edge_vector": [
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "canonical_bitstring": "00111100010001",
+          "qiskit_display_bitstring": "10001000111100",
+          "routing_cost": 23,
+          "flow_penalty": 16,
+          "qubo_energy": 215,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0008498030330363472,
+          "phase_radians": -1.8590246293037163
+        },
+        {
+          "state_index": 7540,
+          "edge_vector": [
+            0,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            0
+          ],
+          "canonical_bitstring": "00101110101110",
+          "qiskit_display_bitstring": "01110101110100",
+          "routing_cost": 38,
+          "flow_penalty": 22,
+          "qubo_energy": 302,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0008372217374805241,
+          "phase_radians": -2.7671320365796435
+        },
+        {
+          "state_index": 2005,
+          "edge_vector": [
+            1,
+            0,
+            1,
+            0,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0
+          ],
+          "canonical_bitstring": "10101011111000",
+          "qiskit_display_bitstring": "00011111010101",
+          "routing_cost": 31,
+          "flow_penalty": 20,
+          "qubo_energy": 271,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0008001303253578514,
+          "phase_radians": -2.3586546972846394
+        },
+        {
+          "state_index": 9212,
+          "edge_vector": [
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            1
+          ],
+          "canonical_bitstring": "00111111110001",
+          "qiskit_display_bitstring": "10001111111100",
+          "routing_cost": 35,
+          "flow_penalty": 26,
+          "qubo_energy": 347,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0007748134298573505,
+          "phase_radians": 1.172656693046448
+        },
+        {
+          "state_index": 14583,
+          "edge_vector": [
+            1,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "canonical_bitstring": "11101111000111",
+          "qiskit_display_bitstring": "11100011110111",
+          "routing_cost": 38,
+          "flow_penalty": 16,
+          "qubo_energy": 230,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0007636491182503353,
+          "phase_radians": -2.508865957591656
+        },
+        {
+          "state_index": 6413,
+          "edge_vector": [
+            1,
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "canonical_bitstring": "10110000100110",
+          "qiskit_display_bitstring": "01100100001101",
+          "routing_cost": 24,
+          "flow_penalty": 10,
+          "qubo_energy": 144,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.000762635915642185,
+          "phase_radians": -1.7119923214500778
+        },
+        {
+          "state_index": 6406,
+          "edge_vector": [
+            0,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          "canonical_bitstring": "01100000100110",
+          "qiskit_display_bitstring": "01100100000110",
+          "routing_cost": 25,
+          "flow_penalty": 10,
+          "qubo_energy": 145,
+          "feasible": false,
+          "optimal": false,
+          "probability": 0.0007581903214312777,
+          "phase_radians": -2.051418737127176
+        }
+      ],
+      "selected_state_phase_information": [
+        {
+          "state_index": 10377,
+          "canonical_bitstring": "10010001000101",
+          "feasible": true,
+          "optimal": true,
+          "qubo_energy": 10,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 1.7951958020513106
+            },
+            "post_mixer": {
+              "probability": 3.830348630646073e-05,
+              "phase_radians": 1.3669058393377278
+            }
+          }
+        },
+        {
+          "state_index": 4233,
+          "canonical_bitstring": "10010001000010",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 6.781299293162309e-05,
+              "phase_radians": 0.9805526872905898
+            }
+          }
+        },
+        {
+          "state_index": 9289,
+          "canonical_bitstring": "10010010001001",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 2.5014209072873063e-05,
+              "phase_radians": 1.6707418608634625
+            }
+          }
+        },
+        {
+          "state_index": 10370,
+          "canonical_bitstring": "01000001000101",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 7.181609861598019e-05,
+              "phase_radians": 1.252734042320363
+            }
+          }
+        },
+        {
+          "state_index": 10825,
+          "canonical_bitstring": "10010010010101",
+          "feasible": true,
+          "optimal": false,
+          "qubo_energy": 11,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": 1.346396851538483
+            },
+            "post_mixer": {
+              "probability": 2.9808492878718402e-05,
+              "phase_radians": 1.4728876566308455
+            }
+          }
+        },
+        {
+          "state_index": 0,
+          "canonical_bitstring": "00000000000000",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 24,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 1.7951958020513108
+            },
+            "post_mixer": {
+              "probability": 4.346491526116709e-05,
+              "phase_radians": 0.19722309519114167
+            }
+          }
+        },
+        {
+          "state_index": 1509,
+          "canonical_bitstring": "10100111101000",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 272,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": -2.692793703076961
+            },
+            "post_mixer": {
+              "probability": 0.000974077768828672,
+              "phase_radians": -2.7099910884922616
+            }
+          }
+        },
+        {
+          "state_index": 12663,
+          "canonical_bitstring": "11101110100011",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 232,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 2.6927937030769695
+            },
+            "post_mixer": {
+              "probability": 0.0008660953220892729,
+              "phase_radians": 2.982624953326489
+            }
+          }
+        },
+        {
+          "state_index": 3045,
+          "canonical_bitstring": "10100111110100",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 272,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.1035156249999986e-05,
+              "phase_radians": -2.692793703076961
+            },
+            "post_mixer": {
+              "probability": 0.0008608294896108902,
+              "phase_radians": -2.7193497571315928
+            }
+          }
+        },
+        {
+          "state_index": 8764,
+          "canonical_bitstring": "00111100010001",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 215,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": -2.243994752564138
+            },
+            "post_mixer": {
+              "probability": 0.0008498030330363472,
+              "phase_radians": -1.8590246293037163
+            }
+          }
+        },
+        {
+          "state_index": 7540,
+          "canonical_bitstring": "00101110101110",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 302,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 2.6927937030769638
+            },
+            "post_mixer": {
+              "probability": 0.0008372217374805241,
+              "phase_radians": -2.7671320365796435
+            }
+          }
+        },
+        {
+          "state_index": 2005,
+          "canonical_bitstring": "10101011111000",
+          "feasible": false,
+          "optimal": false,
+          "qubo_energy": 271,
+          "checkpoints": {
+            "initial": {
+              "probability": 6.103515625e-05,
+              "phase_radians": 0.0
+            },
+            "post_cost": {
+              "probability": 6.103515625e-05,
+              "phase_radians": -2.2439947525641366
+            },
+            "post_mixer": {
+              "probability": 0.0008001303253578514,
+              "phase_radians": -2.3586546972846394
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "teaching_message": {
+    "cost_layer": "encodes basis-state energy into relative phase without changing basis probabilities",
+    "mixer_layer": "converts phase differences into amplitude/probability redistribution by interference"
+  }
+}

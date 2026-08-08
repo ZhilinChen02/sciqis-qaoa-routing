@@ -60,10 +60,34 @@ The QUBO is mapped explicitly with `x_i=(I−Z_i)/2`, including the identity
 constant. QUBO and Ising energies agree exactly on all 16,384 basis states for
 all four frozen penalties.
 
-**NEXT — Day 3: Explicit p=1 Penalty-X QAOA circuit.**
+**COMPLETED — Day 3: Explicit p=1 Penalty-X circuit + independent
+statevector validation.**
 
-No QAOA circuit, mixer, optimizer, execution, probability, or QAOA result is
-implemented or claimed in the Day-2 freeze.
+The circuit is constructed directly from primitive gates rather than a QAOA
+ansatz class:
+
+```text
+H on q0,...,q13
+  → COST: RZ(2γ₁hᵢ), RZZ(2γ₁Jᵢⱼ)
+  → MIXER: RX(2β₁) on every qubit
+```
+
+The identity term `c₀I` is omitted as a physical gate because it changes only
+global phase. An independent NumPy implementation validates the Qiskit
+statevector at the initial, post-cost, and post-mixer checkpoints:
+
+- `U_C`: basis energy → relative phase, with probabilities unchanged;
+- `U_M`: phase differences/interference → probability redistribution.
+
+The fixed diagnostic pair `γ=π/7`, `β=π/11` is labelled
+`DIAGNOSTIC_ONLY_NOT_OPTIMIZED`. It is used only to expose the mechanism and is
+not a performance, tuning, or optimization result.
+
+**NEXT — Day 4: Frozen-budget parameter optimization + p=2 + final
+penalty/depth experiment.**
+
+Day 3 contains no optimizer, search, p=2 circuit, warm start, or performance
+claim.
 
 ## Frozen bit-order convention
 
@@ -111,6 +135,20 @@ This regenerates the penalty threshold/contract, canonical QUBO and Ising
 coefficient files, and Figures 3–4. The teaching notebook is
 [`notebooks/02_qubo_and_ising.ipynb`](notebooks/02_qubo_and_ising.ipynb).
 
+## Reproduce Day 3
+
+With Qiskit available in the active environment:
+
+```bash
+python scripts/build_day3_circuit.py
+PYTHONPATH=src pytest -q \
+  tests/test_day3_circuit.py tests/test_statevector_reference.py
+```
+
+This regenerates the circuit contract, the state-evolution diagnostic, and
+Figures 5–7. The teaching notebook is
+[`notebooks/03_explicit_p1_qaoa.ipynb`](notebooks/03_explicit_p1_qaoa.ipynb).
+
 ## Reusable code
 
 - `src/graph.py` — canonical loader, strict validation, edge order, bit mapping,
@@ -129,3 +167,13 @@ coefficient files, and Figures 3–4. The teaching notebook is
 - `scripts/build_day2_hamiltonian.py` — one public Day-2 regeneration command;
 - `tests/test_bit_order.py`, `tests/test_qubo.py`, `tests/test_ising.py` — bit
   convention and exhaustive mathematical-model gates.
+- `src/circuit.py` — explicit H, RZ/RZZ cost, and transverse-field RX mixer
+  construction for parameterized p=1;
+- `src/statevector_reference.py` — independent NumPy cost-phase and pairwise
+  X-mixer evolution without a dense matrix;
+- `src/day3_artifacts.py` — hard statevector equivalence gate, diagnostic JSON,
+  and deterministic Figures 5–7;
+- `scripts/build_day3_circuit.py` — one public Day-3 regeneration command;
+- `tests/test_day3_circuit.py`, `tests/test_statevector_reference.py` — explicit
+  angle, parameterization, normalization, phase, interference, and independent
+  equivalence tests.
