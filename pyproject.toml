@@ -21,11 +21,13 @@ notebooks = [
     "ipykernel>=6,<8",
     "jupyterlab>=4,<5",
     "nbconvert>=7,<8",
+    "pandas>=2.2,<3",
 ]
 dev = [
     "ipykernel>=6,<8",
     "jupyterlab>=4,<5",
     "nbconvert>=7,<8",
+    "pandas>=2.2,<3",
     "pytest>=8,<10",
 ]
 
