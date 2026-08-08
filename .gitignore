@@ -17,6 +17,10 @@ results/*
 !results/qubo_coefficients.json
 !results/ising_coefficients.json
 !results/p1_state_evolution_diagnostic.json
+!results/core_experiment_results.json
+!results/core_experiment_summary.csv
+!results/optimization_runs.csv
+!results/p1_landscape_A6.csv
 
 figures/*
 !figures/.gitkeep
@@ -33,3 +37,11 @@ figures/*
 !figures/06_p1_quantum_state_evolution.svg
 !figures/07_cost_phase_encoding.png
 !figures/07_cost_phase_encoding.svg
+!figures/08_p1_variational_landscape.png
+!figures/08_p1_variational_landscape.svg
+!figures/09_penalty_depth_core_results.png
+!figures/09_penalty_depth_core_results.svg
+!figures/10_quantum_route_marginals.png
+!figures/10_quantum_route_marginals.svg
+!figures/11_quantum_probability_state_space.png
+!figures/11_quantum_probability_state_space.svg

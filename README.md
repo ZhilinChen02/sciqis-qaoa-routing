@@ -13,8 +13,9 @@ frozen graph
   → decoded route
 ```
 
-The first two mathematical-model stages are complete. Later boxes describe the
-planned teaching narrative; they are not implemented or claimed here.
+Days 1–4 now cover the frozen mathematical model, explicit shallow circuits,
+and the core exact-statevector penalty/depth experiment. Measurement and route
+decoding remain part of the teaching flow rather than a quantum-advantage claim.
 
 ## Project v3.0 progress
 
@@ -83,11 +84,28 @@ The fixed diagnostic pair `γ=π/7`, `β=π/11` is labelled
 `DIAGNOSTIC_ONLY_NOT_OPTIMIZED`. It is used only to expose the mechanism and is
 not a performance, tuning, or optimization result.
 
-**NEXT — Day 4: Frozen-budget parameter optimization + p=2 + final
-penalty/depth experiment.**
+**COMPLETED — Day 4: Frozen p=1/p=2 penalty-depth numerical experiment.**
 
-Day 3 contains no optimizer, search, p=2 circuit, warm start, or performance
-claim.
+The protocol in `data/optimization_contract.json` fixed SciPy COBYLA, three
+seeded starts per cell, the same 240-evaluation budget at both depths, and
+minimum final expected-QUBO energy as the selection rule before the 24 runs.
+The repeated objective uses the independently validated NumPy statevector;
+every one of the eight selected states is checked again with the explicit
+Qiskit primitive-gate circuit.
+
+Observed under that frozen rule, the result is deliberately not a simple
+monotone success story. Depth p=2 increased both `p_feas` and `p_opt` at A=2
+and A=6, increased only `p_feas` at A=5, and decreased both at A=12. Across A,
+valid-route probability was non-monotone for p=1 and decreased over the four
+prescribed points for p=2; exact-route probability was non-monotone at both
+depths. Most selected runs exhausted the fixed budget, and the all-start tables
+retain this optimizer sensitivity rather than hiding it.
+
+**NEXT — Day 5: Profiling + optional finite-shot demonstration + final
+presentation/report polish.**
+
+No warm start, path-exchange mixer, RCSP, p=3 rescue run, or quantum-advantage
+claim is included in the core experiment.
 
 ## Frozen bit-order convention
 
@@ -149,6 +167,29 @@ This regenerates the circuit contract, the state-evolution diagnostic, and
 Figures 5–7. The teaching notebook is
 [`notebooks/03_explicit_p1_qaoa.ipynb`](notebooks/03_explicit_p1_qaoa.ipynb).
 
+## Reproduce Day 4
+
+The expensive command reruns all 24 frozen COBYLA starts and requires an
+explicit overwrite flag once results exist:
+
+```bash
+python scripts/run_day4_core_experiment.py --overwrite
+```
+
+The cheap command rebuilds Figures 8–11 and the 121×81 p=1 landscape from the
+saved core result (reusing the saved landscape grid when present):
+
+```bash
+python scripts/build_day4_figures.py
+PYTHONPATH=src pytest -q \
+  tests/test_p2_circuit.py tests/test_optimization_contract.py \
+  tests/test_core_metrics.py
+```
+
+The teaching notebook loads saved optimization results by default and does not
+silently rerun the expensive experiment:
+[`notebooks/04_penalty_depth_experiment.ipynb`](notebooks/04_penalty_depth_experiment.ipynb).
+
 ## Reusable code
 
 - `src/graph.py` — canonical loader, strict validation, edge order, bit mapping,
@@ -168,7 +209,7 @@ Figures 5–7. The teaching notebook is
 - `tests/test_bit_order.py`, `tests/test_qubo.py`, `tests/test_ising.py` — bit
   convention and exhaustive mathematical-model gates.
 - `src/circuit.py` — explicit H, RZ/RZZ cost, and transverse-field RX mixer
-  construction for parameterized p=1;
+  construction for parameterized p=1 and p=2;
 - `src/statevector_reference.py` — independent NumPy cost-phase and pairwise
   X-mixer evolution without a dense matrix;
 - `src/day3_artifacts.py` — hard statevector equivalence gate, diagnostic JSON,
@@ -177,3 +218,12 @@ Figures 5–7. The teaching notebook is
 - `tests/test_day3_circuit.py`, `tests/test_statevector_reference.py` — explicit
   angle, parameterization, normalization, phase, interference, and independent
   equivalence tests.
+- `src/optimization.py` — frozen exact-statevector objective, all-start COBYLA
+  execution, primary route metrics, selection, and final explicit-circuit check;
+- `src/day4_artifacts.py` — saved-result validation and deterministic Figures
+  8–11;
+- `scripts/run_day4_core_experiment.py` — explicit expensive 24-run entry point;
+- `scripts/build_day4_figures.py` — cheap saved-result figure/table rebuild;
+- `tests/test_p2_circuit.py`, `tests/test_optimization_contract.py`,
+  `tests/test_core_metrics.py` — p=2, protocol, completeness, metric, selection,
+  and selected-state verification gates.

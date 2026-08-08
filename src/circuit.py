@@ -1,4 +1,4 @@
-"""Explicit p=1 Penalty-X QAOA circuit from the frozen Ising model.
+"""Explicit shallow Penalty-X QAOA circuits from the frozen Ising model.
 
 This module intentionally uses primitive gates rather than a QAOA ansatz or
 optimizer.  Qubit ``q_i`` is the frozen Day-1 edge variable ``x_i`` and q0 is
@@ -54,7 +54,7 @@ def append_cost_layer(
     """
 
     if circuit.num_qubits != EXPECTED_EDGE_COUNT:
-        raise ValueError("the frozen p=1 circuit must have exactly 14 qubits")
+        raise ValueError("the frozen circuit must have exactly 14 qubits")
     for index, coefficient in enumerate(hamiltonian.h):
         if coefficient:
             circuit.rz(2.0 * _coefficient_float(coefficient) * gamma, index)
@@ -71,7 +71,7 @@ def append_mixer_layer(
     """Append the standard transverse-field mixer as ``RX_i(2*beta)``."""
 
     if circuit.num_qubits != EXPECTED_EDGE_COUNT:
-        raise ValueError("the frozen p=1 circuit must have exactly 14 qubits")
+        raise ValueError("the frozen circuit must have exactly 14 qubits")
     for index in range(EXPECTED_EDGE_COUNT):
         circuit.rx(2.0 * beta, index)
     return circuit
@@ -85,26 +85,46 @@ def build_p1_qaoa_circuit(
 ) -> QuantumCircuit:
     """Build parameterized ``H -> U_C(gamma_1) -> U_M(beta_1)`` explicitly."""
 
-    gamma = Parameter(GAMMA_PARAMETER_NAME)
-    beta = Parameter(BETA_PARAMETER_NAME)
+    return build_qaoa_circuit(graph, hamiltonian, p=1, barriers=barriers)
+
+
+def build_qaoa_circuit(
+    graph,
+    hamiltonian: IsingHamiltonian,
+    *,
+    p: int,
+    barriers: bool = False,
+) -> QuantumCircuit:
+    """Build explicit Penalty-X QAOA for frozen shallow depth ``p in {1,2}``."""
+
+    if p not in (1, 2):
+        raise ValueError("the frozen core experiment supports only p=1 or p=2")
     circuit = build_initial_state_circuit(graph)
+    circuit.name = f"p{p}_penalty_x"
     if barriers:
         circuit.barrier(label="INITIAL")
-    append_cost_layer(circuit, hamiltonian, gamma)
-    if barriers:
-        circuit.barrier(label="COST")
-    append_mixer_layer(circuit, beta)
-    if barriers:
-        circuit.barrier(label="MIXER")
+    parameter_names = []
+    for layer in range(1, p + 1):
+        gamma_name = f"gamma_{layer}"
+        beta_name = f"beta_{layer}"
+        gamma = Parameter(gamma_name)
+        beta = Parameter(beta_name)
+        parameter_names.extend((gamma_name, beta_name))
+        append_cost_layer(circuit, hamiltonian, gamma)
+        if barriers:
+            circuit.barrier(label=f"COST_{layer}")
+        append_mixer_layer(circuit, beta)
+        if barriers:
+            circuit.barrier(label=f"MIXER_{layer}")
     circuit.metadata.update(
         {
-            "p": 1,
-            "cost_layer_count": 1,
-            "mixer_layer_count": 1,
-            "parameter_names": [GAMMA_PARAMETER_NAME, BETA_PARAMETER_NAME],
+            "p": p,
+            "cost_layer_count": p,
+            "mixer_layer_count": p,
+            "parameter_names": parameter_names,
             "cost_identity_constant": float(hamiltonian.constant),
             "cost_identity_gate_omitted": True,
-            "identity_effect": "global phase exp(-i*gamma_1*c0) only",
+            "identity_effect": "global phase exp(-i*c0*sum_l gamma_l) only",
             "cost_gate_order": "RZ by q_i, then RZZ lexicographically by (i,j)",
             "mixer_gate_order": "RX by q0 through q13",
         }
@@ -120,19 +140,53 @@ def bind_p1_parameters(
 ) -> QuantumCircuit:
     """Bind exactly ``gamma_1`` and ``beta_1`` by their explicit names."""
 
+    return bind_qaoa_parameters(circuit, gammas=(gamma,), betas=(beta,))
+
+
+def bind_qaoa_parameters(
+    circuit: QuantumCircuit,
+    *,
+    gammas: tuple[float, ...] | list[float],
+    betas: tuple[float, ...] | list[float],
+) -> QuantumCircuit:
+    """Bind interleaved ``gamma_l, beta_l`` parameters for p=1 or p=2."""
+
+    if len(gammas) != len(betas) or len(gammas) not in (1, 2):
+        raise ValueError("gammas and betas must have matching length p in {1,2}")
+
     parameters = {parameter.name: parameter for parameter in circuit.parameters}
-    expected = {GAMMA_PARAMETER_NAME, BETA_PARAMETER_NAME}
+    expected = {
+        name
+        for layer in range(1, len(gammas) + 1)
+        for name in (f"gamma_{layer}", f"beta_{layer}")
+    }
     if set(parameters) != expected:
         raise ValueError(
             f"expected free parameters {sorted(expected)}, got {sorted(parameters)}"
         )
-    return circuit.assign_parameters(
-        {
-            parameters[GAMMA_PARAMETER_NAME]: float(gamma),
-            parameters[BETA_PARAMETER_NAME]: float(beta),
-        },
-        inplace=False,
-    )
+    values = {}
+    for layer, (gamma, beta) in enumerate(zip(gammas, betas), start=1):
+        values[parameters[f"gamma_{layer}"]] = float(gamma)
+        values[parameters[f"beta_{layer}"]] = float(beta)
+    return circuit.assign_parameters(values, inplace=False)
+
+
+def qaoa_statevector(
+    graph,
+    hamiltonian: IsingHamiltonian,
+    *,
+    gammas: tuple[float, ...] | list[float],
+    betas: tuple[float, ...] | list[float],
+) -> np.ndarray:
+    """Evolve the explicit primitive-gate circuit for p=1 or p=2."""
+
+    if len(gammas) != len(betas) or len(gammas) not in (1, 2):
+        raise ValueError("gammas and betas must have matching length p in {1,2}")
+    circuit = build_initial_state_circuit(graph)
+    for gamma, beta in zip(gammas, betas):
+        append_cost_layer(circuit, hamiltonian, float(gamma))
+        append_mixer_layer(circuit, float(beta))
+    return np.asarray(Statevector.from_instruction(circuit).data, dtype=complex)
 
 
 def statevector_at_checkpoints(

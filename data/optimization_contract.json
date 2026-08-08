@@ -1,0 +1,84 @@
+{
+  "schema": "dtu-sciqis-routing-core-optimization-contract",
+  "version": "1.0",
+  "scientific_identity": {
+    "graph_sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+    "penalty_contract_sha256": "3e31dc31434dcd06c430e90e75884536cbef8cdfefec195afeb1acc1b77acd57",
+    "circuit_contract_sha256": "368fde5ef32609723758fc12da47439207a9328e152f2599560c5ab9f5287c67",
+    "exact_route": [0, 1, 2, 4, 5, 6],
+    "exact_cost": 10,
+    "exact_canonical_bitstring": "10010001000101",
+    "exact_qiskit_display_bitstring": "10100010001001",
+    "exact_state_index": 10377,
+    "A_crit": 5
+  },
+  "research_question": "For one fixed weighted routing graph, how do frozen flow-penalty strength A and shallow QAOA depth p in {1,2} change valid-route and exact-route sampling probability?",
+  "optimizer": {
+    "library": "SciPy",
+    "scipy_version": "1.18.0",
+    "method": "COBYLA",
+    "options": {
+      "maxiter": 240,
+      "rhobeg": 0.5,
+      "tol": 1e-06,
+      "catol": 1e-08,
+      "disp": false
+    },
+    "maximum_objective_evaluations_per_start": 240,
+    "bound_handling": "scipy.optimize.minimize bounds; COBYLA represents them as inequality constraints",
+    "deterministic_stopping": "fixed maxiter/rhobeg/tol/catol with no retries",
+    "nonconverged_and_failed_runs_preserved": true
+  },
+  "primary_simulation": "exact statevector",
+  "repeated_objective_backend": "independently validated NumPy statevector reference",
+  "selected_final_verification_backend": "explicit Qiskit primitive-gate circuit",
+  "primary_objective": {
+    "name": "expected frozen QUBO energy",
+    "formula": "E_A(theta) = sum_x P_theta(x) Q_A(x) = <psi(theta)|H_C(A)|psi(theta)>",
+    "selection_metric_only": "final expected QUBO energy"
+  },
+  "experimental_matrix": {
+    "penalties": [
+      {"label": "weak", "A": 2},
+      {"label": "critical", "A": 5},
+      {"label": "just-supercritical", "A": 6},
+      {"label": "strong", "A": 12}
+    ],
+    "depths": [1, 2],
+    "starts_per_cell": 3,
+    "total_optimization_runs": 24
+  },
+  "parameter_convention": {
+    "vector_order": "[gamma_1, beta_1, ..., gamma_p, beta_p]",
+    "gamma_domain": [0.0, 6.283185307179586],
+    "beta_domain": [0.0, 3.141592653589793],
+    "bounds_identical_for_every_penalty": true
+  },
+  "start_generation": {
+    "generator": "numpy.random.default_rng",
+    "seed": 10387,
+    "generation_order": "all p=1 starts by start_id, then all p=2 starts by start_id; within each layer gamma then beta",
+    "generated_once": true,
+    "same_depth_specific_starts_reused_for_every_A": true,
+    "starts_by_depth": {
+      "1": [
+        {"start_id": 0, "parameters": [5.020658118120666, 0.024499149421568608]},
+        {"start_id": 1, "parameters": [3.8331060485550164, 1.1076603637525093]},
+        {"start_id": 2, "parameters": [2.374807817715842, 0.5875685840531282]}
+      ],
+      "2": [
+        {"start_id": 0, "parameters": [0.5750011763266856, 1.6399157443486685, 5.244814770885383, 2.4511725979762433]},
+        {"start_id": 1, "parameters": [2.689421271649772, 2.05745112043948, 1.7819877781540776, 2.7665952077136517]},
+        {"start_id": 2, "parameters": [3.5981032773201993, 2.5742303980778294, 3.4424723742060235, 0.3125248733997375]}
+      ]
+    }
+  },
+  "cell_selection_rule": {
+    "primary": "lowest independently re-evaluated final expected QUBO energy",
+    "tie_breaking": "lower integer start_id",
+    "selection_key": ["final_expected_qubo_energy", "start_id"],
+    "forbidden_selection_metrics": ["p_feas", "p_opt", "exact-route probability", "runtime", "visual appearance"]
+  },
+  "protocol_change_rule": "No A, start, budget, tolerance, objective, bound, retry, or selection-rule changes after the final experiment begins.",
+  "statement": "The optimization protocol was frozen before the final core experiment was executed."
+}

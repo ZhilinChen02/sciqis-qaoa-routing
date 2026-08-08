@@ -1,4 +1,4 @@
-"""Independent NumPy reference evolution for the explicit p=1 circuit.
+"""Independent NumPy reference evolution for explicit shallow QAOA circuits.
 
 No Qiskit circuit object is imported here.  The cost layer is applied as a
 diagonal energy phase, and the mixer uses transparent two-amplitude updates
@@ -71,14 +71,46 @@ def apply_x_mixer(
     sine_factor = -1j * np.sin(float(beta))
     for qubit in range(num_qubits):
         stride = 1 << qubit
-        block = stride << 1
-        for start in range(0, vector.size, block):
-            low_slice = slice(start, start + stride)
-            high_slice = slice(start + stride, start + block)
-            low = vector[low_slice].copy()
-            high = vector[high_slice].copy()
-            vector[low_slice] = cosine * low + sine_factor * high
-            vector[high_slice] = sine_factor * low + cosine * high
+        paired = vector.reshape(-1, 2, stride)
+        low = paired[:, 0, :].copy()
+        high = paired[:, 1, :].copy()
+        paired[:, 0, :] = cosine * low + sine_factor * high
+        paired[:, 1, :] = sine_factor * low + cosine * high
+    return vector
+
+
+def reference_qaoa_statevector(
+    states: Sequence[StateRecord],
+    *,
+    penalty: int | float,
+    gammas: Sequence[float],
+    betas: Sequence[float],
+) -> np.ndarray:
+    """Independently evolve p=1 or p=2 without inspecting a Qiskit circuit."""
+
+    if len(gammas) != len(betas) or len(gammas) not in (1, 2):
+        raise ValueError("gammas and betas must have matching length p in {1,2}")
+    energies = penalty_energies(states, penalty)
+    return reference_qaoa_from_energies(energies, gammas=gammas, betas=betas)
+
+
+def reference_qaoa_from_energies(
+    energies: np.ndarray,
+    *,
+    gammas: Sequence[float],
+    betas: Sequence[float],
+) -> np.ndarray:
+    """Evolve from a precomputed energy vector for repeated objective calls."""
+
+    if len(gammas) != len(betas) or len(gammas) not in (1, 2):
+        raise ValueError("gammas and betas must have matching length p in {1,2}")
+    energies = np.asarray(energies, dtype=float)
+    if energies.shape != (STATE_COUNT,):
+        raise ValueError("energies must have length 16384")
+    vector = uniform_plus_state()
+    for gamma, beta in zip(gammas, betas):
+        vector = apply_cost_phase(vector, energies, gamma)
+        vector = apply_x_mixer(vector, beta)
     return vector
 
 
