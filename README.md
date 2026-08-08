@@ -1,229 +1,185 @@
-# From a Weighted Routing Graph to an Explicit QAOA Circuit
+# Frozen Routing QUBO to Explicit Shallow QAOA
 
-DTU 10387 — Scientific Computing in Quantum Information Science. This repository
-implements the deliberately small Project v3.0 workflow:
+This DTU 10387 course project follows one teaching-scale weighted routing
+instance from an exact classical specification to a fully explicit, independently
+validated p=1/p=2 QAOA experiment and a finite-shot measurement demonstration.
+
+Scientific status: **COURSE_PROJECT_SCIENCE_COMPLETE**
+
+Evidence scope: **ONE_GRAPH_IDEAL_SIMULATION_SHALLOW_QAOA**
+
+## Research question
+
+For one fixed weighted directed graph, how do the frozen flow-constraint penalty
+strength `A ∈ {2,5,6,12}` and shallow Penalty-X QAOA depth `p ∈ {1,2}` change:
+
+- the probability `p_feas` of sampling any valid source-to-target route;
+- the probability `p_opt` of sampling the unique shortest route; and
+- the expected route cost conditional on a valid measurement?
+
+## Scientific pipeline
 
 ```text
-frozen graph
-  → edge variables
-  → QUBO
+weighted directed graph
+  → edge variables / qubits
+  → flow-constraint QUBO
   → Ising Hamiltonian
-  → QAOA
-  → measurement
+  → explicit RZ/RZZ/RX QAOA
+  → exact statevector
+  → frozen-budget optimization
+  → finite measurement sampling
   → decoded route
 ```
 
-Days 1–4 now cover the frozen mathematical model, explicit shallow circuits,
-and the core exact-statevector penalty/depth experiment. Measurement and route
-decoding remain part of the teaching flow rather than a quantum-advantage claim.
+## Frozen instance and contracts
 
-## Project v3.0 progress
+- 7 nodes, 14 directed weighted edges, 14 edge qubits.
+- `2^14 = 16,384` computational-basis edge selections.
+- Exactly 20 valid source-to-target routes.
+- Unique exact route: `0 → 1 → 2 → 4 → 5 → 6`, with `C*=10`.
+- Canonical exact bitstring (`q0 → q13`): `10010001000101`.
+- Qiskit display string (`q13 → q0`): `10100010001001`.
+- Exact-route state index: `10377`, with q0 as the least-significant bit.
 
-**COMPLETED — Day 1: Frozen graph + exact reference.**
+The immutable inputs and protocols are:
 
-The canonical input is [`data/graph.json`](data/graph.json): seven nodes,
-fourteen positive-integer directed edges, source 0, and target 6. Edge variables
-are frozen lexicographically by `(u, v)` and assigned `qubit_index=0,...,13`.
-Future stages must reuse this order rather than relying on NetworkX iteration.
+- [`data/graph.json`](data/graph.json) — graph and edge/qubit order;
+- [`data/penalty_contract.json`](data/penalty_contract.json) — `A_crit=5` and
+  frozen grid `{2,5,6,12}`;
+- [`data/circuit_contract.json`](data/circuit_contract.json) — explicit gate
+  and bit-order conventions;
+- [`data/optimization_contract.json`](data/optimization_contract.json) — three
+  seed-10387 COBYLA starts and 240 evaluations per start;
+- [`data/day5_analysis_contract.json`](data/day5_analysis_contract.json) —
+  post-core sampling and profiling only;
+- [`data/scientific_freeze_v3.json`](data/scientific_freeze_v3.json) — final
+  artifact hashes and prohibited post-freeze changes.
 
-The exact route is checked in two independent ways:
+Exhaustive inspection proves `P_flow(x)=0` if and only if `x` is one valid route.
+At `A=5`, the all-zero invalid state ties the exact route; for `A>5`, the exact
+route is the unique QUBO ground state.
 
-1. NetworkX weighted shortest path;
-2. a deterministic custom DFS that enumerates every simple directed `0→6`
-   path and sums its edge weights.
+## Frozen core result
 
-Both must agree before `results/exact_reference.json` is written. The reference
-is a correctness/evaluation oracle, not a competing algorithm.
+The 24-run Day-4 experiment used exact statevectors and selected each cell only
+by minimum final expected QUBO energy. No result-dependent retry or retuning was
+performed.
 
-**COMPLETED — Day 2: Flow constraints + explicit QUBO + penalty threshold +
-Ising Hamiltonian.**
+| A | p | selected start | ⟨Q_A⟩ | p_feas | p_opt | E[C \| feasible] |
+|---:|---:|---:|---:|---:|---:|---:|
+| 2 | 1 | 1 | 33.279167 | 0.005512 | 9.09902e-5 | 12.0521 |
+| 2 | 2 | 2 | 20.099583 | 0.051449 | 0.00311885 | 12.1657 |
+| 5 | 1 | 1 | 41.738372 | 0.016754 | 0.000153198 | 11.5809 |
+| 5 | 2 | 0 | 37.912717 | 0.045736 | 2.88239e-6 | 13.4609 |
+| 6 | 1 | 1 | 66.972737 | 0.002994 | 1.39051e-6 | 12.5840 |
+| 6 | 2 | 0 | 37.765753 | 0.012000 | 0.000133445 | 11.9538 |
+| 12 | 1 | 2 | 69.010509 | 0.019542 | 0.000185044 | 11.1408 |
+| 12 | 2 | 0 | 66.622962 | 0.010075 | 4.45792e-5 | 11.9843 |
 
-The directed balance residual at node `v` is
-`f_v(x) = outgoing(v) − incoming(v) − b_v`, with `b_0=+1`, `b_6=−1`,
-and zero elsewhere. Day 2 expands
-`Q_A(x)=C(x)+A Σ_v f_v(x)²` directly in the unambiguous polynomial convention
-`c + Σ_i q_i x_i + Σ_{i<j} q_ij x_i x_j`.
+Uniform-state references are `p_feas=20/16384≈0.0012207` and
+`p_opt=1/16384≈0.0000610`.
 
-Exhaustive inspection of all `2^14 = 16,384` edge selections gives
-`A_crit = 5`. Below this value a cheap infeasible state beats the true route;
-at `A=5` the empty selection ties `C*=10`; and for every `A>5` the exact route
-is the unique global minimizer. The penalty grid is therefore frozen before
-any QAOA result as:
+## Main scientific findings
 
-| Label | A | Meaning |
-|---|---:|---|
-| weak | 2 | clearly subcritical |
-| critical | 5 | exact tie boundary |
-| just-supercritical | 6 | smallest teaching integer above the boundary |
-| strong | 12 | twice the just-supercritical value |
+1. Model correctness and variational performance are distinct. Although
+   `A>A_crit` gives the correct exact QUBO ground state, shallow optimized QAOA
+   need not concentrate much probability on it.
+2. Penalty behavior was non-monotonic overall. A larger valid-state energy
+   separation did not imply monotonically larger `p_feas` or `p_opt`.
+3. p=2 improved both probabilities at A=2 and A=6, improved only `p_feas` at
+   A=5, and reduced both at A=12.
+4. The subcritical A=2,p=2 cell led the selected table. This is not a
+   contradiction: `A_crit` concerns exact ground-state ordering, while the
+   shallow optimizer minimizes expected energy and returns a distribution.
+5. At A=5,p=2, the minimum-energy selected start had very low `p_opt`; another
+   start had much higher `p_opt` but also higher expected energy and was
+   correctly not selected under the frozen rule.
 
-The QUBO is mapped explicitly with `x_i=(I−Z_i)/2`, including the identity
-constant. QUBO and Ising energies agree exactly on all 16,384 basis states for
-all four frozen penalties.
+The evidence-driven takeaway is:
 
-**COMPLETED — Day 3: Explicit p=1 Penalty-X circuit + independent
-statevector validation.**
+> Making the penalty large enough to encode the correct feasible ground state
+> does not guarantee that a shallow, finitely optimized QAOA circuit will place
+> large probability on that state.
 
-The circuit is constructed directly from primitive gates rather than a QAOA
-ansatz class:
+## Finite shots and profiling
 
-```text
-H on q0,...,q13
-  → COST: RZ(2γ₁hᵢ), RZZ(2γ₁Jᵢⱼ)
-  → MIXER: RX(2β₁) on every qubit
-```
+The post-core demonstration samples the already selected A=2,p=2 exact
+distribution at 256, 1,024, 4,096, and 16,384 shots, with 200 replicates per
+level and seed 1038705. At 256 shots, 45% of replicates observed no exact route,
+despite its nonzero exact probability. This is Monte Carlo sampling variability,
+not a hardware experiment or a formal confidence-interval study.
 
-The identity term `c₀I` is omitted as a physical gate because it changes only
-global phase. An independent NumPy implementation validates the Qiskit
-statevector at the initial, post-cost, and post-mixer checkpoints:
+Implementation profiling uses `perf_counter_ns`, three warm-ups, and 31 timed
+repeats per operation. It reports current-environment software timings only.
+NumPy and Qiskit are both classical simulations here; their timings are not a
+classical-versus-quantum or hardware-performance comparison. Repeated state
+evolution/objective evaluation dominates the complete optimization workflow.
 
-- `U_C`: basis energy → relative phase, with probabilities unchanged;
-- `U_M`: phase differences/interference → probability redistribution.
+## Reports and presentation assets
 
-The fixed diagnostic pair `γ=π/7`, `β=π/11` is labelled
-`DIAGNOSTIC_ONLY_NOT_OPTIMIZED`. It is used only to expose the mechanism and is
-not a performance, tuning, or optimization result.
+- [Final course-project report](reports/final_course_project_report.md)
+- [15-minute presentation outline](reports/presentation_outline_15min.md)
+- [Final machine-readable summary](results/final_project_summary.json)
+- [Figure 1–13 manifest](results/final_figure_manifest.json)
+- [Primary core result figure](figures/09_penalty_depth_core_results.svg)
+- [Finite-shot figure](figures/12_finite_shot_sampling_convergence.svg)
+- [Runtime figure](figures/13_runtime_profile.svg)
 
-**COMPLETED — Day 4: Frozen p=1/p=2 penalty-depth numerical experiment.**
+## Reproduce saved-result artifacts
 
-The protocol in `data/optimization_contract.json` fixed SciPy COBYLA, three
-seeded starts per cell, the same 240-evaluation budget at both depths, and
-minimum final expected-QUBO energy as the selection rule before the 24 runs.
-The repeated objective uses the independently validated NumPy statevector;
-every one of the eight selected states is checked again with the explicit
-Qiskit primitive-gate circuit.
-
-Observed under that frozen rule, the result is deliberately not a simple
-monotone success story. Depth p=2 increased both `p_feas` and `p_opt` at A=2
-and A=6, increased only `p_feas` at A=5, and decreased both at A=12. Across A,
-valid-route probability was non-monotone for p=1 and decreased over the four
-prescribed points for p=2; exact-route probability was non-monotone at both
-depths. Most selected runs exhausted the fixed budget, and the all-start tables
-retain this optimizer sensitivity rather than hiding it.
-
-**NEXT — Day 5: Profiling + optional finite-shot demonstration + final
-presentation/report polish.**
-
-No warm start, path-exchange mixer, RCSP, p=3 rescue run, or quantum-advantage
-claim is included in the core experiment.
-
-## Frozen bit-order convention
-
-Three representations are always named explicitly:
-
-- `edge_vector`: `[x0, x1, ..., x13]`;
-- `canonical_bitstring`: text in `q0 → q13` order, for example
-  `10010001000101`;
-- `qiskit_display_bitstring`: text in `q13 → q0` order when Qiskit-style
-  classical display is needed, for example `10100010001001`.
-
-Conversion helpers perform every reversal explicitly. Integer basis-state
-indices use `q0` as the least-significant bit.
-
-## Reproduce Day 1
-
-With the project environment installed, run:
+Cheap final rebuild—does not rerun the 24 optimizations:
 
 ```bash
-python scripts/build_day1_reference.py
-PYTHONPATH=src pytest -q tests/test_graph.py tests/test_exact_reference.py
+python scripts/build_final_report.py
 ```
 
-The build command deterministically regenerates:
-
-- `results/exact_reference.json`
-- `results/all_simple_paths.csv`
-- `figures/01_frozen_weighted_graph.png`
-- `figures/01_frozen_weighted_graph.svg`
-- `figures/02_route_cost_spectrum.png` (diagnostic)
-
-The short teaching notebook is
-[`notebooks/01_graph_and_reference.ipynb`](notebooks/01_graph_and_reference.ipynb).
-
-## Reproduce Day 2
+Recreate the deterministic finite-shot extension:
 
 ```bash
-python scripts/build_day2_hamiltonian.py
-PYTHONPATH=src pytest -q \
-  tests/test_graph.py tests/test_exact_reference.py tests/test_bit_order.py \
-  tests/test_qubo.py tests/test_ising.py
+python scripts/run_day5_sampling.py --overwrite
+python scripts/build_final_report.py
 ```
 
-This regenerates the penalty threshold/contract, canonical QUBO and Ising
-coefficient files, and Figures 3–4. The teaching notebook is
-[`notebooks/02_qubo_and_ising.ipynb`](notebooks/02_qubo_and_ising.ipynb).
-
-## Reproduce Day 3
-
-With Qiskit available in the active environment:
+Profiling is environment-dependent and is therefore run explicitly:
 
 ```bash
-python scripts/build_day3_circuit.py
-PYTHONPATH=src pytest -q \
-  tests/test_day3_circuit.py tests/test_statevector_reference.py
+python scripts/run_day5_profiling.py --overwrite
+python scripts/build_final_report.py
 ```
 
-This regenerates the circuit contract, the state-evolution diagnostic, and
-Figures 5–7. The teaching notebook is
-[`notebooks/03_explicit_p1_qaoa.ipynb`](notebooks/03_explicit_p1_qaoa.ipynb).
-
-## Reproduce Day 4
-
-The expensive command reruns all 24 frozen COBYLA starts and requires an
-explicit overwrite flag once results exist:
+Expensive core reproduction—reruns all 24 frozen COBYLA starts using the
+unchanged contract:
 
 ```bash
 python scripts/run_day4_core_experiment.py --overwrite
 ```
 
-The cheap command rebuilds Figures 8–11 and the 121×81 p=1 landscape from the
-saved core result (reusing the saved landscape grid when present):
+Official tracked tests:
 
 ```bash
-python scripts/build_day4_figures.py
-PYTHONPATH=src pytest -q \
-  tests/test_p2_circuit.py tests/test_optimization_contract.py \
-  tests/test_core_metrics.py
+pytest -q $(git ls-files 'tests/test_*.py')
 ```
 
-The teaching notebook loads saved optimization results by default and does not
-silently rerun the expensive experiment:
-[`notebooks/04_penalty_depth_experiment.ipynb`](notebooks/04_penalty_depth_experiment.ipynb).
+## Repository structure
 
-## Reusable code
+- `data/` — immutable graph, penalty, circuit, optimization, analysis, and
+  final scientific-freeze contracts.
+- `src/` — graph/QUBO/Ising logic, explicit circuits, independent statevector,
+  optimization metrics, sampling, profiling, and artifact builders.
+- `results/` — exact references, all-start optimization data, finite-shot raw
+  replicates, runtime measurements, and final summaries.
+- `figures/` — deterministic PNG and SVG scientific figures 1–13.
+- `notebooks/` — short teaching notebooks that load reusable source logic and
+  saved results.
+- `reports/` — final written interpretation and presentation outline.
+- `scripts/` — explicit expensive experiment runners and cheap artifact builds.
+- `tests/` — focused identity, exhaustive-model, circuit, result, sampling,
+  profiling, and reporting checks.
 
-- `src/graph.py` — canonical loader, strict validation, edge order, bit mapping,
-  and path-cost utilities;
-- `src/exact_reference.py` — independent exact methods and JSON/CSV records;
-- `src/day1_artifacts.py` — deterministic presentation figures and the small
-  artifact build;
-- `scripts/build_day1_reference.py` — one public regeneration command;
-- `tests/test_graph.py`, `tests/test_exact_reference.py` — focused scientific
-  correctness tests.
-- `src/qubo.py` — named bit states, directed-flow residuals, explicit canonical
-  polynomial expansion, full-state decoder checks, and penalty threshold;
-- `src/ising.py` — exact `x_i=(I−Z_i)/2` coefficient transformation and basis
-  energy evaluation;
-- `src/day2_artifacts.py` — deterministic Day-2 JSON and scientific figures;
-- `scripts/build_day2_hamiltonian.py` — one public Day-2 regeneration command;
-- `tests/test_bit_order.py`, `tests/test_qubo.py`, `tests/test_ising.py` — bit
-  convention and exhaustive mathematical-model gates.
-- `src/circuit.py` — explicit H, RZ/RZZ cost, and transverse-field RX mixer
-  construction for parameterized p=1 and p=2;
-- `src/statevector_reference.py` — independent NumPy cost-phase and pairwise
-  X-mixer evolution without a dense matrix;
-- `src/day3_artifacts.py` — hard statevector equivalence gate, diagnostic JSON,
-  and deterministic Figures 5–7;
-- `scripts/build_day3_circuit.py` — one public Day-3 regeneration command;
-- `tests/test_day3_circuit.py`, `tests/test_statevector_reference.py` — explicit
-  angle, parameterization, normalization, phase, interference, and independent
-  equivalence tests.
-- `src/optimization.py` — frozen exact-statevector objective, all-start COBYLA
-  execution, primary route metrics, selection, and final explicit-circuit check;
-- `src/day4_artifacts.py` — saved-result validation and deterministic Figures
-  8–11;
-- `scripts/run_day4_core_experiment.py` — explicit expensive 24-run entry point;
-- `scripts/build_day4_figures.py` — cheap saved-result figure/table rebuild;
-- `tests/test_p2_circuit.py`, `tests/test_optimization_contract.py`,
-  `tests/test_core_metrics.py` — p=2, protocol, completeness, metric, selection,
-  and selected-state verification gates.
+## Evidence boundary
+
+This is one small graph studied with ideal statevector simulation, shallow
+p=1/p=2 circuits, three optimizer starts, and a fixed evaluation budget. The
+finite-shot section samples an exact probability vector rather than hardware.
+No quantum advantage is claimed, and the results should not be generalized
+beyond this frozen course-project scope without a new version and protocol.

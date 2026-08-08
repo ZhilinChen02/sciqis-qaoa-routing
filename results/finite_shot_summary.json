@@ -1,0 +1,144 @@
+{
+  "schema": "dtu-sciqis-routing-finite-shot-demonstration",
+  "version": "1.0",
+  "classification": "POST_CORE_DESCRIPTIVE_EXTENSION",
+  "label": "Monte Carlo sampling variability",
+  "not_formal_confidence_intervals": true,
+  "not_hardware_experiment": true,
+  "day5_analysis_contract_sha256": "c3515a4a54b4492f26d0469ab683ca7b333b3a157633411d6072bcc09432aad9",
+  "core_experiment_results_sha256": "2d382a313403a21ecce8b611cec5c534e585f95c3ce576c1ec8f86a4033df0cb",
+  "source_state": {
+    "A": 2,
+    "p": 2,
+    "selected_run_id": "A2_p2_s2",
+    "selected_start_id": 2,
+    "optimized_parameters": [
+      3.1431042110255367,
+      2.273829775063368,
+      3.021154375793466,
+      0.5807088400617608
+    ],
+    "probability_vector_float64_sha256": "8af62122d37795620e137bf467d5acba78dd69ef7d336ade6d494f08d96db436",
+    "probability_sum": 1.0000000000000009,
+    "exact_p_feas": 0.05144857409010178,
+    "exact_p_opt": 0.00311885299407071
+  },
+  "sampling_protocol": {
+    "source": "Frozen exact NumPy probability vector for selected A=2,p=2 parameters",
+    "rng": "numpy.random.default_rng",
+    "seed": 1038705,
+    "shot_counts": [
+      256,
+      1024,
+      4096,
+      16384
+    ],
+    "independent_replicates_per_shot_count": 200,
+    "total_replicates": 800,
+    "generation_order": "shot count ascending, then replicate_id 0..199",
+    "sampler": "rng.multinomial(shots, probability_vector)",
+    "quantiles": [
+      0.05,
+      0.5,
+      0.95
+    ],
+    "quantile_label": "Monte Carlo sampling variability; not formal confidence intervals"
+  },
+  "raw_replicate_file": "results/finite_shot_replicates.csv",
+  "raw_replicate_count": 800,
+  "shot_summaries": [
+    {
+      "shots": 256,
+      "replicate_count": 200,
+      "exact_p_feas": 0.05144857409010178,
+      "p_feas_sampling": {
+        "mean": 0.04962890625,
+        "empirical_standard_deviation": 0.012682191772661626,
+        "quantile_05": 0.02734375,
+        "quantile_50": 0.05078125,
+        "quantile_95": 0.0703125
+      },
+      "exact_p_opt": 0.00311885299407071,
+      "p_opt_sampling": {
+        "mean": 0.00298828125,
+        "empirical_standard_deviation": 0.0032523870206737655,
+        "quantile_05": 0.0,
+        "quantile_50": 0.00390625,
+        "quantile_95": 0.0078125
+      },
+      "zero_exact_optimum_observation_replicates": 90,
+      "zero_exact_optimum_observation_fraction": 0.45,
+      "mean_exact_optimum_observation_count": 0.765
+    },
+    {
+      "shots": 1024,
+      "replicate_count": 200,
+      "exact_p_feas": 0.05144857409010178,
+      "p_feas_sampling": {
+        "mean": 0.051044921875,
+        "empirical_standard_deviation": 0.006831175712744821,
+        "quantile_05": 0.0400390625,
+        "quantile_50": 0.05078125,
+        "quantile_95": 0.06157226562499998
+      },
+      "exact_p_opt": 0.00311885299407071,
+      "p_opt_sampling": {
+        "mean": 0.0029833984375,
+        "empirical_standard_deviation": 0.0016504357778029148,
+        "quantile_05": 0.0009765625,
+        "quantile_50": 0.0029296875,
+        "quantile_95": 0.005859375
+      },
+      "zero_exact_optimum_observation_replicates": 7,
+      "zero_exact_optimum_observation_fraction": 0.035,
+      "mean_exact_optimum_observation_count": 3.055
+    },
+    {
+      "shots": 4096,
+      "replicate_count": 200,
+      "exact_p_feas": 0.05144857409010178,
+      "p_feas_sampling": {
+        "mean": 0.0516552734375,
+        "empirical_standard_deviation": 0.003625105855477287,
+        "quantile_05": 0.046142578125,
+        "quantile_50": 0.0517578125,
+        "quantile_95": 0.057629394531249996
+      },
+      "exact_p_opt": 0.00311885299407071,
+      "p_opt_sampling": {
+        "mean": 0.003173828125,
+        "empirical_standard_deviation": 0.0009737982036859297,
+        "quantile_05": 0.001708984375,
+        "quantile_50": 0.003173828125,
+        "quantile_95": 0.004650878906249996
+      },
+      "zero_exact_optimum_observation_replicates": 0,
+      "zero_exact_optimum_observation_fraction": 0.0,
+      "mean_exact_optimum_observation_count": 13.0
+    },
+    {
+      "shots": 16384,
+      "replicate_count": 200,
+      "exact_p_feas": 0.05144857409010178,
+      "p_feas_sampling": {
+        "mean": 0.0512799072265625,
+        "empirical_standard_deviation": 0.0017792770864148656,
+        "quantile_05": 0.0479736328125,
+        "quantile_50": 0.0513916015625,
+        "quantile_95": 0.05377197265625
+      },
+      "exact_p_opt": 0.00311885299407071,
+      "p_opt_sampling": {
+        "mean": 0.0031402587890625,
+        "empirical_standard_deviation": 0.00045562705570832175,
+        "quantile_05": 0.00238037109375,
+        "quantile_50": 0.003082275390625,
+        "quantile_95": 0.00396728515625
+      },
+      "zero_exact_optimum_observation_replicates": 0,
+      "zero_exact_optimum_observation_fraction": 0.0,
+      "mean_exact_optimum_observation_count": 51.45
+    }
+  ],
+  "caption_boundary": "Finite-shot sampling demonstration from a fixed optimized statevector; not a hardware experiment."
+}

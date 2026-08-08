@@ -21,12 +21,19 @@ results/*
 !results/core_experiment_summary.csv
 !results/optimization_runs.csv
 !results/p1_landscape_A6.csv
+!results/finite_shot_replicates.csv
+!results/finite_shot_summary.json
+!results/runtime_profile.csv
+!results/runtime_profile_summary.json
+!results/final_project_summary.json
+!results/final_figure_manifest.json
 
 figures/*
 !figures/.gitkeep
 !figures/01_frozen_weighted_graph.png
 !figures/01_frozen_weighted_graph.svg
 !figures/02_route_cost_spectrum.png
+!figures/02_route_cost_spectrum.svg
 !figures/03_graph_qubo_ising_structure.png
 !figures/03_graph_qubo_ising_structure.svg
 !figures/04_penalty_state_space_geometry.png
@@ -45,3 +52,7 @@ figures/*
 !figures/10_quantum_route_marginals.svg
 !figures/11_quantum_probability_state_space.png
 !figures/11_quantum_probability_state_space.svg
+!figures/12_finite_shot_sampling_convergence.png
+!figures/12_finite_shot_sampling_convergence.svg
+!figures/13_runtime_profile.png
+!figures/13_runtime_profile.svg

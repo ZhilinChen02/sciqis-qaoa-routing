@@ -1,0 +1,363 @@
+{
+  "schema": "dtu-sciqis-routing-final-figure-manifest",
+  "version": "3.0",
+  "figure_count": 13,
+  "core_story_figure_numbers": [
+    1,
+    3,
+    5,
+    6,
+    8,
+    9,
+    10,
+    12
+  ],
+  "presentation_guidance": "Use the strongest 6–8 figures; combine Figures 12 and 13 on Slide 9 and keep support/optional figures as backups.",
+  "figures": [
+    {
+      "figure": 1,
+      "title": "Frozen routing graph",
+      "png": "figures/01_frozen_weighted_graph.png",
+      "svg": "figures/01_frozen_weighted_graph.svg",
+      "scientific_purpose": "Frozen topology, edge weights, and exact route",
+      "data_sources": [
+        "data/graph.json",
+        "results/exact_reference.json"
+      ],
+      "presentation_priority": "CORE",
+      "recommended_slide": "Slide 2",
+      "audit": {
+        "png_dimensions": [
+          2880,
+          1536
+        ],
+        "png_sha256": "6129023dc3406bb6ba774d38d4d660ae8826acae93c40f4daf46ea74b337b262",
+        "svg_sha256": "e6cb7ac65eb0ffcc898eaa4838235f3d59c1774d143b818feeeda7ef09dd0e57",
+        "png_render_check": "passed",
+        "svg_xml_parse_check": "passed",
+        "readable_at_presentation_size": true,
+        "no_clipped_labels_observed": true,
+        "notation_and_labels_consistent_or_not_applicable": true,
+        "caption_interpretation_boundary_checked": true
+      }
+    },
+    {
+      "figure": 2,
+      "title": "Route-cost spectrum",
+      "png": "figures/02_route_cost_spectrum.png",
+      "svg": "figures/02_route_cost_spectrum.svg",
+      "scientific_purpose": "All 20 valid routes and the classical optimality gap",
+      "data_sources": [
+        "results/exact_reference.json"
+      ],
+      "presentation_priority": "OPTIONAL",
+      "recommended_slide": "Appendix / backup",
+      "audit": {
+        "png_dimensions": [
+          2200,
+          1056
+        ],
+        "png_sha256": "80258a5954993d91d11eba57ceaa38e6ee5c2af54714f85dcb6248ae0609953a",
+        "svg_sha256": "26d59909d7dd4bf0519fa9044bf0083c07b9874c78a6a9590501d67d9984f92c",
+        "png_render_check": "passed",
+        "svg_xml_parse_check": "passed",
+        "readable_at_presentation_size": true,
+        "no_clipped_labels_observed": true,
+        "notation_and_labels_consistent_or_not_applicable": true,
+        "caption_interpretation_boundary_checked": true
+      }
+    },
+    {
+      "figure": 3,
+      "title": "Graph to QUBO to Ising",
+      "png": "figures/03_graph_qubo_ising_structure.png",
+      "svg": "figures/03_graph_qubo_ising_structure.svg",
+      "scientific_purpose": "How routing constraints induce qubit interactions",
+      "data_sources": [
+        "data/graph.json",
+        "results/qubo_coefficients.json",
+        "results/ising_coefficients.json"
+      ],
+      "presentation_priority": "CORE",
+      "recommended_slide": "Slide 3",
+      "audit": {
+        "png_dimensions": [
+          3840,
+          1512
+        ],
+        "png_sha256": "315946fad104c0cf9733368aaae0df07c4213e2a20307a4b852b79baf1c88eb8",
+        "svg_sha256": "350b020adb79ffcb63626dac4d81434fe439d591d5f9a2caa209c5d0f0ca83ed",
+        "png_render_check": "passed",
+        "svg_xml_parse_check": "passed",
+        "readable_at_presentation_size": true,
+        "no_clipped_labels_observed": true,
+        "notation_and_labels_consistent_or_not_applicable": true,
+        "caption_interpretation_boundary_checked": true
+      }
+    },
+    {
+      "figure": 4,
+      "title": "Penalty state-space geometry",
+      "png": "figures/04_penalty_state_space_geometry.png",
+      "svg": "figures/04_penalty_state_space_geometry.svg",
+      "scientific_purpose": "Why A_crit lifts cheap invalid states",
+      "data_sources": [
+        "results/penalty_threshold_analysis.json"
+      ],
+      "presentation_priority": "SUPPORT",
+      "recommended_slide": "Slide 3 backup",
+      "audit": {
+        "png_dimensions": [
+          3840,
+          2088
+        ],
+        "png_sha256": "187858b3976d920ef2a6481cf8dcbb902572461ee0ff3f2a9fd2d8b6add0f232",
+        "svg_sha256": "bd53836c48bafef237f9e47057487b22300a83721afc63f815748b2c4c9a6bd8",
+        "png_render_check": "passed",
+        "svg_xml_parse_check": "passed",
+        "readable_at_presentation_size": true,
+        "no_clipped_labels_observed": true,
+        "notation_and_labels_consistent_or_not_applicable": true,
+        "caption_interpretation_boundary_checked": true
+      }
+    },
+    {
+      "figure": 5,
+      "title": "Explicit p=1 circuit",
+      "png": "figures/05_explicit_p1_qaoa_circuit.png",
+      "svg": "figures/05_explicit_p1_qaoa_circuit.svg",
+      "scientific_purpose": "RZ/RZZ cost gates and RX mixer construction",
+      "data_sources": [
+        "data/circuit_contract.json"
+      ],
+      "presentation_priority": "CORE",
+      "recommended_slide": "Slide 4",
+      "audit": {
+        "png_dimensions": [
+          3840,
+          2400
+        ],
+        "png_sha256": "99e5204bb69c875f20cc6c0553260687537ab5e91383fc82c6f4d595614ed323",
+        "svg_sha256": "379ee56ee11539c5fdc3cd21246c933026b4fc2ff22723a042698db88ece7519",
+        "png_render_check": "passed",
+        "svg_xml_parse_check": "passed",
+        "readable_at_presentation_size": true,
+        "no_clipped_labels_observed": true,
+        "notation_and_labels_consistent_or_not_applicable": true,
+        "caption_interpretation_boundary_checked": true
+      }
+    },
+    {
+      "figure": 6,
+      "title": "Quantum-state evolution",
+      "png": "figures/06_p1_quantum_state_evolution.png",
+      "svg": "figures/06_p1_quantum_state_evolution.svg",
+      "scientific_purpose": "Energy-to-phase then interference-to-probability mechanism",
+      "data_sources": [
+        "results/p1_state_evolution_diagnostic.json"
+      ],
+      "presentation_priority": "CORE",
+      "recommended_slide": "Slide 5",
+      "audit": {
+        "png_dimensions": [
+          3840,
+          2112
+        ],
+        "png_sha256": "abf4f7b571992cf8d3ebddedcb5b14788e168a77a5eff5214d36f98926b5bc7b",
+        "svg_sha256": "bc73bda6b0e0f5de0f43de6921d9045f8620145a1761682eae0ebe235ec72cad",
+        "png_render_check": "passed",
+        "svg_xml_parse_check": "passed",
+        "readable_at_presentation_size": true,
+        "no_clipped_labels_observed": true,
+        "notation_and_labels_consistent_or_not_applicable": true,
+        "caption_interpretation_boundary_checked": true
+      }
+    },
+    {
+      "figure": 7,
+      "title": "Cost-phase encoding",
+      "png": "figures/07_cost_phase_encoding.png",
+      "svg": "figures/07_cost_phase_encoding.svg",
+      "scientific_purpose": "Basis energy mapped to cost-layer phase",
+      "data_sources": [
+        "results/p1_state_evolution_diagnostic.json"
+      ],
+      "presentation_priority": "OPTIONAL",
+      "recommended_slide": "Slide 5 backup",
+      "audit": {
+        "png_dimensions": [
+          3000,
+          1512
+        ],
+        "png_sha256": "580df8c4e7e74dbe208764d59187895c1b3a22a10db08404491cdefc6f3fb0e2",
+        "svg_sha256": "5cdb4733f01cfec82d6be7f496585a5cac12334826c00bf077cda5ca3b876a9a",
+        "png_render_check": "passed",
+        "svg_xml_parse_check": "passed",
+        "readable_at_presentation_size": true,
+        "no_clipped_labels_observed": true,
+        "notation_and_labels_consistent_or_not_applicable": true,
+        "caption_interpretation_boundary_checked": true
+      }
+    },
+    {
+      "figure": 8,
+      "title": "p=1 variational landscape",
+      "png": "figures/08_p1_variational_landscape.png",
+      "svg": "figures/08_p1_variational_landscape.svg",
+      "scientific_purpose": "Frozen COBYLA trajectories on the A=6 energy landscape",
+      "data_sources": [
+        "results/p1_landscape_A6.csv",
+        "results/core_experiment_results.json"
+      ],
+      "presentation_priority": "CORE",
+      "recommended_slide": "Slide 6",
+      "audit": {
+        "png_dimensions": [
+          2832,
+          1728
+        ],
+        "png_sha256": "50ae7a8143f18f5ca944e4cece1279f544bdd8db0df7f778f5943dabf7678853",
+        "svg_sha256": "ac7d117e7a55b8cd3a6bf839b89e8bbfacedb78e3b2ebc5030365e9062d7c9b2",
+        "png_render_check": "passed",
+        "svg_xml_parse_check": "passed",
+        "readable_at_presentation_size": true,
+        "no_clipped_labels_observed": true,
+        "notation_and_labels_consistent_or_not_applicable": true,
+        "caption_interpretation_boundary_checked": true
+      }
+    },
+    {
+      "figure": 9,
+      "title": "Penalty-depth core results",
+      "png": "figures/09_penalty_depth_core_results.png",
+      "svg": "figures/09_penalty_depth_core_results.svg",
+      "scientific_purpose": "Primary p_feas and p_opt answer across A and p",
+      "data_sources": [
+        "results/core_experiment_summary.csv"
+      ],
+      "presentation_priority": "CORE",
+      "recommended_slide": "Slide 7",
+      "audit": {
+        "png_dimensions": [
+          3240,
+          1392
+        ],
+        "png_sha256": "db6d9444675fb34e392bcbb822de32822ceca5995c511cf8e66caaef6ffd76f8",
+        "svg_sha256": "2a10fb76172e92888e23b268c06665aa992a508ef5cefb6a89122d7417b95f1a",
+        "png_render_check": "passed",
+        "svg_xml_parse_check": "passed",
+        "readable_at_presentation_size": true,
+        "no_clipped_labels_observed": true,
+        "notation_and_labels_consistent_or_not_applicable": true,
+        "caption_interpretation_boundary_checked": true
+      }
+    },
+    {
+      "figure": 10,
+      "title": "Quantum route marginals",
+      "png": "figures/10_quantum_route_marginals.png",
+      "svg": "figures/10_quantum_route_marginals.svg",
+      "scientific_purpose": "Return the selected probability distributions to graph edges",
+      "data_sources": [
+        "results/core_experiment_results.json"
+      ],
+      "presentation_priority": "CORE",
+      "recommended_slide": "Slide 8",
+      "audit": {
+        "png_dimensions": [
+          3600,
+          1632
+        ],
+        "png_sha256": "a96b58bd28da73e4ac7d5ade32a81d3072b70bb10350ea37e05f9e6805c9d4fe",
+        "svg_sha256": "718c0d9dac5e47c42e36b40c25afdcae49c04826d84fec0a9ba0819639d13ec0",
+        "png_render_check": "passed",
+        "svg_xml_parse_check": "passed",
+        "readable_at_presentation_size": true,
+        "no_clipped_labels_observed": true,
+        "notation_and_labels_consistent_or_not_applicable": true,
+        "caption_interpretation_boundary_checked": true
+      }
+    },
+    {
+      "figure": 11,
+      "title": "Probability on state-space geometry",
+      "png": "figures/11_quantum_probability_state_space.png",
+      "svg": "figures/11_quantum_probability_state_space.svg",
+      "scientific_purpose": "Where selected quantum mass lies in (P_flow,C)",
+      "data_sources": [
+        "results/core_experiment_results.json",
+        "results/penalty_threshold_analysis.json"
+      ],
+      "presentation_priority": "SUPPORT",
+      "recommended_slide": "Slide 8 backup",
+      "audit": {
+        "png_dimensions": [
+          3120,
+          2280
+        ],
+        "png_sha256": "b25ef4b46c41d1af42a137bbc38c00616ae18ff2ad1f3512f413bb43ef1210c3",
+        "svg_sha256": "6b31f2afbf2f90acdbb9015ae8134b2d6bcc74e3af0755701f026bd4eb2212b2",
+        "png_render_check": "passed",
+        "svg_xml_parse_check": "passed",
+        "readable_at_presentation_size": true,
+        "no_clipped_labels_observed": true,
+        "notation_and_labels_consistent_or_not_applicable": true,
+        "caption_interpretation_boundary_checked": true
+      }
+    },
+    {
+      "figure": 12,
+      "title": "Finite-shot convergence",
+      "png": "figures/12_finite_shot_sampling_convergence.png",
+      "svg": "figures/12_finite_shot_sampling_convergence.svg",
+      "scientific_purpose": "Monte Carlo variability around exact p_feas and p_opt",
+      "data_sources": [
+        "results/finite_shot_replicates.csv",
+        "results/finite_shot_summary.json"
+      ],
+      "presentation_priority": "CORE",
+      "recommended_slide": "Slide 9",
+      "audit": {
+        "png_dimensions": [
+          3240,
+          1416
+        ],
+        "png_sha256": "94bd1171bb71ea2276e8b4464aff2db4f5cf8a7d1ba24e2f4d0b76ae088998b6",
+        "svg_sha256": "934fc3396560bf5bd7f324ba49b7f4cbd4ed5b4ccbcca19baebc6cf6aec88c94",
+        "png_render_check": "passed",
+        "svg_xml_parse_check": "passed",
+        "readable_at_presentation_size": true,
+        "no_clipped_labels_observed": true,
+        "notation_and_labels_consistent_or_not_applicable": true,
+        "caption_interpretation_boundary_checked": true
+      }
+    },
+    {
+      "figure": 13,
+      "title": "Implementation runtime profile",
+      "png": "figures/13_runtime_profile.png",
+      "svg": "figures/13_runtime_profile.svg",
+      "scientific_purpose": "Observed model/circuit/simulation/analysis timings",
+      "data_sources": [
+        "results/runtime_profile.csv",
+        "results/runtime_profile_summary.json"
+      ],
+      "presentation_priority": "SUPPORT",
+      "recommended_slide": "Slide 9",
+      "audit": {
+        "png_dimensions": [
+          2760,
+          1728
+        ],
+        "png_sha256": "d095d6721c70d5a2bba98bc2a06f6f5a0c95310fed5a53a36f68a4870762d3d3",
+        "svg_sha256": "575fb6354c005164a0b08f1efaafa24f3d0990f9e2250b8f8bf267fc71ac4f70",
+        "png_render_check": "passed",
+        "svg_xml_parse_check": "passed",
+        "readable_at_presentation_size": true,
+        "no_clipped_labels_observed": true,
+        "notation_and_labels_consistent_or_not_applicable": true,
+        "caption_interpretation_boundary_checked": true
+      }
+    }
+  ]
+}
