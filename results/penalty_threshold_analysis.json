@@ -1,0 +1,638 @@
+{
+  "schema": "dtu-sciqis-routing-penalty-threshold-analysis",
+  "version": "1.0",
+  "graph": {
+    "path": "data/graph.json",
+    "sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+    "source": 0,
+    "target": 6,
+    "edge_order": [
+      {
+        "qubit_index": 0,
+        "edge_id": "e00",
+        "u": 0,
+        "v": 1,
+        "weight": 2
+      },
+      {
+        "qubit_index": 1,
+        "edge_id": "e01",
+        "u": 0,
+        "v": 2,
+        "weight": 4
+      },
+      {
+        "qubit_index": 2,
+        "edge_id": "e02",
+        "u": 0,
+        "v": 3,
+        "weight": 7
+      },
+      {
+        "qubit_index": 3,
+        "edge_id": "e03",
+        "u": 1,
+        "v": 2,
+        "weight": 1
+      },
+      {
+        "qubit_index": 4,
+        "edge_id": "e04",
+        "u": 1,
+        "v": 3,
+        "weight": 4
+      },
+      {
+        "qubit_index": 5,
+        "edge_id": "e05",
+        "u": 1,
+        "v": 4,
+        "weight": 7
+      },
+      {
+        "qubit_index": 6,
+        "edge_id": "e06",
+        "u": 2,
+        "v": 3,
+        "weight": 2
+      },
+      {
+        "qubit_index": 7,
+        "edge_id": "e07",
+        "u": 2,
+        "v": 4,
+        "weight": 3
+      },
+      {
+        "qubit_index": 8,
+        "edge_id": "e08",
+        "u": 2,
+        "v": 5,
+        "weight": 7
+      },
+      {
+        "qubit_index": 9,
+        "edge_id": "e09",
+        "u": 3,
+        "v": 4,
+        "weight": 2
+      },
+      {
+        "qubit_index": 10,
+        "edge_id": "e10",
+        "u": 3,
+        "v": 5,
+        "weight": 4
+      },
+      {
+        "qubit_index": 11,
+        "edge_id": "e11",
+        "u": 4,
+        "v": 5,
+        "weight": 2
+      },
+      {
+        "qubit_index": 12,
+        "edge_id": "e12",
+        "u": 4,
+        "v": 6,
+        "weight": 5
+      },
+      {
+        "qubit_index": 13,
+        "edge_id": "e13",
+        "u": 5,
+        "v": 6,
+        "weight": 2
+      }
+    ]
+  },
+  "bit_order_convention": {
+    "edge_vector": {
+      "description": "[x0, x1, ..., x13] in frozen edge/qubit order",
+      "order": "q0 -> q13"
+    },
+    "canonical_bitstring": {
+      "description": "textual edge vector",
+      "order": "q0 -> q13"
+    },
+    "qiskit_display_bitstring": {
+      "description": "Qiskit-style classical display text when needed",
+      "order": "q13 -> q0"
+    },
+    "state_index": {
+      "range": "0..16383",
+      "rule": "q0 is the least-significant integer bit"
+    },
+    "no_implicit_reversal": true,
+    "exact_route_example": {
+      "edge_vector": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "canonical_bitstring": "10010001000101",
+      "qiskit_display_bitstring": "10100010001001"
+    }
+  },
+  "state_space_size": 16384,
+  "exact_feasible_optimum": {
+    "cost": 10,
+    "state": {
+      "state_index": 10377,
+      "edge_vector": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ],
+      "canonical_bitstring": "10010001000101",
+      "qiskit_display_bitstring": "10100010001001",
+      "selected_edges": [
+        {
+          "qubit_index": 0,
+          "u": 0,
+          "v": 1,
+          "weight": 2
+        },
+        {
+          "qubit_index": 3,
+          "u": 1,
+          "v": 2,
+          "weight": 1
+        },
+        {
+          "qubit_index": 7,
+          "u": 2,
+          "v": 4,
+          "weight": 3
+        },
+        {
+          "qubit_index": 11,
+          "u": 4,
+          "v": 5,
+          "weight": 2
+        },
+        {
+          "qubit_index": 13,
+          "u": 5,
+          "v": 6,
+          "weight": 2
+        }
+      ],
+      "routing_cost": 10,
+      "flow_residuals": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 0
+      },
+      "flow_penalty": 0,
+      "decoder_valid": true,
+      "decoded_route": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  "flow_feasibility_equivalence": {
+    "flow_penalty_zero_count": 20,
+    "decoder_valid_route_count": 20,
+    "sets_identical": true,
+    "zero_only_state_indices": [],
+    "decoder_only_state_indices": []
+  },
+  "day1_simple_route_count": 20,
+  "relevant_infeasible_state_count": 275,
+  "crossing_formula": "A_x = (C* - C(x)) / P_flow(x) for infeasible states with C(x) < C*",
+  "A_crit": {
+    "exact": "5",
+    "numerator": 5,
+    "denominator": 1,
+    "value": 5
+  },
+  "critical_infeasible_state_count": 1,
+  "critical_infeasible_states": [
+    {
+      "state_index": 0,
+      "edge_vector": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "canonical_bitstring": "00000000000000",
+      "qiskit_display_bitstring": "00000000000000",
+      "selected_edges": [],
+      "routing_cost": 0,
+      "flow_residuals": {
+        "0": -1,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 0,
+        "6": 1
+      },
+      "flow_penalty": 2,
+      "decoder_valid": false,
+      "decoded_route": null,
+      "crossing_A": {
+        "exact": "5",
+        "numerator": 5,
+        "denominator": 1,
+        "value": 5
+      }
+    }
+  ],
+  "frozen_grid_minimum_checks": [
+    {
+      "label": "weak",
+      "A": 2,
+      "minimum_energy": {
+        "exact": "4",
+        "numerator": 4,
+        "denominator": 1,
+        "value": 4
+      },
+      "minimizer_count": 1,
+      "all_minimizers_decoder_valid": false,
+      "minimizers": [
+        {
+          "state_index": 0,
+          "edge_vector": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "canonical_bitstring": "00000000000000",
+          "qiskit_display_bitstring": "00000000000000",
+          "selected_edges": [],
+          "routing_cost": 0,
+          "flow_residuals": {
+            "0": -1,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "6": 1
+          },
+          "flow_penalty": 2,
+          "decoder_valid": false,
+          "decoded_route": null
+        }
+      ]
+    },
+    {
+      "label": "critical",
+      "A": 5,
+      "minimum_energy": {
+        "exact": "10",
+        "numerator": 10,
+        "denominator": 1,
+        "value": 10
+      },
+      "minimizer_count": 2,
+      "all_minimizers_decoder_valid": false,
+      "minimizers": [
+        {
+          "state_index": 0,
+          "edge_vector": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "canonical_bitstring": "00000000000000",
+          "qiskit_display_bitstring": "00000000000000",
+          "selected_edges": [],
+          "routing_cost": 0,
+          "flow_residuals": {
+            "0": -1,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "6": 1
+          },
+          "flow_penalty": 2,
+          "decoder_valid": false,
+          "decoded_route": null
+        },
+        {
+          "state_index": 10377,
+          "edge_vector": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          "canonical_bitstring": "10010001000101",
+          "qiskit_display_bitstring": "10100010001001",
+          "selected_edges": [
+            {
+              "qubit_index": 0,
+              "u": 0,
+              "v": 1,
+              "weight": 2
+            },
+            {
+              "qubit_index": 3,
+              "u": 1,
+              "v": 2,
+              "weight": 1
+            },
+            {
+              "qubit_index": 7,
+              "u": 2,
+              "v": 4,
+              "weight": 3
+            },
+            {
+              "qubit_index": 11,
+              "u": 4,
+              "v": 5,
+              "weight": 2
+            },
+            {
+              "qubit_index": 13,
+              "u": 5,
+              "v": 6,
+              "weight": 2
+            }
+          ],
+          "routing_cost": 10,
+          "flow_residuals": {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "6": 0
+          },
+          "flow_penalty": 0,
+          "decoder_valid": true,
+          "decoded_route": [
+            0,
+            1,
+            2,
+            4,
+            5,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "label": "just-supercritical",
+      "A": 6,
+      "minimum_energy": {
+        "exact": "10",
+        "numerator": 10,
+        "denominator": 1,
+        "value": 10
+      },
+      "minimizer_count": 1,
+      "all_minimizers_decoder_valid": true,
+      "minimizers": [
+        {
+          "state_index": 10377,
+          "edge_vector": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          "canonical_bitstring": "10010001000101",
+          "qiskit_display_bitstring": "10100010001001",
+          "selected_edges": [
+            {
+              "qubit_index": 0,
+              "u": 0,
+              "v": 1,
+              "weight": 2
+            },
+            {
+              "qubit_index": 3,
+              "u": 1,
+              "v": 2,
+              "weight": 1
+            },
+            {
+              "qubit_index": 7,
+              "u": 2,
+              "v": 4,
+              "weight": 3
+            },
+            {
+              "qubit_index": 11,
+              "u": 4,
+              "v": 5,
+              "weight": 2
+            },
+            {
+              "qubit_index": 13,
+              "u": 5,
+              "v": 6,
+              "weight": 2
+            }
+          ],
+          "routing_cost": 10,
+          "flow_residuals": {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "6": 0
+          },
+          "flow_penalty": 0,
+          "decoder_valid": true,
+          "decoded_route": [
+            0,
+            1,
+            2,
+            4,
+            5,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "label": "strong",
+      "A": 12,
+      "minimum_energy": {
+        "exact": "10",
+        "numerator": 10,
+        "denominator": 1,
+        "value": 10
+      },
+      "minimizer_count": 1,
+      "all_minimizers_decoder_valid": true,
+      "minimizers": [
+        {
+          "state_index": 10377,
+          "edge_vector": [
+            1,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            1
+          ],
+          "canonical_bitstring": "10010001000101",
+          "qiskit_display_bitstring": "10100010001001",
+          "selected_edges": [
+            {
+              "qubit_index": 0,
+              "u": 0,
+              "v": 1,
+              "weight": 2
+            },
+            {
+              "qubit_index": 3,
+              "u": 1,
+              "v": 2,
+              "weight": 1
+            },
+            {
+              "qubit_index": 7,
+              "u": 2,
+              "v": 4,
+              "weight": 3
+            },
+            {
+              "qubit_index": 11,
+              "u": 4,
+              "v": 5,
+              "weight": 2
+            },
+            {
+              "qubit_index": 13,
+              "u": 5,
+              "v": 6,
+              "weight": 2
+            }
+          ],
+          "routing_cost": 10,
+          "flow_residuals": {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0,
+            "5": 0,
+            "6": 0
+          },
+          "flow_penalty": 0,
+          "decoder_valid": true,
+          "decoded_route": [
+            0,
+            1,
+            2,
+            4,
+            5,
+            6
+          ]
+        }
+      ]
+    }
+  ],
+  "interpretation": {
+    "below": "For A < A_crit, at least one infeasible state has energy below C*.",
+    "at": "At A = A_crit, at least one infeasible state ties the true optimal route.",
+    "above": "For A > A_crit, exhaustive verification gives the true route as unique global minimizer."
+  }
+}

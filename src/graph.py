@@ -22,10 +22,96 @@ EXPECTED_EDGE_COUNT = 14
 EXPECTED_QUBIT_INDICES = tuple(range(EXPECTED_EDGE_COUNT))
 
 Edge = tuple[int, int]
+EdgeVector = tuple[int, ...]
 
 
 class GraphValidationError(ValueError):
     """Raised when the frozen graph contract is malformed or inconsistent."""
+
+
+def validate_edge_vector(edge_vector: Iterable[int]) -> EdgeVector:
+    """Return a validated canonical ``[x0, ..., x13]`` edge vector.
+
+    This function deliberately does not accept strings: textual representations
+    have named conversion helpers below so that their direction is never
+    implicit.
+    """
+
+    values = tuple(edge_vector)
+    if len(values) != EXPECTED_EDGE_COUNT:
+        raise ValueError(
+            f"edge_vector length must be {EXPECTED_EDGE_COUNT}, got {len(values)}"
+        )
+    if any(isinstance(value, bool) or value not in (0, 1) for value in values):
+        raise ValueError("edge_vector entries must be integer 0 or 1")
+    return tuple(int(value) for value in values)
+
+
+def edge_vector_to_canonical_bitstring(edge_vector: Iterable[int]) -> str:
+    """Encode ``[x0, ..., x13]`` as text in explicit ``q0 -> q13`` order."""
+
+    return "".join(str(bit) for bit in validate_edge_vector(edge_vector))
+
+
+def canonical_bitstring_to_edge_vector(canonical_bitstring: str) -> EdgeVector:
+    """Decode text in explicit ``q0 -> q13`` order to ``[x0, ..., x13]``."""
+
+    if not isinstance(canonical_bitstring, str):
+        raise TypeError("canonical_bitstring must be text")
+    compact = "".join(canonical_bitstring.split())
+    if len(compact) != EXPECTED_EDGE_COUNT:
+        raise ValueError(
+            "canonical_bitstring length must be "
+            f"{EXPECTED_EDGE_COUNT}, got {len(compact)}"
+        )
+    if any(character not in "01" for character in compact):
+        raise ValueError("canonical_bitstring must contain only 0 and 1")
+    return tuple(int(character) for character in compact)
+
+
+def canonical_bitstring_to_qiskit_display_bitstring(
+    canonical_bitstring: str,
+) -> str:
+    """Convert named ``q0 -> q13`` text to Qiskit-style ``q13 -> q0`` text."""
+
+    vector = canonical_bitstring_to_edge_vector(canonical_bitstring)
+    return "".join(str(bit) for bit in reversed(vector))
+
+
+def qiskit_display_bitstring_to_canonical_bitstring(
+    qiskit_display_bitstring: str,
+) -> str:
+    """Convert named Qiskit-style ``q13 -> q0`` text to ``q0 -> q13`` text."""
+
+    if not isinstance(qiskit_display_bitstring, str):
+        raise TypeError("qiskit_display_bitstring must be text")
+    compact = "".join(qiskit_display_bitstring.split())
+    if len(compact) != EXPECTED_EDGE_COUNT:
+        raise ValueError(
+            "qiskit_display_bitstring length must be "
+            f"{EXPECTED_EDGE_COUNT}, got {len(compact)}"
+        )
+    if any(character not in "01" for character in compact):
+        raise ValueError("qiskit_display_bitstring must contain only 0 and 1")
+    return edge_vector_to_canonical_bitstring(reversed(tuple(map(int, compact))))
+
+
+def edge_vector_to_qiskit_display_bitstring(edge_vector: Iterable[int]) -> str:
+    """Encode ``[x0, ..., x13]`` as named Qiskit-style ``q13 -> q0`` text."""
+
+    canonical = edge_vector_to_canonical_bitstring(edge_vector)
+    return canonical_bitstring_to_qiskit_display_bitstring(canonical)
+
+
+def qiskit_display_bitstring_to_edge_vector(
+    qiskit_display_bitstring: str,
+) -> EdgeVector:
+    """Decode named Qiskit-style ``q13 -> q0`` text to ``[x0, ..., x13]``."""
+
+    canonical = qiskit_display_bitstring_to_canonical_bitstring(
+        qiskit_display_bitstring
+    )
+    return canonical_bitstring_to_edge_vector(canonical)
 
 
 def _validate_payload(payload: dict[str, Any], path: Path) -> None:

@@ -13,9 +13,16 @@ results/*
 !results/.gitkeep
 !results/exact_reference.json
 !results/all_simple_paths.csv
+!results/penalty_threshold_analysis.json
+!results/qubo_coefficients.json
+!results/ising_coefficients.json
 
 figures/*
 !figures/.gitkeep
 !figures/01_frozen_weighted_graph.png
 !figures/01_frozen_weighted_graph.svg
 !figures/02_route_cost_spectrum.png
+!figures/03_graph_qubo_ising_structure.png
+!figures/03_graph_qubo_ising_structure.svg
+!figures/04_penalty_state_space_geometry.png
+!figures/04_penalty_state_space_geometry.svg
