@@ -1,0 +1,880 @@
+{
+  "schema": "dtu-sciqis-routing-exact-reference",
+  "version": "1.0",
+  "graph": {
+    "path": "data/graph.json",
+    "sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+    "source": 0,
+    "target": 6,
+    "node_count": 7,
+    "edge_count": 14,
+    "edge_order": [
+      {
+        "qubit_index": 0,
+        "edge_id": "e00",
+        "u": 0,
+        "v": 1,
+        "weight": 2
+      },
+      {
+        "qubit_index": 1,
+        "edge_id": "e01",
+        "u": 0,
+        "v": 2,
+        "weight": 4
+      },
+      {
+        "qubit_index": 2,
+        "edge_id": "e02",
+        "u": 0,
+        "v": 3,
+        "weight": 7
+      },
+      {
+        "qubit_index": 3,
+        "edge_id": "e03",
+        "u": 1,
+        "v": 2,
+        "weight": 1
+      },
+      {
+        "qubit_index": 4,
+        "edge_id": "e04",
+        "u": 1,
+        "v": 3,
+        "weight": 4
+      },
+      {
+        "qubit_index": 5,
+        "edge_id": "e05",
+        "u": 1,
+        "v": 4,
+        "weight": 7
+      },
+      {
+        "qubit_index": 6,
+        "edge_id": "e06",
+        "u": 2,
+        "v": 3,
+        "weight": 2
+      },
+      {
+        "qubit_index": 7,
+        "edge_id": "e07",
+        "u": 2,
+        "v": 4,
+        "weight": 3
+      },
+      {
+        "qubit_index": 8,
+        "edge_id": "e08",
+        "u": 2,
+        "v": 5,
+        "weight": 7
+      },
+      {
+        "qubit_index": 9,
+        "edge_id": "e09",
+        "u": 3,
+        "v": 4,
+        "weight": 2
+      },
+      {
+        "qubit_index": 10,
+        "edge_id": "e10",
+        "u": 3,
+        "v": 5,
+        "weight": 4
+      },
+      {
+        "qubit_index": 11,
+        "edge_id": "e11",
+        "u": 4,
+        "v": 5,
+        "weight": 2
+      },
+      {
+        "qubit_index": 12,
+        "edge_id": "e12",
+        "u": 4,
+        "v": 6,
+        "weight": 5
+      },
+      {
+        "qubit_index": 13,
+        "edge_id": "e13",
+        "u": 5,
+        "v": 6,
+        "weight": 2
+      }
+    ]
+  },
+  "method_a": {
+    "name": "networkx_weighted_shortest_path",
+    "node_path": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      6
+    ],
+    "edge_path": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        6
+      ]
+    ],
+    "edge_bitstring": "10010001000101",
+    "cost": 10
+  },
+  "method_b": {
+    "name": "independent_deterministic_dfs_simple_path_enumeration",
+    "node_path": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      6
+    ],
+    "edge_path": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        6
+      ]
+    ],
+    "edge_bitstring": "10010001000101",
+    "cost": 10
+  },
+  "agreement": {
+    "same_node_path": true,
+    "same_edge_path": true,
+    "same_cost": true,
+    "valid": true
+  },
+  "exact_reference": {
+    "node_path": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      6
+    ],
+    "edge_path": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        6
+      ]
+    ],
+    "edge_bitstring": "10010001000101",
+    "cost": 10
+  },
+  "simple_path_count": 20,
+  "unique_optimum": true,
+  "second_best_cost": 11,
+  "second_best_route_count": 4,
+  "optimality_gap": 1,
+  "all_simple_paths": [
+    {
+      "node_path": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "edge_bitstring": "10010001000101",
+      "cost": 10,
+      "rank": 1,
+      "is_optimal": true,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "edge_bitstring": "10010010010101",
+      "cost": 11,
+      "rank": 2,
+      "is_optimal": false,
+      "is_second_best": true
+    },
+    {
+      "node_path": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "edge_bitstring": "10010010001001",
+      "cost": 11,
+      "rank": 3,
+      "is_optimal": false,
+      "is_second_best": true
+    },
+    {
+      "node_path": [
+        0,
+        1,
+        2,
+        4,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "edge_bitstring": "10010001000010",
+      "cost": 11,
+      "rank": 4,
+      "is_optimal": false,
+      "is_second_best": true
+    },
+    {
+      "node_path": [
+        0,
+        2,
+        4,
+        5,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "edge_bitstring": "01000001000101",
+      "cost": 11,
+      "rank": 5,
+      "is_optimal": false,
+      "is_second_best": true
+    },
+    {
+      "node_path": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "edge_bitstring": "10010010010010",
+      "cost": 12,
+      "rank": 6,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        1,
+        2,
+        5,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "edge_bitstring": "10010000100001",
+      "cost": 12,
+      "rank": 7,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "edge_bitstring": "10001000010101",
+      "cost": 12,
+      "rank": 8,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        1,
+        3,
+        5,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "edge_bitstring": "10001000001001",
+      "cost": 12,
+      "rank": 9,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "edge_bitstring": "01000010010101",
+      "cost": 12,
+      "rank": 10,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        2,
+        3,
+        5,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "edge_bitstring": "01000010001001",
+      "cost": 12,
+      "rank": 11,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "edge_bitstring": "01000001000010",
+      "cost": 12,
+      "rank": 12,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        1,
+        3,
+        4,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "edge_bitstring": "10001000010010",
+      "cost": 13,
+      "rank": 13,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        1,
+        4,
+        5,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "edge_bitstring": "10000100000101",
+      "cost": 13,
+      "rank": 14,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        2,
+        3,
+        4,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "edge_bitstring": "01000010010010",
+      "cost": 13,
+      "rank": 15,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        2,
+        5,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "edge_bitstring": "01000000100001",
+      "cost": 13,
+      "rank": 16,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        3,
+        4,
+        5,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "edge_bitstring": "00100000010101",
+      "cost": 13,
+      "rank": 17,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        3,
+        5,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          5,
+          6
+        ]
+      ],
+      "edge_bitstring": "00100000001001",
+      "cost": 13,
+      "rank": 18,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        1,
+        4,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "edge_bitstring": "10000100000010",
+      "cost": 14,
+      "rank": 19,
+      "is_optimal": false,
+      "is_second_best": false
+    },
+    {
+      "node_path": [
+        0,
+        3,
+        4,
+        6
+      ],
+      "edge_path": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "edge_bitstring": "00100000010010",
+      "cost": 14,
+      "rank": 20,
+      "is_optimal": false,
+      "is_second_best": false
+    }
+  ],
+  "reference_role": "correctness and evaluation oracle; not a competing algorithm"
+}
