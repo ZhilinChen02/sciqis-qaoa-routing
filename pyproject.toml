@@ -1,29 +1,56 @@
 [project]
 name = "sciqis-qaoa-routing"
-version = "0.1.0"
-description = "A scientific computing study of QAOA mixers for constrained routing"
+version = "3.0.0"
+description = "A transparent graph-to-QAOA study of penalty design for weighted routing"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.11,<3.14"
 dependencies = [
-    "numpy",
-    "scipy",
-    "matplotlib",
-    "pandas",
-    "networkx",
-    "qutip",
+    "matplotlib>=3.8,<4",
+    "networkx>=3.2,<4",
+    "numpy>=2.0,<3",
+    "pillow>=10,<13",
+    "qiskit>=2.2,<3",
+    "scipy>=1.15,<2",
 ]
 
-[dependency-groups]
+[project.optional-dependencies]
+test = [
+    "pytest>=8,<10",
+]
+notebooks = [
+    "ipykernel>=6,<8",
+    "jupyterlab>=4,<5",
+    "nbconvert>=7,<8",
+]
 dev = [
-    "ipykernel",
-    "jupyterlab",
-    "pytest",
-    "ruff",
+    "ipykernel>=6,<8",
+    "jupyterlab>=4,<5",
+    "nbconvert>=7,<8",
+    "pytest>=8,<10",
 ]
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/sciqis_qaoa_routing"]
+[tool.setuptools]
+package-dir = { "" = "src" }
+py-modules = [
+    "circuit",
+    "day1_artifacts",
+    "day2_artifacts",
+    "day3_artifacts",
+    "day4_artifacts",
+    "day5_analysis",
+    "day5_artifacts",
+    "exact_reference",
+    "graph",
+    "ising",
+    "optimization",
+    "profiling",
+    "qubo",
+    "statevector_reference",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -31,6 +31,28 @@ weighted directed graph
   → decoded route
 ```
 
+## Quickstart
+
+The release uses Python 3.11–3.13 with standard `venv` and `pip`. The frozen
+artifacts were produced with Python 3.12.4, NumPy 2.4.6, SciPy 1.18.0, and
+Qiskit 2.4.2.
+
+```bash
+git clone https://github.com/ZhilinChen02/sciqis-qaoa-routing.git
+cd sciqis-qaoa-routing
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
+pytest -q
+python scripts/build_final_report.py
+jupyter lab notebooks/
+```
+
+The build command above uses committed results and does not rerun the expensive
+24-run optimization. The four numbered notebooks are teaching narratives over
+the same reusable `src/` implementation and saved artifacts.
+
 ## Frozen instance and contracts
 
 - 7 nodes, 14 directed weighted edges, 14 edge qubits.
@@ -119,6 +141,7 @@ evolution/objective evaluation dominates the complete optimization workflow.
 
 - [Final course-project report](reports/final_course_project_report.md)
 - [15-minute presentation outline](reports/presentation_outline_15min.md)
+- [Frozen v3.0 course proposal](docs/DTU_SCIQIS_QAOA_Routing_Project_Proposal_v3.0.docx)
 - [Final machine-readable summary](results/final_project_summary.json)
 - [Figure 1–13 manifest](results/final_figure_manifest.json)
 - [Primary core result figure](figures/09_penalty_depth_core_results.svg)
@@ -154,16 +177,17 @@ unchanged contract:
 python scripts/run_day4_core_experiment.py --overwrite
 ```
 
-Official tracked tests:
+Unfiltered release tests:
 
 ```bash
-pytest -q $(git ls-files 'tests/test_*.py')
+pytest -q
 ```
 
 ## Repository structure
 
 - `data/` — immutable graph, penalty, circuit, optimization, analysis, and
   final scientific-freeze contracts.
+- `docs/` — the course proposal aligned with the frozen v3.0 scope.
 - `src/` — graph/QUBO/Ising logic, explicit circuits, independent statevector,
   optimization metrics, sampling, profiling, and artifact builders.
 - `results/` — exact references, all-start optimization data, finite-shot raw
@@ -176,6 +200,10 @@ pytest -q $(git ls-files 'tests/test_*.py')
 - `tests/` — focused identity, exhaustive-model, circuit, result, sampling,
   profiling, and reporting checks.
 
+The repository uses `pyproject.toml` as its single dependency and build
+contract. The optional `test`, `notebooks`, and combined `dev` groups keep
+runtime requirements separate from development tools.
+
 ## Evidence boundary
 
 This is one small graph studied with ideal statevector simulation, shallow
@@ -183,3 +211,7 @@ p=1/p=2 circuits, three optimizer starts, and a fixed evaluation budget. The
 finite-shot section samples an exact probability vector rather than hardware.
 No quantum advantage is claimed, and the results should not be generalized
 beyond this frozen course-project scope without a new version and protocol.
+
+The repository currently carries no open-source license. The historical
+`LICENSE` placeholder was empty; the owner must choose a license before reuse
+rights can be granted.
