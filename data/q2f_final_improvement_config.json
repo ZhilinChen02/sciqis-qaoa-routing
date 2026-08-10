@@ -1,0 +1,100 @@
+{
+  "schema": "dtu-sciqis-q2f-final-improvement-config",
+  "version": "1.0",
+  "status": "FROZEN_BEFORE_EXECUTION",
+  "scope": "one bounded final course-project development study",
+  "graph_path": "data/graph.json",
+  "existing_q2f": {
+    "run_identity": "q2f-33955d1f3f1c1c4a435ba0945848224f32ff32d8f1a3b80f630858d9aa91e2c7",
+    "result_manifest_sha256": "dfa0313b198824f5925f00494a307311445bd7ac08786f1e16570993d919f99b",
+    "use": "read-only comparison"
+  },
+  "existing_q2r": {
+    "run_identity": "q2r-9c98b90049545d0508fb20bb488019608a4356d55fe91ff809bce8dc5c5e0c69",
+    "result_manifest_sha256": "896fdbf45bbf19d04f74a802e78739714d286beabf322db6ef8f3594679411d1",
+    "use": "immutability verification only"
+  },
+  "basis": {
+    "required_route_count": 20,
+    "source": "reuse exact existing Q2-F feasible basis",
+    "ordering": "routing_cost_then_lexicographic_node_sequence"
+  },
+  "incumbent_threshold": {
+    "definition": "C(P_i) < C(P_incumbent)",
+    "strict": true,
+    "optimum_identity_used": false
+  },
+  "methods": [
+    {
+      "id": "bsp_path_exchange",
+      "initialization": "incumbent_biased_feasible",
+      "bias_lambda": 1.0,
+      "mixer": "logical_path_exchange_mixer",
+      "phase": "ordinary_normalized_route_cost",
+      "loss": "-sum_probability_where_raw_cost_strictly_less_than_incumbent_cost"
+    },
+    {
+      "id": "gm_qaoa_expectation",
+      "initialization": "uniform_feasible",
+      "mixer": "exp(-i beta |F><F|)",
+      "phase": "ordinary_normalized_route_cost",
+      "loss": "expected_normalized_route_cost"
+    },
+    {
+      "id": "gm_th_qaoa",
+      "initialization": "uniform_feasible",
+      "mixer": "exp(-i beta |F><F|)",
+      "phase": "exp(-i gamma h_T), h_T=1 iff raw_cost<incumbent_raw_cost",
+      "loss": "-sum_probability_where_h_T_equals_1"
+    }
+  ],
+  "depths": [1, 2, 3, 4],
+  "seeds": [2601, 2602, 2603],
+  "optimizer": {
+    "name": "COBYLA",
+    "implementation": "scipy.optimize.minimize",
+    "objective_evaluation_cap": 150,
+    "gamma_bounds": [0.0, 6.283185307179586],
+    "beta_bounds": [0.0, 3.141592653589793],
+    "rhobeg": 0.5,
+    "tolerance": 1e-8,
+    "constraint_tolerance": 1e-8,
+    "parameter_initialization": "numpy.random.default_rng(seed), all gammas then all betas",
+    "parameter_order": "all_gammas_then_all_betas",
+    "layer_order": "phase_then_mixer"
+  },
+  "required_run_count": 36,
+  "feasibility_tolerance": 1e-12,
+  "success_rule": {
+    "reference_p_opt": 0.2649009394,
+    "relative_multiplier": 1.1,
+    "required_median_p_opt": 0.29139103334,
+    "also_require_p_feas_within_tolerance": true,
+    "selection": [
+      "highest_median_p_opt",
+      "if_within_0.01_absolute_prefer_lower_depth",
+      "if_still_tied_prefer_simpler_method"
+    ],
+    "simplicity_order": [
+      "bsp_path_exchange",
+      "gm_qaoa_expectation",
+      "gm_th_qaoa"
+    ],
+    "failure_recommendation": "FREEZE_EXISTING_Q2F"
+  },
+  "retention": {
+    "retain_every_run_once": true,
+    "retain_nonconvergence": true,
+    "retain_budget_exhaustion": true,
+    "replacement_seed": false,
+    "outcome_dependent_rerun": false
+  },
+  "claim_boundary": {
+    "classical_route_enumeration": true,
+    "structural_feasibility": true,
+    "confirmatory_experiment": false,
+    "scalable_routing_claim": false,
+    "quantum_advantage_claim": false,
+    "statistical_significance_claim": false
+  }
+}

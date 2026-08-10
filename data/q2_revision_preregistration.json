@@ -1,0 +1,354 @@
+{
+  "schema": "dtu-sciqis-q2-revision-preregistration",
+  "version": "1.0",
+  "status": "FROZEN_NOT_EXECUTED",
+  "date_frozen": "2026-08-10",
+  "formal_execution_authorized": false,
+  "smoke_data_status": "DEVELOPMENT_ONLY_NOT_CONFIRMATORY",
+  "scientific_question": "On the one frozen directed weighted routing instance, how do a lower-tail CVaR optimization objective and observable incremental depth, separately and jointly, change final solution concentration under the existing incumbent-product aligned-state/aligned-mixer Q2 algorithm?",
+  "scope": {
+    "algorithm_count": 1,
+    "algorithm": "Q2-R incumbent-product aligned-mixer Warm-Start QAOA",
+    "graph_path": "data/graph.json",
+    "graph_sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+    "frozen_historical_config_path": "results/baseline/experiment_config.json",
+    "frozen_historical_config_sha256": "4273d0d5ed5f4f16221d14ae2005b5e7c132a30ca157ae68d6e62a53a86ebbd2"
+  },
+  "hypotheses": [
+    {
+      "id": "H_objective",
+      "type": "non_directional_factorial_main_effect",
+      "statement": "Holding depth policy fixed, CVaR(0.25) changes final p_opt and p_feas relative to expectation optimization."
+    },
+    {
+      "id": "H_depth_policy",
+      "type": "non_directional_factorial_main_effect",
+      "statement": "Holding objective mode fixed and total objective-evaluation budget at 300, incremental p=1->2->3 changes final p_opt and p_feas relative to fixed p=3."
+    },
+    {
+      "id": "H_interaction",
+      "type": "non_directional_factorial_interaction",
+      "statement": "The change associated with CVaR(0.25) differs between fixed and incremental depth policies."
+    }
+  ],
+  "interpretation_scope": {
+    "instance_count": 1,
+    "inference": "deterministic instance-specific factorial contrasts; no population-level or quantum-advantage claim",
+    "winner_selection": "none; report every retained arm"
+  },
+  "frozen_historical_q2": {
+    "warm_start_epsilon": 0.1,
+    "incumbent_construction": "deterministic lightest outgoing edge that can still reach the target; ties by node id",
+    "warm_start_mode": "incumbent_product_aligned_existing",
+    "mixer_mode": "incumbent_dependent_aligned_existing",
+    "mixer_scale_mode": "inverse_num_qubits_existing",
+    "mixer_scale": "beta / num_qubits",
+    "parameter_order": "all gammas followed by all betas",
+    "layer_order": "cost then mixer",
+    "fixed_penalty": 6.0,
+    "cost_hamiltonian": "historical fixed directed-flow QUBO mapped with x_i=(1-Z_i)/2 and the historical affine normalization",
+    "decoder": "historical independent directed source-to-target route decoder"
+  },
+  "objective_factor": {
+    "levels": [
+      {
+        "mode": "expectation",
+        "cvar_alpha": null
+      },
+      {
+        "mode": "cvar",
+        "cvar_alpha": 0.25,
+        "tail": "lowest-energy probability mass",
+        "cutoff": "partial probability atom at the discrete cutoff"
+      }
+    ],
+    "alpha_policy": {
+      "primary_alpha": 0.25,
+      "alpha_one_status": "mathematical optimizer-equivalence test only",
+      "primary_alpha_sweep": false,
+      "smoke_result_used_for_selection": false
+    }
+  },
+  "depth_factor": {
+    "levels": [
+      "fixed_p3",
+      "incremental_p1_to_p2_to_p3"
+    ],
+    "initial_depth_incremental": 1,
+    "maximum_depth": 3,
+    "transfer_mode": "neutral_zero_append_grouped",
+    "first_transfer": "p=2 is attempted after p=1 whenever the arm has a finite retained p=1 result and budget remains; p=1 optimizer progress is recorded but is not a depth gain and does not gate p=2",
+    "substantive_trigger": "marginal_depth_gain_relative > 0.01",
+    "numerical_guard": "marginal_depth_gain_absolute > 1e-12",
+    "p3_decision": "attempt p=3 if and only if both p=2 gain conditions pass and budget remains",
+    "marginal_depth_gain_absolute": "final_objective_at_parent_depth - final_objective_at_transferred_child_depth",
+    "marginal_depth_gain_relative": "marginal_depth_gain_absolute / max(abs(final_objective_at_parent_depth), 1e-12)",
+    "neutral_transfer_tolerance": 1e-12
+  },
+  "optimizer": {
+    "name": "COBYLA",
+    "implementation": "historical scipy.optimize.minimize wrapper",
+    "initialization_strategy": "source_uniform",
+    "random_generator": "numpy.random.default_rng(seed)",
+    "draw_order": "all gamma coordinates then all beta coordinates",
+    "gamma_bounds": {
+      "lower": 0.0,
+      "upper": 6.283185307179586,
+      "symbolic_upper": "2*pi"
+    },
+    "beta_bounds": {
+      "lower": 0.0,
+      "upper": 3.141592653589793,
+      "symbolic_upper": "pi"
+    },
+    "rhobeg": 0.5,
+    "tolerance": 1e-08,
+    "constraint_tolerance": 1e-08
+  },
+  "seed_policy": {
+    "seeds": [
+      2601
+    ],
+    "multistart_count_per_arm": 1,
+    "policy": "one historical seeded start per arm",
+    "additional_seeds_after_results": false,
+    "replacement_seed_on_failure": false
+  },
+  "budget": {
+    "historical_per_depth_objective_evaluation_budget_B": 100,
+    "source_field": "results/baseline/experiment_config.json::optimizer_budget",
+    "unused_incremental_budget_reallocated": false,
+    "fixed_p1_diagnostic": 100,
+    "fixed_p2_diagnostic": 200,
+    "fixed_p3_primary": 300,
+    "incremental_per_attempted_depth": 100,
+    "incremental_total_cap": 300,
+    "objective_call_accounting": {
+      "unit": "one budget-counted optimization-objective request",
+      "initial_diagnostic": "computed once, cached as COBYLA's first request, and charged exactly once",
+      "neutral_transfer_diagnostic": "computed once, cached as COBYLA's first request at the transferred depth, and charged exactly once",
+      "optimizer_requests": "every COBYLA request counts, including an out-of-bounds penalty request",
+      "post_optimizer_objective_recomputation": false,
+      "final_metric_calculations": "not optimizer objective calls; reported separately with statevector-evaluation accounting",
+      "fixed_and_incremental_semantics_identical": true,
+      "required_records": [
+        "objective_evaluations_per_depth",
+        "cumulative_objective_evaluations",
+        "objective_trace",
+        "statevector_evaluations_per_depth",
+        "cumulative_statevector_evaluations"
+      ]
+    }
+  },
+  "primary_arms": {
+    "A0": {
+      "identity": "expectation + fixed p=3",
+      "q2_config": {
+        "objective_mode": "expectation",
+        "cvar_alpha": null,
+        "depth_mode": "fixed",
+        "initial_depth": 3,
+        "max_depth": 3,
+        "per_depth_budget": 300,
+        "total_cumulative_budget": 300,
+        "seed": 2601,
+        "optimizer_tolerance": 1e-08,
+        "optimizer_rhobeg": 0.5,
+        "initialization_strategy": "source_uniform",
+        "warm_start_mode": "incumbent_product_aligned_existing",
+        "mixer_mode": "incumbent_dependent_aligned_existing",
+        "mixer_scale_mode": "inverse_num_qubits_existing",
+        "transfer_mode": "neutral_zero_append_grouped",
+        "depth_trigger": {
+          "mode": "objective_improvement",
+          "absolute_improvement_tolerance": 1e-12,
+          "relative_improvement_tolerance": 0.01,
+          "relative_scale_floor": 1e-12
+        }
+      }
+    },
+    "A1": {
+      "identity": "CVaR(0.25) + fixed p=3",
+      "q2_config": {
+        "objective_mode": "cvar",
+        "cvar_alpha": 0.25,
+        "depth_mode": "fixed",
+        "initial_depth": 3,
+        "max_depth": 3,
+        "per_depth_budget": 300,
+        "total_cumulative_budget": 300,
+        "seed": 2601,
+        "optimizer_tolerance": 1e-08,
+        "optimizer_rhobeg": 0.5,
+        "initialization_strategy": "source_uniform",
+        "warm_start_mode": "incumbent_product_aligned_existing",
+        "mixer_mode": "incumbent_dependent_aligned_existing",
+        "mixer_scale_mode": "inverse_num_qubits_existing",
+        "transfer_mode": "neutral_zero_append_grouped",
+        "depth_trigger": {
+          "mode": "objective_improvement",
+          "absolute_improvement_tolerance": 1e-12,
+          "relative_improvement_tolerance": 0.01,
+          "relative_scale_floor": 1e-12
+        }
+      }
+    },
+    "A2": {
+      "identity": "expectation + incremental p=1->2->3",
+      "q2_config": {
+        "objective_mode": "expectation",
+        "cvar_alpha": null,
+        "depth_mode": "incremental",
+        "initial_depth": 1,
+        "max_depth": 3,
+        "per_depth_budget": 100,
+        "total_cumulative_budget": 300,
+        "seed": 2601,
+        "optimizer_tolerance": 1e-08,
+        "optimizer_rhobeg": 0.5,
+        "initialization_strategy": "source_uniform",
+        "warm_start_mode": "incumbent_product_aligned_existing",
+        "mixer_mode": "incumbent_dependent_aligned_existing",
+        "mixer_scale_mode": "inverse_num_qubits_existing",
+        "transfer_mode": "neutral_zero_append_grouped",
+        "depth_trigger": {
+          "mode": "objective_improvement",
+          "absolute_improvement_tolerance": 1e-12,
+          "relative_improvement_tolerance": 0.01,
+          "relative_scale_floor": 1e-12
+        }
+      }
+    },
+    "A3": {
+      "identity": "CVaR(0.25) + incremental p=1->2->3",
+      "q2_config": {
+        "objective_mode": "cvar",
+        "cvar_alpha": 0.25,
+        "depth_mode": "incremental",
+        "initial_depth": 1,
+        "max_depth": 3,
+        "per_depth_budget": 100,
+        "total_cumulative_budget": 300,
+        "seed": 2601,
+        "optimizer_tolerance": 1e-08,
+        "optimizer_rhobeg": 0.5,
+        "initialization_strategy": "source_uniform",
+        "warm_start_mode": "incumbent_product_aligned_existing",
+        "mixer_mode": "incumbent_dependent_aligned_existing",
+        "mixer_scale_mode": "inverse_num_qubits_existing",
+        "transfer_mode": "neutral_zero_append_grouped",
+        "depth_trigger": {
+          "mode": "objective_improvement",
+          "absolute_improvement_tolerance": 1e-12,
+          "relative_improvement_tolerance": 0.01,
+          "relative_scale_floor": 1e-12
+        }
+      }
+    }
+  },
+  "diagnostic_controls": [
+    {
+      "objective_mode": "expectation",
+      "cvar_alpha": null,
+      "depth": 1,
+      "objective_evaluation_budget": 100,
+      "status": "diagnostic_not_primary"
+    },
+    {
+      "objective_mode": "cvar",
+      "cvar_alpha": 0.25,
+      "depth": 1,
+      "objective_evaluation_budget": 100,
+      "status": "diagnostic_not_primary"
+    },
+    {
+      "objective_mode": "expectation",
+      "cvar_alpha": null,
+      "depth": 2,
+      "objective_evaluation_budget": 200,
+      "status": "diagnostic_not_primary"
+    },
+    {
+      "objective_mode": "cvar",
+      "cvar_alpha": 0.25,
+      "depth": 2,
+      "objective_evaluation_budget": 200,
+      "status": "diagnostic_not_primary"
+    }
+  ],
+  "endpoints": {
+    "primary": [
+      "p_opt",
+      "p_feas"
+    ],
+    "diagnostic": [
+      "invalid_probability_mass",
+      "final_expectation_value",
+      "final_expected_energy",
+      "feasible_conditional_cost",
+      "best_decoded_route",
+      "best_decoded_cost",
+      "incumbent_probability",
+      "optimal_state_rank",
+      "circuit_depth",
+      "two_qubit_gate_count",
+      "cumulative_objective_evaluations",
+      "cumulative_statevector_evaluations",
+      "cumulative_runtime"
+    ],
+    "optimization_objective_is_not_endpoint_substitute": true,
+    "exact_optimum_use": "final p_opt evaluation only; prohibited from alpha, epsilon, depth, stopping, optimizer, seed, or run-retention decisions"
+  },
+  "stopping_rules": {
+    "fixed": "one optimization at the declared fixed depth, stopping on historical COBYLA convergence/failure or the declared hard objective-evaluation cap",
+    "incremental_p1": "retain the finite p=1 result and attempt p=2 if budget remains; p=1 progress does not gate depth",
+    "incremental_p2": "attempt p=3 only when marginal_depth_gain_relative > 0.01 and marginal_depth_gain_absolute > 1e-12 and budget remains",
+    "incremental_p3": "stop after p=3 because max_depth=3",
+    "early_stop_budget": "unused budget is not reallocated to another depth, arm, or seed",
+    "hard_failure": "stop the affected arm on non-finite objective, neutral-transfer equivalence violation, or unrecoverable execution error"
+  },
+  "failure_retention": {
+    "retain_all_started_arms": true,
+    "retain_optimizer_non_success_with_finite_best": true,
+    "evaluation_budget_exhaustion": "retain best finite parameters as the depth result",
+    "hard_failure": "record the failure, completed trace, consumed budget, and stop reason",
+    "replacement_run": false,
+    "replacement_seed": false,
+    "exclude_after_outcome_review": false
+  },
+  "reporting": {
+    "primary_comparison": "2x2 factorial A0-A3",
+    "primary_contrasts": [
+      "objective main effect averaged descriptively across depth policies",
+      "depth-policy main effect averaged descriptively across objectives",
+      "objective-by-depth-policy interaction contrast"
+    ],
+    "diagnostic_controls": "fixed p=1 and fixed p=2 budget-matched runs for both objective modes",
+    "report_all_arms": true,
+    "report_failures": true,
+    "smoke_values_in_confirmatory_tables": false
+  },
+  "prohibited_post_hoc_changes": [
+    "change alpha or add a primary alpha sweep",
+    "change epsilon or incumbent construction",
+    "change p_max, transfer, or depth trigger after inspecting outcomes",
+    "change per-depth or cumulative budgets",
+    "reallocate unused incremental budget",
+    "add, remove, or replace seeds or multistarts",
+    "change optimizer, bounds, initialization, rhobeg, or tolerance",
+    "select an arm or depth using p_opt or the known optimum",
+    "drop failed or unfavorable arms",
+    "reinterpret smoke data as confirmatory evidence",
+    "replace p_feas, p_opt, or ordinary expectation with CVaR",
+    "claim the combined ingredients as novel"
+  ],
+  "execution_gate": {
+    "required_before_formal_run": [
+      "preregistration JSON SHA-256 recorded",
+      "historical Q2 versus A0 state and optimizer-trajectory equivalence tests pass",
+      "neutral-transfer equivalence and objective-accounting tests pass",
+      "full pytest suite passes",
+      "separate user authorization to run the formal experiment"
+    ]
+  }
+}

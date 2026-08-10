@@ -1,0 +1,151 @@
+{
+  "schema": "dtu-sciqis-q2-revision-execution-manifest",
+  "version": "1.0",
+  "scope": "formal Q2-R execution source and scientific configuration; generated results excluded",
+  "current_git_head": "aa71b9df33ef61ccd47aea00ab476638bb8bc408",
+  "environment": {
+    "python": "3.12.4",
+    "numpy": "2.4.6",
+    "scipy": "1.18.0",
+    "qiskit": "2.4.2"
+  },
+  "file_count": 15,
+  "files": [
+    {
+      "path": "data/graph.json",
+      "sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+      "size_bytes": 1259,
+      "git_state": [
+        "tracked-clean"
+      ],
+      "git_porcelain_xy": "  "
+    },
+    {
+      "path": "data/q2_revision_preregistration.json",
+      "sha256": "273304603e2357e35e958048b51fb8e58eae8dc02d9ae3c42090ac5b5456258f",
+      "size_bytes": 14203,
+      "git_state": [
+        "untracked"
+      ],
+      "git_porcelain_xy": "??"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "c5f298a1f442d5b278dc57c39e56e09a58bc9b032afb3fb659274154b4ab685d",
+      "size_bytes": 809,
+      "git_state": [
+        "staged",
+        "tracked-modified"
+      ],
+      "git_porcelain_xy": "MM"
+    },
+    {
+      "path": "results/baseline/experiment_config.json",
+      "sha256": "4273d0d5ed5f4f16221d14ae2005b5e7c132a30ca157ae68d6e62a53a86ebbd2",
+      "size_bytes": 520,
+      "git_state": [
+        "staged"
+      ],
+      "git_porcelain_xy": "A "
+    },
+    {
+      "path": "src/exact_reference.py",
+      "sha256": "c788e928d6a6a44ca28cd94f255ffa4661bc451f3da8393691e92dbf0a4ef639",
+      "size_bytes": 7913,
+      "git_state": [
+        "tracked-clean"
+      ],
+      "git_porcelain_xy": "  "
+    },
+    {
+      "path": "src/graph.py",
+      "sha256": "827bcc2d72bcfce9a20f8f195aaf06f148f220542edb792dcbcc375f2c3227ac",
+      "size_bytes": 14861,
+      "git_state": [
+        "tracked-clean"
+      ],
+      "git_porcelain_xy": "  "
+    },
+    {
+      "path": "src/ising.py",
+      "sha256": "0729a01125f218189e3d9acf7d711600458d79148b1a0d6312d7231def29629c",
+      "size_bytes": 3048,
+      "git_state": [
+        "tracked-clean"
+      ],
+      "git_porcelain_xy": "  "
+    },
+    {
+      "path": "src/metrics.py",
+      "sha256": "2b896f126aaff5277d8185e728e4b95f594ef1404a45099bbb08745026eefb75",
+      "size_bytes": 4285,
+      "git_state": [
+        "staged"
+      ],
+      "git_porcelain_xy": "A "
+    },
+    {
+      "path": "src/objectives.py",
+      "sha256": "163a1c407385d32fb44842e4bc903ad3842b32e564d984c87bbd8d2bcb04a185",
+      "size_bytes": 6460,
+      "git_state": [
+        "untracked"
+      ],
+      "git_porcelain_xy": "??"
+    },
+    {
+      "path": "src/optimization.py",
+      "sha256": "7ef79520f08792a7ed6c3cbbe0b2c5043082a276f498dafb69255b7967798c9b",
+      "size_bytes": 5447,
+      "git_state": [
+        "staged"
+      ],
+      "git_porcelain_xy": "M "
+    },
+    {
+      "path": "src/q2_revision.py",
+      "sha256": "6e9eeada29fb01853ff64ab417b428287412f841cdf096c422e10b5afc9b071d",
+      "size_bytes": 38404,
+      "git_state": [
+        "untracked"
+      ],
+      "git_porcelain_xy": "??"
+    },
+    {
+      "path": "src/qaoa.py",
+      "sha256": "f596c290edc0598cd6d38e96ad796fa270a85566107be703e93c235c8460587a",
+      "size_bytes": 7449,
+      "git_state": [
+        "staged"
+      ],
+      "git_porcelain_xy": "A "
+    },
+    {
+      "path": "src/qubo.py",
+      "sha256": "14c8c8a6193432b1aeed77ff4ae883940c7ae25202263ab08b62e95f4dcb214f",
+      "size_bytes": 14740,
+      "git_state": [
+        "tracked-clean"
+      ],
+      "git_porcelain_xy": "  "
+    },
+    {
+      "path": "src/tuning.py",
+      "sha256": "c24adcc97d9d65df2d7c8fafbe0fccf47cb29b5c228b5b397d23927de6aaf47f",
+      "size_bytes": 14059,
+      "git_state": [
+        "staged"
+      ],
+      "git_porcelain_xy": "A "
+    },
+    {
+      "path": "src/warm_start.py",
+      "sha256": "038f235e9546214bc32e8904cb5b59ab583cae334dd0463b7544bed61c3d6da4",
+      "size_bytes": 7379,
+      "git_state": [
+        "staged"
+      ],
+      "git_porcelain_xy": "A "
+    }
+  ]
+}

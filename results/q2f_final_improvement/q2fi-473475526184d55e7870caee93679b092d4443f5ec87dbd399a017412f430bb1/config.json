@@ -1,0 +1,164 @@
+{
+  "config_sha256": "c89ad9b70ead5f2309a53afdd955de176d5f2d2773fc30bfdbb7dd22926ada38",
+  "frozen_config": {
+    "basis": {
+      "ordering": "routing_cost_then_lexicographic_node_sequence",
+      "required_route_count": 20,
+      "source": "reuse exact existing Q2-F feasible basis"
+    },
+    "claim_boundary": {
+      "classical_route_enumeration": true,
+      "confirmatory_experiment": false,
+      "quantum_advantage_claim": false,
+      "scalable_routing_claim": false,
+      "statistical_significance_claim": false,
+      "structural_feasibility": true
+    },
+    "depths": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "existing_q2f": {
+      "result_manifest_sha256": "dfa0313b198824f5925f00494a307311445bd7ac08786f1e16570993d919f99b",
+      "run_identity": "q2f-33955d1f3f1c1c4a435ba0945848224f32ff32d8f1a3b80f630858d9aa91e2c7",
+      "use": "read-only comparison"
+    },
+    "existing_q2r": {
+      "result_manifest_sha256": "896fdbf45bbf19d04f74a802e78739714d286beabf322db6ef8f3594679411d1",
+      "run_identity": "q2r-9c98b90049545d0508fb20bb488019608a4356d55fe91ff809bce8dc5c5e0c69",
+      "use": "immutability verification only"
+    },
+    "feasibility_tolerance": 1e-12,
+    "graph_path": "data/graph.json",
+    "incumbent_threshold": {
+      "definition": "C(P_i) < C(P_incumbent)",
+      "optimum_identity_used": false,
+      "strict": true
+    },
+    "methods": [
+      {
+        "bias_lambda": 1.0,
+        "id": "bsp_path_exchange",
+        "initialization": "incumbent_biased_feasible",
+        "loss": "-sum_probability_where_raw_cost_strictly_less_than_incumbent_cost",
+        "mixer": "logical_path_exchange_mixer",
+        "phase": "ordinary_normalized_route_cost"
+      },
+      {
+        "id": "gm_qaoa_expectation",
+        "initialization": "uniform_feasible",
+        "loss": "expected_normalized_route_cost",
+        "mixer": "exp(-i beta |F><F|)",
+        "phase": "ordinary_normalized_route_cost"
+      },
+      {
+        "id": "gm_th_qaoa",
+        "initialization": "uniform_feasible",
+        "loss": "-sum_probability_where_h_T_equals_1",
+        "mixer": "exp(-i beta |F><F|)",
+        "phase": "exp(-i gamma h_T), h_T=1 iff raw_cost<incumbent_raw_cost"
+      }
+    ],
+    "optimizer": {
+      "beta_bounds": [
+        0.0,
+        3.141592653589793
+      ],
+      "constraint_tolerance": 1e-08,
+      "gamma_bounds": [
+        0.0,
+        6.283185307179586
+      ],
+      "implementation": "scipy.optimize.minimize",
+      "layer_order": "phase_then_mixer",
+      "name": "COBYLA",
+      "objective_evaluation_cap": 150,
+      "parameter_initialization": "numpy.random.default_rng(seed), all gammas then all betas",
+      "parameter_order": "all_gammas_then_all_betas",
+      "rhobeg": 0.5,
+      "tolerance": 1e-08
+    },
+    "required_run_count": 36,
+    "retention": {
+      "outcome_dependent_rerun": false,
+      "replacement_seed": false,
+      "retain_budget_exhaustion": true,
+      "retain_every_run_once": true,
+      "retain_nonconvergence": true
+    },
+    "schema": "dtu-sciqis-q2f-final-improvement-config",
+    "scope": "one bounded final course-project development study",
+    "seeds": [
+      2601,
+      2602,
+      2603
+    ],
+    "status": "FROZEN_BEFORE_EXECUTION",
+    "success_rule": {
+      "also_require_p_feas_within_tolerance": true,
+      "failure_recommendation": "FREEZE_EXISTING_Q2F",
+      "reference_p_opt": 0.2649009394,
+      "relative_multiplier": 1.1,
+      "required_median_p_opt": 0.29139103334,
+      "selection": [
+        "highest_median_p_opt",
+        "if_within_0.01_absolute_prefer_lower_depth",
+        "if_still_tied_prefer_simpler_method"
+      ],
+      "simplicity_order": [
+        "bsp_path_exchange",
+        "gm_qaoa_expectation",
+        "gm_th_qaoa"
+      ]
+    },
+    "version": "1.0"
+  },
+  "graph_sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+  "identity_scheme": "q2fi- + sha256(graph_sha256 + newline + source_bundle_sha256 + newline + config_sha256 + newline)",
+  "preflight": {
+    "basis_size": 20,
+    "better_route_count": 1,
+    "better_route_ids_constructed_without_optimum": [
+      0
+    ],
+    "config_sha256": "c89ad9b70ead5f2309a53afdd955de176d5f2d2773fc30bfdbb7dd22926ada38",
+    "graph_sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+    "incumbent_raw_cost": 11.0,
+    "incumbent_route": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "incumbent_route_id": 1,
+    "old_seals": {
+      "q2f": {
+        "artifact_integrity": "PASS",
+        "identity": "q2f-33955d1f3f1c1c4a435ba0945848224f32ff32d8f1a3b80f630858d9aa91e2c7",
+        "result_manifest_sha256": "dfa0313b198824f5925f00494a307311445bd7ac08786f1e16570993d919f99b",
+        "verified_artifact_count": 51
+      },
+      "q2r": {
+        "artifact_integrity": "PASS",
+        "identity": "q2r-9c98b90049545d0508fb20bb488019608a4356d55fe91ff809bce8dc5c5e0c69",
+        "result_manifest_sha256": "896fdbf45bbf19d04f74a802e78739714d286beabf322db6ef8f3594679411d1",
+        "verified_artifact_count": 15
+      }
+    },
+    "path_exchange_count": 106,
+    "post_construction_bsp_equals_p_opt_on_instance": true,
+    "result_root": "/home/zwq152/PycharmProjects/sciqis-qaoa-routing/results/q2f_final_improvement/q2fi-473475526184d55e7870caee93679b092d4443f5ec87dbd399a017412f430bb1",
+    "result_root_absent": true,
+    "run_identity": "q2fi-473475526184d55e7870caee93679b092d4443f5ec87dbd399a017412f430bb1",
+    "source_bundle_sha256": "5e190a5ebff162277e555a980b43655f9e489f73e6594f8f961ffc101438b20b"
+  },
+  "run_identity": "q2fi-473475526184d55e7870caee93679b092d4443f5ec87dbd399a017412f430bb1",
+  "schema": "dtu-sciqis-q2f-final-improvement-execution-config",
+  "source_bundle_sha256": "5e190a5ebff162277e555a980b43655f9e489f73e6594f8f961ffc101438b20b",
+  "version": "1.0"
+}

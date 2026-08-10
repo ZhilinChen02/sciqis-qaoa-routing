@@ -1,0 +1,2437 @@
+{
+  "basis": {
+    "basis_size": 20,
+    "exact_optimal_route": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      6
+    ],
+    "exact_optimal_route_id": 0,
+    "incumbent_route": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "incumbent_route_id": 1,
+    "ordering": "routing_cost_then_lexicographic_node_sequence",
+    "routes": [
+      {
+        "edge_bitstring": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        "edge_bitstring_text": "10010001000101",
+        "edge_sequence": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "exact_optimal": true,
+        "node_sequence": [
+          0,
+          1,
+          2,
+          4,
+          5,
+          6
+        ],
+        "route_id": 0,
+        "routing_cost": 10
+      },
+      {
+        "edge_bitstring": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "edge_bitstring_text": "10010010010101",
+        "edge_sequence": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "route_id": 1,
+        "routing_cost": 11
+      },
+      {
+        "edge_bitstring": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "edge_bitstring_text": "10010010001001",
+        "edge_sequence": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          1,
+          2,
+          3,
+          5,
+          6
+        ],
+        "route_id": 2,
+        "routing_cost": 11
+      },
+      {
+        "edge_bitstring": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "edge_bitstring_text": "10010001000010",
+        "edge_sequence": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          1,
+          2,
+          4,
+          6
+        ],
+        "route_id": 3,
+        "routing_cost": 11
+      },
+      {
+        "edge_bitstring": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        "edge_bitstring_text": "01000001000101",
+        "edge_sequence": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          2,
+          4,
+          5,
+          6
+        ],
+        "route_id": 4,
+        "routing_cost": 11
+      },
+      {
+        "edge_bitstring": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "edge_bitstring_text": "10010010010010",
+        "edge_sequence": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          6
+        ],
+        "route_id": 5,
+        "routing_cost": 12
+      },
+      {
+        "edge_bitstring": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "edge_bitstring_text": "10010000100001",
+        "edge_sequence": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          1,
+          2,
+          5,
+          6
+        ],
+        "route_id": 6,
+        "routing_cost": 12
+      },
+      {
+        "edge_bitstring": [
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "edge_bitstring_text": "10001000010101",
+        "edge_sequence": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          1,
+          3,
+          4,
+          5,
+          6
+        ],
+        "route_id": 7,
+        "routing_cost": 12
+      },
+      {
+        "edge_bitstring": [
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "edge_bitstring_text": "10001000001001",
+        "edge_sequence": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          1,
+          3,
+          5,
+          6
+        ],
+        "route_id": 8,
+        "routing_cost": 12
+      },
+      {
+        "edge_bitstring": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "edge_bitstring_text": "01000010010101",
+        "edge_sequence": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "route_id": 9,
+        "routing_cost": 12
+      },
+      {
+        "edge_bitstring": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "edge_bitstring_text": "01000010001001",
+        "edge_sequence": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          2,
+          3,
+          5,
+          6
+        ],
+        "route_id": 10,
+        "routing_cost": 12
+      },
+      {
+        "edge_bitstring": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "edge_bitstring_text": "01000001000010",
+        "edge_sequence": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            4
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          2,
+          4,
+          6
+        ],
+        "route_id": 11,
+        "routing_cost": 12
+      },
+      {
+        "edge_bitstring": [
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "edge_bitstring_text": "10001000010010",
+        "edge_sequence": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          1,
+          3,
+          4,
+          6
+        ],
+        "route_id": 12,
+        "routing_cost": 13
+      },
+      {
+        "edge_bitstring": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        "edge_bitstring_text": "10000100000101",
+        "edge_sequence": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          1,
+          4,
+          5,
+          6
+        ],
+        "route_id": 13,
+        "routing_cost": 13
+      },
+      {
+        "edge_bitstring": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "edge_bitstring_text": "01000010010010",
+        "edge_sequence": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          2,
+          3,
+          4,
+          6
+        ],
+        "route_id": 14,
+        "routing_cost": 13
+      },
+      {
+        "edge_bitstring": [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "edge_bitstring_text": "01000000100001",
+        "edge_sequence": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          2,
+          5,
+          6
+        ],
+        "route_id": 15,
+        "routing_cost": 13
+      },
+      {
+        "edge_bitstring": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "edge_bitstring_text": "00100000010101",
+        "edge_sequence": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          3,
+          4,
+          5,
+          6
+        ],
+        "route_id": 16,
+        "routing_cost": 13
+      },
+      {
+        "edge_bitstring": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1
+        ],
+        "edge_bitstring_text": "00100000001001",
+        "edge_sequence": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            5
+          ],
+          [
+            5,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          3,
+          5,
+          6
+        ],
+        "route_id": 17,
+        "routing_cost": 13
+      },
+      {
+        "edge_bitstring": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "edge_bitstring_text": "10000100000010",
+        "edge_sequence": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            4
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          1,
+          4,
+          6
+        ],
+        "route_id": 18,
+        "routing_cost": 14
+      },
+      {
+        "edge_bitstring": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "edge_bitstring_text": "00100000010010",
+        "edge_sequence": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "exact_optimal": false,
+        "node_sequence": [
+          0,
+          3,
+          4,
+          6
+        ],
+        "route_id": 19,
+        "routing_cost": 14
+      }
+    ],
+    "schema": "dtu-sciqis-q2f-feasible-route-basis",
+    "source": 0,
+    "target": 6,
+    "version": "1.0"
+  },
+  "cost_hamiltonian": {
+    "normalization": "(raw_route_cost - minimum_route_cost) / (maximum_route_cost - minimum_route_cost)",
+    "normalization_scale": 4.0,
+    "normalization_shift": 10.0,
+    "normalized_energies": [
+      0.0,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      1.0,
+      1.0
+    ],
+    "raw_energies": [
+      10.0,
+      11.0,
+      11.0,
+      11.0,
+      11.0,
+      12.0,
+      12.0,
+      12.0,
+      12.0,
+      12.0,
+      12.0,
+      12.0,
+      13.0,
+      13.0,
+      13.0,
+      13.0,
+      13.0,
+      13.0,
+      14.0,
+      14.0
+    ]
+  },
+  "mixer": {
+    "connected": true,
+    "construction": "validated divergence-reconvergence path exchanges",
+    "dimension": 20,
+    "exchange_count": 106,
+    "exchanges": [
+      {
+        "boundary_end": 4,
+        "boundary_start": 2,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 0,
+        "right_route_id": 1,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 2,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 0,
+        "right_route_id": 2,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 4,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 0,
+        "right_route_id": 3,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 2,
+        "boundary_start": 0,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 0,
+        "right_route_id": 4,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 2,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 0,
+        "right_route_id": 6,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 1,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 0,
+        "right_route_id": 7,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 1,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 0,
+        "right_route_id": 8,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 1,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 0,
+        "right_route_id": 13,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 0,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 0,
+        "right_route_id": 16,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 0,
+        "edge_hamming_distance": 6,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 0,
+        "right_route_id": 17,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 3,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 1,
+        "right_route_id": 2,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 4,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 1,
+        "right_route_id": 5,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 2,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 1,
+        "right_route_id": 6,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 1,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 1,
+        "right_route_id": 7,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 2,
+        "boundary_start": 0,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 1,
+        "right_route_id": 9,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 1,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 1,
+        "right_route_id": 13,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 0,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 1,
+        "right_route_id": 16,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 2,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 2,
+        "right_route_id": 3,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 3,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 2,
+        "right_route_id": 5,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 2,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 2,
+        "right_route_id": 6,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 1,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 2,
+        "right_route_id": 8,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 2,
+        "boundary_start": 0,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 2,
+        "right_route_id": 10,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 1,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 2,
+        "right_route_id": 13,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 0,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 2,
+        "right_route_id": 17,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 1,
+        "edge_hamming_distance": 6,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 2,
+        "right_route_id": 18,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 2,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 3,
+        "right_route_id": 5,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 2,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 3,
+        "right_route_id": 6,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 1,
+        "edge_hamming_distance": 6,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 3,
+        "right_route_id": 8,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 2,
+        "boundary_start": 0,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 3,
+        "right_route_id": 11,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 1,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 3,
+        "right_route_id": 12,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 0,
+        "edge_hamming_distance": 7,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 3,
+        "right_route_id": 17,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 1,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 3,
+        "right_route_id": 18,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 0,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 3,
+        "right_route_id": 19,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 0,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 4,
+        "right_route_id": 7,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 0,
+        "edge_hamming_distance": 6,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 4,
+        "right_route_id": 8,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 2,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 4,
+        "right_route_id": 9,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 2,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 4,
+        "right_route_id": 10,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 4,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 4,
+        "right_route_id": 11,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 0,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 4,
+        "right_route_id": 13,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 2,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 4,
+        "right_route_id": 15,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 0,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 4,
+        "right_route_id": 16,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 0,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 4,
+        "right_route_id": 17,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 2,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 5,
+        "right_route_id": 6,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 1,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 5,
+        "right_route_id": 12,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 2,
+        "boundary_start": 0,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 5,
+        "right_route_id": 14,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 1,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 5,
+        "right_route_id": 18,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 0,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 5,
+        "right_route_id": 19,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 1,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 6,
+        "right_route_id": 7,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 1,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 6,
+        "right_route_id": 8,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 1,
+        "edge_hamming_distance": 6,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 6,
+        "right_route_id": 12,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 1,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 6,
+        "right_route_id": 13,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 2,
+        "boundary_start": 0,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 6,
+        "right_route_id": 15,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 0,
+        "edge_hamming_distance": 6,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 6,
+        "right_route_id": 16,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 0,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 6,
+        "right_route_id": 17,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 1,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 6,
+        "right_route_id": 18,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 0,
+        "edge_hamming_distance": 7,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 6,
+        "right_route_id": 19,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 3,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 7,
+        "right_route_id": 8,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 0,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 7,
+        "right_route_id": 9,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 4,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 7,
+        "right_route_id": 12,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 1,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 7,
+        "right_route_id": 13,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 0,
+        "edge_hamming_distance": 6,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 7,
+        "right_route_id": 15,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 0,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 7,
+        "right_route_id": 16,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 0,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 8,
+        "right_route_id": 10,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 0,
+        "edge_hamming_distance": 7,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 8,
+        "right_route_id": 11,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 3,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 8,
+        "right_route_id": 12,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 1,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 8,
+        "right_route_id": 13,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 0,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 8,
+        "right_route_id": 15,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 0,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 8,
+        "right_route_id": 17,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 1,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 8,
+        "right_route_id": 18,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 3,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 9,
+        "right_route_id": 10,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 0,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 9,
+        "right_route_id": 13,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 4,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 9,
+        "right_route_id": 14,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 2,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 9,
+        "right_route_id": 15,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 0,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 9,
+        "right_route_id": 16,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 2,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 10,
+        "right_route_id": 11,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 0,
+        "edge_hamming_distance": 6,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 10,
+        "right_route_id": 13,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 3,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 10,
+        "right_route_id": 14,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 2,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 10,
+        "right_route_id": 15,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 0,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 10,
+        "right_route_id": 17,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 0,
+        "edge_hamming_distance": 7,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 10,
+        "right_route_id": 18,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 0,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 11,
+        "right_route_id": 12,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 2,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 11,
+        "right_route_id": 14,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 2,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 11,
+        "right_route_id": 15,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 0,
+        "edge_hamming_distance": 6,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 11,
+        "right_route_id": 17,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 0,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 11,
+        "right_route_id": 18,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 0,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 11,
+        "right_route_id": 19,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 0,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 12,
+        "right_route_id": 14,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 0,
+        "edge_hamming_distance": 7,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 12,
+        "right_route_id": 15,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 1,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 12,
+        "right_route_id": 18,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 0,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 12,
+        "right_route_id": 19,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 0,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 13,
+        "right_route_id": 15,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 0,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 13,
+        "right_route_id": 16,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 0,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 13,
+        "right_route_id": 17,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 4,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 13,
+        "right_route_id": 18,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 2,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 14,
+        "right_route_id": 15,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 0,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 14,
+        "right_route_id": 18,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 3,
+        "boundary_start": 0,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 14,
+        "right_route_id": 19,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 0,
+        "edge_hamming_distance": 5,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 15,
+        "right_route_id": 16,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 0,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 15,
+        "right_route_id": 17,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 0,
+        "edge_hamming_distance": 6,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 15,
+        "right_route_id": 18,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 0,
+        "edge_hamming_distance": 6,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 15,
+        "right_route_id": 19,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 5,
+        "boundary_start": 3,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 16,
+        "right_route_id": 17,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 4,
+        "edge_hamming_distance": 3,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 16,
+        "right_route_id": 19,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 0,
+        "edge_hamming_distance": 6,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 17,
+        "right_route_id": 18,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 6,
+        "boundary_start": 3,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 17,
+        "right_route_id": 19,
+        "weight": 1.0
+      },
+      {
+        "boundary_end": 4,
+        "boundary_start": 0,
+        "edge_hamming_distance": 4,
+        "kind": "divergence_reconvergence",
+        "left_route_id": 18,
+        "right_route_id": 19,
+        "weight": 1.0
+      }
+    ],
+    "hamiltonian": [
+      [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "hermitian_error": 0.0,
+    "mixer_name": "logical_path_exchange_mixer",
+    "weight_rule": "uniform"
+  }
+}

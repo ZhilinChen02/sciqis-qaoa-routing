@@ -1,33 +1,19 @@
 [project]
 name = "sciqis-qaoa-routing"
-version = "3.0.0"
-description = "A transparent graph-to-QAOA study of penalty design for weighted routing"
+version = "1.0.0"
+description = "QAOA routing mechanisms for the DTU SCIQIS course project"
 readme = "README.md"
 requires-python = ">=3.11,<3.14"
 dependencies = [
     "matplotlib>=3.8,<4",
     "networkx>=3.2,<4",
-    "numpy>=2.0,<3",
-    "pillow>=10,<13",
+    "numpy>=2,<3",
     "qiskit>=2.2,<3",
     "scipy>=1.15,<2",
 ]
 
 [project.optional-dependencies]
-test = [
-    "pytest>=8,<10",
-]
-notebooks = [
-    "ipykernel>=6,<8",
-    "jupyterlab>=4,<5",
-    "nbconvert>=7,<8",
-    "pandas>=2.2,<3",
-]
 dev = [
-    "ipykernel>=6,<8",
-    "jupyterlab>=4,<5",
-    "nbconvert>=7,<8",
-    "pandas>=2.2,<3",
     "pytest>=8,<10",
 ]
 
@@ -38,20 +24,20 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools]
 package-dir = { "" = "src" }
 py-modules = [
-    "circuit",
-    "day1_artifacts",
-    "day2_artifacts",
-    "day3_artifacts",
-    "day4_artifacts",
-    "day5_analysis",
-    "day5_artifacts",
+    "course_final",
     "exact_reference",
+    "feasible_qaoa",
     "graph",
     "ising",
+    "metrics",
+    "objectives",
     "optimization",
-    "profiling",
+    "penalty_demo",
+    "q2f_final_improvement",
+    "qaoa",
     "qubo",
-    "statevector_reference",
+    "sealed_results",
+    "warm_start",
 ]
 
 [tool.pytest.ini_options]

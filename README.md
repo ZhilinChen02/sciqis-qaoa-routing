@@ -1,217 +1,183 @@
-# Frozen Routing QUBO to Explicit Shallow QAOA
+# QAOA Routing — DTU SCIQIS Course Project
 
-This DTU 10387 course project follows one teaching-scale weighted routing
-instance from an exact classical specification to a fully explicit, independently
-validated p=1/p=2 QAOA experiment and a finite-shot measurement demonstration.
+## Project question
 
-Scientific status: **COURSE_PROJECT_SCIENCE_COMPLETE**
+This project studies how QAOA encodes and samples routes in a small weighted
+directed graph, and how a constraint-preserving representation changes
+feasibility and optimal-route probability.
 
-Evidence scope: **ONE_GRAPH_IDEAL_SIMULATION_SHALLOW_QAOA**
+The repository has two readable paths:
 
-## Research question
+1. a course-core Penalty-X QAOA using one binary variable per directed edge;
+2. a teaching-scale logical extension whose basis contains only valid routes.
 
-For one fixed weighted directed graph, how do the frozen flow-constraint penalty
-strength `A ∈ {2,5,6,12}` and shallow Penalty-X QAOA depth `p ∈ {1,2}` change:
+The final recommended extension is feasible-subspace incumbent-threshold
+GM-Th-QAOA at depth `p=3`.
 
-- the probability `p_feas` of sampling any valid source-to-target route;
-- the probability `p_opt` of sampling the unique shortest route; and
-- the expected route cost conditional on a valid measurement?
-
-## Scientific pipeline
+## Core pipeline
 
 ```text
-weighted directed graph
-  → edge variables / qubits
-  → flow-constraint QUBO
-  → Ising Hamiltonian
-  → explicit RZ/RZZ/RX QAOA
-  → exact statevector
-  → frozen-budget optimization
-  → finite measurement sampling
-  → decoded route
+weighted graph
+    -> edge variables
+    -> flow-constrained QUBO
+    -> Ising Hamiltonian
+    -> Penalty-X QAOA
+    -> statevector measurement probabilities
+    -> route decoding and p_feas / p_opt
 ```
 
-## Quickstart
+The fixed graph has 7 nodes and 14 directed weighted edges. Flow conservation
+is enforced with penalty `A=6`. Independent shortest-path and exhaustive
+simple-route calculations agree on the unique cost-10 reference route:
 
-The release uses Python 3.11–3.13 with standard `venv` and `pip`. The frozen
-artifacts were produced with Python 3.12.4, NumPy 2.4.6, SciPy 1.18.0, and
-Qiskit 2.4.2.
+```text
+0 -> 1 -> 2 -> 4 -> 5 -> 6
+```
+
+The reference is used to evaluate `p_opt`; it does not enter QAOA parameter
+optimization.
+
+## Final extension
+
+The edge representation has
+
+```text
+2^14 = 16,384 computational states.
+```
+
+The logical feasible representation classically enumerates the actual
+
+```text
+20 valid simple source-to-target routes.
+```
+
+Every logical coordinate is therefore feasible. The uniform logical initial
+state has `p_feas=1` structurally and places `1/20 = 5%` probability on each
+route.
+
+The deterministic greedy incumbent is
+
+```text
+0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6, cost 11.
+```
+
+The final threshold is constructed without an optimum label:
+
+```text
+marked(P) = 1 when raw_cost(P) < incumbent_cost = 11.
+```
+
+Exactly one of the 20 routes satisfies this threshold on the course instance.
+Only after threshold construction is that route compared with the classical
+reference for reporting `p_opt`.
+
+GM-Th-QAOA starts in the uniform feasible state, applies the Boolean threshold
+phase, and mixes with the rank-one Grover feasible mixer
+
+\[
+U_G(\beta)=e^{-i\beta|F\rangle\langle F|}
+=I+(e^{-i\beta}-1)|F\rangle\langle F|.
+\]
+
+The evolution never leaves the 20-dimensional feasible basis.
+
+## Final results
+
+The immutable three-seed descriptive study gives:
+
+| Configuration | Median p_opt | p_feas |
+|---|---:|---:|
+| Uniform feasible initialization | 5.00% | ≈100% |
+| GM-Th-QAOA p=1 | 39.20% | ≈100% |
+| GM-Th-QAOA p=2 | 81.608% | ≈100% |
+| GM-Th-QAOA p=3 | **99.8712%** | ≈100% |
+
+This behavior is similar to amplitude amplification: alternating selective
+phases and global feasible-space mixing concentrates mass on the marked set.
+It is an instance-specific mechanism demonstration, not a scaling result.
+
+## Limitations
+
+- All feasible routes are enumerated classically before logical simulation.
+- The logical Hilbert space has only 20 states.
+- Exactly one route lies below the incumbent threshold on this instance.
+- Structural `p_feas=1` is not empirical quantum advantage.
+- This is not a scalable routing algorithm or hardware implementation.
+- No quantum-advantage or statistical-significance claim is made.
+- The shortest-path problem itself is not claimed to be NP-hard.
+
+## Installation
+
+Python 3.11–3.13 is supported.
 
 ```bash
-git clone https://github.com/ZhilinChen02/sciqis-qaoa-routing.git
-cd sciqis-qaoa-routing
-python -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
 python -m pip install -e ".[dev]"
-pytest -q
-python scripts/build_final_report.py
-jupyter lab notebooks/
 ```
 
-The build command above uses committed results and does not rerun the expensive
-24-run optimization. The four numbered notebooks are teaching narratives over
-the same reusable `src/` implementation and saved artifacts.
+## Quick start
 
-## Frozen instance and contracts
-
-- 7 nodes, 14 directed weighted edges, 14 edge qubits.
-- `2^14 = 16,384` computational-basis edge selections.
-- Exactly 20 valid source-to-target routes.
-- Unique exact route: `0 → 1 → 2 → 4 → 5 → 6`, with `C*=10`.
-- Canonical exact bitstring (`q0 → q13`): `10010001000101`.
-- Qiskit display string (`q13 → q0`): `10100010001001`.
-- Exact-route state index: `10377`, with q0 as the least-significant bit.
-
-The immutable inputs and protocols are:
-
-- [`data/graph.json`](data/graph.json) — graph and edge/qubit order;
-- [`data/penalty_contract.json`](data/penalty_contract.json) — `A_crit=5` and
-  frozen grid `{2,5,6,12}`;
-- [`data/circuit_contract.json`](data/circuit_contract.json) — explicit gate
-  and bit-order conventions;
-- [`data/optimization_contract.json`](data/optimization_contract.json) — three
-  seed-10387 COBYLA starts and 240 evaluations per start;
-- [`data/day5_analysis_contract.json`](data/day5_analysis_contract.json) —
-  post-core sampling and profiling only;
-- [`data/scientific_freeze_v3.json`](data/scientific_freeze_v3.json) — final
-  artifact hashes and prohibited post-freeze changes.
-
-Exhaustive inspection proves `P_flow(x)=0` if and only if `x` is one valid route.
-At `A=5`, the all-zero invalid state ties the exact route; for `A>5`, the exact
-route is the unique QUBO ground state.
-
-## Frozen core result
-
-The 24-run Day-4 experiment used exact statevectors and selected each cell only
-by minimum final expected QUBO energy. No result-dependent retry or retuning was
-performed.
-
-| A | p | selected start | ⟨Q_A⟩ | p_feas | p_opt | E[C \| feasible] |
-|---:|---:|---:|---:|---:|---:|---:|
-| 2 | 1 | 1 | 33.279167 | 0.005512 | 9.09902e-5 | 12.0521 |
-| 2 | 2 | 2 | 20.099583 | 0.051449 | 0.00311885 | 12.1657 |
-| 5 | 1 | 1 | 41.738372 | 0.016754 | 0.000153198 | 11.5809 |
-| 5 | 2 | 0 | 37.912717 | 0.045736 | 2.88239e-6 | 13.4609 |
-| 6 | 1 | 1 | 66.972737 | 0.002994 | 1.39051e-6 | 12.5840 |
-| 6 | 2 | 0 | 37.765753 | 0.012000 | 0.000133445 | 11.9538 |
-| 12 | 1 | 2 | 69.010509 | 0.019542 | 0.000185044 | 11.1408 |
-| 12 | 2 | 0 | 66.622962 | 0.010075 | 4.45792e-5 | 11.9843 |
-
-Uniform-state references are `p_feas=20/16384≈0.0012207` and
-`p_opt=1/16384≈0.0000610`.
-
-## Main scientific findings
-
-1. Model correctness and variational performance are distinct. Although
-   `A>A_crit` gives the correct exact QUBO ground state, shallow optimized QAOA
-   need not concentrate much probability on it.
-2. Penalty behavior was non-monotonic overall. A larger valid-state energy
-   separation did not imply monotonically larger `p_feas` or `p_opt`.
-3. p=2 improved both probabilities at A=2 and A=6, improved only `p_feas` at
-   A=5, and reduced both at A=12.
-4. The subcritical A=2,p=2 cell led the selected table. This is not a
-   contradiction: `A_crit` concerns exact ground-state ordering, while the
-   shallow optimizer minimizes expected energy and returns a distribution.
-5. At A=5,p=2, the minimum-energy selected start had very low `p_opt`; another
-   start had much higher `p_opt` but also higher expected energy and was
-   correctly not selected under the frozen rule.
-
-The evidence-driven takeaway is:
-
-> Making the penalty large enough to encode the correct feasible ground state
-> does not guarantee that a shallow, finitely optimized QAOA circuit will place
-> large probability on that state.
-
-## Finite shots and profiling
-
-The post-core demonstration samples the already selected A=2,p=2 exact
-distribution at 256, 1,024, 4,096, and 16,384 shots, with 200 replicates per
-level and seed 1038705. At 256 shots, 45% of replicates observed no exact route,
-despite its nonzero exact probability. This is Monte Carlo sampling variability,
-not a hardware experiment or a formal confidence-interval study.
-
-Implementation profiling uses `perf_counter_ns`, three warm-ups, and 31 timed
-repeats per operation. It reports current-environment software timings only.
-NumPy and Qiskit are both classical simulations here; their timings are not a
-classical-versus-quantum or hardware-performance comparison. Repeated state
-evolution/objective evaluation dominates the complete optimization workflow.
-
-## Reports and presentation assets
-
-- [Final course-project report](reports/final_course_project_report.md)
-- [15-minute presentation outline](reports/presentation_outline_15min.md)
-- [Frozen v3.0 course proposal](docs/DTU_SCIQIS_QAOA_Routing_Project_Proposal_v3.0.docx)
-- [Final machine-readable summary](results/final_project_summary.json)
-- [Figure 1–13 manifest](results/final_figure_manifest.json)
-- [Primary core result figure](figures/09_penalty_depth_core_results.svg)
-- [Finite-shot figure](figures/12_finite_shot_sampling_convergence.svg)
-- [Runtime figure](figures/13_runtime_profile.svg)
-
-## Reproduce saved-result artifacts
-
-Cheap final rebuild—does not rerun the 24 optimizations:
+Run the final three-seed course method. It prints results and does not write to
+the immutable result roots:
 
 ```bash
-python scripts/build_final_report.py
+python scripts/run_course_final.py
 ```
 
-Recreate the deterministic finite-shot extension:
+Optional development overrides are explicit:
 
 ```bash
-python scripts/run_day5_sampling.py --overwrite
-python scripts/build_final_report.py
+python scripts/run_course_final.py --seed 2601 --depth 3 --output /tmp/q2f-smoke.json
 ```
 
-Profiling is environment-dependent and is therefore run explicitly:
+Run the readable Penalty-X course core:
 
 ```bash
-python scripts/run_day5_profiling.py --overwrite
-python scripts/build_final_report.py
+python scripts/run_penalty_qaoa.py
 ```
 
-Expensive core reproduction—reruns all 24 frozen COBYLA starts using the
-unchanged contract:
-
-```bash
-python scripts/run_day4_core_experiment.py --overwrite
-```
-
-Unfiltered release tests:
+## Tests
 
 ```bash
 pytest -q
 ```
+
+The retained tests cover graph/reference consistency, QUBO/Ising equivalence,
+statevector normalization, Penalty-X evolution, route decoding, feasible-basis
+ordering, path-exchange connectivity, Grover/threshold unitaries, incumbent-only
+threshold construction, deterministic seeds, and the `p_feas=1` invariant.
 
 ## Repository structure
 
-- `data/` — immutable graph, penalty, circuit, optimization, analysis, and
-  final scientific-freeze contracts.
-- `docs/` — the course proposal aligned with the frozen v3.0 scope.
-- `src/` — graph/QUBO/Ising logic, explicit circuits, independent statevector,
-  optimization metrics, sampling, profiling, and artifact builders.
-- `results/` — exact references, all-start optimization data, finite-shot raw
-  replicates, runtime measurements, and final summaries.
-- `figures/` — deterministic PNG and SVG scientific figures 1–13.
-- `notebooks/` — short teaching notebooks that load reusable source logic and
-  saved results.
-- `reports/` — final written interpretation and presentation outline.
-- `scripts/` — explicit expensive experiment runners and cheap artifact builds.
-- `tests/` — focused identity, exhaustive-model, circuit, result, sampling,
-  profiling, and reporting checks.
+```text
+configs/                    final explicit course configuration
+data/                       fixed graph and frozen reference contracts
+src/                        core and feasible/logical scientific modules
+scripts/run_course_final.py final GM-Th-QAOA command
+scripts/run_penalty_qaoa.py Penalty-X core command
+scripts/make_course_figures.py
+tests/                      focused scientific tests
+figures/course/             five presentation figures
+results/                    three immutable sealed evidence roots
+docs/methods/               concise method descriptions
+archive/development/        non-runtime historical development material
+```
 
-The repository uses `pyproject.toml` as its single dependency and build
-contract. The optional `test`, `notebooks`, and combined `dev` groups keep
-runtime requirements separate from development tools.
+## Reproduce figures
 
-## Evidence boundary
+The plotter verifies the three sealed manifests and reads their existing CSV,
+JSON, and probability vectors. It does not rerun an optimizer.
 
-This is one small graph studied with ideal statevector simulation, shallow
-p=1/p=2 circuits, three optimizer starts, and a fixed evaluation budget. The
-finite-shot section samples an exact probability vector rather than hardware.
-No quantum advantage is claimed, and the results should not be generalized
-beyond this frozen course-project scope without a new version and protocol.
+```bash
+python scripts/make_course_figures.py
+```
 
-The repository currently carries no open-source license. The historical
-`LICENSE` placeholder was empty; the owner must choose a license before reuse
-rights can be granted.
+Use a temporary output directory for a smoke test:
+
+```bash
+python scripts/make_course_figures.py --output /tmp/sciqis-course-figures
+```
+
+The immutable result roots are identified and checked by
+`src/sealed_results.py`. Detailed feasible-space and final-threshold definitions
+are in `docs/methods/Q2F_FEASIBLE_WARM_START.md` and
+`docs/methods/Q2F_FINAL_IMPROVEMENT.md`.

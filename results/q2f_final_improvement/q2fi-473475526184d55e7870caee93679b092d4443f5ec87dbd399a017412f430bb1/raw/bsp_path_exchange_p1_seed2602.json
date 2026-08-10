@@ -1,0 +1,1918 @@
+{
+  "completed_at_utc": "2026-08-10T19:49:58.784274+00:00",
+  "identity": {
+    "config_sha256": "c89ad9b70ead5f2309a53afdd955de176d5f2d2773fc30bfdbb7dd22926ada38",
+    "graph_sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+    "old_q2f_result_manifest_sha256": "dfa0313b198824f5925f00494a307311445bd7ac08786f1e16570993d919f99b",
+    "old_q2r_result_manifest_sha256": "896fdbf45bbf19d04f74a802e78739714d286beabf322db6ef8f3594679411d1",
+    "run_identity": "q2fi-473475526184d55e7870caee93679b092d4443f5ec87dbd399a017412f430bb1",
+    "source_bundle_sha256": "5e190a5ebff162277e555a980b43655f9e489f73e6594f8f961ffc101438b20b"
+  },
+  "result": {
+    "better_route_ids": [
+      0
+    ],
+    "depth": 1,
+    "evaluation_budget": 150,
+    "final_layer_norms": [
+      {
+        "after_cost_norm": 1.0,
+        "after_mixer_norm": 1.0000000000000002,
+        "layer": 1
+      }
+    ],
+    "final_probabilities": [
+      0.15223063810629836,
+      0.0019518833553221102,
+      0.0131195432499486,
+      0.14502415759002119,
+      0.16268636450905155,
+      0.007498400905009119,
+      0.02057959202955306,
+      0.009599938511376091,
+      0.07083203989566848,
+      0.051718647612423584,
+      0.08944559387115979,
+      0.06376322855023188,
+      0.025123703323178,
+      0.040793850977747244,
+      0.0035509157068673116,
+      0.03712458629184944,
+      0.011418878951324067,
+      0.05605634813747008,
+      0.01205342243880898,
+      0.025428265986690957
+    ],
+    "incumbent_raw_cost_threshold": 11.0,
+    "initialization_mode": "incumbent_biased_feasible",
+    "loss_kind": "negative_better_solution_probability",
+    "method": "bsp_path_exchange",
+    "metrics": {
+      "bsp": 0.15223063810629836,
+      "expected_normalized_cost": 0.4054471088306239,
+      "expected_route_cost": 11.621788435322495,
+      "initial_p_opt": 0.03764544463697589,
+      "most_probable_route": [
+        0,
+        2,
+        4,
+        5,
+        6
+      ],
+      "most_probable_route_cost": 11,
+      "most_probable_route_id": 4,
+      "most_probable_route_probability": 0.16268636450905155,
+      "optimal_state_rank": 2,
+      "p_feas": 1.0,
+      "p_opt": 0.15223063810629836,
+      "p_opt_amplification": 4.043799710012596,
+      "probability_entropy": 2.5489817348935055,
+      "top3_lowest_cost_mass": 0.16730206471156908,
+      "top5_lowest_cost_mass": 0.4750125868106418
+    },
+    "mixer_kind": "logical_path_exchange_mixer",
+    "optimizer": {
+      "evaluation_trace": [
+        {
+          "bsp": 0.07845604463665949,
+          "evaluation_index": 1,
+          "expected_normalized_cost": 0.5389868835586188,
+          "in_bounds": true,
+          "loss": -0.07845604463665949,
+          "p_feas": 1.0,
+          "parameters": [
+            0.5460648473059009,
+            2.245836883431867
+          ]
+        },
+        {
+          "bsp": 0.08407056597825006,
+          "evaluation_index": 2,
+          "expected_normalized_cost": 0.5301758398055204,
+          "in_bounds": true,
+          "loss": -0.08407056597825006,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            1.0460648473059009,
+            2.245836883431867
+          ]
+        },
+        {
+          "bsp": 0.05484935422349827,
+          "evaluation_index": 3,
+          "expected_normalized_cost": 0.48017908894111183,
+          "in_bounds": true,
+          "loss": -0.05484935422349827,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0460648473059009,
+            2.745836883431867
+          ]
+        },
+        {
+          "bsp": 0.14142667164516962,
+          "evaluation_index": 4,
+          "expected_normalized_cost": 0.3992812110514329,
+          "in_bounds": true,
+          "loss": -0.14142667164516962,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            1.1404084541550887,
+            1.7548182647963961
+          ]
+        },
+        {
+          "bsp": 0.0479738137136679,
+          "evaluation_index": 5,
+          "expected_normalized_cost": 0.5261463174747396,
+          "in_bounds": true,
+          "loss": -0.0479738137136679,
+          "p_feas": 1.0,
+          "parameters": [
+            1.2378815235981218,
+            0.7595801019763838
+          ]
+        },
+        {
+          "bsp": 0.06736609208425957,
+          "evaluation_index": 6,
+          "expected_normalized_cost": 0.5289256629545903,
+          "in_bounds": true,
+          "loss": -0.06736609208425957,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            1.5751359687873612,
+            2.001824313349154
+          ]
+        },
+        {
+          "bsp": 0.024109545317840275,
+          "evaluation_index": 7,
+          "expected_normalized_cost": 0.5761444091661823,
+          "in_bounds": true,
+          "loss": -0.024109545317840275,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            1.0704450569770305,
+            1.5148075920018196
+          ]
+        },
+        {
+          "bsp": 0.14636763106160822,
+          "evaluation_index": 8,
+          "expected_normalized_cost": 0.39926502800533453,
+          "in_bounds": true,
+          "loss": -0.14636763106160822,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            1.0804057859564447,
+            1.7723091140909106
+          ]
+        },
+        {
+          "bsp": 0.1293776682763974,
+          "evaluation_index": 9,
+          "expected_normalized_cost": 0.4573346693495945,
+          "in_bounds": true,
+          "loss": -0.1293776682763974,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            1.0949656153847513,
+            1.8964582637739376
+          ]
+        },
+        {
+          "bsp": 0.1395826052601943,
+          "evaluation_index": 10,
+          "expected_normalized_cost": 0.3994437723088065,
+          "in_bounds": true,
+          "loss": -0.1395826052601943,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            1.0734094462386388,
+            1.748308046811453
+          ]
+        },
+        {
+          "bsp": 0.150320442078634,
+          "evaluation_index": 11,
+          "expected_normalized_cost": 0.4126770012423592,
+          "in_bounds": true,
+          "loss": -0.150320442078634,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0804156984189959,
+            1.8223091131083415
+          ]
+        },
+        {
+          "bsp": 0.14301991441438305,
+          "evaluation_index": 12,
+          "expected_normalized_cost": 0.4336800507632372,
+          "in_bounds": true,
+          "loss": -0.14301991441438305,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            1.0504169064981033,
+            1.8623100191391677
+          ]
+        },
+        {
+          "bsp": 0.1496837475945217,
+          "evaluation_index": 13,
+          "expected_normalized_cost": 0.41549983478593305,
+          "in_bounds": true,
+          "loss": -0.1496837475945217,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            1.1047979299387034,
+            1.8278324079691448
+          ]
+        },
+        {
+          "bsp": 0.14924034094887906,
+          "evaluation_index": 14,
+          "expected_normalized_cost": 0.4176679108110974,
+          "in_bounds": true,
+          "loss": -0.14924034094887906,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            1.074334754598673,
+            1.8332302908037221
+          ]
+        },
+        {
+          "bsp": 0.15041444356563535,
+          "evaluation_index": 15,
+          "expected_normalized_cost": 0.4121244968960534,
+          "in_bounds": true,
+          "loss": -0.15041444356563535,
+          "p_feas": 0.9999999999999998,
+          "parameters": [
+            1.0782314628799197,
+            1.821092924344277
+          ]
+        },
+        {
+          "bsp": 0.15064633780247472,
+          "evaluation_index": 16,
+          "expected_normalized_cost": 0.4100828748646989,
+          "in_bounds": true,
+          "loss": -0.15064633780247472,
+          "p_feas": 0.9999999999999998,
+          "parameters": [
+            1.0787187571294772,
+            1.816116726567425
+          ]
+        },
+        {
+          "bsp": 0.15074029877979148,
+          "evaluation_index": 17,
+          "expected_normalized_cost": 0.4082546692270313,
+          "in_bounds": true,
+          "loss": -0.15074029877979148,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0771249835993015,
+            1.8113775403572712
+          ]
+        },
+        {
+          "bsp": 0.15070278717788818,
+          "evaluation_index": 18,
+          "expected_normalized_cost": 0.40732325627632165,
+          "in_bounds": true,
+          "loss": -0.15070278717788818,
+          "p_feas": 0.9999999999999998,
+          "parameters": [
+            1.081302176485016,
+            1.8086296212180795
+          ]
+        },
+        {
+          "bsp": 0.15075026452703766,
+          "evaluation_index": 19,
+          "expected_normalized_cost": 0.4076818367695869,
+          "in_bounds": true,
+          "loss": -0.15075026452703766,
+          "p_feas": 0.9999999999999997,
+          "parameters": [
+            1.0751375899480085,
+            1.8098608774168654
+          ]
+        },
+        {
+          "bsp": 0.15076670432695732,
+          "evaluation_index": 20,
+          "expected_normalized_cost": 0.4079797924713589,
+          "in_bounds": true,
+          "loss": -0.15076670432695732,
+          "p_feas": 0.9999999999999998,
+          "parameters": [
+            1.0728089518478485,
+            1.8107705172348614
+          ]
+        },
+        {
+          "bsp": 0.15079031727037842,
+          "evaluation_index": 21,
+          "expected_normalized_cost": 0.4084106658042775,
+          "in_bounds": true,
+          "loss": -0.15079031727037842,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0679921524100624,
+            1.8121115777018588
+          ]
+        },
+        {
+          "bsp": 0.15081401908786707,
+          "evaluation_index": 22,
+          "expected_normalized_cost": 0.40669193834735473,
+          "in_bounds": true,
+          "loss": -0.15081401908786707,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            1.0590769926574353,
+            1.8075816851440671
+          ]
+        },
+        {
+          "bsp": 0.1508793604351288,
+          "evaluation_index": 23,
+          "expected_normalized_cost": 0.40863274165365054,
+          "in_bounds": true,
+          "loss": -0.1508793604351288,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            1.0508630801707566,
+            1.813285336751694
+          ]
+        },
+        {
+          "bsp": 0.1502473978746151,
+          "evaluation_index": 24,
+          "expected_normalized_cost": 0.41400669149065045,
+          "in_bounds": true,
+          "loss": -0.1502473978746151,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            1.035993516557916,
+            1.8266605405992502
+          ]
+        },
+        {
+          "bsp": 0.15073286864019209,
+          "evaluation_index": 25,
+          "expected_normalized_cost": 0.40521773993602006,
+          "in_bounds": true,
+          "loss": -0.15073286864019209,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0492919674920294,
+            1.8034095276734086
+          ]
+        },
+        {
+          "bsp": 0.1508881126532664,
+          "evaluation_index": 26,
+          "expected_normalized_cost": 0.4087496065041084,
+          "in_bounds": true,
+          "loss": -0.1508881126532664,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0483941279011852,
+            1.8136781149213757
+          ]
+        },
+        {
+          "bsp": 0.15073423858162127,
+          "evaluation_index": 27,
+          "expected_normalized_cost": 0.41070846103475384,
+          "in_bounds": true,
+          "loss": -0.15073423858162127,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            1.0480104200212206,
+            1.8186633700064092
+          ]
+        },
+        {
+          "bsp": 0.1509047655037648,
+          "evaluation_index": 28,
+          "expected_normalized_cost": 0.40828494277216304,
+          "in_bounds": true,
+          "loss": -0.1509047655037648,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0481977388163444,
+            1.81244363878659
+          ]
+        },
+        {
+          "bsp": 0.15091502385906008,
+          "evaluation_index": 29,
+          "expected_normalized_cost": 0.4074417408104227,
+          "in_bounds": true,
+          "loss": -0.15091502385906008,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0471903605136466,
+            1.810155585256785
+          ]
+        },
+        {
+          "bsp": 0.15092909347383351,
+          "evaluation_index": 30,
+          "expected_normalized_cost": 0.40737953453448067,
+          "in_bounds": true,
+          "loss": -0.15092909347383351,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            1.0446919209023027,
+            1.8100672704309184
+          ]
+        },
+        {
+          "bsp": 0.15093559631319345,
+          "evaluation_index": 31,
+          "expected_normalized_cost": 0.4070482212698114,
+          "in_bounds": true,
+          "loss": -0.15093559631319345,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0423443640837406,
+            1.8092076327260551
+          ]
+        },
+        {
+          "bsp": 0.15095356414909958,
+          "evaluation_index": 32,
+          "expected_normalized_cost": 0.4077635895887804,
+          "in_bounds": true,
+          "loss": -0.15095356414909958,
+          "p_feas": 1.0,
+          "parameters": [
+            1.040929488089046,
+            1.811268730957493
+          ]
+        },
+        {
+          "bsp": 0.1509499068836335,
+          "evaluation_index": 33,
+          "expected_normalized_cost": 0.4084356928814611,
+          "in_bounds": true,
+          "loss": -0.1509499068836335,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0392835015497932,
+            1.8131504132666512
+          ]
+        },
+        {
+          "bsp": 0.15095734357608814,
+          "evaluation_index": 34,
+          "expected_normalized_cost": 0.40742479184411073,
+          "in_bounds": true,
+          "loss": -0.15095734357608814,
+          "p_feas": 0.9999999999999997,
+          "parameters": [
+            1.0400765536425527,
+            1.8103549460648707
+          ]
+        },
+        {
+          "bsp": 0.15095127158659624,
+          "evaluation_index": 35,
+          "expected_normalized_cost": 0.40701058750814156,
+          "in_bounds": true,
+          "loss": -0.15095127158659624,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0396087218197112,
+            1.8091957940534689
+          ]
+        },
+        {
+          "bsp": 0.15095901696896163,
+          "evaluation_index": 36,
+          "expected_normalized_cost": 0.40748338228891245,
+          "in_bounds": true,
+          "loss": -0.15095901696896163,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0398937966640283,
+            1.8105255329541694
+          ]
+        },
+        {
+          "bsp": 0.15096219235066888,
+          "evaluation_index": 37,
+          "expected_normalized_cost": 0.40753492153667936,
+          "in_bounds": true,
+          "loss": -0.15096219235066888,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0394202426815922,
+            1.8106859905053125
+          ]
+        },
+        {
+          "bsp": 0.15096821059251453,
+          "evaluation_index": 38,
+          "expected_normalized_cost": 0.40759938205247875,
+          "in_bounds": true,
+          "loss": -0.15096821059251453,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            1.0384432721217953,
+            1.810899364649225
+          ]
+        },
+        {
+          "bsp": 0.15097984900582415,
+          "evaluation_index": 39,
+          "expected_normalized_cost": 0.4076620978235514,
+          "in_bounds": true,
+          "loss": -0.15097984900582415,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0364580382605502,
+            1.8111419476580404
+          ]
+        },
+        {
+          "bsp": 0.1510032227349764,
+          "evaluation_index": 40,
+          "expected_normalized_cost": 0.4075864819258814,
+          "in_bounds": true,
+          "loss": -0.1510032227349764,
+          "p_feas": 1.0,
+          "parameters": [
+            1.032458683116101,
+            1.811070125456969
+          ]
+        },
+        {
+          "bsp": 0.15104982335238512,
+          "evaluation_index": 41,
+          "expected_normalized_cost": 0.40755073147189047,
+          "in_bounds": true,
+          "loss": -0.15104982335238512,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            1.024460637336755,
+            1.8112469409299534
+          ]
+        },
+        {
+          "bsp": 0.15113826451992116,
+          "evaluation_index": 42,
+          "expected_normalized_cost": 0.4069196996346648,
+          "in_bounds": true,
+          "loss": -0.15113826451992116,
+          "p_feas": 0.9999999999999998,
+          "parameters": [
+            1.008507175026182,
+            1.810027498309275
+          ]
+        },
+        {
+          "bsp": 0.15080907333928942,
+          "evaluation_index": 43,
+          "expected_normalized_cost": 0.41217838544997704,
+          "in_bounds": true,
+          "loss": -0.15080907333928942,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.9798622068554949,
+            1.8242916421146465
+          ]
+        },
+        {
+          "bsp": 0.15027714994591526,
+          "evaluation_index": 44,
+          "expected_normalized_cost": 0.4021803080094976,
+          "in_bounds": true,
+          "loss": -0.15027714994591526,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            1.0067501727019488,
+            1.794124261442755
+          ]
+        },
+        {
+          "bsp": 0.15101696420455737,
+          "evaluation_index": 45,
+          "expected_normalized_cost": 0.40986515337099433,
+          "in_bounds": true,
+          "loss": -0.15101696420455737,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0071142263677795,
+            1.8179052958463442
+          ]
+        },
+        {
+          "bsp": 0.15107109270755045,
+          "evaluation_index": 46,
+          "expected_normalized_cost": 0.4056009080907036,
+          "in_bounds": true,
+          "loss": -0.15107109270755045,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            1.007476684945309,
+            1.8061625157487422
+          ]
+        },
+        {
+          "bsp": 0.15114551191362927,
+          "evaluation_index": 47,
+          "expected_normalized_cost": 0.40699838868224447,
+          "in_bounds": true,
+          "loss": -0.15114551191362927,
+          "p_feas": 1.0,
+          "parameters": [
+            1.007540929386049,
+            1.8102851208294932
+          ]
+        },
+        {
+          "bsp": 0.15114683566859252,
+          "evaluation_index": 48,
+          "expected_normalized_cost": 0.4077047464157756,
+          "in_bounds": true,
+          "loss": -0.15114683566859252,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0072482553437472,
+            1.8122635904160582
+          ]
+        },
+        {
+          "bsp": 0.15115302537689926,
+          "evaluation_index": 49,
+          "expected_normalized_cost": 0.4076703264507283,
+          "in_bounds": true,
+          "loss": -0.15115302537689926,
+          "p_feas": 0.9999999999999996,
+          "parameters": [
+            1.006250059840325,
+            1.8122035426271934
+          ]
+        },
+        {
+          "bsp": 0.15116512730446582,
+          "evaluation_index": 50,
+          "expected_normalized_cost": 0.40761635132347857,
+          "in_bounds": true,
+          "loss": -0.15116512730446582,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0042516396842922,
+            1.8121240638252258
+          ]
+        },
+        {
+          "bsp": 0.15118893071261355,
+          "evaluation_index": 51,
+          "expected_normalized_cost": 0.4075293014153919,
+          "in_bounds": true,
+          "loss": -0.15118893071261355,
+          "p_feas": 1.0,
+          "parameters": [
+            1.0002529382770513,
+            1.8120221469192253
+          ]
+        },
+        {
+          "bsp": 0.15123538619019242,
+          "evaluation_index": 52,
+          "expected_normalized_cost": 0.4074382023219536,
+          "in_bounds": true,
+          "loss": -0.15123538619019242,
+          "p_feas": 0.9999999999999997,
+          "parameters": [
+            0.9922529755829604,
+            1.8120465783161372
+          ]
+        },
+        {
+          "bsp": 0.1513121028265871,
+          "evaluation_index": 53,
+          "expected_normalized_cost": 0.40788224674141765,
+          "in_bounds": true,
+          "loss": -0.1513121028265871,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9763493833278641,
+            1.8138003609091746
+          ]
+        },
+        {
+          "bsp": 0.14960767672232989,
+          "evaluation_index": 54,
+          "expected_normalized_cost": 0.4001590706014606,
+          "in_bounds": true,
+          "loss": -0.14960767672232989,
+          "p_feas": 0.9999999999999997,
+          "parameters": [
+            0.9591689145645544,
+            1.786803481588169
+          ]
+        },
+        {
+          "bsp": 0.15031014278799049,
+          "evaluation_index": 55,
+          "expected_normalized_cost": 0.41462881642155835,
+          "in_bounds": true,
+          "loss": -0.15031014278799049,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9768658975879265,
+            1.829792021642793
+          ]
+        },
+        {
+          "bsp": 0.15124573107872571,
+          "evaluation_index": 56,
+          "expected_normalized_cost": 0.40514172132787013,
+          "in_bounds": true,
+          "loss": -0.15124573107872571,
+          "p_feas": 0.9999999999999998,
+          "parameters": [
+            0.9748733031914094,
+            1.8059377158433736
+          ]
+        },
+        {
+          "bsp": 0.15131801654879593,
+          "evaluation_index": 57,
+          "expected_normalized_cost": 0.4079950386329516,
+          "in_bounds": true,
+          "loss": -0.15131801654879593,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9743837220614139,
+            1.8141693809432884
+          ]
+        },
+        {
+          "bsp": 0.15121025219705858,
+          "evaluation_index": 58,
+          "expected_normalized_cost": 0.4095150986422646,
+          "in_bounds": true,
+          "loss": -0.15121025219705858,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9737591220253042,
+            1.8181203143513442
+          ]
+        },
+        {
+          "bsp": 0.15133220952974558,
+          "evaluation_index": 59,
+          "expected_normalized_cost": 0.40762799517047227,
+          "in_bounds": true,
+          "loss": -0.15133220952974558,
+          "p_feas": 1.0,
+          "parameters": [
+            0.974199212044357,
+            1.8131865503100633
+          ]
+        },
+        {
+          "bsp": 0.1513454877832603,
+          "evaluation_index": 60,
+          "expected_normalized_cost": 0.40694935007539856,
+          "in_bounds": true,
+          "loss": -0.1513454877832603,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9734370449185096,
+            1.8113374691132853
+          ]
+        },
+        {
+          "bsp": 0.15135318147965557,
+          "evaluation_index": 61,
+          "expected_normalized_cost": 0.4066341556035245,
+          "in_bounds": true,
+          "loss": -0.15135318147965557,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.9716170457012506,
+            1.8105082508976287
+          ]
+        },
+        {
+          "bsp": 0.15133195787496512,
+          "evaluation_index": 62,
+          "expected_normalized_cost": 0.40595303825859724,
+          "in_bounds": true,
+          "loss": -0.15133195787496512,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.9712709529137878,
+            1.8085384235492383
+          ]
+        },
+        {
+          "bsp": 0.15135949446192618,
+          "evaluation_index": 63,
+          "expected_normalized_cost": 0.4069027992403755,
+          "in_bounds": true,
+          "loss": -0.15135949446192618,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.9709955663375541,
+            1.811291681430924
+          ]
+        },
+        {
+          "bsp": 0.1513642618303848,
+          "evaluation_index": 64,
+          "expected_normalized_cost": 0.40707475198088405,
+          "in_bounds": true,
+          "loss": -0.1513642618303848,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.9701364206577822,
+            1.8118034125135534
+          ]
+        },
+        {
+          "bsp": 0.1513759441094414,
+          "evaluation_index": 65,
+          "expected_normalized_cost": 0.4070117248924042,
+          "in_bounds": true,
+          "loss": -0.1513759441094414,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9681392652743293,
+            1.811696780556125
+          ]
+        },
+        {
+          "bsp": 0.15139893126999737,
+          "evaluation_index": 66,
+          "expected_normalized_cost": 0.40684926707816343,
+          "in_bounds": true,
+          "loss": -0.15139893126999737,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9641518424859679,
+            1.8113798270786932
+          ]
+        },
+        {
+          "bsp": 0.1514447983636778,
+          "evaluation_index": 67,
+          "expected_normalized_cost": 0.40673713755911994,
+          "in_bounds": true,
+          "loss": -0.1514447983636778,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9561519264492133,
+            1.811343174590692
+          ]
+        },
+        {
+          "bsp": 0.15152947704157177,
+          "evaluation_index": 68,
+          "expected_normalized_cost": 0.4061320233583138,
+          "in_bounds": true,
+          "loss": -0.15152947704157177,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9401947372833318,
+            1.8101735105687293
+          ]
+        },
+        {
+          "bsp": 0.15023043543846526,
+          "evaluation_index": 69,
+          "expected_normalized_cost": 0.41562851269415935,
+          "in_bounds": true,
+          "loss": -0.15023043543846526,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.9184319117724514,
+            1.8336336773580548
+          ]
+        },
+        {
+          "bsp": 0.1506229659974477,
+          "evaluation_index": 70,
+          "expected_normalized_cost": 0.40149469822634043,
+          "in_bounds": true,
+          "loss": -0.1506229659974477,
+          "p_feas": 1.0,
+          "parameters": [
+            0.939863682349405,
+            1.7941769358531623
+          ]
+        },
+        {
+          "bsp": 0.15155284578028533,
+          "evaluation_index": 71,
+          "expected_normalized_cost": 0.40611157792173735,
+          "in_bounds": true,
+          "loss": -0.15155284578028533,
+          "p_feas": 1.0,
+          "parameters": [
+            0.93619559360444,
+            1.810256274302211
+          ]
+        },
+        {
+          "bsp": 0.15143582084692261,
+          "evaluation_index": 72,
+          "expected_normalized_cost": 0.4090588406843154,
+          "in_bounds": true,
+          "loss": -0.15143582084692261,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.9355398539953469,
+            1.8182293543573131
+          ]
+        },
+        {
+          "bsp": 0.15152344892497213,
+          "evaluation_index": 73,
+          "expected_normalized_cost": 0.4054351109981008,
+          "in_bounds": true,
+          "loss": -0.15152344892497213,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.9361542117376992,
+            1.8082567024627652
+          ]
+        },
+        {
+          "bsp": 0.15155183713419587,
+          "evaluation_index": 74,
+          "expected_normalized_cost": 0.40743177583015816,
+          "in_bounds": true,
+          "loss": -0.15155183713419587,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9347953689163402,
+            1.814003189142828
+          ]
+        },
+        {
+          "bsp": 0.1515545985315758,
+          "evaluation_index": 75,
+          "expected_normalized_cost": 0.4058244977986379,
+          "in_bounds": true,
+          "loss": -0.1515545985315758,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9343512138903327,
+            1.8094827993703684
+          ]
+        },
+        {
+          "bsp": 0.15154306348089727,
+          "evaluation_index": 76,
+          "expected_normalized_cost": 0.40540430238483816,
+          "in_bounds": true,
+          "loss": -0.15154306348089727,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9327477808676645,
+            1.8082873904270285
+          ]
+        },
+        {
+          "bsp": 0.1515470151517567,
+          "evaluation_index": 77,
+          "expected_normalized_cost": 0.40569261485834385,
+          "in_bounds": true,
+          "loss": -0.1515470151517567,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9346500661261677,
+            1.8090819411147014
+          ]
+        },
+        {
+          "bsp": 0.15156639357171128,
+          "evaluation_index": 78,
+          "expected_normalized_cost": 0.40615063900312615,
+          "in_bounds": true,
+          "loss": -0.15156639357171128,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.9340775038173326,
+            1.8104446116160475
+          ]
+        },
+        {
+          "bsp": 0.15157155860590393,
+          "evaluation_index": 79,
+          "expected_normalized_cost": 0.40684542196950535,
+          "in_bounds": true,
+          "loss": -0.15157155860590393,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9338076456258799,
+            1.8124263221288384
+          ]
+        },
+        {
+          "bsp": 0.15155636561597557,
+          "evaluation_index": 80,
+          "expected_normalized_cost": 0.40712257102276117,
+          "in_bounds": true,
+          "loss": -0.15155636561597557,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.9356802229376953,
+            1.8131287850896232
+          ]
+        },
+        {
+          "bsp": 0.15157647977330868,
+          "evaluation_index": 81,
+          "expected_normalized_cost": 0.40689164865113836,
+          "in_bounds": true,
+          "loss": -0.15157647977330868,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9328210120657585,
+            1.8125892767791008
+          ]
+        },
+        {
+          "bsp": 0.15157936190751284,
+          "evaluation_index": 82,
+          "expected_normalized_cost": 0.4070207128465656,
+          "in_bounds": true,
+          "loss": -0.15157936190751284,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9318999737225143,
+            1.8129787486911484
+          ]
+        },
+        {
+          "bsp": 0.15157206148521724,
+          "evaluation_index": 83,
+          "expected_normalized_cost": 0.4073554448562084,
+          "in_bounds": true,
+          "loss": -0.15157206148521724,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.9315306246888357,
+            1.8139080394375355
+          ]
+        },
+        {
+          "bsp": 0.15158352721425164,
+          "evaluation_index": 84,
+          "expected_normalized_cost": 0.4068699072070337,
+          "in_bounds": true,
+          "loss": -0.15158352721425164,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.9316107973883172,
+            1.812570855264209
+          ]
+        },
+        {
+          "bsp": 0.15158686983262817,
+          "evaluation_index": 85,
+          "expected_normalized_cost": 0.4067345878251778,
+          "in_bounds": true,
+          "loss": -0.15158686983262817,
+          "p_feas": 0.9999999999999998,
+          "parameters": [
+            0.931269956838084,
+            1.8122050305530197
+          ]
+        },
+        {
+          "bsp": 0.15159221635984266,
+          "evaluation_index": 86,
+          "expected_normalized_cost": 0.40652997292045,
+          "in_bounds": true,
+          "loss": -0.15159221635984266,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9304326512510663,
+            1.8116582953758553
+          ]
+        },
+        {
+          "bsp": 0.15160356574042036,
+          "evaluation_index": 87,
+          "expected_normalized_cost": 0.4065842747919874,
+          "in_bounds": true,
+          "loss": -0.15160356574042036,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.9284451244663162,
+            1.8118813139398828
+          ]
+        },
+        {
+          "bsp": 0.15162533032305814,
+          "evaluation_index": 88,
+          "expected_normalized_cost": 0.40632364096093904,
+          "in_bounds": true,
+          "loss": -0.15162533032305814,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.9244904714044473,
+            1.8112807149386758
+          ]
+        },
+        {
+          "bsp": 0.15167049291062118,
+          "evaluation_index": 89,
+          "expected_normalized_cost": 0.40661542159609265,
+          "in_bounds": true,
+          "loss": -0.15167049291062118,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9165669308192147,
+            1.8123841208450273
+          ]
+        },
+        {
+          "bsp": 0.15174543995789272,
+          "evaluation_index": 90,
+          "expected_normalized_cost": 0.40710782671260504,
+          "in_bounds": true,
+          "loss": -0.15174543995789272,
+          "p_feas": 1.0,
+          "parameters": [
+            0.9006813810221752,
+            1.8142944369565073
+          ]
+        },
+        {
+          "bsp": 0.14981949892184968,
+          "evaluation_index": 91,
+          "expected_normalized_cost": 0.399325769966378,
+          "in_bounds": true,
+          "loss": -0.14981949892184968,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.88588714537245,
+            1.7859196137581084
+          ]
+        },
+        {
+          "bsp": 0.15074754580230162,
+          "evaluation_index": 92,
+          "expected_normalized_cost": 0.41378933553235436,
+          "in_bounds": true,
+          "loss": -0.15074754580230162,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.9014639786664337,
+            1.8302752861494382
+          ]
+        },
+        {
+          "bsp": 0.15167826853113375,
+          "evaluation_index": 93,
+          "expected_normalized_cost": 0.4044090243427743,
+          "in_bounds": true,
+          "loss": -0.15167826853113375,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.899138592059887,
+            1.8064446087916466
+          ]
+        },
+        {
+          "bsp": 0.1516602071240664,
+          "evaluation_index": 94,
+          "expected_normalized_cost": 0.40850369280250715,
+          "in_bounds": true,
+          "loss": -0.1516602071240664,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8992314024234023,
+            1.8180223803658284
+          ]
+        },
+        {
+          "bsp": 0.1517345930701686,
+          "evaluation_index": 95,
+          "expected_normalized_cost": 0.40725327989030385,
+          "in_bounds": true,
+          "loss": -0.1517345930701686,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.9016133668745054,
+            1.8146569316062005
+          ]
+        },
+        {
+          "bsp": 0.15176240800551008,
+          "evaluation_index": 96,
+          "expected_normalized_cost": 0.4063869850119646,
+          "in_bounds": true,
+          "loss": -0.15176240800551008,
+          "p_feas": 1.0,
+          "parameters": [
+            0.900481881186978,
+            1.8123044118773295
+          ]
+        },
+        {
+          "bsp": 0.1517681720914379,
+          "evaluation_index": 97,
+          "expected_normalized_cost": 0.4059047961082596,
+          "in_bounds": true,
+          "loss": -0.1517681720914379,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8989837054548425,
+            1.810979470567067
+          ]
+        },
+        {
+          "bsp": 0.15174260699905145,
+          "evaluation_index": 98,
+          "expected_normalized_cost": 0.40529661724371224,
+          "in_bounds": true,
+          "loss": -0.15174260699905145,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8998099824488142,
+            1.8091581341540908
+          ]
+        },
+        {
+          "bsp": 0.15177524330526074,
+          "evaluation_index": 99,
+          "expected_normalized_cost": 0.4061044807291679,
+          "in_bounds": true,
+          "loss": -0.15177524330526074,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.8981859577108358,
+            1.8115824618911605
+          ]
+        },
+        {
+          "bsp": 0.15178088986975533,
+          "evaluation_index": 100,
+          "expected_normalized_cost": 0.4062416334087306,
+          "in_bounds": true,
+          "loss": -0.15178088986975533,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8972798143263567,
+            1.812005432536436
+          ]
+        },
+        {
+          "bsp": 0.15179190037620624,
+          "evaluation_index": 101,
+          "expected_normalized_cost": 0.4063151224399774,
+          "in_bounds": true,
+          "loss": -0.15179190037620624,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8952992078456965,
+            1.812283277760917
+          ]
+        },
+        {
+          "bsp": 0.15180456905023587,
+          "evaluation_index": 102,
+          "expected_normalized_cost": 0.4067901336424787,
+          "in_bounds": true,
+          "loss": -0.15180456905023587,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8915734508145726,
+            1.8137388651148847
+          ]
+        },
+        {
+          "bsp": 0.15182074519418934,
+          "evaluation_index": 103,
+          "expected_normalized_cost": 0.40565079401304693,
+          "in_bounds": true,
+          "loss": -0.15182074519418934,
+          "p_feas": 1.0,
+          "parameters": [
+            0.88910341579058,
+            1.8105926090890263
+          ]
+        },
+        {
+          "bsp": 0.15181790839813378,
+          "evaluation_index": 104,
+          "expected_normalized_cost": 0.405047975414036,
+          "in_bounds": true,
+          "loss": -0.15181790839813378,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8854653294961514,
+            1.808929982217389
+          ]
+        },
+        {
+          "bsp": 0.15179075096646355,
+          "evaluation_index": 105,
+          "expected_normalized_cost": 0.4050721045397023,
+          "in_bounds": true,
+          "loss": -0.15179075096646355,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8900590236782442,
+            1.8088356760894404
+          ]
+        },
+        {
+          "bsp": 0.15182021503783716,
+          "evaluation_index": 106,
+          "expected_normalized_cost": 0.40573802574265955,
+          "in_bounds": true,
+          "loss": -0.15182021503783716,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8895426490404765,
+            1.8108315110609423
+          ]
+        },
+        {
+          "bsp": 0.15182906798281803,
+          "evaluation_index": 107,
+          "expected_normalized_cost": 0.40593453523559386,
+          "in_bounds": true,
+          "loss": -0.15182906798281803,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8885648476621367,
+            1.8114351910559738
+          ]
+        },
+        {
+          "bsp": 0.15183347283639537,
+          "evaluation_index": 108,
+          "expected_normalized_cost": 0.4062110159478434,
+          "in_bounds": true,
+          "loss": -0.15183347283639537,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8879791903442464,
+            1.8122457498175708
+          ]
+        },
+        {
+          "bsp": 0.15183912029964303,
+          "evaluation_index": 109,
+          "expected_normalized_cost": 0.40613170283587857,
+          "in_bounds": true,
+          "loss": -0.15183912029964303,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.8869975534167681,
+            1.8120549909577215
+          ]
+        },
+        {
+          "bsp": 0.1518446067085553,
+          "evaluation_index": 110,
+          "expected_normalized_cost": 0.40618440812089623,
+          "in_bounds": true,
+          "loss": -0.1518446067085553,
+          "p_feas": 0.9999999999999997,
+          "parameters": [
+            0.8860147022312155,
+            1.8122393914649275
+          ]
+        },
+        {
+          "bsp": 0.151855954216359,
+          "evaluation_index": 111,
+          "expected_normalized_cost": 0.4061042886671473,
+          "in_bounds": true,
+          "loss": -0.151855954216359,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8840209144877281,
+            1.8120818781832038
+          ]
+        },
+        {
+          "bsp": 0.15187816638554003,
+          "evaluation_index": 112,
+          "expected_normalized_cost": 0.40595381773484296,
+          "in_bounds": true,
+          "loss": -0.15187816638554003,
+          "p_feas": 0.9999999999999998,
+          "parameters": [
+            0.8800313680406123,
+            1.8117928813903048
+          ]
+        },
+        {
+          "bsp": 0.15191915861080404,
+          "evaluation_index": 113,
+          "expected_normalized_cost": 0.4063859382368315,
+          "in_bounds": true,
+          "loss": -0.15191915861080404,
+          "p_feas": 1.0,
+          "parameters": [
+            0.872173101864607,
+            1.8132920987551486
+          ]
+        },
+        {
+          "bsp": 0.1519868978763747,
+          "evaluation_index": 114,
+          "expected_normalized_cost": 0.40488964637408403,
+          "in_bounds": true,
+          "loss": -0.1519868978763747,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8566285519893914,
+            1.8095017202546644
+          ]
+        },
+        {
+          "bsp": 0.15192882602260002,
+          "evaluation_index": 115,
+          "expected_normalized_cost": 0.4089776385822142,
+          "in_bounds": true,
+          "loss": -0.15192882602260002,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.827002328505755,
+            1.8215966316680492
+          ]
+        },
+        {
+          "bsp": 0.15101173151724256,
+          "evaluation_index": 116,
+          "expected_normalized_cost": 0.4005313049832289,
+          "in_bounds": true,
+          "loss": -0.15101173151724256,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8534012828459622,
+            1.7938305769053147
+          ]
+        },
+        {
+          "bsp": 0.15195360524351267,
+          "evaluation_index": 117,
+          "expected_normalized_cost": 0.40758186514580425,
+          "in_bounds": true,
+          "loss": -0.15195360524351267,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8542638931531188,
+            1.8171442583532307
+          ]
+        },
+        {
+          "bsp": 0.1519037073181623,
+          "evaluation_index": 118,
+          "expected_normalized_cost": 0.4037615027270794,
+          "in_bounds": true,
+          "loss": -0.1519037073181623,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8546276382639808,
+            1.8060381463398383
+          ]
+        },
+        {
+          "bsp": 0.15197302535645205,
+          "evaluation_index": 119,
+          "expected_normalized_cost": 0.4047354052183217,
+          "in_bounds": true,
+          "loss": -0.15197302535645205,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8574944454680978,
+            1.8090014918233117
+          ]
+        },
+        {
+          "bsp": 0.15200914477435537,
+          "evaluation_index": 120,
+          "expected_normalized_cost": 0.40556173917198446,
+          "in_bounds": true,
+          "loss": -0.15200914477435537,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.8564998665038502,
+            1.8114975759723482
+          ]
+        },
+        {
+          "bsp": 0.1520175775134542,
+          "evaluation_index": 121,
+          "expected_normalized_cost": 0.4060514198145884,
+          "in_bounds": true,
+          "loss": -0.1520175775134542,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8551243477286232,
+            1.812949453411734
+          ]
+        },
+        {
+          "bsp": 0.1519960345569525,
+          "evaluation_index": 122,
+          "expected_normalized_cost": 0.4067001182299601,
+          "in_bounds": true,
+          "loss": -0.1519960345569525,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.8560527644948306,
+            1.8147209054455824
+          ]
+        },
+        {
+          "bsp": 0.15202375737662088,
+          "evaluation_index": 123,
+          "expected_normalized_cost": 0.4058898858061874,
+          "in_bounds": true,
+          "loss": -0.15202375737662088,
+          "p_feas": 0.9999999999999997,
+          "parameters": [
+            0.8542199439244716,
+            1.8125227758296698
+          ]
+        },
+        {
+          "bsp": 0.15202943721562456,
+          "evaluation_index": 124,
+          "expected_normalized_cost": 0.40585321831174526,
+          "in_bounds": true,
+          "loss": -0.15202943721562456,
+          "p_feas": 0.9999999999999998,
+          "parameters": [
+            0.853222351813172,
+            1.812453421814121
+          ]
+        },
+        {
+          "bsp": 0.15203940869351207,
+          "evaluation_index": 125,
+          "expected_normalized_cost": 0.40599199105901523,
+          "in_bounds": true,
+          "loss": -0.15203940869351207,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.8512767461957371,
+            1.8129166914779304
+          ]
+        },
+        {
+          "bsp": 0.1520601936461144,
+          "evaluation_index": 126,
+          "expected_normalized_cost": 0.4055055798863739,
+          "in_bounds": true,
+          "loss": -0.1520601936461144,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8474805210715018,
+            1.8116562650397259
+          ]
+        },
+        {
+          "bsp": 0.15209761010826853,
+          "evaluation_index": 127,
+          "expected_normalized_cost": 0.4050930798671415,
+          "in_bounds": true,
+          "loss": -0.15209761010826853,
+          "p_feas": 0.9999999999999998,
+          "parameters": [
+            0.8395342370575206,
+            1.8107307541704507
+          ]
+        },
+        {
+          "bsp": 0.15174602482231145,
+          "evaluation_index": 128,
+          "expected_normalized_cost": 0.40187658016652067,
+          "in_bounds": true,
+          "loss": -0.15174602482231145,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8272105961060903,
+            1.8005264475452936
+          ]
+        },
+        {
+          "bsp": 0.15200364617283343,
+          "evaluation_index": 129,
+          "expected_normalized_cost": 0.4079090679798639,
+          "in_bounds": true,
+          "loss": -0.15200364617283343,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8378356775528099,
+            1.8185483558237046
+          ]
+        },
+        {
+          "bsp": 0.15201851530208138,
+          "evaluation_index": 130,
+          "expected_normalized_cost": 0.40382545195744296,
+          "in_bounds": true,
+          "loss": -0.15201851530208138,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8385506437376447,
+            1.8068535716649325
+          ]
+        },
+        {
+          "bsp": 0.15210529191797864,
+          "evaluation_index": 131,
+          "expected_normalized_cost": 0.4051643664334897,
+          "in_bounds": true,
+          "loss": -0.15210529191797864,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8385649414311411,
+            1.8109766525004196
+          ]
+        },
+        {
+          "bsp": 0.1521122003674028,
+          "evaluation_index": 132,
+          "expected_normalized_cost": 0.4058468961963695,
+          "in_bounds": true,
+          "loss": -0.1521122003674028,
+          "p_feas": 1.0,
+          "parameters": [
+            0.838321357553731,
+            1.8129617638057791
+          ]
+        },
+        {
+          "bsp": 0.1521193804772598,
+          "evaluation_index": 133,
+          "expected_normalized_cost": 0.4060609729417807,
+          "in_bounds": true,
+          "loss": -0.1521193804772598,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8364372452446301,
+            1.8136326742369802
+          ]
+        },
+        {
+          "bsp": 0.1521090637545054,
+          "evaluation_index": 134,
+          "expected_normalized_cost": 0.40659396089310895,
+          "in_bounds": true,
+          "loss": -0.1521090637545054,
+          "p_feas": 0.9999999999999998,
+          "parameters": [
+            0.8351387275717361,
+            1.8151538092912018
+          ]
+        },
+        {
+          "bsp": 0.15212619814900136,
+          "evaluation_index": 135,
+          "expected_normalized_cost": 0.4057541650539722,
+          "in_bounds": true,
+          "loss": -0.15212619814900136,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.8359100608534802,
+            1.8127829233218715
+          ]
+        },
+        {
+          "bsp": 0.1521304699413599,
+          "evaluation_index": 136,
+          "expected_normalized_cost": 0.4055193777155211,
+          "in_bounds": true,
+          "loss": -0.1521304699413599,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8351476272273991,
+            1.8121358568911081
+          ]
+        },
+        {
+          "bsp": 0.15213612538411578,
+          "evaluation_index": 137,
+          "expected_normalized_cost": 0.4055225702016571,
+          "in_bounds": true,
+          "loss": -0.15213612538411578,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8341486306974004,
+            1.812180644535059
+          ]
+        },
+        {
+          "bsp": 0.1521473198410364,
+          "evaluation_index": 138,
+          "expected_normalized_cost": 0.40550590246711826,
+          "in_bounds": true,
+          "loss": -0.1521473198410364,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8321487635927092,
+            1.8122037001975695
+          ]
+        },
+        {
+          "bsp": 0.15216944889824638,
+          "evaluation_index": 139,
+          "expected_normalized_cost": 0.4054298827740736,
+          "in_bounds": true,
+          "loss": -0.15216944889824638,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8281495123038068,
+            1.8121263107395482
+          ]
+        },
+        {
+          "bsp": 0.15220898373920622,
+          "evaluation_index": 140,
+          "expected_normalized_cost": 0.40503178996899314,
+          "in_bounds": true,
+          "loss": -0.15220898373920622,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8201980086293721,
+            1.8112467714763827
+          ]
+        },
+        {
+          "bsp": 0.15195144542155406,
+          "evaluation_index": 141,
+          "expected_normalized_cost": 0.40932807425904694,
+          "in_bounds": true,
+          "loss": -0.15195144542155406,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8093714540968994,
+            1.823027506468538
+          ]
+        },
+        {
+          "bsp": 0.15196045509917894,
+          "evaluation_index": 142,
+          "expected_normalized_cost": 0.40254579629620285,
+          "in_bounds": true,
+          "loss": -0.15196045509917894,
+          "p_feas": 0.9999999999999999,
+          "parameters": [
+            0.8194285726555887,
+            1.8032838594285043
+          ]
+        },
+        {
+          "bsp": 0.1522007919881359,
+          "evaluation_index": 143,
+          "expected_normalized_cost": 0.4063769504267944,
+          "in_bounds": true,
+          "loss": -0.1522007919881359,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.8191703963710336,
+            1.8151125201809046
+          ]
+        },
+        {
+          "bsp": 0.1522120590035658,
+          "evaluation_index": 144,
+          "expected_normalized_cost": 0.4049333146888665,
+          "in_bounds": true,
+          "loss": -0.1522120590035658,
+          "p_feas": 1.0000000000000002,
+          "parameters": [
+            0.8192315714532417,
+            1.810989868411798
+          ]
+        },
+        {
+          "bsp": 0.15219823083209139,
+          "evaluation_index": 145,
+          "expected_normalized_cost": 0.40442053983394466,
+          "in_bounds": true,
+          "loss": -0.15219823083209139,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8179075753247103,
+            1.8094908573205668
+          ]
+        },
+        {
+          "bsp": 0.1522166787706359,
+          "evaluation_index": 146,
+          "expected_normalized_cost": 0.40509516562766834,
+          "in_bounds": true,
+          "loss": -0.1522166787706359,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8191031199209493,
+            1.8114730869998632
+          ]
+        },
+        {
+          "bsp": 0.1522231983912981,
+          "evaluation_index": 147,
+          "expected_normalized_cost": 0.40537477747324313,
+          "in_bounds": true,
+          "loss": -0.1522231983912981,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8185541589285789,
+            1.812308934969805
+          ]
+        },
+        {
+          "bsp": 0.1522280869532649,
+          "evaluation_index": 148,
+          "expected_normalized_cost": 0.4055400026485644,
+          "in_bounds": true,
+          "loss": -0.1522280869532649,
+          "p_feas": 0.9999999999999998,
+          "parameters": [
+            0.8176921081641922,
+            1.8128157569105499
+          ]
+        },
+        {
+          "bsp": 0.15222544829233658,
+          "evaluation_index": 149,
+          "expected_normalized_cost": 0.4058768120421422,
+          "in_bounds": true,
+          "loss": -0.15222544829233658,
+          "p_feas": 1.0,
+          "parameters": [
+            0.817434841635484,
+            1.8137820973956824
+          ]
+        },
+        {
+          "bsp": 0.15223063810629836,
+          "evaluation_index": 150,
+          "expected_normalized_cost": 0.4054471088306239,
+          "in_bounds": true,
+          "loss": -0.15223063810629836,
+          "p_feas": 1.0,
+          "parameters": [
+            0.8172601113490556,
+            1.8125640055417118
+          ]
+        }
+      ],
+      "evaluations": 150,
+      "final_loss": -0.15223063810629836,
+      "final_parameters": [
+        0.8172601113490556,
+        1.8125640055417118
+      ],
+      "initial_loss": -0.07845604463665949,
+      "initial_parameters": [
+        0.5460648473059009,
+        2.245836883431867
+      ],
+      "message": "Return from COBYLA because the objective function has been evaluated MAXFUN times.",
+      "optimizer_reported_loss": -0.15223063810629836,
+      "reason": "evaluation_budget_exhausted",
+      "retention_policy": "best_finite_in_bounds_stationary_loss",
+      "runtime_seconds": 0.27014300413429737,
+      "statevector_evaluations": 151,
+      "success": false
+    },
+    "phase_kind": "normalized_route_cost_phase",
+    "run_id": "bsp_path_exchange_p1_seed2602",
+    "seed": 2602
+  },
+  "schema": "dtu-sciqis-q2f-final-improvement-raw-run",
+  "scientific_identity": {
+    "basis_ordering": "routing_cost_then_lexicographic_node_sequence",
+    "basis_size": 20,
+    "better_route_ids": [
+      0
+    ],
+    "better_set_definition": "raw_route_cost < incumbent_raw_cost",
+    "incumbent_raw_cost": 11.0,
+    "incumbent_route_id": 1,
+    "layer_order": "phase_then_mixer",
+    "normalization": "(raw_route_cost - minimum_route_cost) / (maximum_route_cost - minimum_route_cost)",
+    "optimum_identity_use": "post-optimization p_opt evaluation only",
+    "optimum_identity_used_by_optimizer": false,
+    "parameter_order": "all_gammas_then_all_betas"
+  },
+  "version": "1.0",
+  "warnings": []
+}

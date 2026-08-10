@@ -1,0 +1,728 @@
+{
+  "completed_at_utc": "2026-08-10T18:46:02.597203+00:00",
+  "identity": {
+    "cell_id": "ascending_cvar_p1_seed2603",
+    "config_sha256": "d53206d7c6b9fbef19d8a83558e21f6933575d19080903b55ea712a2340a3cc1",
+    "graph_sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+    "run_identity": "q2f-33955d1f3f1c1c4a435ba0945848224f32ff32d8f1a3b80f630858d9aa91e2c7",
+    "sequence": 21,
+    "source_bundle_sha256": "c57474df8190479a673a9456c08e81d6c328a1814dbf22f4dce8342d648119f3"
+  },
+  "result": {
+    "alpha_end": 1.0,
+    "alpha_start": 0.25,
+    "bias_lambda": 1.0,
+    "depth": 1,
+    "evaluation_budget": 100,
+    "final_layer_norms": [
+      {
+        "after_cost_norm": 1.0,
+        "after_mixer_norm": 1.0000000000000002,
+        "layer": 1
+      }
+    ],
+    "final_probabilities": [
+      0.03764544463697589,
+      0.7561289682457961,
+      0.03764544463697582,
+      0.0018742563258797534,
+      0.001874256325879786,
+      0.03764544463697596,
+      0.013848985135701198,
+      0.037645444636975965,
+      0.001874256325879769,
+      0.03764544463697594,
+      0.0018742563258797734,
+      9.331372783547289e-05,
+      0.0018742563258797558,
+      0.013848985135701162,
+      0.0018742563258797578,
+      0.0006895003697766803,
+      0.01384898513570121,
+      0.0006895003697766889,
+      0.0006895003697766835,
+      0.0006895003697766858
+    ],
+    "fixed_cvar_alpha": 0.25,
+    "initialization_mode": "incumbent_biased_feasible",
+    "metrics": {
+      "expected_normalized_cost": 0.2906924175833347,
+      "expected_route_cost": 11.162769670333342,
+      "final_p_opt": 0.03764544463697589,
+      "initial_p_opt": 0.03764544463697589,
+      "most_probable_route": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "most_probable_route_cost": 11,
+      "most_probable_route_id": 1,
+      "most_probable_route_probability": 0.7561289682457961,
+      "optimal_state_rank": 2,
+      "p_feas": 0.9999999999999999,
+      "p_opt": 0.03764544463697589,
+      "p_opt_amplification": 1.0,
+      "probability_entropy": 1.098031877253192,
+      "top3_lowest_cost_mass": 0.8314198575197478,
+      "top5_lowest_cost_mass": 0.8351683701715074
+    },
+    "objective_mode": "ascending_cvar",
+    "optimizer": {
+      "evaluation_trace": [
+        {
+          "alpha": 0.25,
+          "evaluation_index": 1,
+          "in_bounds": true,
+          "objective_value": 0.24493723480758117,
+          "parameters": [
+            2.2239095548496786,
+            0.41487776871679605
+          ],
+          "schedule_index": 0
+        },
+        {
+          "alpha": 0.25757575757575757,
+          "evaluation_index": 2,
+          "in_bounds": true,
+          "objective_value": 0.24810951182800517,
+          "parameters": [
+            2.7239095548496786,
+            0.41487776871679605
+          ],
+          "schedule_index": 1
+        },
+        {
+          "alpha": 0.26515151515151514,
+          "evaluation_index": 3,
+          "in_bounds": true,
+          "objective_value": 0.25525874229609546,
+          "parameters": [
+            2.2239095548496786,
+            0.914877768716796
+          ],
+          "schedule_index": 2
+        },
+        {
+          "alpha": 0.2727272727272727,
+          "evaluation_index": 4,
+          "in_bounds": true,
+          "objective_value": 0.21549167574943875,
+          "parameters": [
+            1.944846054863434,
+            0.0
+          ],
+          "schedule_index": 3
+        },
+        {
+          "alpha": 0.2803030303030303,
+          "evaluation_index": 5,
+          "in_bounds": true,
+          "objective_value": 0.2164243331616161,
+          "parameters": [
+            0.9448460548634341,
+            2.8212386281124637e-18
+          ],
+          "schedule_index": 4
+        },
+        {
+          "alpha": 0.2878787878787879,
+          "evaluation_index": 6,
+          "in_bounds": true,
+          "objective_value": 0.21730790334157357,
+          "parameters": [
+            2.444846054863434,
+            2.012945624186001e-20
+          ],
+          "schedule_index": 5
+        },
+        {
+          "alpha": 0.29545454545454547,
+          "evaluation_index": 7,
+          "in_bounds": false,
+          "objective_value": 1000000.0,
+          "parameters": [
+            1.694846054863434,
+            -5.320340714553054e-19
+          ],
+          "schedule_index": 6
+        },
+        {
+          "alpha": 0.30303030303030304,
+          "evaluation_index": 8,
+          "in_bounds": true,
+          "objective_value": 0.2189425081744949,
+          "parameters": [
+            2.069846054863434,
+            6.68726045914217e-18
+          ],
+          "schedule_index": 7
+        },
+        {
+          "alpha": 0.3106060606060606,
+          "evaluation_index": 9,
+          "in_bounds": false,
+          "objective_value": 1000000.025,
+          "parameters": [
+            1.944846054863434,
+            -0.025
+          ],
+          "schedule_index": 8
+        },
+        {
+          "alpha": 0.3181818181818182,
+          "evaluation_index": 10,
+          "in_bounds": true,
+          "objective_value": 0.23490403989154665,
+          "parameters": [
+            1.9448460548289257,
+            0.05
+          ],
+          "schedule_index": 9
+        },
+        {
+          "alpha": 0.32575757575757575,
+          "evaluation_index": 11,
+          "in_bounds": false,
+          "objective_value": 1000000.0,
+          "parameters": [
+            1.9198460548634342,
+            -1.7254166749507706e-11
+          ],
+          "schedule_index": 10
+        },
+        {
+          "alpha": 0.3333333333333333,
+          "evaluation_index": 12,
+          "in_bounds": true,
+          "objective_value": 0.22176591652226807,
+          "parameters": [
+            1.9948460548634341,
+            0.0
+          ],
+          "schedule_index": 11
+        },
+        {
+          "alpha": 0.34090909090909094,
+          "evaluation_index": 13,
+          "in_bounds": true,
+          "objective_value": 0.22239334059955101,
+          "parameters": [
+            1.9198460548634342,
+            5.427739126816101e-19
+          ],
+          "schedule_index": 12
+        },
+        {
+          "alpha": 0.3484848484848485,
+          "evaluation_index": 14,
+          "in_bounds": false,
+          "objective_value": 1000000.0,
+          "parameters": [
+            1.957346054863434,
+            -1.707072479853874e-19
+          ],
+          "schedule_index": 13
+        },
+        {
+          "alpha": 0.3560606060606061,
+          "evaluation_index": 15,
+          "in_bounds": false,
+          "objective_value": 1000000.0025,
+          "parameters": [
+            1.944846054863434,
+            -0.0025000000000000005
+          ],
+          "schedule_index": 14
+        },
+        {
+          "alpha": 0.36363636363636365,
+          "evaluation_index": 16,
+          "in_bounds": true,
+          "objective_value": 0.22553059983330115,
+          "parameters": [
+            1.9438654741901003,
+            0.004902903378926035
+          ],
+          "schedule_index": 15
+        },
+        {
+          "alpha": 0.3712121212121212,
+          "evaluation_index": 17,
+          "in_bounds": false,
+          "objective_value": 1000000.0004902903,
+          "parameters": [
+            1.9423946031739712,
+            -0.0004902903366668775
+          ],
+          "schedule_index": 16
+        },
+        {
+          "alpha": 0.3787878787878788,
+          "evaluation_index": 18,
+          "in_bounds": true,
+          "objective_value": 0.22542785741428298,
+          "parameters": [
+            1.9497489582472822,
+            0.0009805806487238123
+          ],
+          "schedule_index": 17
+        },
+        {
+          "alpha": 0.38636363636363635,
+          "evaluation_index": 19,
+          "in_bounds": true,
+          "objective_value": 0.22564118288195678,
+          "parameters": [
+            1.9423460548634341,
+            1.1734115560229882e-20
+          ],
+          "schedule_index": 18
+        },
+        {
+          "alpha": 0.3939393939393939,
+          "evaluation_index": 20,
+          "in_bounds": false,
+          "objective_value": 1000000.000625,
+          "parameters": [
+            1.944846054863434,
+            -0.0006250000000000001
+          ],
+          "schedule_index": 19
+        },
+        {
+          "alpha": 0.4015151515151515,
+          "evaluation_index": 21,
+          "in_bounds": true,
+          "objective_value": 0.22688898259785442,
+          "parameters": [
+            1.9448460548666058,
+            0.0012500000000000002
+          ],
+          "schedule_index": 20
+        },
+        {
+          "alpha": 0.40909090909090906,
+          "evaluation_index": 22,
+          "in_bounds": false,
+          "objective_value": 1000000.0,
+          "parameters": [
+            1.945346054863434,
+            -9.134093964785838e-21
+          ],
+          "schedule_index": 21
+        },
+        {
+          "alpha": 0.41666666666666663,
+          "evaluation_index": 23,
+          "in_bounds": false,
+          "objective_value": 1000000.00025,
+          "parameters": [
+            1.944846054863434,
+            -0.00025000000000000006
+          ],
+          "schedule_index": 22
+        },
+        {
+          "alpha": 0.42424242424242425,
+          "evaluation_index": 24,
+          "in_bounds": true,
+          "objective_value": 0.22792751422070864,
+          "parameters": [
+            1.9446224480657288,
+            0.00044721359552231865
+          ],
+          "schedule_index": 23
+        },
+        {
+          "alpha": 0.4318181818181818,
+          "evaluation_index": 25,
+          "in_bounds": true,
+          "objective_value": 0.2282052688943824,
+          "parameters": [
+            1.944596054863434,
+            2.2520246342633204e-21
+          ],
+          "schedule_index": 24
+        },
+        {
+          "alpha": 0.4393939393939394,
+          "evaluation_index": 26,
+          "in_bounds": true,
+          "objective_value": 0.2285810401203413,
+          "parameters": [
+            1.944971054863434,
+            4.474352838781025e-23
+          ],
+          "schedule_index": 25
+        },
+        {
+          "alpha": 0.44696969696969696,
+          "evaluation_index": 27,
+          "in_bounds": false,
+          "objective_value": 1000000.000025,
+          "parameters": [
+            1.944846054863434,
+            -2.5000000000000008e-05
+          ],
+          "schedule_index": 26
+        },
+        {
+          "alpha": 0.4545454545454546,
+          "evaluation_index": 28,
+          "in_bounds": true,
+          "objective_value": 0.2293066440124907,
+          "parameters": [
+            1.9448460548633033,
+            5.0000000000000016e-05
+          ],
+          "schedule_index": 27
+        },
+        {
+          "alpha": 0.46212121212121215,
+          "evaluation_index": 29,
+          "in_bounds": false,
+          "objective_value": 1000000.0,
+          "parameters": [
+            1.9448210548634342,
+            -6.544683596507366e-14
+          ],
+          "schedule_index": 28
+        },
+        {
+          "alpha": 0.4696969696969697,
+          "evaluation_index": 30,
+          "in_bounds": true,
+          "objective_value": 0.22996290849967413,
+          "parameters": [
+            1.9448960548634342,
+            0.0
+          ],
+          "schedule_index": 29
+        },
+        {
+          "alpha": 0.4772727272727273,
+          "evaluation_index": 31,
+          "in_bounds": true,
+          "objective_value": 0.23028095757110786,
+          "parameters": [
+            1.9448210548634342,
+            2.4007896578165905e-22
+          ],
+          "schedule_index": 30
+        },
+        {
+          "alpha": 0.48484848484848486,
+          "evaluation_index": 32,
+          "in_bounds": true,
+          "objective_value": 0.2305890676090593,
+          "parameters": [
+            1.944858554863434,
+            2.370116430410857e-22
+          ],
+          "schedule_index": 31
+        },
+        {
+          "alpha": 0.49242424242424243,
+          "evaluation_index": 33,
+          "in_bounds": false,
+          "objective_value": 1000000.0000025,
+          "parameters": [
+            1.944846054863434,
+            -2.500000000000001e-06
+          ],
+          "schedule_index": 32
+        },
+        {
+          "alpha": 0.5,
+          "evaluation_index": 34,
+          "in_bounds": true,
+          "objective_value": 0.2311783358275365,
+          "parameters": [
+            1.944846054863419,
+            5.000000000000002e-06
+          ],
+          "schedule_index": 33
+        },
+        {
+          "alpha": 0.5075757575757576,
+          "evaluation_index": 35,
+          "in_bounds": false,
+          "objective_value": 1000000.0,
+          "parameters": [
+            1.9448435548634342,
+            -7.548697603875223e-15
+          ],
+          "schedule_index": 34
+        },
+        {
+          "alpha": 0.5151515151515151,
+          "evaluation_index": 36,
+          "in_bounds": true,
+          "objective_value": 0.23173088716146759,
+          "parameters": [
+            1.9448510548634341,
+            0.0
+          ],
+          "schedule_index": 35
+        },
+        {
+          "alpha": 0.5227272727272727,
+          "evaluation_index": 37,
+          "in_bounds": false,
+          "objective_value": 1000000.0,
+          "parameters": [
+            1.9448435548634342,
+            -5.374512510773755e-23
+          ],
+          "schedule_index": 36
+        },
+        {
+          "alpha": 0.5303030303030303,
+          "evaluation_index": 38,
+          "in_bounds": true,
+          "objective_value": 0.23225286181399707,
+          "parameters": [
+            1.944847304863434,
+            0.0
+          ],
+          "schedule_index": 37
+        },
+        {
+          "alpha": 0.5378787878787878,
+          "evaluation_index": 39,
+          "in_bounds": false,
+          "objective_value": 1000000.00000025,
+          "parameters": [
+            1.944846054863434,
+            -2.500000000000001e-07
+          ],
+          "schedule_index": 38
+        },
+        {
+          "alpha": 0.5454545454545454,
+          "evaluation_index": 40,
+          "in_bounds": true,
+          "objective_value": 0.23274593487230752,
+          "parameters": [
+            1.9448460548634323,
+            5.000000000000002e-07
+          ],
+          "schedule_index": 39
+        },
+        {
+          "alpha": 0.553030303030303,
+          "evaluation_index": 41,
+          "in_bounds": false,
+          "objective_value": 1000000.0,
+          "parameters": [
+            1.944845804863434,
+            -8.38059483822549e-16
+          ],
+          "schedule_index": 40
+        },
+        {
+          "alpha": 0.5606060606060606,
+          "evaluation_index": 42,
+          "in_bounds": true,
+          "objective_value": 0.23321216658080807,
+          "parameters": [
+            1.9448465548634342,
+            0.0
+          ],
+          "schedule_index": 41
+        },
+        {
+          "alpha": 0.5681818181818181,
+          "evaluation_index": 43,
+          "in_bounds": true,
+          "objective_value": 0.23343600435973058,
+          "parameters": [
+            1.944845804863434,
+            1.0750787705168387e-24
+          ],
+          "schedule_index": 42
+        },
+        {
+          "alpha": 0.5757575757575757,
+          "evaluation_index": 44,
+          "in_bounds": false,
+          "objective_value": 1000000.0,
+          "parameters": [
+            1.944846179863434,
+            -3.3815284854975415e-24
+          ],
+          "schedule_index": 43
+        },
+        {
+          "alpha": 0.5833333333333333,
+          "evaluation_index": 45,
+          "in_bounds": false,
+          "objective_value": 1000000.0000000354,
+          "parameters": [
+            1.944846054863434,
+            -3.5355339059327386e-08
+          ],
+          "schedule_index": 44
+        },
+        {
+          "alpha": 0.5909090909090908,
+          "evaluation_index": 46,
+          "in_bounds": true,
+          "objective_value": 0.23407309329947432,
+          "parameters": [
+            1.9448460356184252,
+            6.804138174397736e-08
+          ],
+          "schedule_index": 45
+        },
+        {
+          "alpha": 0.5984848484848485,
+          "evaluation_index": 47,
+          "in_bounds": false,
+          "objective_value": 1000000.0,
+          "parameters": [
+            1.944846019508095,
+            -4.68414703053872e-25
+          ],
+          "schedule_index": 46
+        },
+        {
+          "alpha": 0.6060606060606061,
+          "evaluation_index": 48,
+          "in_bounds": true,
+          "objective_value": 0.23447125563047114,
+          "parameters": [
+            1.944846054863434,
+            8.838834764831846e-09
+          ],
+          "schedule_index": 47
+        },
+        {
+          "alpha": 0.6136363636363636,
+          "evaluation_index": 49,
+          "in_bounds": false,
+          "objective_value": 1000000.0,
+          "parameters": [
+            1.9448460725411036,
+            -1.0339291934337244e-31
+          ],
+          "schedule_index": 48
+        },
+        {
+          "alpha": 0.6212121212121212,
+          "evaluation_index": 50,
+          "in_bounds": false,
+          "objective_value": 1000000.0,
+          "parameters": [
+            1.9448460448634342,
+            -1.1838942987055203e-32
+          ],
+          "schedule_index": 49
+        }
+      ],
+      "evaluations": 50,
+      "final_objective_at_terminal_alpha": 0.23485000398755845,
+      "final_parameters": [
+        1.944846054863434,
+        0.0
+      ],
+      "initial_objective_value": 0.24493723480758117,
+      "initial_parameters": [
+        2.2239095548496786,
+        0.41487776871679605
+      ],
+      "message": "Return from COBYLA because the trust region radius reaches its lower bound.",
+      "optimizer_reported_objective_value": 0.21549167574943875,
+      "reason": "converged",
+      "retention_policy": "scipy_terminal_parameters_for_nonstationary_schedule",
+      "runtime": 0.08226008014753461,
+      "statevector_evaluations": 30,
+      "success": true,
+      "terminal_alpha": 0.6212121212121212
+    },
+    "run_id": "ascending_cvar_p1_seed2603",
+    "seed": 2603
+  },
+  "schema": "dtu-sciqis-q2f-raw-run",
+  "scientific_identity": {
+    "basis_ordering": "routing_cost_then_lexicographic_node_sequence",
+    "basis_size": 20,
+    "cost_normalization": "(raw_route_cost - minimum_route_cost) / (maximum_route_cost - minimum_route_cost)",
+    "exact_optimal_route_id": 0,
+    "incumbent_route_id": 1,
+    "initialization": {
+      "bias_lambda": 1.0,
+      "expected_normalized_cost": 0.2906924175833346,
+      "expected_route_cost": 11.16276967033334,
+      "incumbent_route": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "incumbent_route_id": 1,
+      "mode": "incumbent_biased_feasible",
+      "p_feas": 1.0000000000000002,
+      "p_opt": 0.03764544463697589,
+      "probabilities": [
+        0.03764544463697589,
+        0.7561289682457965,
+        0.03764544463697589,
+        0.0018742563258797558,
+        0.0018742563258797558,
+        0.03764544463697589,
+        0.01384898513570116,
+        0.03764544463697589,
+        0.0018742563258797558,
+        0.03764544463697589,
+        0.0018742563258797558,
+        9.331372783547688e-05,
+        0.0018742563258797558,
+        0.01384898513570116,
+        0.0018742563258797558,
+        0.0006895003697766852,
+        0.01384898513570116,
+        0.0006895003697766852,
+        0.0006895003697766852,
+        0.0006895003697766852
+      ],
+      "route_distances": [
+        3,
+        0,
+        3,
+        6,
+        6,
+        3,
+        4,
+        3,
+        6,
+        3,
+        6,
+        9,
+        6,
+        4,
+        6,
+        7,
+        4,
+        7,
+        7,
+        7
+      ]
+    },
+    "layer_order": "cost_then_mixer",
+    "mixer": "logical_path_exchange_mixer",
+    "mixer_connected": true,
+    "mixer_exchange_count": 106,
+    "mixer_weight_rule": "uniform",
+    "parameter_order": "all_gammas_then_all_betas"
+  },
+  "version": "1.0",
+  "warnings": []
+}

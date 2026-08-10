@@ -1,0 +1,85 @@
+{
+  "execution_identity": "q2r-9c98b90049545d0508fb20bb488019608a4356d55fe91ff809bce8dc5c5e0c69",
+  "file_count": 15,
+  "files": [
+    {
+      "relative_path": "execution_failure.json",
+      "sha256": "3e1112a7a7352490254833edbdef85f93bb23b5574590ba91870341325bc6c2e",
+      "size_bytes": 2211
+    },
+    {
+      "relative_path": "execution_receipt.json",
+      "sha256": "229bd0fe4636f169a35fc6339f6a898476279e308e8255acccc83919d932a505",
+      "size_bytes": 7692
+    },
+    {
+      "relative_path": "raw/A0.json",
+      "sha256": "8203d77337ad9120c330e50273a4353078a4e884b445e1b141b8d83d464e526f",
+      "size_bytes": 557764
+    },
+    {
+      "relative_path": "raw/A1.json",
+      "sha256": "b854af18dfc13efbb72ab221c5a915d085890a3e0ce66c17a133045b51962416",
+      "size_bytes": 594859
+    },
+    {
+      "relative_path": "raw/A2.json",
+      "sha256": "6eddd2d2243431c4bb199821e57073f7a8438e34528c99d6191a0ed192578809",
+      "size_bytes": 570714
+    },
+    {
+      "relative_path": "raw/A3.json",
+      "sha256": "4dab15231cf00e9906f7c637ed1ff9908d25b019795e9a159a5a8d086e0825d9",
+      "size_bytes": 549196
+    },
+    {
+      "relative_path": "raw/cvar_fixed_p1.json",
+      "sha256": "5640128850a14a68613860ff02c2a099d64f6a969ed2c984ccb17c05e4c82b61",
+      "size_bytes": 505796
+    },
+    {
+      "relative_path": "raw/cvar_fixed_p2.json",
+      "sha256": "0531c0ed5c10c1c2179e24e5738392649634670b36d94fe69d40cb6886ae38cc",
+      "size_bytes": 560852
+    },
+    {
+      "relative_path": "raw/expectation_fixed_p1.json",
+      "sha256": "1e766dfc0ffe62a2985aba2d6d52950d60c01cc92753c708da9834bcf9c737ed",
+      "size_bytes": 503010
+    },
+    {
+      "relative_path": "raw/expectation_fixed_p2.json",
+      "sha256": "14a17e8c7478d3c0920f597ae53eca8e04f2bf7956c7fa2a35011d760891dd30",
+      "size_bytes": 513058
+    },
+    {
+      "relative_path": "summary/depth_history.csv",
+      "sha256": "abadce30a9186ca137b7cf9d90bac8a4159a5419034db170e880248d56cfc4ae",
+      "size_bytes": 4549
+    },
+    {
+      "relative_path": "summary/formal_results.csv",
+      "sha256": "4bab2736119ea1af7d5a5984b5c6e3ea1339b178581619c89e49150b695baf6c",
+      "size_bytes": 2291
+    },
+    {
+      "relative_path": "summary/formal_results.json",
+      "sha256": "fd9572db09bf660f030cd1dcac628da4478a81edde7e26b1bbac04d3346c2fc8",
+      "size_bytes": 7130
+    },
+    {
+      "relative_path": "validation/postrun_validation.json",
+      "sha256": "afdfab500638c4c41e531324464396d71fc729e4636dae7661c66525487ad394",
+      "size_bytes": 28443
+    },
+    {
+      "relative_path": "validation/postrun_validation_reaudit.json",
+      "sha256": "8d20fa953fbc05fac50d5e170c5f5a7b5ee26ffac622716c8d0722ff6d6a579d",
+      "size_bytes": 55211
+    }
+  ],
+  "schema": "dtu-sciqis-q2-revision-result-manifest",
+  "sealed_at_utc": "2026-08-10T17:51:11.195679+00:00",
+  "self_exclusion": "hashes/result_manifest.json is excluded to avoid recursive self-hashing",
+  "version": "1.0"
+}

@@ -1,0 +1,64 @@
+{
+  "authorization_sha256": "df59fe807e6063e4e82cfc28727f6e0ee0f84f572990b56b1e4615ce8f3e9a54",
+  "authorized_run_count": 8,
+  "commit_performed": false,
+  "completed_run_count": 8,
+  "environment": {
+    "numpy": "2.4.6",
+    "python": "3.12.4",
+    "qiskit": "2.4.2",
+    "scipy": "1.18.0"
+  },
+  "execution_identity": "q2r-9c98b90049545d0508fb20bb488019608a4356d55fe91ff809bce8dc5c5e0c69",
+  "execution_manifest_sha256": "938631ddf1de1123e3a0893c65350590a0d65d397d171182746f9df3b15e5a55",
+  "execution_order": [
+    "expectation_fixed_p1",
+    "expectation_fixed_p2",
+    "A0",
+    "A2",
+    "cvar_fixed_p1",
+    "cvar_fixed_p2",
+    "A1",
+    "A3"
+  ],
+  "formal_execution_authorized": true,
+  "formal_execution_status": "all_eight_runs_completed_once; append-only_reaudit_passed; validator_incident_preserved",
+  "git_head": "aa71b9df33ef61ccd47aea00ab476638bb8bc408",
+  "git_status_preseal": "M  .gitignore\nM  README.md\nD  data/circuit_contract.json\nD  data/day5_analysis_contract.json\nA  data/experiment_config.json\nD  data/optimization_contract.json\nD  data/penalty_contract.json\nD  data/scientific_freeze_v3.json\nD  docs/DTU_SCIQIS_QAOA_Routing_Project_Proposal_v3.0.docx\nA  docs/SOURCE_Q2_MAPPING.md\nD  figures/01_frozen_weighted_graph.png\nD  figures/01_frozen_weighted_graph.svg\nD  figures/02_route_cost_spectrum.png\nD  figures/02_route_cost_spectrum.svg\nD  figures/03_graph_qubo_ising_structure.png\nD  figures/03_graph_qubo_ising_structure.svg\nD  figures/04_penalty_state_space_geometry.png\nD  figures/04_penalty_state_space_geometry.svg\nD  figures/05_explicit_p1_qaoa_circuit.png\nD  figures/05_explicit_p1_qaoa_circuit.svg\nD  figures/06_p1_quantum_state_evolution.png\nD  figures/06_p1_quantum_state_evolution.svg\nD  figures/07_cost_phase_encoding.png\nD  figures/07_cost_phase_encoding.svg\nD  figures/08_p1_variational_landscape.png\nD  figures/08_p1_variational_landscape.svg\nD  figures/09_penalty_depth_core_results.png\nD  figures/09_penalty_depth_core_results.svg\nD  figures/10_quantum_route_marginals.png\nD  figures/10_quantum_route_marginals.svg\nD  figures/11_quantum_probability_state_space.png\nD  figures/11_quantum_probability_state_space.svg\nD  figures/12_finite_shot_sampling_convergence.png\nD  figures/12_finite_shot_sampling_convergence.svg\nD  figures/13_runtime_profile.png\nD  figures/13_runtime_profile.svg\nA  figures/epsilon_vs_incumbent_probability.png\nA  figures/epsilon_vs_incumbent_probability.svg\nA  figures/epsilon_vs_pfeas.png\nA  figures/epsilon_vs_pfeas.svg\nA  figures/epsilon_vs_popt.png\nA  figures/epsilon_vs_popt.svg\nA  figures/final_solver_comparison.png\nA  figures/final_solver_comparison.svg\nA  figures/initial_vs_final_optimum_probability.png\nA  figures/initial_vs_final_optimum_probability.svg\nA  figures/multistart_variability.png\nA  figures/multistart_variability.svg\nA  figures/probability_distribution.png\nA  figures/probability_distribution.svg\nA  figures/resource_comparison.png\nA  figures/resource_comparison.svg\nA  figures/routing_graph.png\nA  figures/routing_graph.svg\nA  figures/solver_comparison.png\nA  figures/solver_comparison.svg\nA  figures/warm_start_values.png\nA  figures/warm_start_values.svg\nD  notebooks/01_graph_and_reference.ipynb\nD  notebooks/02_qubo_and_ising.ipynb\nD  notebooks/03_explicit_p1_qaoa.ipynb\nD  notebooks/04_penalty_depth_experiment.ipynb\nMM pyproject.toml\nD  reports/final_course_project_report.md\nD  reports/presentation_outline_15min.md\nD  reports/repository_reconciliation.md\nD  results/all_simple_paths.csv\nA  results/baseline/exact_reference.json\nA  results/baseline/experiment_config.json\nA  results/baseline/experiment_summary.json\nA  results/baseline/metrics.csv\nA  results/baseline/runtime_profile.csv\nA  results/baseline/top_bitstrings.csv\nA  results/baseline/warm_start_values.csv\nD  results/core_experiment_results.json\nD  results/core_experiment_summary.csv\nA  results/experiment_summary.json\nA  results/final/metrics.csv\nA  results/final/runtime_profile.csv\nA  results/final/top_bitstrings.csv\nA  results/final/warm_start_values.csv\nD  results/final_figure_manifest.json\nD  results/final_project_summary.json\nD  results/finite_shot_replicates.csv\nD  results/finite_shot_summary.json\nD  results/ising_coefficients.json\nA  results/metrics.csv\nD  results/optimization_runs.csv\nD  results/p1_landscape_A6.csv\nD  results/p1_state_evolution_diagnostic.json\nD  results/penalty_threshold_analysis.json\nD  results/qubo_coefficients.json\nM  results/runtime_profile.csv\nD  results/runtime_profile_summary.json\nA  results/top_bitstrings.csv\nA  results/tuning/budget_study.csv\nA  results/tuning/distribution_shift.csv\nA  results/tuning/epsilon_sweep.csv\nA  results/tuning/multistart_runs.csv\nA  results/tuning/selection.json\nA  results/tuning/tuning_summary.csv\nA  results/warm_start_values.csv\nD  scripts/build_day1_reference.py\nD  scripts/build_day2_hamiltonian.py\nD  scripts/build_day3_circuit.py\nD  scripts/build_day4_figures.py\nD  scripts/build_final_report.py\nA  scripts/make_figures.py\nA  scripts/make_tuning_figures.py\nD  scripts/run_day4_core_experiment.py\nD  scripts/run_day5_profiling.py\nD  scripts/run_day5_sampling.py\nA  scripts/run_experiment.py\nA  scripts/tune_warm_start.py\nD  src/circuit.py\nD  src/day1_artifacts.py\nD  src/day2_artifacts.py\nD  src/day3_artifacts.py\nD  src/day4_artifacts.py\nD  src/day5_analysis.py\nD  src/day5_artifacts.py\nA  src/experiment.py\nA  src/metrics.py\nM  src/optimization.py\nD  src/profiling.py\nA  src/qaoa.py\nD  src/statevector_reference.py\nA  src/tuning.py\nA  src/warm_start.py\nA  tests/conftest.py\nD  tests/test_bit_order.py\nD  tests/test_core_metrics.py\nD  tests/test_day3_circuit.py\nD  tests/test_day5_finalization.py\nD  tests/test_day5_sampling.py\nA  tests/test_encoding.py\nD  tests/test_exact_reference.py\nD  tests/test_graph.py\nA  tests/test_graph_exact.py\nD  tests/test_ising.py\nA  tests/test_metrics.py\nD  tests/test_optimization_contract.py\nD  tests/test_p2_circuit.py\nA  tests/test_qaoa.py\nD  tests/test_qubo.py\nA  tests/test_smoke_experiment.py\nD  tests/test_statevector_reference.py\nA  tests/test_tuning.py\nA  tests/test_warm_start.py\n?? data/q2_revision_config.example.json\n?? data/q2_revision_execution_manifest.json\n?? data/q2_revision_formal_authorization.json\n?? data/q2_revision_preregistration.json\n?? docs/literature/\n?? docs/methods/\n?? src/objectives.py\n?? src/q2_revision.py\n?? tests/test_objectives.py\n?? tests/test_q2_revision.py",
+  "objective_evaluations_by_run": {
+    "A0": 130,
+    "A1": 206,
+    "A2": 162,
+    "A3": 131,
+    "cvar_fixed_p1": 31,
+    "cvar_fixed_p2": 158,
+    "expectation_fixed_p1": 23,
+    "expectation_fixed_p2": 43
+  },
+  "output_policy": {
+    "existing_formal_files_overwritten": false,
+    "raw_objects_published_atomically": true,
+    "result_manifest_self_excluded_to_avoid_recursive_hash": true,
+    "result_manifest_written_last": true
+  },
+  "postrun_validation": {
+    "append_only_reaudit_check_count": 108,
+    "append_only_reaudit_passed": true,
+    "initial_validator_incident_preserved": true,
+    "initial_validator_passed": false,
+    "raw_outputs_modified": false,
+    "scientific_runs_rerun": false
+  },
+  "preflight_pytest": {
+    "command": "pytest -q",
+    "passed": true,
+    "tests_passed": 65,
+    "wall_time_seconds": 37.16
+  },
+  "preregistration_sha256": "273304603e2357e35e958048b51fb8e58eae8dc02d9ae3c42090ac5b5456258f",
+  "push_performed": false,
+  "result_root_empty_before_execution": true,
+  "schema": "dtu-sciqis-q2-revision-execution-receipt",
+  "version": "1.0",
+  "written_at_utc": "2026-08-10T17:51:11.104449+00:00"
+}

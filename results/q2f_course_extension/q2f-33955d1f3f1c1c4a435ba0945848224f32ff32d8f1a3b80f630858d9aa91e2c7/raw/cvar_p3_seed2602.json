@@ -1,0 +1,735 @@
+{
+  "completed_at_utc": "2026-08-10T18:46:02.121567+00:00",
+  "identity": {
+    "cell_id": "cvar_p3_seed2602",
+    "config_sha256": "d53206d7c6b9fbef19d8a83558e21f6933575d19080903b55ea712a2340a3cc1",
+    "graph_sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+    "run_identity": "q2f-33955d1f3f1c1c4a435ba0945848224f32ff32d8f1a3b80f630858d9aa91e2c7",
+    "sequence": 17,
+    "source_bundle_sha256": "c57474df8190479a673a9456c08e81d6c328a1814dbf22f4dce8342d648119f3"
+  },
+  "result": {
+    "alpha_end": 1.0,
+    "alpha_start": 0.25,
+    "bias_lambda": 1.0,
+    "depth": 3,
+    "evaluation_budget": 100,
+    "final_layer_norms": [
+      {
+        "after_cost_norm": 0.9999999999999999,
+        "after_mixer_norm": 1.0000000000000004,
+        "layer": 1
+      },
+      {
+        "after_cost_norm": 1.0000000000000004,
+        "after_mixer_norm": 1.0000000000000002,
+        "layer": 2
+      },
+      {
+        "after_cost_norm": 1.0000000000000002,
+        "after_mixer_norm": 1.0000000000000002,
+        "layer": 3
+      }
+    ],
+    "final_probabilities": [
+      0.3408484613109407,
+      0.01168195433086794,
+      0.036749465367330696,
+      0.004052034394979653,
+      0.005548119465564018,
+      0.003298041539373302,
+      0.06445051527689051,
+      0.026221668156749978,
+      0.021597170017647903,
+      0.09835826772563762,
+      0.03833951532535337,
+      0.01738690117132202,
+      0.007939395708182896,
+      0.02859301911373061,
+      0.07468114367847721,
+      0.10297915075879106,
+      0.0021887961187817932,
+      0.059981743006956155,
+      0.01474830996803178,
+      0.04035632756439087
+    ],
+    "fixed_cvar_alpha": 0.25,
+    "initialization_mode": "incumbent_biased_feasible",
+    "metrics": {
+      "expected_normalized_cost": 0.4117110068172854,
+      "expected_route_cost": 11.646844027269141,
+      "final_p_opt": 0.3408484613109407,
+      "initial_p_opt": 0.03764544463697589,
+      "most_probable_route": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "most_probable_route_cost": 10,
+      "most_probable_route_id": 0,
+      "most_probable_route_probability": 0.3408484613109407,
+      "optimal_state_rank": 1,
+      "p_feas": 1.0,
+      "p_opt": 0.3408484613109407,
+      "p_opt_amplification": 9.05417546791716,
+      "probability_entropy": 2.3306474461776268,
+      "top3_lowest_cost_mass": 0.38927988100913935,
+      "top5_lowest_cost_mass": 0.398880034869683
+    },
+    "objective_mode": "cvar",
+    "optimizer": {
+      "evaluation_trace": [
+        {
+          "alpha": 0.25,
+          "evaluation_index": 1,
+          "in_bounds": true,
+          "objective_value": 0.059983217131449273,
+          "parameters": [
+            0.5460648473059009,
+            4.491673766863734,
+            3.8386106982639894,
+            0.9707430339790661,
+            1.791428934770714,
+            2.7726521781072093
+          ],
+          "schedule_index": 0
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 2,
+          "in_bounds": true,
+          "objective_value": 0.06202435737107531,
+          "parameters": [
+            1.0460648473059009,
+            4.491673766863734,
+            3.8386106982639894,
+            0.9707430339790661,
+            1.791428934770714,
+            2.7726521781072093
+          ],
+          "schedule_index": 1
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 3,
+          "in_bounds": true,
+          "objective_value": 0.07152675128589919,
+          "parameters": [
+            0.5460648473059009,
+            4.991673766863734,
+            3.8386106982639894,
+            0.9707430339790661,
+            1.791428934770714,
+            2.7726521781072093
+          ],
+          "schedule_index": 2
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 4,
+          "in_bounds": true,
+          "objective_value": 0.07930363511273991,
+          "parameters": [
+            0.5460648473059009,
+            4.491673766863734,
+            4.33861069826399,
+            0.9707430339790661,
+            1.791428934770714,
+            2.7726521781072093
+          ],
+          "schedule_index": 3
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 5,
+          "in_bounds": true,
+          "objective_value": 0.3561206961113098,
+          "parameters": [
+            0.5460648473059009,
+            4.491673766863734,
+            3.8386106982639894,
+            1.4707430339790661,
+            1.791428934770714,
+            2.7726521781072093
+          ],
+          "schedule_index": 4
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 6,
+          "in_bounds": true,
+          "objective_value": 0.20899008431687496,
+          "parameters": [
+            0.5460648473059009,
+            4.491673766863734,
+            3.8386106982639894,
+            0.9707430339790661,
+            2.291428934770714,
+            2.7726521781072093
+          ],
+          "schedule_index": 5
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 7,
+          "in_bounds": false,
+          "objective_value": 1000000.1310595245,
+          "parameters": [
+            0.5460648473059009,
+            4.491673766863734,
+            3.8386106982639894,
+            0.9707430339790661,
+            1.791428934770714,
+            3.2726521781072093
+          ],
+          "schedule_index": 6
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 8,
+          "in_bounds": true,
+          "objective_value": 0.12141846801295864,
+          "parameters": [
+            0.5460648462853308,
+            4.491673761091967,
+            3.838610688603781,
+            0.9707428859103372,
+            1.7914288602672856,
+            2.272652178107237
+          ],
+          "schedule_index": 7
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 9,
+          "in_bounds": true,
+          "objective_value": 0.34327031142943887,
+          "parameters": [
+            0.5445547412097318,
+            4.483133461322962,
+            3.8243167852796334,
+            0.7516502917804332,
+            1.6811885043782389,
+            2.8181041817507166
+          ],
+          "schedule_index": 8
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 10,
+          "in_bounds": true,
+          "objective_value": 0.13390655953554614,
+          "parameters": [
+            0.5460648473059009,
+            4.491673766863734,
+            3.8386106982639894,
+            0.9834386867195944,
+            1.791428934770714,
+            2.8338491584370584
+          ],
+          "schedule_index": 9
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 11,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457919153053961,
+            4.490130217915698,
+            3.836027259738869,
+            1.0473928896317588,
+            1.7715044133878388,
+            2.6759894557875903
+          ],
+          "schedule_index": 10
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 12,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5453964417594195,
+            4.487893643330309,
+            3.8322839039123187,
+            0.9844251352310607,
+            1.742634141273914,
+            2.5720308201878694
+          ],
+          "schedule_index": 11
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 13,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457919153053961,
+            4.490130217915698,
+            3.836027259738869,
+            1.0486336390921769,
+            1.7472620824472167,
+            2.6819702526694305
+          ],
+          "schedule_index": 12
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 14,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5453981879643988,
+            4.487903518877529,
+            3.832300432619864,
+            1.0904178668095141,
+            1.7675906320716555,
+            2.651199715884515
+          ],
+          "schedule_index": 13
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 15,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5454143003384743,
+            4.4897526029487755,
+            3.8111156515920945,
+            1.0461468722352893,
+            1.7718283057167674,
+            2.6775608016508636
+          ],
+          "schedule_index": 14
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 16,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5130429238051961,
+            4.452420834871045,
+            3.8372581827984167,
+            1.046167542783765,
+            1.7718229325718138,
+            2.677534734132921
+          ],
+          "schedule_index": 15
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 17,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5269057223436335,
+            4.50649843030276,
+            3.836014296736917,
+            1.0477774980591708,
+            1.7714044374808948,
+            2.6755044281602824
+          ],
+          "schedule_index": 16
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 18,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457128205962007,
+            4.48968290299862,
+            3.835278588573559,
+            1.0347993387516192,
+            1.765730358965054,
+            2.655197728667646
+          ],
+          "schedule_index": 17
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 19,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.545628170347895,
+            4.489941671000475,
+            3.836033414354167,
+            1.0473867628975189,
+            1.7715060059837586,
+            2.675997182179317
+          ],
+          "schedule_index": 18
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 20,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457899466686911,
+            4.490119084420507,
+            3.836008625603274,
+            1.0476080145176476,
+            1.7714848444812579,
+            2.675865507088075
+          ],
+          "schedule_index": 19
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 21,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457911243583041,
+            4.490125744766527,
+            3.836019773027216,
+            1.0472669541229573,
+            1.771446672843611,
+            2.675781538516391
+          ],
+          "schedule_index": 20
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 22,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5456030533757784,
+            4.4902939000395685,
+            3.8360271301088495,
+            1.047396735716033,
+            1.7715034136287693,
+            2.6759846055113172
+          ],
+          "schedule_index": 21
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 23,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457881391557269,
+            4.490126441766028,
+            3.8357781436574014,
+            1.0473804294577942,
+            1.7715076523111282,
+            2.6760051692462232
+          ],
+          "schedule_index": 22
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 24,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457919153053961,
+            4.490130217915698,
+            3.836027259738869,
+            1.047405297126363,
+            1.7712619900784325,
+            2.6760492637564086
+          ],
+          "schedule_index": 23
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 25,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.545791895619029,
+            4.490130106580746,
+            3.836027073397513,
+            1.0473950408806176,
+            1.771504217698773,
+            2.675988216300595
+          ],
+          "schedule_index": 24
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 26,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457919153053961,
+            4.490130217915698,
+            3.836027259738869,
+            1.047393013706705,
+            1.7715019891547448,
+            2.6759900538672783
+          ],
+          "schedule_index": 25
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 27,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.545790277855821,
+            4.490128332446545,
+            3.836027321285022,
+            1.0473928283644165,
+            1.771504429313798,
+            2.6759895330515078
+          ],
+          "schedule_index": 26
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 28,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457919073959251,
+            4.490130173184206,
+            3.8360271848717526,
+            1.0473916302766708,
+            1.7715038359823965,
+            2.6759873766148785
+          ],
+          "schedule_index": 27
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 29,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457900266860999,
+            4.490131854736936,
+            3.8360272584425688,
+            1.0473929280926015,
+            1.771504403390248,
+            2.6759894072848276
+          ],
+          "schedule_index": 28
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 30,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457918775438994,
+            4.490130180154201,
+            3.8360247685780546,
+            1.0473927650300192,
+            1.7715044457770717,
+            2.6759896129221765
+          ],
+          "schedule_index": 29
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 31,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457919147713679,
+            4.49013021738167,
+            3.836027224508535,
+            1.0473928878696241,
+            1.7715044138458917,
+            2.6759894580098087
+          ],
+          "schedule_index": 30
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 32,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457919150269888,
+            4.490130216341184,
+            3.8360272571036043,
+            1.0473929200550118,
+            1.7715044106203774,
+            2.675989438258597
+          ],
+          "schedule_index": 31
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 33,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457919151935392,
+            4.490130217283099,
+            3.836027258680088,
+            1.0473928718217884,
+            1.7715044052220927,
+            2.675989426383648
+          ],
+          "schedule_index": 32
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 34,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457918885962858,
+            4.490130241063846,
+            3.8360272597205367,
+            1.0473928901756773,
+            1.7715044132464515,
+            2.6759894551016576
+          ],
+          "schedule_index": 33
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 35,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457918921483621,
+            4.490130191251137,
+            3.836027260609263,
+            1.0473928887653077,
+            1.771504413613066,
+            2.675989456880267
+          ],
+          "schedule_index": 34
+        },
+        {
+          "alpha": 0.25,
+          "evaluation_index": 36,
+          "in_bounds": true,
+          "objective_value": 0.0,
+          "parameters": [
+            0.5457919153053961,
+            4.490130217915698,
+            3.836027259738869,
+            1.0473928913864434,
+            1.7715043791040057,
+            2.6759894642457143
+          ],
+          "schedule_index": 35
+        }
+      ],
+      "evaluations": 36,
+      "final_objective_at_terminal_alpha": 0.0,
+      "final_parameters": [
+        0.5457919153053961,
+        4.490130217915698,
+        3.836027259738869,
+        1.0473928896317588,
+        1.7715044133878388,
+        2.6759894557875903
+      ],
+      "initial_objective_value": 0.059983217131449273,
+      "initial_parameters": [
+        0.5460648473059009,
+        4.491673766863734,
+        3.8386106982639894,
+        0.9707430339790661,
+        1.791428934770714,
+        2.7726521781072093
+      ],
+      "message": "Return from COBYLA because the trust region radius reaches its lower bound.",
+      "optimizer_reported_objective_value": 0.0,
+      "reason": "converged",
+      "retention_policy": "best_finite_in_bounds_objective",
+      "runtime": 0.06014898419380188,
+      "statevector_evaluations": 36,
+      "success": true,
+      "terminal_alpha": 0.25
+    },
+    "run_id": "cvar_p3_seed2602",
+    "seed": 2602
+  },
+  "schema": "dtu-sciqis-q2f-raw-run",
+  "scientific_identity": {
+    "basis_ordering": "routing_cost_then_lexicographic_node_sequence",
+    "basis_size": 20,
+    "cost_normalization": "(raw_route_cost - minimum_route_cost) / (maximum_route_cost - minimum_route_cost)",
+    "exact_optimal_route_id": 0,
+    "incumbent_route_id": 1,
+    "initialization": {
+      "bias_lambda": 1.0,
+      "expected_normalized_cost": 0.2906924175833346,
+      "expected_route_cost": 11.16276967033334,
+      "incumbent_route": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "incumbent_route_id": 1,
+      "mode": "incumbent_biased_feasible",
+      "p_feas": 1.0000000000000002,
+      "p_opt": 0.03764544463697589,
+      "probabilities": [
+        0.03764544463697589,
+        0.7561289682457965,
+        0.03764544463697589,
+        0.0018742563258797558,
+        0.0018742563258797558,
+        0.03764544463697589,
+        0.01384898513570116,
+        0.03764544463697589,
+        0.0018742563258797558,
+        0.03764544463697589,
+        0.0018742563258797558,
+        9.331372783547688e-05,
+        0.0018742563258797558,
+        0.01384898513570116,
+        0.0018742563258797558,
+        0.0006895003697766852,
+        0.01384898513570116,
+        0.0006895003697766852,
+        0.0006895003697766852,
+        0.0006895003697766852
+      ],
+      "route_distances": [
+        3,
+        0,
+        3,
+        6,
+        6,
+        3,
+        4,
+        3,
+        6,
+        3,
+        6,
+        9,
+        6,
+        4,
+        6,
+        7,
+        4,
+        7,
+        7,
+        7
+      ]
+    },
+    "layer_order": "cost_then_mixer",
+    "mixer": "logical_path_exchange_mixer",
+    "mixer_connected": true,
+    "mixer_exchange_count": 106,
+    "mixer_weight_rule": "uniform",
+    "parameter_order": "all_gammas_then_all_betas"
+  },
+  "version": "1.0",
+  "warnings": []
+}

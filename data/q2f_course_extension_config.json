@@ -1,0 +1,87 @@
+{
+  "schema": "dtu-sciqis-q2f-course-extension-config",
+  "version": "1.0",
+  "status": "FROZEN_BEFORE_Q2F_EXECUTION",
+  "method": "Q2-F Feasible Warm-Start QAOA",
+  "scope": "logical feasible-subspace teaching and mechanism experiment",
+  "graph_path": "data/graph.json",
+  "route_basis": {
+    "definition": "all simple directed source-to-target routes",
+    "ordering": "routing_cost_then_lexicographic_node_sequence",
+    "classical_full_enumeration": true
+  },
+  "cost": {
+    "raw": "directed route edge-weight sum",
+    "normalization": "(raw_route_cost - minimum_route_cost) / (maximum_route_cost - minimum_route_cost)"
+  },
+  "mixer": {
+    "name": "logical_path_exchange_mixer",
+    "exchange_rule": "maximal-common-prefix/suffix divergence-reconvergence with disjoint alternative internal nodes",
+    "weight_rule": "uniform",
+    "require_connected": true,
+    "fallback": null
+  },
+  "primary_initialization": {
+    "mode": "incumbent_biased_feasible",
+    "incumbent": "existing deterministic historical Q2 greedy incumbent",
+    "distance": "edge_hamming",
+    "bias_lambda": 1.0,
+    "weight": "exp(-bias_lambda * edge_hamming_distance)"
+  },
+  "initialization_controls": [
+    "uniform_feasible",
+    "incumbent_biased_feasible"
+  ],
+  "objectives": [
+    {
+      "id": "expectation",
+      "definition": "ordinary expectation of normalized logical route cost"
+    },
+    {
+      "id": "cvar",
+      "alpha": 0.25,
+      "tail": "lowest-energy probability mass with fractional cutoff atom"
+    },
+    {
+      "id": "ascending_cvar",
+      "alpha_start": 0.25,
+      "alpha_end": 1.0,
+      "schedule": "alpha(t)=alpha_start+(alpha_end-alpha_start)*t/(T-1), t zero-based, T declared evaluation cap; T=1 uses alpha_start"
+    }
+  ],
+  "depths": [1, 2, 3],
+  "seeds": [2601, 2602, 2603],
+  "optimizer": {
+    "name": "COBYLA",
+    "implementation": "scipy.optimize.minimize",
+    "objective_evaluation_cap": 100,
+    "gamma_bounds": [0.0, 6.283185307179586],
+    "beta_bounds": [0.0, 3.141592653589793],
+    "rhobeg": 0.5,
+    "tolerance": 1e-8,
+    "constraint_tolerance": 1e-8,
+    "initialization": "numpy.random.default_rng(seed), all gammas then all betas",
+    "parameter_order": "all_gammas_then_all_betas",
+    "layer_order": "cost_then_mixer"
+  },
+  "primary_run_count": 27,
+  "retention": {
+    "retain_all_seeds": true,
+    "retain_nonconvergence": true,
+    "retain_budget_exhaustion": true,
+    "replacement_seed": false,
+    "outcome_dependent_rerun": false
+  },
+  "feasibility_tolerance": 1e-12,
+  "sealed_q2r_context": {
+    "execution_identity": "q2r-9c98b90049545d0508fb20bb488019608a4356d55fe91ff809bce8dc5c5e0c69",
+    "result_manifest_sha256": "896fdbf45bbf19d04f74a802e78739714d286beabf322db6ef8f3594679411d1",
+    "use": "read-only descriptive context only"
+  },
+  "claim_boundary": {
+    "formally_preregistered_research_result": false,
+    "scalable_implementation": false,
+    "hardware_claim": false,
+    "quantum_advantage_claim": false
+  }
+}

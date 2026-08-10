@@ -1,0 +1,1894 @@
+{
+  "check_count": 108,
+  "checks": [
+    {
+      "check_id": "A.top_level_hashes_and_head",
+      "detail": {
+        "authorization_sha256": "df59fe807e6063e4e82cfc28727f6e0ee0f84f572990b56b1e4615ce8f3e9a54",
+        "execution_manifest_sha256": "938631ddf1de1123e3a0893c65350590a0d65d397d171182746f9df3b15e5a55",
+        "git_head": "aa71b9df33ef61ccd47aea00ab476638bb8bc408",
+        "preregistration_sha256": "273304603e2357e35e958048b51fb8e58eae8dc02d9ae3c42090ac5b5456258f"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "A.execution_identity",
+      "detail": "q2r-9c98b90049545d0508fb20bb488019608a4356d55fe91ff809bce8dc5c5e0c69",
+      "passed": true
+    },
+    {
+      "check_id": "A.manifest_files",
+      "detail": [
+        {
+          "actual_sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+          "actual_size": 1259,
+          "expected_sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+          "expected_size": 1259,
+          "passed": true,
+          "path": "data/graph.json"
+        },
+        {
+          "actual_sha256": "273304603e2357e35e958048b51fb8e58eae8dc02d9ae3c42090ac5b5456258f",
+          "actual_size": 14203,
+          "expected_sha256": "273304603e2357e35e958048b51fb8e58eae8dc02d9ae3c42090ac5b5456258f",
+          "expected_size": 14203,
+          "passed": true,
+          "path": "data/q2_revision_preregistration.json"
+        },
+        {
+          "actual_sha256": "c5f298a1f442d5b278dc57c39e56e09a58bc9b032afb3fb659274154b4ab685d",
+          "actual_size": 809,
+          "expected_sha256": "c5f298a1f442d5b278dc57c39e56e09a58bc9b032afb3fb659274154b4ab685d",
+          "expected_size": 809,
+          "passed": true,
+          "path": "pyproject.toml"
+        },
+        {
+          "actual_sha256": "4273d0d5ed5f4f16221d14ae2005b5e7c132a30ca157ae68d6e62a53a86ebbd2",
+          "actual_size": 520,
+          "expected_sha256": "4273d0d5ed5f4f16221d14ae2005b5e7c132a30ca157ae68d6e62a53a86ebbd2",
+          "expected_size": 520,
+          "passed": true,
+          "path": "results/baseline/experiment_config.json"
+        },
+        {
+          "actual_sha256": "c788e928d6a6a44ca28cd94f255ffa4661bc451f3da8393691e92dbf0a4ef639",
+          "actual_size": 7913,
+          "expected_sha256": "c788e928d6a6a44ca28cd94f255ffa4661bc451f3da8393691e92dbf0a4ef639",
+          "expected_size": 7913,
+          "passed": true,
+          "path": "src/exact_reference.py"
+        },
+        {
+          "actual_sha256": "827bcc2d72bcfce9a20f8f195aaf06f148f220542edb792dcbcc375f2c3227ac",
+          "actual_size": 14861,
+          "expected_sha256": "827bcc2d72bcfce9a20f8f195aaf06f148f220542edb792dcbcc375f2c3227ac",
+          "expected_size": 14861,
+          "passed": true,
+          "path": "src/graph.py"
+        },
+        {
+          "actual_sha256": "0729a01125f218189e3d9acf7d711600458d79148b1a0d6312d7231def29629c",
+          "actual_size": 3048,
+          "expected_sha256": "0729a01125f218189e3d9acf7d711600458d79148b1a0d6312d7231def29629c",
+          "expected_size": 3048,
+          "passed": true,
+          "path": "src/ising.py"
+        },
+        {
+          "actual_sha256": "2b896f126aaff5277d8185e728e4b95f594ef1404a45099bbb08745026eefb75",
+          "actual_size": 4285,
+          "expected_sha256": "2b896f126aaff5277d8185e728e4b95f594ef1404a45099bbb08745026eefb75",
+          "expected_size": 4285,
+          "passed": true,
+          "path": "src/metrics.py"
+        },
+        {
+          "actual_sha256": "163a1c407385d32fb44842e4bc903ad3842b32e564d984c87bbd8d2bcb04a185",
+          "actual_size": 6460,
+          "expected_sha256": "163a1c407385d32fb44842e4bc903ad3842b32e564d984c87bbd8d2bcb04a185",
+          "expected_size": 6460,
+          "passed": true,
+          "path": "src/objectives.py"
+        },
+        {
+          "actual_sha256": "7ef79520f08792a7ed6c3cbbe0b2c5043082a276f498dafb69255b7967798c9b",
+          "actual_size": 5447,
+          "expected_sha256": "7ef79520f08792a7ed6c3cbbe0b2c5043082a276f498dafb69255b7967798c9b",
+          "expected_size": 5447,
+          "passed": true,
+          "path": "src/optimization.py"
+        },
+        {
+          "actual_sha256": "6e9eeada29fb01853ff64ab417b428287412f841cdf096c422e10b5afc9b071d",
+          "actual_size": 38404,
+          "expected_sha256": "6e9eeada29fb01853ff64ab417b428287412f841cdf096c422e10b5afc9b071d",
+          "expected_size": 38404,
+          "passed": true,
+          "path": "src/q2_revision.py"
+        },
+        {
+          "actual_sha256": "f596c290edc0598cd6d38e96ad796fa270a85566107be703e93c235c8460587a",
+          "actual_size": 7449,
+          "expected_sha256": "f596c290edc0598cd6d38e96ad796fa270a85566107be703e93c235c8460587a",
+          "expected_size": 7449,
+          "passed": true,
+          "path": "src/qaoa.py"
+        },
+        {
+          "actual_sha256": "14c8c8a6193432b1aeed77ff4ae883940c7ae25202263ab08b62e95f4dcb214f",
+          "actual_size": 14740,
+          "expected_sha256": "14c8c8a6193432b1aeed77ff4ae883940c7ae25202263ab08b62e95f4dcb214f",
+          "expected_size": 14740,
+          "passed": true,
+          "path": "src/qubo.py"
+        },
+        {
+          "actual_sha256": "c24adcc97d9d65df2d7c8fafbe0fccf47cb29b5c228b5b397d23927de6aaf47f",
+          "actual_size": 14059,
+          "expected_sha256": "c24adcc97d9d65df2d7c8fafbe0fccf47cb29b5c228b5b397d23927de6aaf47f",
+          "expected_size": 14059,
+          "passed": true,
+          "path": "src/tuning.py"
+        },
+        {
+          "actual_sha256": "038f235e9546214bc32e8904cb5b59ab583cae334dd0463b7544bed61c3d6da4",
+          "actual_size": 7379,
+          "expected_sha256": "038f235e9546214bc32e8904cb5b59ab583cae334dd0463b7544bed61c3d6da4",
+          "expected_size": 7379,
+          "passed": true,
+          "path": "src/warm_start.py"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "check_id": "A.authorization",
+      "detail": {
+        "authorization_scope": "Q2-R preregistered formal experiment only",
+        "authorized_arms": [
+          "A0",
+          "A1",
+          "A2",
+          "A3"
+        ],
+        "current_git_head": "aa71b9df33ef61ccd47aea00ab476638bb8bc408",
+        "diagnostic_controls": [
+          "fixed_p1",
+          "fixed_p2"
+        ],
+        "execution_identity": "q2r-9c98b90049545d0508fb20bb488019608a4356d55fe91ff809bce8dc5c5e0c69",
+        "execution_identity_scheme": "q2r- + sha256(preregistration_sha256 + newline + execution_manifest_sha256 + newline)",
+        "execution_manifest_sha256": "938631ddf1de1123e3a0893c65350590a0d65d397d171182746f9df3b15e5a55",
+        "formal_execution_authorized": true,
+        "formal_result_root": "results/q2_revision_formal/q2r-9c98b90049545d0508fb20bb488019608a4356d55fe91ff809bce8dc5c5e0c69",
+        "preregistration_sha256": "273304603e2357e35e958048b51fb8e58eae8dc02d9ae3c42090ac5b5456258f",
+        "schema": "dtu-sciqis-q2-revision-formal-authorization",
+        "version": "1.0"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "A.authorized_raw_set_and_order",
+      "detail": [
+        "expectation_fixed_p1",
+        "expectation_fixed_p2",
+        "A0",
+        "A2",
+        "cvar_fixed_p1",
+        "cvar_fixed_p2",
+        "A1",
+        "A3"
+      ],
+      "passed": true
+    },
+    {
+      "check_id": "A.no_temporary_outputs",
+      "detail": "no temporary files",
+      "passed": true
+    },
+    {
+      "check_id": "D.same_context_all_runs",
+      "detail": {
+        "aligned_state_sha256_complex128": "c3d4404cf5a7c21e17d7726ac932b6cdecc01dabc30730d232d65dc9bb3b5de5",
+        "decoder_state_space_sha256": "d5f2438ec73dac7be839dc179d986aba03a3cf057f52cce6994454fa8ee37a6e",
+        "graph_sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+        "normalized_cost_diagonal_sha256_float64": "9d6d910c437a3364823beec1542f60c425779152f7145becff5a7a5a9e120acb",
+        "raw_cost_diagonal_sha256_float64": "66e208bbb544d6193cddae5da0517b0a6897624eceab8719ef56a25e58af542b"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "D.context_fingerprints_recomputed",
+      "detail": {
+        "aligned_state_sha256_complex128": "c3d4404cf5a7c21e17d7726ac932b6cdecc01dabc30730d232d65dc9bb3b5de5",
+        "decoder_state_space_sha256": "d5f2438ec73dac7be839dc179d986aba03a3cf057f52cce6994454fa8ee37a6e",
+        "graph_sha256": "451a6e4cffd01552c1cb6e4290b5ee8d50fc97514aab8ed47a6b33a111f5e54e",
+        "normalized_cost_diagonal_sha256_float64": "9d6d910c437a3364823beec1542f60c425779152f7145becff5a7a5a9e120acb",
+        "raw_cost_diagonal_sha256_float64": "66e208bbb544d6193cddae5da0517b0a6897624eceab8719ef56a25e58af542b"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "D.task_incumbent_epsilon_modes",
+      "detail": {
+        "incumbent_cost": 11,
+        "incumbent_route": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "D.environment",
+      "detail": {
+        "numpy": "2.4.6",
+        "python": "3.12.4",
+        "qiskit": "2.4.2",
+        "scipy": "1.18.0"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p1.frozen_matrix",
+      "detail": {
+        "cvar_alpha": null,
+        "depth_mode": "fixed",
+        "depth_trigger": {
+          "absolute_improvement_tolerance": 1e-12,
+          "mode": "objective_improvement",
+          "relative_improvement_tolerance": 0.01,
+          "relative_scale_floor": 1e-12
+        },
+        "initial_depth": 1,
+        "initialization_strategy": "source_uniform",
+        "max_depth": 1,
+        "mixer_mode": "incumbent_dependent_aligned_existing",
+        "mixer_scale_mode": "inverse_num_qubits_existing",
+        "objective_mode": "expectation",
+        "optimizer_rhobeg": 0.5,
+        "optimizer_tolerance": 1e-08,
+        "per_depth_budget": 100,
+        "seed": 2601,
+        "total_cumulative_budget": 100,
+        "transfer_mode": "neutral_zero_append_grouped",
+        "warm_start_mode": "incumbent_product_aligned_existing"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p1.budgets",
+      "detail": {
+        "per_cap": 100,
+        "per_depth": [
+          23
+        ],
+        "total_cap": 100,
+        "used": 23
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p1.complete_trace",
+      "detail": {
+        "final_index": 23,
+        "records": 23
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p1.bounds_and_options",
+      "detail": {
+        "bounds": {
+          "beta": {
+            "lower": 0.0,
+            "upper": 3.141592653589793
+          },
+          "gamma": {
+            "lower": 0.0,
+            "upper": 6.283185307179586
+          }
+        },
+        "implementation": "scipy.optimize.minimize",
+        "implementation_version": "1.18.0",
+        "initialization": {
+          "draw_order": "all gamma coordinates then all beta coordinates",
+          "initial_parameters": [
+            1.3789715463539463,
+            1.4497639358789494
+          ],
+          "numpy_version": "2.4.6",
+          "parameter_order": "all gammas followed by all betas",
+          "rng": "numpy.random.default_rng(seed)",
+          "strategy": "source_uniform"
+        },
+        "name": "COBYLA",
+        "options": {
+          "catol": 1e-08,
+          "maxiter": "declared per-depth budget/cumulative remainder",
+          "rhobeg": 0.5,
+          "tol": 1e-08
+        },
+        "termination": [
+          {
+            "depth": 1,
+            "message": "converged",
+            "status": "converged",
+            "success": true
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p1.statevector_accounting",
+      "detail": {
+        "evidence_reconstruction_runtime": 0.006015963852405548,
+        "objective_evaluations": 23,
+        "optimizer_runtime": 0.6281945551745594,
+        "overall_scientific_run_runtime": 0.6886877571232617,
+        "per_depth": [
+          {
+            "cumulative_runtime": 0.6281945551745594,
+            "depth": 1,
+            "objective_evaluations": 23,
+            "optimizer_runtime": 0.6281945551745594,
+            "statevector_evaluations": 16
+          }
+        ],
+        "statevector_evaluations_evidence_reconstruction": 1,
+        "statevector_evaluations_scientific_run": 16,
+        "statevector_evaluations_total_recorded": 17,
+        "total_runtime_including_evidence": 0.6947037209756672
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p1.independent_initialization",
+      "detail": {
+        "actual": [
+          1.3789715463539463,
+          1.4497639358789494
+        ],
+        "expected": [
+          1.3789715463539463,
+          1.4497639358789494
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.expectation_fixed_p1.alpha",
+      "detail": {
+        "alpha": null,
+        "mode": "expectation"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.expectation_fixed_p1.probability_and_metrics",
+      "detail": {
+        "objective": 0.06301802119405978,
+        "ordinary": 0.06301802119405978,
+        "p_feas": 0.3761915333269981,
+        "p_opt": 0.0008653914508403327,
+        "raw_energy": 22.414550175229774,
+        "sum": 1.0000000000000002
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.expectation_fixed_p1.metrics_independent_of_cvar",
+      "detail": {
+        "ordinary": 0.06301802119405978,
+        "p_feas": 0.3761915333269981,
+        "p_opt": 0.0008653914508403327
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p1.runtime_and_status_retained",
+      "detail": {
+        "warnings": []
+      },
+      "passed": true
+    },
+    {
+      "check_id": "C.expectation_fixed_p1.fixed_depth",
+      "detail": {
+        "realized_depth": 1,
+        "reason": "fixed_depth_complete"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p2.frozen_matrix",
+      "detail": {
+        "cvar_alpha": null,
+        "depth_mode": "fixed",
+        "depth_trigger": {
+          "absolute_improvement_tolerance": 1e-12,
+          "mode": "objective_improvement",
+          "relative_improvement_tolerance": 0.01,
+          "relative_scale_floor": 1e-12
+        },
+        "initial_depth": 2,
+        "initialization_strategy": "source_uniform",
+        "max_depth": 2,
+        "mixer_mode": "incumbent_dependent_aligned_existing",
+        "mixer_scale_mode": "inverse_num_qubits_existing",
+        "objective_mode": "expectation",
+        "optimizer_rhobeg": 0.5,
+        "optimizer_tolerance": 1e-08,
+        "per_depth_budget": 200,
+        "seed": 2601,
+        "total_cumulative_budget": 200,
+        "transfer_mode": "neutral_zero_append_grouped",
+        "warm_start_mode": "incumbent_product_aligned_existing"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p2.budgets",
+      "detail": {
+        "per_cap": 200,
+        "per_depth": [
+          43
+        ],
+        "total_cap": 200,
+        "used": 43
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p2.complete_trace",
+      "detail": {
+        "final_index": 43,
+        "records": 43
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p2.bounds_and_options",
+      "detail": {
+        "bounds": {
+          "beta": {
+            "lower": 0.0,
+            "upper": 3.141592653589793
+          },
+          "gamma": {
+            "lower": 0.0,
+            "upper": 6.283185307179586
+          }
+        },
+        "implementation": "scipy.optimize.minimize",
+        "implementation_version": "1.18.0",
+        "initialization": {
+          "draw_order": "all gamma coordinates then all beta coordinates",
+          "initial_parameters": [
+            1.3789715463539463,
+            2.8995278717578987,
+            1.7364474121273048,
+            2.7906443673425665
+          ],
+          "numpy_version": "2.4.6",
+          "parameter_order": "all gammas followed by all betas",
+          "rng": "numpy.random.default_rng(seed)",
+          "strategy": "source_uniform"
+        },
+        "name": "COBYLA",
+        "options": {
+          "catol": 1e-08,
+          "maxiter": "declared per-depth budget/cumulative remainder",
+          "rhobeg": 0.5,
+          "tol": 1e-08
+        },
+        "termination": [
+          {
+            "depth": 2,
+            "message": "converged",
+            "status": "converged",
+            "success": true
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p2.statevector_accounting",
+      "detail": {
+        "evidence_reconstruction_runtime": 0.010942105203866959,
+        "objective_evaluations": 43,
+        "optimizer_runtime": 0.8196919830515981,
+        "overall_scientific_run_runtime": 0.885096016805619,
+        "per_depth": [
+          {
+            "cumulative_runtime": 0.8196919830515981,
+            "depth": 2,
+            "objective_evaluations": 43,
+            "optimizer_runtime": 0.8196919830515981,
+            "statevector_evaluations": 31
+          }
+        ],
+        "statevector_evaluations_evidence_reconstruction": 1,
+        "statevector_evaluations_scientific_run": 31,
+        "statevector_evaluations_total_recorded": 32,
+        "total_runtime_including_evidence": 0.896038122009486
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p2.independent_initialization",
+      "detail": {
+        "actual": [
+          1.3789715463539463,
+          2.8995278717578987,
+          1.7364474121273048,
+          2.7906443673425665
+        ],
+        "expected": [
+          1.3789715463539463,
+          2.8995278717578987,
+          1.7364474121273048,
+          2.7906443673425665
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.expectation_fixed_p2.alpha",
+      "detail": {
+        "alpha": null,
+        "mode": "expectation"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.expectation_fixed_p2.probability_and_metrics",
+      "detail": {
+        "objective": 0.03306899577078279,
+        "ordinary": 0.03306899577078279,
+        "p_feas": 0.638288143351339,
+        "p_opt": 0.0020495956333988997,
+        "raw_energy": 16.514592166844206,
+        "sum": 0.9999999999999999
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.expectation_fixed_p2.metrics_independent_of_cvar",
+      "detail": {
+        "ordinary": 0.03306899577078279,
+        "p_feas": 0.638288143351339,
+        "p_opt": 0.0020495956333988997
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.expectation_fixed_p2.runtime_and_status_retained",
+      "detail": {
+        "warnings": []
+      },
+      "passed": true
+    },
+    {
+      "check_id": "C.expectation_fixed_p2.fixed_depth",
+      "detail": {
+        "realized_depth": 2,
+        "reason": "fixed_depth_complete"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A0.frozen_matrix",
+      "detail": {
+        "cvar_alpha": null,
+        "depth_mode": "fixed",
+        "depth_trigger": {
+          "absolute_improvement_tolerance": 1e-12,
+          "mode": "objective_improvement",
+          "relative_improvement_tolerance": 0.01,
+          "relative_scale_floor": 1e-12
+        },
+        "initial_depth": 3,
+        "initialization_strategy": "source_uniform",
+        "max_depth": 3,
+        "mixer_mode": "incumbent_dependent_aligned_existing",
+        "mixer_scale_mode": "inverse_num_qubits_existing",
+        "objective_mode": "expectation",
+        "optimizer_rhobeg": 0.5,
+        "optimizer_tolerance": 1e-08,
+        "per_depth_budget": 300,
+        "seed": 2601,
+        "total_cumulative_budget": 300,
+        "transfer_mode": "neutral_zero_append_grouped",
+        "warm_start_mode": "incumbent_product_aligned_existing"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A0.budgets",
+      "detail": {
+        "per_cap": 300,
+        "per_depth": [
+          130
+        ],
+        "total_cap": 300,
+        "used": 130
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A0.complete_trace",
+      "detail": {
+        "final_index": 130,
+        "records": 130
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A0.bounds_and_options",
+      "detail": {
+        "bounds": {
+          "beta": {
+            "lower": 0.0,
+            "upper": 3.141592653589793
+          },
+          "gamma": {
+            "lower": 0.0,
+            "upper": 6.283185307179586
+          }
+        },
+        "implementation": "scipy.optimize.minimize",
+        "implementation_version": "1.18.0",
+        "initialization": {
+          "draw_order": "all gamma coordinates then all beta coordinates",
+          "initial_parameters": [
+            1.3789715463539463,
+            2.8995278717578987,
+            3.4728948242546096,
+            2.7906443673425665,
+            3.111410049347273,
+            0.7743344873085359
+          ],
+          "numpy_version": "2.4.6",
+          "parameter_order": "all gammas followed by all betas",
+          "rng": "numpy.random.default_rng(seed)",
+          "strategy": "source_uniform"
+        },
+        "name": "COBYLA",
+        "options": {
+          "catol": 1e-08,
+          "maxiter": "declared per-depth budget/cumulative remainder",
+          "rhobeg": 0.5,
+          "tol": 1e-08
+        },
+        "termination": [
+          {
+            "depth": 3,
+            "message": "converged",
+            "status": "converged",
+            "success": true
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A0.statevector_accounting",
+      "detail": {
+        "evidence_reconstruction_runtime": 0.023675679229199886,
+        "objective_evaluations": 130,
+        "optimizer_runtime": 3.3116752421483397,
+        "overall_scientific_run_runtime": 3.424287019763142,
+        "per_depth": [
+          {
+            "cumulative_runtime": 3.3116752421483397,
+            "depth": 3,
+            "objective_evaluations": 130,
+            "optimizer_runtime": 3.3116752421483397,
+            "statevector_evaluations": 91
+          }
+        ],
+        "statevector_evaluations_evidence_reconstruction": 1,
+        "statevector_evaluations_scientific_run": 91,
+        "statevector_evaluations_total_recorded": 92,
+        "total_runtime_including_evidence": 3.4479626989923418
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A0.independent_initialization",
+      "detail": {
+        "actual": [
+          1.3789715463539463,
+          2.8995278717578987,
+          3.4728948242546096,
+          2.7906443673425665,
+          3.111410049347273,
+          0.7743344873085359
+        ],
+        "expected": [
+          1.3789715463539463,
+          2.8995278717578987,
+          3.4728948242546096,
+          2.7906443673425665,
+          3.111410049347273,
+          0.7743344873085359
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.A0.alpha",
+      "detail": {
+        "alpha": null,
+        "mode": "expectation"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.A0.probability_and_metrics",
+      "detail": {
+        "objective": 0.0233783963553614,
+        "ordinary": 0.0233783963553614,
+        "p_feas": 0.7679391343581528,
+        "p_opt": 0.002289456526158069,
+        "raw_energy": 14.605544082006197,
+        "sum": 1.0
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.A0.metrics_independent_of_cvar",
+      "detail": {
+        "ordinary": 0.0233783963553614,
+        "p_feas": 0.7679391343581528,
+        "p_opt": 0.002289456526158069
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A0.runtime_and_status_retained",
+      "detail": {
+        "warnings": []
+      },
+      "passed": true
+    },
+    {
+      "check_id": "C.A0.fixed_depth",
+      "detail": {
+        "realized_depth": 3,
+        "reason": "fixed_depth_complete"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A2.frozen_matrix",
+      "detail": {
+        "cvar_alpha": null,
+        "depth_mode": "incremental",
+        "depth_trigger": {
+          "absolute_improvement_tolerance": 1e-12,
+          "mode": "objective_improvement",
+          "relative_improvement_tolerance": 0.01,
+          "relative_scale_floor": 1e-12
+        },
+        "initial_depth": 1,
+        "initialization_strategy": "source_uniform",
+        "max_depth": 3,
+        "mixer_mode": "incumbent_dependent_aligned_existing",
+        "mixer_scale_mode": "inverse_num_qubits_existing",
+        "objective_mode": "expectation",
+        "optimizer_rhobeg": 0.5,
+        "optimizer_tolerance": 1e-08,
+        "per_depth_budget": 100,
+        "seed": 2601,
+        "total_cumulative_budget": 300,
+        "transfer_mode": "neutral_zero_append_grouped",
+        "warm_start_mode": "incumbent_product_aligned_existing"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A2.budgets",
+      "detail": {
+        "per_cap": 100,
+        "per_depth": [
+          23,
+          39,
+          100
+        ],
+        "total_cap": 300,
+        "used": 162
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A2.complete_trace",
+      "detail": {
+        "final_index": 162,
+        "records": 162
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A2.bounds_and_options",
+      "detail": {
+        "bounds": {
+          "beta": {
+            "lower": 0.0,
+            "upper": 3.141592653589793
+          },
+          "gamma": {
+            "lower": 0.0,
+            "upper": 6.283185307179586
+          }
+        },
+        "implementation": "scipy.optimize.minimize",
+        "implementation_version": "1.18.0",
+        "initialization": {
+          "draw_order": "all gamma coordinates then all beta coordinates",
+          "initial_parameters": [
+            1.3789715463539463,
+            1.4497639358789494
+          ],
+          "numpy_version": "2.4.6",
+          "parameter_order": "all gammas followed by all betas",
+          "rng": "numpy.random.default_rng(seed)",
+          "strategy": "source_uniform"
+        },
+        "name": "COBYLA",
+        "options": {
+          "catol": 1e-08,
+          "maxiter": "declared per-depth budget/cumulative remainder",
+          "rhobeg": 0.5,
+          "tol": 1e-08
+        },
+        "termination": [
+          {
+            "depth": 1,
+            "message": "converged",
+            "status": "converged",
+            "success": true
+          },
+          {
+            "depth": 2,
+            "message": "converged",
+            "status": "converged",
+            "success": true
+          },
+          {
+            "depth": 3,
+            "message": "evaluation_budget_exhausted",
+            "status": "evaluation_budget_exhausted",
+            "success": false
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A2.statevector_accounting",
+      "detail": {
+        "evidence_reconstruction_runtime": 0.01343482593074441,
+        "objective_evaluations": 162,
+        "optimizer_runtime": 5.545090715400875,
+        "overall_scientific_run_runtime": 5.748881721869111,
+        "per_depth": [
+          {
+            "cumulative_runtime": 0.6187800881452858,
+            "depth": 1,
+            "objective_evaluations": 23,
+            "optimizer_runtime": 0.6187800881452858,
+            "statevector_evaluations": 16
+          },
+          {
+            "cumulative_runtime": 1.9920957232825458,
+            "depth": 2,
+            "objective_evaluations": 39,
+            "optimizer_runtime": 1.37331563513726,
+            "statevector_evaluations": 32
+          },
+          {
+            "cumulative_runtime": 5.545090715400875,
+            "depth": 3,
+            "objective_evaluations": 100,
+            "optimizer_runtime": 3.552994992118329,
+            "statevector_evaluations": 91
+          }
+        ],
+        "statevector_evaluations_evidence_reconstruction": 1,
+        "statevector_evaluations_scientific_run": 139,
+        "statevector_evaluations_total_recorded": 140,
+        "total_runtime_including_evidence": 5.7623165477998555
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A2.independent_initialization",
+      "detail": {
+        "actual": [
+          1.3789715463539463,
+          1.4497639358789494
+        ],
+        "expected": [
+          1.3789715463539463,
+          1.4497639358789494
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.A2.alpha",
+      "detail": {
+        "alpha": null,
+        "mode": "expectation"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.A2.probability_and_metrics",
+      "detail": {
+        "objective": 0.023376867282004686,
+        "ordinary": 0.023376867282004686,
+        "p_feas": 0.7687995881069637,
+        "p_opt": 0.0023075370079275992,
+        "raw_energy": 14.605242854554923,
+        "sum": 1.0
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.A2.metrics_independent_of_cvar",
+      "detail": {
+        "ordinary": 0.023376867282004686,
+        "p_feas": 0.7687995881069637,
+        "p_opt": 0.0023075370079275992
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A2.runtime_and_status_retained",
+      "detail": {
+        "warnings": [
+          {
+            "category": "optimizer_terminal_status",
+            "depth": 3,
+            "message": "evaluation_budget_exhausted",
+            "scientific_failure_retained": true
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "C.A2.p1_to_p2",
+      "detail": {
+        "depths": [
+          1,
+          2,
+          3
+        ],
+        "p1_decision": true,
+        "p1_reason": "baseline_complete_required_first_transfer"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "C.A2.neutral_transfer",
+      "detail": [
+        {
+          "actual_input": [
+            6.283185307179586,
+            0.0,
+            3.141592653589793,
+            0.0
+          ],
+          "child_depth": 2,
+          "expected_input": [
+            6.283185307179586,
+            0.0,
+            3.141592653589793,
+            0.0
+          ],
+          "neutral_error": 0.0,
+          "passed": true
+        },
+        {
+          "actual_input": [
+            6.283185307179586,
+            6.283185307179586,
+            0.0,
+            3.141592653589793,
+            3.141592653589793,
+            0.0
+          ],
+          "child_depth": 3,
+          "expected_input": [
+            6.283185307179586,
+            6.283185307179586,
+            0.0,
+            3.141592653589793,
+            3.141592653589793,
+            0.0
+          ],
+          "neutral_error": 0.0,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "check_id": "C.A2.p2_to_p3_both_thresholds",
+      "detail": {
+        "absolute": 0.029949025423276987,
+        "decision": true,
+        "p3_attempted": true,
+        "reason": "marginal_depth_gain_exceeds_threshold",
+        "relative": 0.4752454116426628,
+        "thresholds_pass": true
+      },
+      "passed": true
+    },
+    {
+      "check_id": "C.A2.no_budget_reallocation",
+      "detail": {
+        "cumulative": 162,
+        "per_depth": [
+          23,
+          39,
+          100
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p1.frozen_matrix",
+      "detail": {
+        "cvar_alpha": 0.25,
+        "depth_mode": "fixed",
+        "depth_trigger": {
+          "absolute_improvement_tolerance": 1e-12,
+          "mode": "objective_improvement",
+          "relative_improvement_tolerance": 0.01,
+          "relative_scale_floor": 1e-12
+        },
+        "initial_depth": 1,
+        "initialization_strategy": "source_uniform",
+        "max_depth": 1,
+        "mixer_mode": "incumbent_dependent_aligned_existing",
+        "mixer_scale_mode": "inverse_num_qubits_existing",
+        "objective_mode": "cvar",
+        "optimizer_rhobeg": 0.5,
+        "optimizer_tolerance": 1e-08,
+        "per_depth_budget": 100,
+        "seed": 2601,
+        "total_cumulative_budget": 100,
+        "transfer_mode": "neutral_zero_append_grouped",
+        "warm_start_mode": "incumbent_product_aligned_existing"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p1.budgets",
+      "detail": {
+        "per_cap": 100,
+        "per_depth": [
+          31
+        ],
+        "total_cap": 100,
+        "used": 31
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p1.complete_trace",
+      "detail": {
+        "final_index": 31,
+        "records": 31
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p1.bounds_and_options",
+      "detail": {
+        "bounds": {
+          "beta": {
+            "lower": 0.0,
+            "upper": 3.141592653589793
+          },
+          "gamma": {
+            "lower": 0.0,
+            "upper": 6.283185307179586
+          }
+        },
+        "implementation": "scipy.optimize.minimize",
+        "implementation_version": "1.18.0",
+        "initialization": {
+          "draw_order": "all gamma coordinates then all beta coordinates",
+          "initial_parameters": [
+            1.3789715463539463,
+            1.4497639358789494
+          ],
+          "numpy_version": "2.4.6",
+          "parameter_order": "all gammas followed by all betas",
+          "rng": "numpy.random.default_rng(seed)",
+          "strategy": "source_uniform"
+        },
+        "name": "COBYLA",
+        "options": {
+          "catol": 1e-08,
+          "maxiter": "declared per-depth budget/cumulative remainder",
+          "rhobeg": 0.5,
+          "tol": 1e-08
+        },
+        "termination": [
+          {
+            "depth": 1,
+            "message": "converged",
+            "status": "converged",
+            "success": true
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p1.statevector_accounting",
+      "detail": {
+        "evidence_reconstruction_runtime": 0.004693903028964996,
+        "objective_evaluations": 31,
+        "optimizer_runtime": 0.16603107191622257,
+        "overall_scientific_run_runtime": 0.22429066943004727,
+        "per_depth": [
+          {
+            "cumulative_runtime": 0.16603107191622257,
+            "depth": 1,
+            "objective_evaluations": 31,
+            "optimizer_runtime": 0.16603107191622257,
+            "statevector_evaluations": 21
+          }
+        ],
+        "statevector_evaluations_evidence_reconstruction": 1,
+        "statevector_evaluations_scientific_run": 21,
+        "statevector_evaluations_total_recorded": 22,
+        "total_runtime_including_evidence": 0.22898457245901227
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p1.independent_initialization",
+      "detail": {
+        "actual": [
+          1.3789715463539463,
+          1.4497639358789494
+        ],
+        "expected": [
+          1.3789715463539463,
+          1.4497639358789494
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.cvar_fixed_p1.alpha",
+      "detail": {
+        "alpha": 0.25,
+        "mode": "cvar"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.cvar_fixed_p1.probability_and_metrics",
+      "detail": {
+        "objective": 0.005058570731962632,
+        "ordinary": 0.06301802119405978,
+        "p_feas": 0.3761915333269981,
+        "p_opt": 0.0008653914508403327,
+        "raw_energy": 22.414550175229774,
+        "sum": 1.0000000000000002
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.cvar_fixed_p1.metrics_independent_of_cvar",
+      "detail": {
+        "ordinary": 0.06301802119405978,
+        "p_feas": 0.3761915333269981,
+        "p_opt": 0.0008653914508403327
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p1.runtime_and_status_retained",
+      "detail": {
+        "warnings": []
+      },
+      "passed": true
+    },
+    {
+      "check_id": "C.cvar_fixed_p1.fixed_depth",
+      "detail": {
+        "realized_depth": 1,
+        "reason": "fixed_depth_complete"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p2.frozen_matrix",
+      "detail": {
+        "cvar_alpha": 0.25,
+        "depth_mode": "fixed",
+        "depth_trigger": {
+          "absolute_improvement_tolerance": 1e-12,
+          "mode": "objective_improvement",
+          "relative_improvement_tolerance": 0.01,
+          "relative_scale_floor": 1e-12
+        },
+        "initial_depth": 2,
+        "initialization_strategy": "source_uniform",
+        "max_depth": 2,
+        "mixer_mode": "incumbent_dependent_aligned_existing",
+        "mixer_scale_mode": "inverse_num_qubits_existing",
+        "objective_mode": "cvar",
+        "optimizer_rhobeg": 0.5,
+        "optimizer_tolerance": 1e-08,
+        "per_depth_budget": 200,
+        "seed": 2601,
+        "total_cumulative_budget": 200,
+        "transfer_mode": "neutral_zero_append_grouped",
+        "warm_start_mode": "incumbent_product_aligned_existing"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p2.budgets",
+      "detail": {
+        "per_cap": 200,
+        "per_depth": [
+          158
+        ],
+        "total_cap": 200,
+        "used": 158
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p2.complete_trace",
+      "detail": {
+        "final_index": 158,
+        "records": 158
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p2.bounds_and_options",
+      "detail": {
+        "bounds": {
+          "beta": {
+            "lower": 0.0,
+            "upper": 3.141592653589793
+          },
+          "gamma": {
+            "lower": 0.0,
+            "upper": 6.283185307179586
+          }
+        },
+        "implementation": "scipy.optimize.minimize",
+        "implementation_version": "1.18.0",
+        "initialization": {
+          "draw_order": "all gamma coordinates then all beta coordinates",
+          "initial_parameters": [
+            1.3789715463539463,
+            2.8995278717578987,
+            1.7364474121273048,
+            2.7906443673425665
+          ],
+          "numpy_version": "2.4.6",
+          "parameter_order": "all gammas followed by all betas",
+          "rng": "numpy.random.default_rng(seed)",
+          "strategy": "source_uniform"
+        },
+        "name": "COBYLA",
+        "options": {
+          "catol": 1e-08,
+          "maxiter": "declared per-depth budget/cumulative remainder",
+          "rhobeg": 0.5,
+          "tol": 1e-08
+        },
+        "termination": [
+          {
+            "depth": 2,
+            "message": "converged",
+            "status": "converged",
+            "success": true
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p2.statevector_accounting",
+      "detail": {
+        "evidence_reconstruction_runtime": 0.007537927944213152,
+        "objective_evaluations": 158,
+        "optimizer_runtime": 1.3845279612578452,
+        "overall_scientific_run_runtime": 1.4413943830877542,
+        "per_depth": [
+          {
+            "cumulative_runtime": 1.3845279612578452,
+            "depth": 2,
+            "objective_evaluations": 158,
+            "optimizer_runtime": 1.3845279612578452,
+            "statevector_evaluations": 118
+          }
+        ],
+        "statevector_evaluations_evidence_reconstruction": 1,
+        "statevector_evaluations_scientific_run": 118,
+        "statevector_evaluations_total_recorded": 119,
+        "total_runtime_including_evidence": 1.4489323110319674
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p2.independent_initialization",
+      "detail": {
+        "actual": [
+          1.3789715463539463,
+          2.8995278717578987,
+          1.7364474121273048,
+          2.7906443673425665
+        ],
+        "expected": [
+          1.3789715463539463,
+          2.8995278717578987,
+          1.7364474121273048,
+          2.7906443673425665
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.cvar_fixed_p2.alpha",
+      "detail": {
+        "alpha": 0.25,
+        "mode": "cvar"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.cvar_fixed_p2.probability_and_metrics",
+      "detail": {
+        "objective": 0.0050344368585574515,
+        "ordinary": 0.033946896568861594,
+        "p_feas": 0.6305339695289042,
+        "p_opt": 0.002053984716045521,
+        "raw_energy": 16.687538624065727,
+        "sum": 1.0
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.cvar_fixed_p2.metrics_independent_of_cvar",
+      "detail": {
+        "ordinary": 0.033946896568861594,
+        "p_feas": 0.6305339695289042,
+        "p_opt": 0.002053984716045521
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.cvar_fixed_p2.runtime_and_status_retained",
+      "detail": {
+        "warnings": []
+      },
+      "passed": true
+    },
+    {
+      "check_id": "C.cvar_fixed_p2.fixed_depth",
+      "detail": {
+        "realized_depth": 2,
+        "reason": "fixed_depth_complete"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A1.frozen_matrix",
+      "detail": {
+        "cvar_alpha": 0.25,
+        "depth_mode": "fixed",
+        "depth_trigger": {
+          "absolute_improvement_tolerance": 1e-12,
+          "mode": "objective_improvement",
+          "relative_improvement_tolerance": 0.01,
+          "relative_scale_floor": 1e-12
+        },
+        "initial_depth": 3,
+        "initialization_strategy": "source_uniform",
+        "max_depth": 3,
+        "mixer_mode": "incumbent_dependent_aligned_existing",
+        "mixer_scale_mode": "inverse_num_qubits_existing",
+        "objective_mode": "cvar",
+        "optimizer_rhobeg": 0.5,
+        "optimizer_tolerance": 1e-08,
+        "per_depth_budget": 300,
+        "seed": 2601,
+        "total_cumulative_budget": 300,
+        "transfer_mode": "neutral_zero_append_grouped",
+        "warm_start_mode": "incumbent_product_aligned_existing"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A1.budgets",
+      "detail": {
+        "per_cap": 300,
+        "per_depth": [
+          206
+        ],
+        "total_cap": 300,
+        "used": 206
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A1.complete_trace",
+      "detail": {
+        "final_index": 206,
+        "records": 206
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A1.bounds_and_options",
+      "detail": {
+        "bounds": {
+          "beta": {
+            "lower": 0.0,
+            "upper": 3.141592653589793
+          },
+          "gamma": {
+            "lower": 0.0,
+            "upper": 6.283185307179586
+          }
+        },
+        "implementation": "scipy.optimize.minimize",
+        "implementation_version": "1.18.0",
+        "initialization": {
+          "draw_order": "all gamma coordinates then all beta coordinates",
+          "initial_parameters": [
+            1.3789715463539463,
+            2.8995278717578987,
+            3.4728948242546096,
+            2.7906443673425665,
+            3.111410049347273,
+            0.7743344873085359
+          ],
+          "numpy_version": "2.4.6",
+          "parameter_order": "all gammas followed by all betas",
+          "rng": "numpy.random.default_rng(seed)",
+          "strategy": "source_uniform"
+        },
+        "name": "COBYLA",
+        "options": {
+          "catol": 1e-08,
+          "maxiter": "declared per-depth budget/cumulative remainder",
+          "rhobeg": 0.5,
+          "tol": 1e-08
+        },
+        "termination": [
+          {
+            "depth": 3,
+            "message": "converged",
+            "status": "converged",
+            "success": true
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A1.statevector_accounting",
+      "detail": {
+        "evidence_reconstruction_runtime": 0.011707866098731756,
+        "objective_evaluations": 206,
+        "optimizer_runtime": 2.742283457890153,
+        "overall_scientific_run_runtime": 2.779830265324563,
+        "per_depth": [
+          {
+            "cumulative_runtime": 2.742283457890153,
+            "depth": 3,
+            "objective_evaluations": 206,
+            "optimizer_runtime": 2.742283457890153,
+            "statevector_evaluations": 170
+          }
+        ],
+        "statevector_evaluations_evidence_reconstruction": 1,
+        "statevector_evaluations_scientific_run": 170,
+        "statevector_evaluations_total_recorded": 171,
+        "total_runtime_including_evidence": 2.7915381314232945
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A1.independent_initialization",
+      "detail": {
+        "actual": [
+          1.3789715463539463,
+          2.8995278717578987,
+          3.4728948242546096,
+          2.7906443673425665,
+          3.111410049347273,
+          0.7743344873085359
+        ],
+        "expected": [
+          1.3789715463539463,
+          2.8995278717578987,
+          3.4728948242546096,
+          2.7906443673425665,
+          3.111410049347273,
+          0.7743344873085359
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.A1.alpha",
+      "detail": {
+        "alpha": 0.25,
+        "mode": "cvar"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.A1.probability_and_metrics",
+      "detail": {
+        "objective": 0.005013511159322313,
+        "ordinary": 0.03266252497248027,
+        "p_feas": 0.7354168972659434,
+        "p_opt": 0.003084575403376058,
+        "raw_energy": 16.434517419578615,
+        "sum": 0.9999999999999998
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.A1.metrics_independent_of_cvar",
+      "detail": {
+        "ordinary": 0.03266252497248027,
+        "p_feas": 0.7354168972659434,
+        "p_opt": 0.003084575403376058
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A1.runtime_and_status_retained",
+      "detail": {
+        "warnings": []
+      },
+      "passed": true
+    },
+    {
+      "check_id": "C.A1.fixed_depth",
+      "detail": {
+        "realized_depth": 3,
+        "reason": "fixed_depth_complete"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A3.frozen_matrix",
+      "detail": {
+        "cvar_alpha": 0.25,
+        "depth_mode": "incremental",
+        "depth_trigger": {
+          "absolute_improvement_tolerance": 1e-12,
+          "mode": "objective_improvement",
+          "relative_improvement_tolerance": 0.01,
+          "relative_scale_floor": 1e-12
+        },
+        "initial_depth": 1,
+        "initialization_strategy": "source_uniform",
+        "max_depth": 3,
+        "mixer_mode": "incumbent_dependent_aligned_existing",
+        "mixer_scale_mode": "inverse_num_qubits_existing",
+        "objective_mode": "cvar",
+        "optimizer_rhobeg": 0.5,
+        "optimizer_tolerance": 1e-08,
+        "per_depth_budget": 100,
+        "seed": 2601,
+        "total_cumulative_budget": 300,
+        "transfer_mode": "neutral_zero_append_grouped",
+        "warm_start_mode": "incumbent_product_aligned_existing"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A3.budgets",
+      "detail": {
+        "per_cap": 100,
+        "per_depth": [
+          31,
+          100
+        ],
+        "total_cap": 300,
+        "used": 131
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A3.complete_trace",
+      "detail": {
+        "final_index": 131,
+        "records": 131
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A3.bounds_and_options",
+      "detail": {
+        "bounds": {
+          "beta": {
+            "lower": 0.0,
+            "upper": 3.141592653589793
+          },
+          "gamma": {
+            "lower": 0.0,
+            "upper": 6.283185307179586
+          }
+        },
+        "implementation": "scipy.optimize.minimize",
+        "implementation_version": "1.18.0",
+        "initialization": {
+          "draw_order": "all gamma coordinates then all beta coordinates",
+          "initial_parameters": [
+            1.3789715463539463,
+            1.4497639358789494
+          ],
+          "numpy_version": "2.4.6",
+          "parameter_order": "all gammas followed by all betas",
+          "rng": "numpy.random.default_rng(seed)",
+          "strategy": "source_uniform"
+        },
+        "name": "COBYLA",
+        "options": {
+          "catol": 1e-08,
+          "maxiter": "declared per-depth budget/cumulative remainder",
+          "rhobeg": 0.5,
+          "tol": 1e-08
+        },
+        "termination": [
+          {
+            "depth": 1,
+            "message": "converged",
+            "status": "converged",
+            "success": true
+          },
+          {
+            "depth": 2,
+            "message": "evaluation_budget_exhausted",
+            "status": "evaluation_budget_exhausted",
+            "success": false
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A3.statevector_accounting",
+      "detail": {
+        "evidence_reconstruction_runtime": 0.008736439980566502,
+        "objective_evaluations": 131,
+        "optimizer_runtime": 1.063346506562084,
+        "overall_scientific_run_runtime": 1.2287207711488008,
+        "per_depth": [
+          {
+            "cumulative_runtime": 0.16707829385995865,
+            "depth": 1,
+            "objective_evaluations": 31,
+            "optimizer_runtime": 0.16707829385995865,
+            "statevector_evaluations": 21
+          },
+          {
+            "cumulative_runtime": 1.063346506562084,
+            "depth": 2,
+            "objective_evaluations": 100,
+            "optimizer_runtime": 0.8962682127021253,
+            "statevector_evaluations": 78
+          }
+        ],
+        "statevector_evaluations_evidence_reconstruction": 1,
+        "statevector_evaluations_scientific_run": 99,
+        "statevector_evaluations_total_recorded": 100,
+        "total_runtime_including_evidence": 1.2374572111293674
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A3.independent_initialization",
+      "detail": {
+        "actual": [
+          1.3789715463539463,
+          1.4497639358789494
+        ],
+        "expected": [
+          1.3789715463539463,
+          1.4497639358789494
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.A3.alpha",
+      "detail": {
+        "alpha": 0.25,
+        "mode": "cvar"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.A3.probability_and_metrics",
+      "detail": {
+        "objective": 0.0050344368585574515,
+        "ordinary": 0.03394689450703771,
+        "p_feas": 0.630533987522007,
+        "p_opt": 0.0020539847160454877,
+        "raw_energy": 16.687538217886424,
+        "sum": 1.0
+      },
+      "passed": true
+    },
+    {
+      "check_id": "E.A3.metrics_independent_of_cvar",
+      "detail": {
+        "ordinary": 0.03394689450703771,
+        "p_feas": 0.630533987522007,
+        "p_opt": 0.0020539847160454877
+      },
+      "passed": true
+    },
+    {
+      "check_id": "B.A3.runtime_and_status_retained",
+      "detail": {
+        "warnings": [
+          {
+            "category": "optimizer_terminal_status",
+            "depth": 2,
+            "message": "evaluation_budget_exhausted",
+            "scientific_failure_retained": true
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "C.A3.p1_to_p2",
+      "detail": {
+        "depths": [
+          1,
+          2
+        ],
+        "p1_decision": true,
+        "p1_reason": "baseline_complete_required_first_transfer"
+      },
+      "passed": true
+    },
+    {
+      "check_id": "C.A3.neutral_transfer",
+      "detail": [
+        {
+          "actual_input": [
+            6.283185307179586,
+            0.0,
+            3.141592653589793,
+            0.0
+          ],
+          "child_depth": 2,
+          "expected_input": [
+            6.283185307179586,
+            0.0,
+            3.141592653589793,
+            0.0
+          ],
+          "neutral_error": 0.0,
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "check_id": "C.A3.p2_to_p3_both_thresholds",
+      "detail": {
+        "absolute": 2.413387340518061e-05,
+        "decision": false,
+        "p3_attempted": false,
+        "reason": "marginal_depth_gain_plateau",
+        "relative": 0.0047708878028907414,
+        "thresholds_pass": false
+      },
+      "passed": true
+    },
+    {
+      "check_id": "C.A3.no_budget_reallocation",
+      "detail": {
+        "cumulative": 131,
+        "per_depth": [
+          31,
+          100
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "summary.json_matches_raw",
+      "detail": 8,
+      "passed": true
+    },
+    {
+      "check_id": "summary.csv_counts",
+      "detail": {
+        "depth_rows": 11,
+        "formal_rows": 8
+      },
+      "passed": true
+    },
+    {
+      "check_id": "incident.initial_validator_failure_classified",
+      "detail": {
+        "cause": "Python tuple/list equality mismatch before JSON serialization",
+        "false_check_ids": [
+          "scientific_identity.task_components",
+          "initialization.expectation_fixed_p1.independent_frozen",
+          "initialization.expectation_fixed_p2.independent_frozen",
+          "initialization.A0.independent_frozen",
+          "initialization.A2.independent_frozen",
+          "incremental.A2.neutral_transfer",
+          "initialization.cvar_fixed_p1.independent_frozen",
+          "initialization.cvar_fixed_p2.independent_frozen",
+          "initialization.A1.independent_frozen",
+          "initialization.A3.independent_frozen",
+          "incremental.A3.neutral_transfer"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "check_id": "incident.all_scientific_rows_terminal_before_validator_failure",
+      "detail": [
+        "expectation_fixed_p1",
+        "expectation_fixed_p2",
+        "A0",
+        "A2",
+        "cvar_fixed_p1",
+        "cvar_fixed_p2",
+        "A1",
+        "A3"
+      ],
+      "passed": true
+    }
+  ],
+  "execution_identity": "q2r-9c98b90049545d0508fb20bb488019608a4356d55fe91ff809bce8dc5c5e0c69",
+  "failed_count": 0,
+  "overall_passed": true,
+  "passed_count": 108,
+  "preserved_incident": {
+    "execution_failure_relative_path": "execution_failure.json",
+    "execution_failure_sha256": "3e1112a7a7352490254833edbdef85f93bb23b5574590ba91870341325bc6c2e",
+    "initial_false_failure_cause": "in-memory dataclass tuples compared to numerically identical lists; raw JSON normalizes both to lists",
+    "initial_validation_relative_path": "validation/postrun_validation.json",
+    "initial_validation_sha256": "afdfab500638c4c41e531324464396d71fc729e4636dae7661c66525487ad394",
+    "raw_outputs_modified": false,
+    "scientific_runs_rerun": false
+  },
+  "schema": "dtu-sciqis-q2-revision-postrun-validation-reaudit",
+  "validated_at_utc": "2026-08-10T17:51:10.588689+00:00",
+  "validation_scope": "append-only independent audit of immutable raw JSON; no objective or statevector evaluations",
+  "version": "1.0"
+}

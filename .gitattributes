@@ -1,0 +1,4 @@
+# Preserve sealed Matplotlib SVGs byte-for-byte. Their path-command formatting
+# contains intentional trailing spaces and must not be normalized during review.
+results/**/*.svg -whitespace
+archive/development/q2r/*.md -whitespace
