@@ -1,0 +1,13 @@
+{
+  "run_count": 6,
+  "all_checkpoint_norms_within_1e-10": true,
+  "all_checkpoint_probability_sums_within_1e-10": true,
+  "all_cost_layers_preserve_probabilities_within_1e-10": true,
+  "all_cost_layers_preserve_expected_hc_within_1e-10": true,
+  "at_least_one_real_cost_layer_changes_relative_phase": true,
+  "at_least_one_real_mixer_changes_probabilities": true,
+  "at_least_one_real_mixer_changes_expected_hc": true,
+  "all_p_opt_not_above_p_feas": true,
+  "all_feasible_grover_checkpoints_feasible": true,
+  "checkpoint_counts_correct": true
+}

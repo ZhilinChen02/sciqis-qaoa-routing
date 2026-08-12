@@ -1,0 +1,36 @@
+{
+  "schema": "dtu-sciqis-qaoa-dynamics-deep-dive",
+  "version": "1.0",
+  "graph_path": "data/graph.json",
+  "penalty": 6.0,
+  "algorithms": [
+    "penalty_x",
+    "grover_global",
+    "grover_feasible"
+  ],
+  "depths": [
+    1,
+    2
+  ],
+  "seed": 2601,
+  "optimizer": "COBYLA",
+  "objective": "expected normalized cost Hamiltonian",
+  "objective_evaluation_cap": 100,
+  "optimizer_rhobeg": 0.5,
+  "optimizer_tolerance": 1e-08,
+  "parameter_order": "all_gammas_then_all_betas",
+  "layer_order": "cost_then_mixer",
+  "gamma_bounds": [
+    0.0,
+    6.283185307179586
+  ],
+  "beta_bounds": [
+    0.0,
+    3.141592653589793
+  ],
+  "parameter_landscape_grid_points_per_axis": 25,
+  "result_namespace": "results/qaoa_dynamics_deep_dive/v1",
+  "figure_namespace": "figures/qaoa_dynamics_deep_dive/v1",
+  "statevector_mode": "ideal_exact",
+  "claim_quantum_advantage": false
+}
