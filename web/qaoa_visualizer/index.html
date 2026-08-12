@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QAOA 动态电路</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">DTU SCIQIS · READ-ONLY TRACE REPLAY</p>
+        <h1>QAOA 动态电路</h1>
+        <p class="lede">同步观察每次优化评估中的 γ、β、期望能量和路线概率。</p>
+      </div>
+      <div class="source-badge">
+        <span class="status-dot"></span>
+        <span>密封实验数据 · 只读回放</span>
+      </div>
+    </header>
+
+    <section class="control-panel" aria-label="运行选择">
+      <label>
+        <span>算法</span>
+        <select id="method-select"></select>
+      </label>
+      <label>
+        <span>深度 p</span>
+        <select id="depth-select"></select>
+      </label>
+      <label>
+        <span>随机种子</span>
+        <select id="seed-select"></select>
+      </label>
+      <button id="load-run" class="primary">载入轨迹</button>
+    </section>
+
+    <section id="loading" class="loading-card">正在载入实验轨迹…</section>
+    <section id="error" class="error-card" hidden></section>
+
+    <div id="workspace" hidden>
+      <section class="run-heading">
+        <div>
+          <p id="run-id" class="run-id"></p>
+          <h2 id="method-title"></h2>
+          <p id="method-explanation" class="muted"></p>
+        </div>
+        <div class="legend">
+          <span><i class="swatch phase"></i>Cost / Threshold phase</span>
+          <span><i class="swatch mixer"></i>Mixer</span>
+          <span><i class="swatch active"></i>当前操作</span>
+        </div>
+      </section>
+
+      <section class="circuit-card panel">
+        <div class="panel-title-row">
+          <div>
+            <p class="section-kicker">LOGICAL CIRCUIT</p>
+            <h3>可行路线寄存器</h3>
+          </div>
+          <span id="representation" class="pill"></span>
+        </div>
+        <div id="circuit" class="circuit" aria-label="QAOA 电路"></div>
+        <p class="circuit-note">这是 20 维逻辑可行子空间中的算符电路，不是假装成硬件门分解的 20 条量子线。</p>
+      </section>
+
+      <section class="player panel">
+        <div class="transport">
+          <button id="previous" title="上一步" aria-label="上一步">←</button>
+          <button id="play" class="play" aria-label="播放">▶ 播放</button>
+          <button id="next" title="下一步" aria-label="下一步">→</button>
+          <label class="inline-check">
+            <input id="gate-by-gate" type="checkbox">
+            <span>逐门播放</span>
+          </label>
+          <label class="speed-label">
+            <span>速度</span>
+            <select id="speed-select">
+              <option value="900">慢</option>
+              <option value="450" selected>中</option>
+              <option value="160">快</option>
+            </select>
+          </label>
+        </div>
+        <div class="scrubber-row">
+          <span>评估</span>
+          <input id="frame-slider" type="range" min="0" value="0" step="1">
+          <output id="frame-output"></output>
+        </div>
+        <div id="stage-label" class="stage-label"></div>
+      </section>
+
+      <section class="metric-grid" aria-label="当前指标">
+        <article class="metric energy">
+          <span>期望能量 ⟨C⟩</span>
+          <strong id="energy-value">—</strong>
+          <small>原始路线成本单位</small>
+        </article>
+        <article class="metric objective">
+          <span>优化器 loss</span>
+          <strong id="loss-value">—</strong>
+          <small id="loss-description"></small>
+        </article>
+        <article class="metric probability">
+          <span>更优解概率</span>
+          <strong id="bsp-value">—</strong>
+          <small>P(C &lt; 11)</small>
+        </article>
+        <article class="metric route">
+          <span>当前最可能路线</span>
+          <strong id="route-value">—</strong>
+          <small id="route-cost"></small>
+        </article>
+      </section>
+
+      <section class="chart-grid">
+        <article class="panel chart-card">
+          <div class="panel-title-row compact">
+            <div>
+              <p class="section-kicker">OPTIMIZER TRAJECTORY</p>
+              <h3>期望能量变化</h3>
+            </div>
+            <span id="energy-delta" class="delta"></span>
+          </div>
+          <svg id="energy-chart" class="line-chart" role="img" aria-label="期望能量轨迹"></svg>
+        </article>
+        <article class="panel chart-card">
+          <div class="panel-title-row compact">
+            <div>
+              <p class="section-kicker">CURRENT PARAMETERS</p>
+              <h3>γ 与 β</h3>
+            </div>
+            <span class="gamma-beta-key"><b>γ</b> phase · <i>β</i> mixer</span>
+          </div>
+          <div id="parameter-values" class="parameter-values"></div>
+          <svg id="parameter-chart" class="line-chart parameter-chart" role="img" aria-label="参数轨迹"></svg>
+        </article>
+      </section>
+
+      <section class="panel distribution-card">
+        <div class="panel-title-row compact">
+          <div>
+            <p class="section-kicker">STATE PROBABILITIES</p>
+            <h3>20 条可行路线的测量概率</h3>
+          </div>
+          <span class="optimal-key"><i></i>最优路线</span>
+        </div>
+        <div id="distribution" class="distribution"></div>
+      </section>
+    </div>
+  </main>
+  <script src="/app.js" defer></script>
+</body>
+</html>

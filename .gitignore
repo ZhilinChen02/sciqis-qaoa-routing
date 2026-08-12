@@ -15,6 +15,12 @@ htmlcov/
 *.swp
 *.log
 
+# Local credentials and Codex/session state must never be versioned.
+KEY.txt
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
 # Development outputs are ignored. The three immutable evidence roots are
 # explicitly retained so a fresh clone can verify and plot the course results.
 results/*
@@ -25,9 +31,13 @@ results/*
 !results/q2f_course_extension/**
 !results/q2f_final_improvement/
 !results/q2f_final_improvement/**
+!results/qaoa_dynamics_deep_dive/
+!results/qaoa_dynamics_deep_dive/**
 
 # Only the consolidated course presentation figures are versioned.
 figures/*
 !figures/.gitkeep
 !figures/course/
 !figures/course/**
+!figures/qaoa_dynamics_deep_dive/
+!figures/qaoa_dynamics_deep_dive/**

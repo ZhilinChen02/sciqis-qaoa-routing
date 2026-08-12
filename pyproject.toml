@@ -25,9 +25,12 @@ build-backend = "setuptools.build_meta"
 package-dir = { "" = "src" }
 py-modules = [
     "course_final",
+    "dynamics_study",
+    "dynamics_figures",
     "exact_reference",
     "feasible_qaoa",
     "graph",
+    "global_grover",
     "ising",
     "metrics",
     "objectives",
@@ -35,6 +38,9 @@ py-modules = [
     "penalty_demo",
     "q2f_final_improvement",
     "qaoa",
+    "qaoa_dynamics",
+    "qaoa_dynamics_visualization",
+    "qaoa_visualization",
     "qubo",
     "sealed_results",
     "warm_start",

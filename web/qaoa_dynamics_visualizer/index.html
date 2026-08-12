@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive, saved-data-driven QAOA physics demo for the DTU SCIQIS routing project">
+  <title>QAOA Dynamics Demo · DTU SCIQIS</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">DTU 10387 · SCIQIS · IDEAL STATEVECTOR STUDY</p>
+      <h1>QAOA Dynamics Demo</h1>
+      <p class="lede">One routing problem. Three search geometries. Watch objective phase become interference and probability flow.</p>
+    </div>
+    <div class="hero-badges">
+      <span class="badge"><i class="status-dot"></i>saved artifacts</span>
+      <span id="validationBadge" class="badge">validating…</span>
+      <button id="presentationToggle" class="presentation-button" type="button">Present</button>
+    </div>
+  </header>
+
+  <section id="presentationBar" class="presentation-bar hidden" aria-live="polite">
+    <button id="scenePrevious" type="button" aria-label="Previous presentation scene">←</button>
+    <div>
+      <p id="sceneCounter" class="eyebrow"></p>
+      <h2 id="sceneTitle"></h2>
+      <p id="sceneMessage"></p>
+      <div id="sceneComparison" class="scene-comparison"></div>
+    </div>
+    <button id="sceneNext" type="button" aria-label="Next presentation scene">→</button>
+    <button id="presentationExit" type="button">Exit presentation</button>
+  </section>
+
+  <nav class="controls standard-controls" aria-label="QAOA visualization controls">
+    <label><span>Algorithm</span><select id="algorithmSelect"></select></label>
+    <label><span>Depth</span><select id="depthSelect"><option value="1">p = 1</option><option value="2">p = 2</option></select></label>
+    <label class="checkpoint-control"><span>Checkpoint</span><input id="checkpointSlider" type="range" min="0" max="4" value="0" step="1"><output id="checkpointOutput">Initial</output></label>
+    <div class="transport">
+      <button id="previousButton" type="button" title="Previous checkpoint">← Previous</button>
+      <button id="playButton" class="primary" type="button">▶ Play</button>
+      <button id="nextButton" type="button" title="Next checkpoint">Next →</button>
+      <label class="speed-control"><span>Speed</span><select id="speedSelect"><option value="2000">0.5×</option><option value="1400" selected>1×</option><option value="850">1.6×</option><option value="500">2.8×</option></select></label>
+    </div>
+  </nav>
+
+  <aside id="teachingBanner" class="teaching-banner">
+    <strong>Core mechanism</strong>
+    <span>H<sub>C</sub> encodes objective values into relative phase.</span>
+    <span>H<sub>M</sub> determines how amplitudes mix.</span>
+    <span>Interference converts phase structure into probability redistribution.</span>
+  </aside>
+
+  <main id="app" class="dashboard" aria-live="polite">
+    <section class="panel span-12 panel-section" data-panel="circuit">
+      <header class="panel-header"><div><p class="panel-letter">PANEL A</p><h2>QAOA circuit timeline</h2></div><span id="runSource" class="source-note"></span></header>
+      <div id="circuitTimeline" class="circuit-timeline"></div>
+      <p id="checkpointTeaching" class="panel-note"></p>
+    </section>
+
+    <section class="panel span-7 panel-section" data-panel="energy">
+      <header class="panel-header"><div><p class="panel-letter">PANEL B</p><h2>Expected energy</h2></div><span id="energyDelta" class="delta"></span></header>
+      <canvas id="energyCanvas" class="chart-canvas" aria-label="Layer-by-layer expected energy chart"></canvas>
+      <div id="energyLegend" class="legend"></div>
+      <p class="panel-note">Cost steps preserve ⟨H<sub>C</sub>⟩. Mixer steps may raise or lower it; QAOA is not a monotonic descent.</p>
+    </section>
+
+    <section class="panel span-5 panel-section" data-panel="metrics">
+      <header class="panel-header"><div><p class="panel-letter">PANEL C</p><h2>Feasibility and optimality</h2></div><span id="structuralBadge" class="structural-badge hidden">structural feasible space</span></header>
+      <div class="metric-cards">
+        <article><span>p<sub>feas</sub></span><strong id="pFeasValue">—</strong></article>
+        <article><span>p<sub>opt</sub></span><strong id="pOptValue">—</strong></article>
+        <article><span>invalid mass</span><strong id="invalidValue">—</strong></article>
+      </div>
+      <canvas id="metricsCanvas" class="chart-canvas compact" aria-label="Probability metric trajectories"></canvas>
+      <p id="metricInterpretation" class="panel-note"></p>
+    </section>
+
+    <section class="panel span-12 panel-section" data-panel="probability">
+      <header class="panel-header"><div><p class="panel-letter">PANEL D</p><h2>Probability flow</h2></div><span id="probabilityScope" class="source-note"></span></header>
+      <div id="probabilityFlow" class="probability-flow"></div>
+      <p class="panel-note">Bars use exact probability mass. Select any non-aggregate state to inspect it on the routing graph.</p>
+    </section>
+
+    <section class="panel span-6 panel-section" data-panel="complex">
+      <header class="panel-header"><div><p class="panel-letter">PANEL E</p><h2>Complex amplitude and phase</h2></div>
+        <div class="segmented" role="group" aria-label="Complex amplitude display mode">
+          <button data-amplitude-mode="phase" type="button">phase</button>
+          <button data-amplitude-mode="magnitude" class="active" type="button">magnitude</button>
+          <button data-amplitude-mode="probability" type="button">probability</button>
+        </div>
+      </header>
+      <canvas id="complexCanvas" class="square-canvas" aria-label="Complex amplitude vectors"></canvas>
+      <p id="complexNote" class="panel-note"></p>
+    </section>
+
+    <section class="panel span-6 panel-section" data-panel="phase">
+      <header class="panel-header"><div><p class="panel-letter">PANEL F</p><h2>Phase versus energy</h2></div><span id="phaseSampling" class="source-note"></span></header>
+      <canvas id="phaseCanvas" class="square-canvas" aria-label="Wrapped phase versus energy scatter"></canvas>
+      <div class="legend"><span><i class="dot optimal"></i>optimal</span><span><i class="dot feasible"></i>feasible</span><span><i class="dot infeasible"></i>infeasible</span></div>
+    </section>
+
+    <section class="panel span-7 panel-section" data-panel="landscape">
+      <header class="panel-header"><div><p class="panel-letter">PANEL G</p><h2>Penalty-QUBO energy landscape</h2></div><span id="landscapeCounts" class="source-note"></span></header>
+      <canvas id="landscapeCanvas" class="chart-canvas" aria-label="Feasible and infeasible energy histogram"></canvas>
+      <div id="energyInspector" class="energy-inspector"><p>Select an energy bin to inspect representative states.</p></div>
+    </section>
+
+    <section class="panel span-5 panel-section" data-panel="geometry">
+      <header class="panel-header"><div><p class="panel-letter">PANEL H</p><h2>Search-space geometry</h2></div><button id="geometryAnimate" type="button">Animate one mix</button></header>
+      <svg id="geometrySvg" class="geometry-svg" viewBox="0 0 520 330" role="img" aria-label="Conceptual small q search-space geometry"></svg>
+      <p class="warning-note">Conceptual q=3 illustration; not the actual 14-qubit state graph.</p>
+    </section>
+
+    <section class="panel span-7 panel-section" data-panel="route">
+      <header class="panel-header"><div><p class="panel-letter">PANEL I</p><h2>Route and edge-selection view</h2></div><span id="selectedStateBadge" class="source-note"></span></header>
+      <svg id="routeSvg" class="route-svg" viewBox="0 0 720 370" role="img" aria-label="Seven-node routing graph with selected edges"></svg>
+      <div id="routeDetails" class="route-details"></div>
+    </section>
+
+    <section class="panel span-5 panel-section" data-panel="optimizer">
+      <header class="panel-header"><div><p class="panel-letter">PANEL J</p><h2>Classical optimizer around QAOA</h2></div>
+        <select id="landscapeMetric" aria-label="Parameter landscape metric"><option value="expected_hc">⟨H_C⟩</option><option value="p_feas">p_feas</option><option value="p_opt">p_opt</option></select>
+      </header>
+      <canvas id="optimizerCanvas" class="square-canvas" aria-label="Gamma beta parameter landscape"></canvas>
+      <div id="optimizerDetails" class="optimizer-details"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Interpretation boundary:</strong> ideal simulation of one 7-node instance. Feasible-route enumeration exposes the classical optimum and p<sub>feas</sub>=1 is not quantum advantage.</p>
+    <p id="environmentNote"></p>
+  </footer>
+
+  <div id="tooltip" class="tooltip hidden" role="tooltip"></div>
+  <div id="loadingOverlay" class="loading-overlay"><div><span class="spinner"></span><p>Validating and loading saved QAOA dynamics…</p></div></div>
+  <div id="errorOverlay" class="error-overlay hidden"><div><h2>Visualization unavailable</h2><p id="errorMessage"></p></div></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
