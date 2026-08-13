@@ -1,21 +1,23 @@
-"""Small readable Penalty-X QAOA demonstration for the course core."""
-
-from __future__ import annotations
+"""Run the shortest complete graph -> QUBO -> QAOA demonstration."""
 
 from dataclasses import dataclass
 
 import numpy as np
 
-from exact_reference import compute_exact_reference
+from support.exact_reference import compute_exact_reference
 from graph import DEFAULT_GRAPH_PATH, load_graph
-from ising import max_qubo_ising_error, qubo_to_ising
-from metrics import DistributionMetrics, distribution_metrics
-from optimization import OptimizationResult, optimize_cobyla
+from qubo import max_qubo_ising_error, qubo_to_ising
 from qaoa import Q1_PENALTY_X, normalized_diagonal, simulate_qaoa_state, state_probabilities
 from qubo import (
     build_qubo,
     enumerate_state_space,
     minimum_energy_states,
+)
+from utils import (
+    DistributionMetrics,
+    OptimizationResult,
+    distribution_metrics,
+    optimize_cobyla,
 )
 
 
@@ -49,10 +51,12 @@ def run_penalty_demo(
 ) -> PenaltyDemoResult:
     """Build graph→QUBO→Ising→Penalty-X and evaluate the full distribution."""
 
+    # Classical problem and exact answer.
     graph = load_graph(DEFAULT_GRAPH_PATH)
     exact_payload, _ = compute_exact_reference(graph, graph_path=DEFAULT_GRAPH_PATH)
     exact_route = tuple(exact_payload["exact_reference"]["node_path"])
     exact_cost = int(exact_payload["exact_reference"]["cost"])
+    # Binary optimization model.
     states = enumerate_state_space(graph)
     qubo = build_qubo(graph, float(penalty))
     ising = qubo_to_ising(qubo)
@@ -70,6 +74,7 @@ def run_penalty_demo(
     )
     normalized, _, _ = normalized_diagonal(raw_diagonal)
 
+    # QAOA angle optimization.
     def expectation(parameters: np.ndarray) -> float:
         state = simulate_qaoa_state(
             normalized,
@@ -86,6 +91,7 @@ def run_penalty_demo(
         seed=int(seed),
         evaluation_budget=int(evaluation_budget),
     )
+    # Final probability distribution and routing metrics.
     final_state = simulate_qaoa_state(
         normalized,
         optimizer.parameters,

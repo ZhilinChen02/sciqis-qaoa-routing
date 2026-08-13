@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from metrics import distribution_metrics, top_state_rows
+from utils import distribution_metrics, top_state_rows
 
 
 def test_feasibility_optimality_and_metrics_use_full_distribution(states):

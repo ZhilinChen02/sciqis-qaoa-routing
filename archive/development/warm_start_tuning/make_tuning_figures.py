@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Archived plotting controller for the superseded tuning study."""
-"""Six compact figures for the warm-start exploration/lock-in study."""
 
 from __future__ import annotations
 

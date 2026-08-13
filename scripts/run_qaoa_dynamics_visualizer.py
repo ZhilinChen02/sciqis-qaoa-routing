@@ -19,7 +19,7 @@ WEB = PROJECT_ROOT / "web" / "qaoa_dynamics_visualizer"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from qaoa_dynamics_visualization import (  # noqa: E402
+from support.qaoa_dynamics_visualization import (  # noqa: E402
     DEFAULT_RESULT_ROOT,
     DynamicsVisualizationDataError,
     QAOADynamicsVisualizationRepository,

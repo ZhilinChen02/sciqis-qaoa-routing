@@ -23,7 +23,7 @@ import networkx as nx  # noqa: E402
 import numpy as np  # noqa: E402
 
 from graph import load_graph, path_edges  # noqa: E402
-from sealed_results import Q2F, Q2F_FINAL, Q2R, verify_all_sealed_results  # noqa: E402
+from support.sealed_results import Q2F, Q2F_FINAL, Q2R, verify_all_sealed_results  # noqa: E402
 
 
 METHOD_LABELS = {

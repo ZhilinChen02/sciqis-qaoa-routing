@@ -6,7 +6,7 @@ import networkx as nx
 import numpy as np
 import pytest
 
-from exact_reference import enumerate_simple_paths_independent
+from support.exact_reference import enumerate_simple_paths_independent
 from feasible_qaoa import (
     ASCENDING_CVAR_OBJECTIVE,
     EXPECTATION_OBJECTIVE,
@@ -26,7 +26,7 @@ from feasible_qaoa import (
     simulate_logical_qaoa,
 )
 from graph import path_cost, path_to_edge_bitstring
-from objectives import probability_weighted_cvar, probability_weighted_expectation
+from utils import probability_weighted_cvar, probability_weighted_expectation
 from qubo import decode_valid_route
 
 

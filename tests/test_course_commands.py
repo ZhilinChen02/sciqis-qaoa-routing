@@ -4,14 +4,14 @@ import json
 
 import pytest
 
-from course_final import (
+from experiments.course_final import (
     DEFAULT_CONFIG_PATH,
     build_course_final_context,
     load_course_final_config,
     run_course_final_seed,
 )
-from penalty_demo import run_penalty_demo
-from sealed_results import verify_all_sealed_results
+from experiments.penalty_demo import run_penalty_demo
+from support.sealed_results import verify_all_sealed_results
 
 
 def test_final_config_is_explicit_and_has_no_optimum_label():

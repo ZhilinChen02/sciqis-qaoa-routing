@@ -24,27 +24,18 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools]
 package-dir = { "" = "src" }
 py-modules = [
-    "course_final",
-    "dynamics_study",
-    "dynamics_figures",
-    "exact_reference",
     "feasible_qaoa",
+    "feasible_experiments",
     "graph",
-    "global_grover",
-    "ising",
-    "metrics",
-    "objectives",
-    "optimization",
-    "penalty_demo",
-    "q2f_final_improvement",
+    "main",
     "qaoa",
-    "qaoa_dynamics",
-    "qaoa_dynamics_visualization",
-    "qaoa_visualization",
     "qubo",
-    "sealed_results",
-    "warm_start",
+    "utils",
 ]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["experiments*", "support*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

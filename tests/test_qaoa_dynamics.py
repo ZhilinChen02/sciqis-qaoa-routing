@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 from scipy.linalg import expm
 
-from dynamics_study import (
+from experiments.dynamics_study import (
     GROVER_FEASIBLE,
     GROVER_GLOBAL,
     PENALTY_X,
@@ -14,11 +14,11 @@ from dynamics_study import (
     prepare_study_context,
     regression_comparison,
 )
-from global_grover import build_global_grover_mixer, simulate_global_grover_state
-from ising import qubo_to_ising
-from q2f_final_improvement import simulate_final_improvement
+from qaoa import build_global_grover_mixer, simulate_global_grover_state
+from qubo import qubo_to_ising
+from feasible_experiments import simulate_final_improvement
 from qaoa import Q1_PENALTY_X, simulate_qaoa_state, standard_plus_state
-from qaoa_dynamics import BasisMetadata, apply_cost_layer, trace_qaoa_evolution
+from experiments.dynamics_trace import BasisMetadata, apply_cost_layer, trace_qaoa_evolution
 from qubo import decode_valid_route, state_index_to_edge_vector
 
 

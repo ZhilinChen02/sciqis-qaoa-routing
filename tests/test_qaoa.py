@@ -3,8 +3,8 @@ from __future__ import annotations
 import numpy as np
 from qiskit.quantum_info import Statevector
 
-from ising import qubo_to_ising
-from optimization import seeded_initial_parameters
+from qubo import qubo_to_ising
+from utils import seeded_initial_parameters
 from qaoa import (
     Q1_PENALTY_X,
     Q2_WARM_START,
@@ -13,7 +13,7 @@ from qaoa import (
     simulate_qaoa_state,
     state_probabilities,
 )
-from warm_start import incumbent_relaxation
+from utils import incumbent_relaxation
 
 
 def test_parameter_seed_and_statevector_normalization(graph, cost_diagonal):

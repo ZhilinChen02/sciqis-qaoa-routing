@@ -14,7 +14,7 @@ SRC = PROJECT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from course_final import (  # noqa: E402
+from experiments.course_final import (  # noqa: E402
     DEFAULT_CONFIG_PATH,
     course_final_payload,
     load_course_final_config,

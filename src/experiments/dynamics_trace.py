@@ -1,13 +1,4 @@
-"""Reusable checkpoint tracing for the three routing-QAOA constructions.
-
-The tracer observes an alternating cost-then-mixer evolution without changing
-it.  ``phase_energies`` are the diagonal values used by ``U_C`` (normalized in
-the frozen course protocol), while ``total_energies`` are the raw routing QUBO
-values reported as ``<H_C>``.  This separation makes normalization conventions
-explicit instead of silently changing historical simulations.
-"""
-
-from __future__ import annotations
+"""Record what happens after every cost and mixer layer in QAOA."""
 
 from dataclasses import asdict, dataclass
 from typing import Callable, Sequence
@@ -16,6 +7,10 @@ import numpy as np
 
 
 TRACE_TOLERANCE = 1e-10
+
+
+# These data classes are containers for saved tables.  The calculations start
+# at apply_cost_layer below.
 
 
 @dataclass(frozen=True)
@@ -150,19 +145,20 @@ def _checkpoint_metrics(
     probability_sum = float(np.sum(probabilities))
     if not np.isclose(probability_sum, 1.0, atol=TRACE_TOLERANCE, rtol=0.0):
         raise RuntimeError(f"trace_probability_not_normalized:{probability_sum}")
-    feasible = np.asarray(metadata.feasible_mask, dtype=bool)
-    optimal = np.asarray(metadata.optimal_mask, dtype=bool)
-    route = np.asarray(metadata.route_costs, dtype=np.float64)
-    penalty = np.asarray(metadata.flow_penalties, dtype=np.float64)
-    total = np.asarray(metadata.total_energies, dtype=np.float64)
-    p_feas = float(np.sum(probabilities[feasible]))
-    p_opt = float(np.sum(probabilities[optimal]))
-    infeasible_mass = float(np.sum(probabilities[~feasible]))
-    other_feasible = float(np.sum(probabilities[feasible & ~optimal]))
+    feasible_mask = np.asarray(metadata.feasible_mask, dtype=bool)
+    optimal_mask = np.asarray(metadata.optimal_mask, dtype=bool)
+    route_costs = np.asarray(metadata.route_costs, dtype=np.float64)
+    flow_penalties = np.asarray(metadata.flow_penalties, dtype=np.float64)
+    total_energies = np.asarray(metadata.total_energies, dtype=np.float64)
+
+    p_feas = float(np.sum(probabilities[feasible_mask]))
+    p_opt = float(np.sum(probabilities[optimal_mask]))
+    infeasible_mass = float(np.sum(probabilities[~feasible_mask]))
+    other_feasible = float(np.sum(probabilities[feasible_mask & ~optimal_mask]))
     positive = probabilities[probabilities > 0.0]
     order = np.lexsort((np.arange(metadata.dimension), -np.round(probabilities, 15)))
     top = int(order[0])
-    expected_penalty = float(probabilities @ penalty)
+    expected_penalty = float(probabilities @ flow_penalties)
     coefficient = metadata.penalty_coefficient
     penalty_contribution = (
         None if coefficient is None else float(coefficient * expected_penalty)
@@ -174,11 +170,11 @@ def _checkpoint_metrics(
         layer=int(layer),
         norm=float(np.linalg.norm(vector)),
         probability_sum=probability_sum,
-        expected_hc=float(probabilities @ total),
-        expected_routing_term=float(probabilities @ route),
+        expected_hc=float(probabilities @ total_energies),
+        expected_routing_term=float(probabilities @ route_costs),
         expected_flow_penalty=None if coefficient is None else expected_penalty,
         expected_penalty_contribution=penalty_contribution,
-        expected_total_qubo=float(probabilities @ total),
+        expected_total_qubo=float(probabilities @ total_energies),
         p_feas=p_feas,
         p_opt=p_opt,
         invalid_mass=infeasible_mass,
@@ -189,11 +185,11 @@ def _checkpoint_metrics(
         max_basis_probability=float(probabilities[top]),
         top_basis_index=top,
         top_basis_label=metadata.basis_labels[top],
-        top_is_feasible=bool(feasible[top]),
-        top_is_optimal=bool(optimal[top]),
+        top_is_feasible=bool(feasible_mask[top]),
+        top_is_optimal=bool(optimal_mask[top]),
         top_decoded_route=metadata.decoded_routes[top],
-        top_route_cost=float(route[top]),
-        top_total_energy=float(total[top]),
+        top_route_cost=float(route_costs[top]),
+        top_total_energy=float(total_energies[top]),
     )
 
 
@@ -260,17 +256,18 @@ def trace_qaoa_evolution(
 ) -> EvolutionTrace:
     """Capture ``initial``, then every cost and mixer checkpoint exactly."""
 
-    p = int(depth)
-    values = np.asarray(parameters, dtype=np.float64)
+    depth = int(depth)
+    parameters = np.asarray(parameters, dtype=np.float64)
     phases = np.asarray(phase_energies, dtype=np.float64)
     state = np.asarray(initial_state, dtype=np.complex128).copy()
-    if p < 1 or values.shape != (2 * p,) or np.any(~np.isfinite(values)):
+    if depth < 1 or parameters.shape != (2 * depth,) or np.any(~np.isfinite(parameters)):
         raise ValueError("trace_parameter_count_or_finiteness_error")
     if state.shape != (metadata.dimension,) or phases.shape != state.shape:
         raise ValueError("trace_state_phase_metadata_dimension_mismatch")
     if not np.isclose(np.linalg.norm(state), 1.0, atol=TRACE_TOLERANCE, rtol=0.0):
         raise ValueError("trace_initial_state_not_normalized")
-    gammas, betas = values[:p], values[p:]
+    gammas = parameters[:depth]
+    betas = parameters[depth:]
     states = [state.copy()]
     checkpoints = [
         _checkpoint_metrics(
@@ -309,10 +306,10 @@ def trace_qaoa_evolution(
                 layer=layer,
             )
         )
-    physics = _validate_physics(states, checkpoints, p)
+    physics = _validate_physics(states, checkpoints, depth)
     return EvolutionTrace(
-        depth=p,
-        parameters=tuple(map(float, values)),
+        depth=depth,
+        parameters=tuple(map(float, parameters)),
         checkpoints=tuple(checkpoints),
         statevectors=tuple(states),
         physics=physics,

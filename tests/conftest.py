@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from exact_reference import compute_exact_reference
+from support.exact_reference import compute_exact_reference
 from graph import DEFAULT_GRAPH_PATH, load_graph
 from qubo import build_qubo, enumerate_state_space
 from qaoa import normalized_diagonal

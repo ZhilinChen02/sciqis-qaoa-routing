@@ -1,12 +1,9 @@
-"""Read-only animation data for the final Q2-F QAOA study.
+"""Load saved final-study results and prepare them for the browser animation.
 
-The visualizer replays the retained optimizer evaluations from the sealed
-result root.  For every in-bounds parameter vector it also reconstructs the
-20-dimensional logical state after each phase and mixer operation.  Nothing in
-the sealed result directories is modified.
+This module only reads files.  The repository class checks the input, rebuilds
+the 20-amplitude state after each step, and returns ordinary dictionaries that
+the web server can send as JSON.
 """
-
-from __future__ import annotations
 
 from dataclasses import dataclass
 import json
@@ -15,7 +12,7 @@ from typing import Any
 
 import numpy as np
 
-from sealed_results import Q2F_FINAL
+from support.sealed_results import Q2F_FINAL
 
 
 METHOD_ORDER = (
@@ -56,9 +53,10 @@ class VisualizationDataError(RuntimeError):
 
 
 class QAOAVisualizationRepository:
-    """Load and reconstruct read-only animation data for retained QAOA runs."""
+    """Load, check and reconstruct saved QAOA runs."""
 
     def __init__(self, result_root: str | Path = Q2F_FINAL.root):
+        # Load the shared route basis first, then discover individual runs.
         self.result_root = Path(result_root).resolve()
         self.raw_root = self.result_root / "raw"
         self._basis_payload = self._load_json(self.result_root / "basis.json")

@@ -13,7 +13,7 @@ from feasible_qaoa import (
     build_logical_cost_hamiltonian,
     build_logical_path_exchange_mixer,
 )
-from q2f_final_improvement import (
+from feasible_experiments import (
     BSP_LOSS,
     BSP_PATH_EXCHANGE,
     EXPECTATION_LOSS,

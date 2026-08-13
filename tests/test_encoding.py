@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from fractions import Fraction
 
-from ising import max_qubo_ising_error, qubo_to_ising
+from qubo import max_qubo_ising_error, qubo_to_ising
 from qubo import (
     derive_critical_penalty,
     flow_feasibility_verdict,

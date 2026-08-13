@@ -19,11 +19,11 @@ WEB = PROJECT / "web" / "qaoa_visualizer"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from qaoa_visualization import (  # noqa: E402
+from support.qaoa_visualization import (  # noqa: E402
     QAOAVisualizationRepository,
     VisualizationDataError,
 )
-from sealed_results import Q2F_FINAL, verify_sealed_result  # noqa: E402
+from support.sealed_results import Q2F_FINAL, verify_sealed_result  # noqa: E402
 
 
 ASSETS = {

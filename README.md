@@ -1,5 +1,32 @@
 # QAOA Routing — DTU SCIQIS Course Project
 
+## Start here
+
+The shortest version of the project is `src/main.py`. Run it directly:
+
+```bash
+python src/main.py
+```
+
+Then read the code in this order:
+
+1. `data/graph.json` — the seven nodes and fourteen edges;
+2. `src/main.py` — the complete problem in one short file;
+3. `src/graph.py` — graph loading and route/bit conversion;
+4. `src/qubo.py` — routing cost and flow-constraint penalty;
+5. `src/qaoa.py` — cost and mixer layers;
+6. `src/experiments/penalty_demo.py` — the smallest complete QAOA experiment.
+
+The source code is divided into three simple areas:
+
+```text
+src/                    main algorithm files
+src/experiments/        scripts that run and compare the algorithms
+src/support/            saved-result, plotting and browser support
+```
+
+The `support` folder is not needed to understand the routing algorithm.
+
 ## Project question
 
 This project studies how QAOA encodes and samples routes in a small weighted
@@ -288,6 +315,6 @@ python scripts/make_course_figures.py --output /tmp/sciqis-course-figures
 ```
 
 The immutable result roots are identified and checked by
-`src/sealed_results.py`. Detailed feasible-space and final-threshold definitions
+`src/support/sealed_results.py`. Detailed feasible-space and final-threshold definitions
 are in `docs/methods/Q2F_FEASIBLE_WARM_START.md` and
 `docs/methods/Q2F_FINAL_IMPROVEMENT.md`.

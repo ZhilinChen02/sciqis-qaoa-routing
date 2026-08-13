@@ -1,12 +1,8 @@
-"""Reproducible three-geometry QAOA dynamics study for the DTU graph.
+"""Run the course comparison of Penalty-X and two Grover mixers.
 
-This is intentionally a small course experiment rather than a benchmark
-framework.  It reuses the frozen graph/QUBO/Penalty-X code and the existing
-20-route Grover mixer, adding only the full-space Grover construction and
-read-only tracing/analysis artifacts.
+The file first prepares shared data, then runs each algorithm, and finally
+saves CSV/JSON files for the figures.
 """
-
-from __future__ import annotations
 
 import csv
 from dataclasses import asdict, dataclass
@@ -21,7 +17,7 @@ from typing import Any, Callable, Sequence
 
 import numpy as np
 
-from exact_reference import compute_exact_reference
+from support.exact_reference import compute_exact_reference
 from feasible_qaoa import (
     UNIFORM_FEASIBLE,
     FeasibleRouteBasis,
@@ -29,16 +25,15 @@ from feasible_qaoa import (
     build_feasible_route_basis,
     build_logical_cost_hamiltonian,
 )
-from global_grover import (
+from qaoa import (
     GROVER_GLOBAL,
     GlobalGroverMixer,
     build_global_grover_mixer,
     simulate_global_grover_state,
 )
 from graph import DEFAULT_GRAPH_PATH, EXPECTED_EDGE_COUNT, load_graph
-from ising import max_qubo_ising_error, qubo_to_ising
-from optimization import OptimizationResult, optimize_cobyla
-from q2f_final_improvement import (
+from qubo import max_qubo_ising_error, qubo_to_ising
+from feasible_experiments import (
     EXPECTATION_LOSS,
     GM_QAOA_EXPECTATION,
     FinalOptimizationResult,
@@ -56,11 +51,12 @@ from qaoa import (
     standard_plus_state,
     state_probabilities,
 )
-from qaoa_dynamics import BasisMetadata, EvolutionTrace, trace_qaoa_evolution
+from experiments.dynamics_trace import BasisMetadata, EvolutionTrace, trace_qaoa_evolution
 from qubo import StateRecord, build_qubo, enumerate_state_space
+from utils import OptimizationResult, optimize_cobyla
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONFIG_PATH = PROJECT_ROOT / "configs" / "qaoa_dynamics_deep_dive.json"
 PENALTY_X = "penalty_x"
 GROVER_FEASIBLE = "grover_feasible"
@@ -70,6 +66,9 @@ DISPLAY_NAMES = {
     GROVER_GLOBAL: "Global Grover-Mixer QAOA",
     GROVER_FEASIBLE: "Feasible Grover-Mixer QAOA",
 }
+
+
+# Data shared by all runs, followed by the result from one run.
 
 
 @dataclass(frozen=True)
@@ -164,6 +163,9 @@ def load_study_config(path: str | Path = DEFAULT_CONFIG_PATH) -> dict[str, Any]:
     if int(payload["seed"]) != 2601 or payload["optimizer"] != "COBYLA":
         raise ValueError("dynamics_frozen_optimizer_policy_mismatch")
     return payload
+
+
+# Build all graph, QUBO, basis and mixer objects once before optimization.
 
 
 def _array_sha256(values: np.ndarray) -> str:
@@ -323,7 +325,6 @@ def _optimize_full(
     rhobeg: float,
     tolerance: float,
 ) -> OptimizationResult:
-    simulator: Callable[..., np.ndarray]
     if algorithm == PENALTY_X:
         def simulator(diagonal, parameters, *, depth):
             return simulate_qaoa_state(
@@ -732,21 +733,22 @@ def save_study_artifacts(
     summaries = [run.summary_dict() for run in runs]
     _write_csv(result_root / "final_summary.csv", summaries)
     write_json(result_root / "final_summary.json", summaries)
-    parameter_rows = [
-        {
+    parameter_rows = []
+    for run in runs:
+        row = {
             "run_id": run.run_id,
             "algorithm": run.algorithm,
             "p": run.depth,
             "seed": run.seed,
             "gamma_1": run.optimized_parameters[0],
-            "gamma_2": None if run.depth < 2 else run.optimized_parameters[1],
+            "gamma_2": None,
             "beta_1": run.optimized_parameters[run.depth],
-            "beta_2": None
-            if run.depth < 2
-            else run.optimized_parameters[run.depth + 1],
+            "beta_2": None,
         }
-        for run in runs
-    ]
+        if run.depth >= 2:
+            row["gamma_2"] = run.optimized_parameters[1]
+            row["beta_2"] = run.optimized_parameters[run.depth + 1]
+        parameter_rows.append(row)
     _write_csv(result_root / "optimized_parameters.csv", parameter_rows)
 
     trace_rows: list[dict[str, object]] = []
@@ -844,10 +846,16 @@ def save_study_artifacts(
         _write_csv(result_root / "parameter_landscapes" / f"{algorithm}_p1.csv", rows)
         landscape_rows.extend(rows)
 
-    runtime_rows = [
-        {"scope": "setup", "run_id": "shared", "component": key, "seconds": value}
-        for key, value in context.setup_timings.items()
-    ]
+    runtime_rows = []
+    for component, seconds in context.setup_timings.items():
+        runtime_rows.append(
+            {
+                "scope": "setup",
+                "run_id": "shared",
+                "component": component,
+                "seconds": seconds,
+            }
+        )
     for run in runs:
         runtime_rows.extend(
             (

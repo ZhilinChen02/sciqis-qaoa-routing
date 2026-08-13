@@ -1,13 +1,9 @@
-"""Bounded final Q2-F mechanism study in the enumerated feasible-route basis.
+"""Compare the three final QAOA variants on the 20 valid routes.
 
-This module intentionally does not change :mod:`feasible_qaoa`.  It reuses the
-sealed Q2-F basis, cost data, warm start, and path-exchange mixer, and adds only
-the three prospectively bounded variants requested for the final course study.
-The simulation is a 20-dimensional logical reference, not a scalable circuit
-implementation or a quantum-advantage claim.
+The common loop is simple: prepare a state, apply a phase, apply a mixer, and
+let COBYLA search for gamma and beta angles.  The three methods only differ in
+their initial state, phase values, mixer and loss function.
 """
-
-from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 from math import pi
@@ -27,7 +23,7 @@ from feasible_qaoa import (
     PROBABILITY_TOLERANCE,
     feasible_route_metrics,
 )
-from optimization import EvaluationBudgetExhausted, SOURCE_UNIFORM, initial_parameters
+from utils import EvaluationBudgetExhausted, SOURCE_UNIFORM, initial_parameters
 
 
 BSP_PATH_EXCHANGE = "bsp_path_exchange"
@@ -41,6 +37,11 @@ COST_PHASE = "normalized_route_cost_phase"
 THRESHOLD_PHASE = "strict_incumbent_threshold_phase"
 BSP_LOSS = "negative_better_solution_probability"
 EXPECTATION_LOSS = "normalized_route_cost_expectation"
+
+
+# ---------------------------------------------------------------------------
+# Routes that improve on the classical incumbent
+# ---------------------------------------------------------------------------
 
 
 def better_than_incumbent_mask(
@@ -98,6 +99,11 @@ def build_incumbent_threshold(
     )
 
 
+# ---------------------------------------------------------------------------
+# Grover mixer over the 20 valid routes
+# ---------------------------------------------------------------------------
+
+
 @dataclass(frozen=True)
 class GroverFeasibleMixer:
     """Rank-one GM-QAOA mixer H_G=|F><F| in the exact logical basis."""
@@ -153,6 +159,8 @@ def threshold_phase_values(
 
 
 class LogicalMixer(Protocol):
+    """Compatibility type for either path-exchange or Grover mixer."""
+
     @property
     def dimension(self) -> int: ...
 
@@ -171,32 +179,33 @@ class FinalImprovementSimulation:
 def simulate_final_improvement(
     initial_state: Sequence[complex],
     phase_values: Sequence[float],
-    mixer: LogicalMixer,
+    mixer,
     parameters: Sequence[float],
     *,
     depth: int,
 ) -> FinalImprovementSimulation:
     """Apply cost/threshold phase then a feasibility-preserving logical mixer."""
 
-    p = int(depth)
-    if p not in (1, 2, 3, 4):
+    depth = int(depth)
+    if depth not in (1, 2, 3, 4):
         raise ValueError("q2f_final_depth_must_be_1_to_4")
-    values = np.asarray(parameters, dtype=np.float64)
-    phase = np.asarray(phase_values, dtype=np.float64)
+    parameters = np.asarray(parameters, dtype=np.float64)
+    phase_values = np.asarray(phase_values, dtype=np.float64)
     state = np.asarray(initial_state, dtype=np.complex128).copy()
-    if values.shape != (2 * p,) or np.any(~np.isfinite(values)):
+    if parameters.shape != (2 * depth,) or np.any(~np.isfinite(parameters)):
         raise ValueError("q2f_final_parameter_count_or_finiteness_error")
-    if state.shape != (mixer.dimension,) or phase.shape != (mixer.dimension,):
+    if state.shape != (mixer.dimension,) or phase_values.shape != (mixer.dimension,):
         raise ValueError("q2f_final_logical_dimension_mismatch")
-    if np.any(~np.isfinite(phase)):
+    if np.any(~np.isfinite(phase_values)):
         raise ValueError("q2f_final_phase_values_nonfinite")
     initial_norm = float(np.linalg.norm(state))
     if abs(initial_norm - 1.0) > PROBABILITY_TOLERANCE:
         raise ValueError("q2f_final_initial_state_not_normalized")
-    gammas, betas = values[:p], values[p:]
+    gammas = parameters[:depth]
+    betas = parameters[depth:]
     norms: list[LayerNormRecord] = []
-    for layer in range(p):
-        state *= np.exp(-1j * float(gammas[layer]) * phase)
+    for layer in range(depth):
+        state *= np.exp(-1j * float(gammas[layer]) * phase_values)
         after_phase = float(np.linalg.norm(state))
         if abs(after_phase - 1.0) > PROBABILITY_TOLERANCE:
             raise RuntimeError("q2f_final_phase_changed_norm")
@@ -268,7 +277,7 @@ class FinalOptimizationResult:
 def optimize_final_variant(
     initial_state: Sequence[complex],
     phase_values: Sequence[float],
-    mixer: LogicalMixer,
+    mixer,
     normalized_costs: Sequence[float],
     better_mask: Sequence[bool],
     *,
@@ -281,16 +290,18 @@ def optimize_final_variant(
 ) -> tuple[FinalOptimizationResult, FinalImprovementSimulation]:
     """Bounded stationary COBYLA; this function receives no optimum identity."""
 
-    p, budget = int(depth), int(evaluation_budget)
-    if p not in (1, 2, 3, 4) or budget < 1 or loss_kind not in (BSP_LOSS, EXPECTATION_LOSS):
+    depth = int(depth)
+    evaluation_budget = int(evaluation_budget)
+    valid_loss = loss_kind in (BSP_LOSS, EXPECTATION_LOSS)
+    if depth not in (1, 2, 3, 4) or evaluation_budget < 1 or not valid_loss:
         raise ValueError("invalid_q2f_final_optimizer_configuration")
     normalized = np.asarray(normalized_costs, dtype=np.float64)
     marked = np.asarray(better_mask, dtype=bool)
     if normalized.shape != (mixer.dimension,) or marked.shape != (mixer.dimension,):
         raise ValueError("q2f_final_optimizer_dimension_mismatch")
-    initial = initial_parameters(p, int(seed), strategy=SOURCE_UNIFORM)
-    lower = np.asarray([0.0] * p + [0.0] * p, dtype=np.float64)
-    upper = np.asarray([2.0 * pi] * p + [pi] * p, dtype=np.float64)
+    initial = initial_parameters(depth, int(seed), strategy=SOURCE_UNIFORM)
+    lower = np.asarray([0.0] * depth + [0.0] * depth, dtype=np.float64)
+    upper = np.asarray([2.0 * pi] * depth + [pi] * depth, dtype=np.float64)
     trace: list[FinalEvaluationRecord] = []
     evaluations = 0
     statevector_evaluations = 0
@@ -299,18 +310,20 @@ def optimize_final_variant(
 
     def counted(parameters: np.ndarray) -> float:
         nonlocal evaluations, statevector_evaluations, best_loss, best_parameters
-        if evaluations >= budget:
+        if evaluations >= evaluation_budget:
             raise EvaluationBudgetExhausted
         candidate = np.asarray(parameters, dtype=np.float64)
         evaluations += 1
-        outside = float(np.sum(np.maximum(lower - candidate, 0.0) + np.maximum(candidate - upper, 0.0)))
+        below_bounds = np.maximum(lower - candidate, 0.0)
+        above_bounds = np.maximum(candidate - upper, 0.0)
+        outside = float(np.sum(below_bounds + above_bounds))
         if outside:
             loss = 1_000_000.0 + outside
             bsp = expected = p_feas = None
             in_bounds = False
         else:
             simulation = simulate_final_improvement(
-                initial_state, phase_values, mixer, candidate, depth=p
+                initial_state, phase_values, mixer, candidate, depth=depth
             )
             statevector_evaluations += 1
             probs = np.asarray(simulation.probabilities, dtype=np.float64)
@@ -354,7 +367,7 @@ def optimize_final_variant(
             method="COBYLA",
             bounds=Bounds(lower, upper),
             options={
-                "maxiter": budget,
+                "maxiter": evaluation_budget,
                 "rhobeg": float(rhobeg),
                 "tol": float(tolerance),
                 "catol": float(tolerance),
@@ -376,7 +389,7 @@ def optimize_final_variant(
             best_loss = float(scipy_result.fun)
             best_parameters = candidate.copy()
     final_simulation = simulate_final_improvement(
-        initial_state, phase_values, mixer, best_parameters, depth=p
+        initial_state, phase_values, mixer, best_parameters, depth=depth
     )
     statevector_evaluations += 1
     final_loss = evaluate_final_loss(
@@ -386,7 +399,7 @@ def optimize_final_variant(
         better_mask=marked,
     )
     success = bool(scipy_result is not None and scipy_result.success and not exhausted)
-    if exhausted or evaluations >= budget:
+    if exhausted or evaluations >= evaluation_budget:
         reason = "evaluation_budget_exhausted"
     elif success:
         reason = "converged"

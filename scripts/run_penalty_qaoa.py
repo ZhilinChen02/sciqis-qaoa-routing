@@ -13,7 +13,7 @@ SRC = PROJECT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
-from penalty_demo import run_penalty_demo  # noqa: E402
+from experiments.penalty_demo import run_penalty_demo  # noqa: E402
 
 
 def main() -> None:

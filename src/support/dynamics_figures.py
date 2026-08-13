@@ -1,6 +1,4 @@
-"""Figures regenerated entirely from saved QAOA-dynamics study data."""
-
-from __future__ import annotations
+"""Read saved CSV/JSON files and draw the figures used in the report."""
 
 import csv
 import json
@@ -16,7 +14,7 @@ from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 import networkx as nx
 import numpy as np
 
-from dynamics_study import (
+from experiments.dynamics_study import (
     ALGORITHMS,
     DISPLAY_NAMES,
     GROVER_FEASIBLE,
@@ -27,13 +25,16 @@ from dynamics_study import (
 from graph import DEFAULT_GRAPH_PATH, get_edge_order, load_graph
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 COLORS = {
     PENALTY_X: "#4C78A8",
     GROVER_GLOBAL: "#F58518",
     GROVER_FEASIBLE: "#54A24B",
 }
 CHECKPOINT_MARKERS = {"initial": "o", "cost": "s", "mixer": "D"}
+
+
+# Small file and plotting helpers are followed by one function per figure.
 
 
 def _read_csv(path: Path) -> list[dict[str, str]]:

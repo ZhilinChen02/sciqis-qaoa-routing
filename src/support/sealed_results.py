@@ -1,6 +1,4 @@
-"""Read-only integrity checks for the three immutable course result roots."""
-
-from __future__ import annotations
+"""Check that saved course-result files have not been changed."""
 
 from dataclasses import dataclass
 import hashlib
@@ -9,7 +7,7 @@ from pathlib import Path
 from typing import Any
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 @dataclass(frozen=True)
@@ -108,4 +106,7 @@ def verify_sealed_result(specification: SealedResult) -> dict[str, Any]:
 def verify_all_sealed_results() -> list[dict[str, Any]]:
     """Verify Q2-R, Q2-F, and the final-improvement evidence."""
 
-    return [verify_sealed_result(specification) for specification in SEALED_RESULTS]
+    results = []
+    for specification in SEALED_RESULTS:
+        results.append(verify_sealed_result(specification))
+    return results

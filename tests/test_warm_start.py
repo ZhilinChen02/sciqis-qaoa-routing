@@ -5,7 +5,7 @@ from math import sqrt
 import numpy as np
 
 from graph import path_cost
-from warm_start import (
+from utils import (
     apply_single_qubit_hamiltonian_rotation,
     apply_warm_start_mixer,
     clip_relaxed_values,

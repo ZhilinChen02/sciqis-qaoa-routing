@@ -1,6 +1,4 @@
-"""Two independent exact references for the frozen Day-1 routing graph."""
-
-from __future__ import annotations
+"""Find the exact shortest route in two independent classical ways."""
 
 import csv
 from dataclasses import dataclass
@@ -23,6 +21,9 @@ from graph import (
 
 REFERENCE_SCHEMA = "dtu-sciqis-routing-exact-reference"
 REFERENCE_VERSION = "1.0"
+
+
+# A small container for one complete source-to-target route.
 
 
 @dataclass(frozen=True)
@@ -75,6 +76,10 @@ def networkx_shortest_reference(graph: nx.DiGraph) -> RouteRecord:
             "NetworkX shortest-path length disagrees with direct edge-weight sum"
         )
     return _route_record(graph, node_path, independently_summed_cost)
+
+
+# The second method uses an ordinary recursive depth-first search.  Agreement
+# between this result and NetworkX helps catch mistakes in the graph data.
 
 
 def enumerate_simple_paths_independent(graph: nx.DiGraph) -> tuple[RouteRecord, ...]:

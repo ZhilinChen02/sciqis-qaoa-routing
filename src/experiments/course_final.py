@@ -1,6 +1,4 @@
-"""Final teaching configuration for incumbent-threshold Grover-mixer QAOA."""
-
-from __future__ import annotations
+"""Load the final configuration and run threshold Grover QAOA for each seed."""
 
 from dataclasses import asdict, dataclass
 import hashlib
@@ -19,7 +17,7 @@ from feasible_qaoa import (
     build_logical_cost_hamiltonian,
 )
 from graph import load_graph
-from q2f_final_improvement import (
+from feasible_experiments import (
     BSP_LOSS,
     FinalImprovementMetrics,
     FinalOptimizationResult,
@@ -33,7 +31,7 @@ from q2f_final_improvement import (
 )
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONFIG_PATH = PROJECT_ROOT / "configs" / "course_final.json"
 
 
@@ -200,18 +198,19 @@ def run_course_final(
     selected_depth = int(config["depth"] if depth is None else depth)
     if not selected_seeds or selected_depth not in (1, 2, 3, 4):
         raise ValueError("invalid_course_final_seed_or_depth_request")
-    runs = tuple(
-        run_course_final_seed(
-            context,
-            seed=seed,
-            depth=selected_depth,
-            evaluation_budget=int(config["objective_evaluation_cap"]),
-            rhobeg=float(config["optimizer_rhobeg"]),
-            tolerance=float(config["optimizer_tolerance"]),
+    runs = []
+    for seed in selected_seeds:
+        runs.append(
+            run_course_final_seed(
+                context,
+                seed=seed,
+                depth=selected_depth,
+                evaluation_budget=int(config["objective_evaluation_cap"]),
+                rhobeg=float(config["optimizer_rhobeg"]),
+                tolerance=float(config["optimizer_tolerance"]),
+            )
         )
-        for seed in selected_seeds
-    )
-    return context, runs
+    return context, tuple(runs)
 
 
 def course_final_payload(

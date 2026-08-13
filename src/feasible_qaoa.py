@@ -1,23 +1,20 @@
-"""Logical feasibility-preserving Warm-Start QAOA for the frozen course graph.
+"""QAOA simulation where the basis contains only the 20 valid routes.
 
-Q2-F is an exact, enumeration-based teaching reference.  Its computational
-basis consists only of valid simple source-to-target routes.  It is not a
-hardware-efficient encoding and makes no scalability or quantum-advantage
-claim.
+This file follows five steps: list the routes, assign their costs, build a
+route-exchange mixer, prepare an initial state, and optimize the QAOA angles.
+The method is a small teaching simulation rather than a scalable algorithm.
 """
-
-from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 from math import pi
 from time import perf_counter
-from typing import Any, Iterable, Sequence
+from typing import Any, Sequence
 
 import networkx as nx
 import numpy as np
 from scipy.optimize import Bounds, minimize
 
-from exact_reference import compute_exact_reference, enumerate_simple_paths_independent
+from support.exact_reference import compute_exact_reference, enumerate_simple_paths_independent
 from graph import (
     DEFAULT_GRAPH_PATH,
     Edge,
@@ -28,10 +25,15 @@ from graph import (
     validate_edge_vector,
     validate_graph,
 )
-from objectives import probability_weighted_cvar, probability_weighted_expectation
-from optimization import EvaluationBudgetExhausted, SOURCE_UNIFORM, initial_parameters
 from qubo import decode_valid_route
-from warm_start import greedy_incumbent_route
+from utils import (
+    EvaluationBudgetExhausted,
+    SOURCE_UNIFORM,
+    greedy_incumbent_route,
+    initial_parameters,
+    probability_weighted_cvar,
+    probability_weighted_expectation,
+)
 
 
 UNIFORM_FEASIBLE = "uniform_feasible"
@@ -51,6 +53,11 @@ PATH_EXCHANGE_MIXER = "logical_path_exchange_mixer"
 PARAMETER_ORDER = "all_gammas_then_all_betas"
 LAYER_ORDER = "cost_then_mixer"
 PROBABILITY_TOLERANCE = 1e-12
+
+
+# ---------------------------------------------------------------------------
+# Step 1: list every valid route
+# ---------------------------------------------------------------------------
 
 
 @dataclass(frozen=True)
@@ -142,10 +149,15 @@ def build_feasible_route_basis(
     source = int(graph.graph["source"])
     target = int(graph.graph["target"])
     enumerated = enumerate_simple_paths_independent(graph)
-    networkx_paths = {
-        tuple(path) for path in nx.all_simple_paths(graph, source=source, target=target)
-    }
-    enumerated_paths = {record.node_path for record in enumerated}
+
+    networkx_paths = set()
+    for path in nx.all_simple_paths(graph, source=source, target=target):
+        networkx_paths.add(tuple(path))
+
+    enumerated_paths = set()
+    for record in enumerated:
+        enumerated_paths.add(record.node_path)
+
     if enumerated_paths != networkx_paths:
         raise RuntimeError("independent_feasible_route_enumerations_disagree")
 
@@ -188,11 +200,17 @@ def build_feasible_route_basis(
         raise RuntimeError("duplicate_node_route_in_feasible_basis")
     if len({route.edge_bitstring for route in routes}) != len(routes):
         raise RuntimeError("duplicate_edge_bitstring_in_feasible_basis")
-    optimal_ids = [route.route_id for route in routes if route.exact_optimal]
+    optimal_ids = []
+    for route in routes:
+        if route.exact_optimal:
+            optimal_ids.append(route.route_id)
     if len(optimal_ids) != 1 or routes[optimal_ids[0]].routing_cost != exact_cost:
         raise RuntimeError("logical_optimum_disagrees_with_exact_reference")
     incumbent = tuple(greedy_incumbent_route(graph))
-    incumbent_ids = [route.route_id for route in routes if route.node_sequence == incumbent]
+    incumbent_ids = []
+    for route in routes:
+        if route.node_sequence == incumbent:
+            incumbent_ids.append(route.route_id)
     if len(incumbent_ids) != 1:
         raise RuntimeError("historical_incumbent_missing_from_feasible_basis")
     return FeasibleRouteBasis(
@@ -204,6 +222,11 @@ def build_feasible_route_basis(
         exact_optimal_route=exact_route,
         incumbent_route=incumbent,
     )
+
+
+# ---------------------------------------------------------------------------
+# Step 2: put the route costs on the diagonal
+# ---------------------------------------------------------------------------
 
 
 @dataclass(frozen=True)
@@ -259,6 +282,11 @@ class PathExchange:
     edge_hamming_distance: int
     weight: float = 1.0
     kind: str = "divergence_reconvergence"
+
+
+# ---------------------------------------------------------------------------
+# Step 3: connect routes that differ by one path exchange
+# ---------------------------------------------------------------------------
 
 
 @dataclass(frozen=True)
@@ -356,10 +384,13 @@ def build_logical_path_exchange_mixer(
             boundaries = _path_exchange_boundaries(left, right)
             if boundaries is None:
                 continue
-            distance = sum(
-                left_bit != right_bit
-                for left_bit, right_bit in zip(left.edge_bitstring, right.edge_bitstring)
-            )
+            distance = 0
+            for left_bit, right_bit in zip(
+                left.edge_bitstring,
+                right.edge_bitstring,
+            ):
+                if left_bit != right_bit:
+                    distance += 1
             exchange = PathExchange(
                 left_route_id=left.route_id,
                 right_route_id=right.route_id,
@@ -407,10 +438,14 @@ def incumbent_biased_probabilities(
     bitstrings = tuple(validate_edge_vector(bits) for bits in route_bitstrings)
     if not bitstrings or len(set(bitstrings)) != len(bitstrings):
         raise ValueError("route_bitstrings_must_be_nonempty_and_unique")
-    distances = tuple(
-        sum(bit != incumbent_bit for bit, incumbent_bit in zip(bits, incumbent))
-        for bits in bitstrings
-    )
+    distances = []
+    for bits in bitstrings:
+        distance = 0
+        for bit, incumbent_bit in zip(bits, incumbent):
+            if bit != incumbent_bit:
+                distance += 1
+        distances.append(distance)
+    distances = tuple(distances)
     weights = np.exp(-lam * np.asarray(distances, dtype=np.float64))
     probabilities = weights / float(np.sum(weights))
     return probabilities, distances
@@ -445,6 +480,11 @@ class FeasibleInitialState:
         }
 
 
+# ---------------------------------------------------------------------------
+# Step 4: prepare the starting probability distribution
+# ---------------------------------------------------------------------------
+
+
 def build_feasible_initial_state(
     basis: FeasibleRouteBasis,
     costs: LogicalCostHamiltonian,
@@ -456,10 +496,15 @@ def build_feasible_initial_state(
         raise ValueError(f"unsupported_feasible_initialization:{mode}")
     if mode == UNIFORM_FEASIBLE:
         probabilities = np.full(basis.size, 1.0 / basis.size, dtype=np.float64)
-        distances = tuple(
-            sum(a != b for a, b in zip(route.edge_bitstring, basis.routes[basis.incumbent_route_id].edge_bitstring))
-            for route in basis.routes
-        )
+        incumbent_bits = basis.routes[basis.incumbent_route_id].edge_bitstring
+        distances_list = []
+        for route in basis.routes:
+            distance = 0
+            for route_bit, incumbent_bit in zip(route.edge_bitstring, incumbent_bits):
+                if route_bit != incumbent_bit:
+                    distance += 1
+            distances_list.append(distance)
+        distances = tuple(distances_list)
         applied_lambda: float | None = None
     else:
         probabilities, distances = incumbent_biased_probabilities(
@@ -504,6 +549,11 @@ class LogicalSimulation:
     layer_norms: tuple[LayerNormRecord, ...]
 
 
+# ---------------------------------------------------------------------------
+# Step 5: simulate and optimize QAOA
+# ---------------------------------------------------------------------------
+
+
 def simulate_logical_qaoa(
     initial_state: Sequence[complex],
     normalized_costs: Sequence[float],
@@ -514,11 +564,11 @@ def simulate_logical_qaoa(
 ) -> LogicalSimulation:
     """Apply grouped-parameter cost-then-mixer QAOA entirely inside F."""
 
-    p = int(depth)
-    if p not in (1, 2, 3):
+    depth = int(depth)
+    if depth not in (1, 2, 3):
         raise ValueError("q2f_depth_must_be_1_2_or_3")
     values = np.asarray(parameters, dtype=np.float64)
-    if values.shape != (2 * p,) or np.any(~np.isfinite(values)):
+    if values.shape != (2 * depth,) or np.any(~np.isfinite(values)):
         raise ValueError("q2f_parameter_count_or_finiteness_error")
     costs = np.asarray(normalized_costs, dtype=np.float64)
     state = np.asarray(initial_state, dtype=np.complex128).copy()
@@ -527,9 +577,10 @@ def simulate_logical_qaoa(
     initial_norm = float(np.linalg.norm(state))
     if abs(initial_norm - 1.0) > PROBABILITY_TOLERANCE:
         raise ValueError("q2f_initial_state_not_normalized")
-    gammas, betas = values[:p], values[p:]
+    gammas = values[:depth]
+    betas = values[depth:]
     norms: list[LayerNormRecord] = []
-    for layer in range(p):
+    for layer in range(depth):
         state *= np.exp(-1j * float(gammas[layer]) * costs)
         after_cost = float(np.linalg.norm(state))
         if abs(after_cost - 1.0) > PROBABILITY_TOLERANCE:

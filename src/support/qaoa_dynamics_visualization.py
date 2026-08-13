@@ -1,13 +1,8 @@
-"""Read-only, browser-ready visualization data for the QAOA dynamics study.
+"""Prepare the six saved dynamics runs for the browser dashboard.
 
-The six optimized runs are never re-optimized here.  Exact statevectors are
-loaded from the saved p=2 amplitude artifacts or deterministically reconstructed
-from the saved final parameters when a p=1 intermediate amplitude was not
-persisted.  Every reconstruction is checked against the saved scientific trace
-before it is exposed to the frontend.
+No optimization happens here.  The class reads saved tables, reconstructs
+missing intermediate amplitudes, checks them, and returns JSON-ready data.
 """
-
-from __future__ import annotations
 
 import ast
 import csv
@@ -22,15 +17,15 @@ import numpy as np
 from feasible_qaoa import (
     build_feasible_route_basis,
 )
-from global_grover import build_global_grover_mixer
+from qaoa import build_global_grover_mixer
 from graph import DEFAULT_GRAPH_PATH, EXPECTED_EDGE_COUNT, get_edge_order, load_graph
 from qaoa import apply_x_mixer, standard_plus_state
-from qaoa_dynamics import BasisMetadata, EvolutionTrace, trace_qaoa_evolution
-from q2f_final_improvement import build_grover_feasible_mixer
+from experiments.dynamics_trace import BasisMetadata, EvolutionTrace, trace_qaoa_evolution
+from feasible_experiments import build_grover_feasible_mixer
 from qubo import edge_vector_to_state_index, enumerate_state_space
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_RESULT_ROOT = PROJECT_ROOT / "results" / "qaoa_dynamics_deep_dive" / "v1"
 ALGORITHM_ORDER = ("penalty_x", "grover_global", "grover_feasible")
 DEPTHS = (1, 2)
@@ -95,9 +90,10 @@ def _wrapped_phase_error(left: float, right: float) -> float:
 
 
 class QAOADynamicsVisualizationRepository:
-    """Validate, reconstruct, aggregate, and cache the six dynamics runs."""
+    """Load and combine graph, energy, trace and amplitude data."""
 
     def __init__(self, result_root: str | Path = DEFAULT_RESULT_ROOT):
+        # Shared mathematical objects used to check saved data.
         self.result_root = Path(result_root).resolve()
         if not self.result_root.is_dir():
             raise DynamicsVisualizationDataError(

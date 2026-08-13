@@ -11,10 +11,10 @@ import numpy as np
 import pytest
 
 import q2_revision
-import optimization as historical_optimization
-from metrics import distribution_metrics
-from objectives import CVAR, EXPECTATION
-from optimization import OptimizationResult, optimize_cobyla, seeded_initial_parameters
+import utils as historical_optimization
+from utils import distribution_metrics
+from utils import CVAR, EXPECTATION
+from utils import OptimizationResult, optimize_cobyla, seeded_initial_parameters
 from q2_revision import (
     BASELINE_OPTIMIZER_PROGRESS,
     FIXED_DEPTH,
@@ -37,7 +37,7 @@ from q2_revision import (
 )
 from qaoa import Q2_WARM_START, simulate_qaoa_state, state_probabilities
 from tuning import build_tuning_context
-from warm_start import (
+from utils import (
     greedy_incumbent_route,
     incumbent_relaxation,
     mixer_hamiltonian,

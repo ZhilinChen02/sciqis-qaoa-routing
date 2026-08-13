@@ -11,11 +11,11 @@ from typing import Any, Callable
 import numpy as np
 from qiskit.quantum_info import Statevector
 
-from exact_reference import compute_exact_reference
+from support.exact_reference import compute_exact_reference
 from graph import DEFAULT_GRAPH_PATH, load_graph, path_cost
-from ising import qubo_to_ising
-from metrics import distribution_metrics, top_state_rows
-from optimization import optimize_cobyla, seeded_initial_parameters
+from qubo import qubo_to_ising
+from utils import distribution_metrics, top_state_rows
+from utils import optimize_cobyla, seeded_initial_parameters
 from qaoa import (
     Q1_PENALTY_X,
     Q2_WARM_START,
@@ -33,7 +33,7 @@ from qubo import (
     flow_feasibility_verdict,
     minimum_energy_states,
 )
-from warm_start import greedy_incumbent_route, incumbent_relaxation, product_state
+from utils import greedy_incumbent_route, incumbent_relaxation, product_state
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]

@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from objectives import (
+from utils import (
     CVAR,
     EXPECTATION,
     evaluate_optimization_objective,
