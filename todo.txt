@@ -1,0 +1,104 @@
+
+  现在仍然很工程化，主要体现在：
+
+  - src 有 20 多个模块。
+  - 几乎每种结果都有一个 dataclass。
+  - 同一个数据被 JSON 校验、NetworkX 校验、运行时校验多次。
+  - 存在 schema、version、SHA256、sealed results 等工程机制。
+  - 优化、实验、结果导出、科学验证被拆成很多层。
+  - 可视化使用大型 Repository 类。
+  - 为了保持兼容，我保留了原有架构，所以只是“局部变简单”，不是“项目变简单”。
+
+  这与你想要的效果确实不一致。
+
+  我理解你真正想要的是一种普通硕士课程项目的代码形态：
+
+  > 能运行、能复现实验、逻辑正确，但结构没有做成通用科研框架，代码能让导师相信作者本人理解并能讲清楚。
+
+  ## 我认为合适的目标结构
+
+  核心代码可以压缩到大约 6 个文件：
+
+  src/
+  ├── graph.py              # 读取图、路径和边编码
+  ├── qubo.py               # 构造路由 QUBO
+  ├── qaoa.py               # QAOA 状态模拟
+  ├── feasible_qaoa.py      # 20 条可行路径方法
+  ├── experiments.py        # 运行三种算法和优化
+  └── visualization.py      # 读取结果并展示
+
+  运行入口保留三四个：
+
+  scripts/
+  ├── run_basic.py
+  ├── run_experiments.py
+  ├── make_figures.py
+  └── run_visualizer.py
+
+  主流程应该能直接读出来：
+
+  graph = load_graph()
+  states = enumerate_states(graph)
+  qubo = build_qubo(graph, penalty=6)
+
+  result = run_qaoa(
+      qubo=qubo,
+      depth=2,
+      seed=2601,
+  )
+
+  print(result)
+
+  ## 应该真正删除的东西
+
+  如果目标是去工程化，我建议删除或合并：
+
+  - 大部分 schema/version 检查；
+  - 文件 SHA256 和 sealed-result 抽象；
+  - Protocol；
+  - 只装几个字段的小型数据类；
+  - 多层 Context、Run、Result 包装；
+  - 通用优化器包装层；
+  - 重复的科学验证函数；
+  - 为每张图单独建立的复杂数据管道；
+  - 大量只为静态类型服务的标注；
+  - 大量类似“contract、frozen、retention policy”的工程术语。
+
+  结果可以直接使用字典：
+
+  result = {
+      "parameters": parameters,
+      "p_feas": p_feas,
+      "p_opt": p_opt,
+      "expected_cost": expected_cost,
+  }
+
+  ## 但有一个边界
+
+  “不工程化”不应该等于故意写错、使用混乱变量名或制造低质量代码。比较合理的是：
+
+  - 写法朴素；
+  - 有少量重复；
+  - 只抽象真正重复的逻辑；
+  - 注释解释数学含义；
+  - 不建设通用框架；
+  - 主流程容易逐行讲解。
+
+  这更像一个认真完成课程项目的硕士生，而不是专业软件团队。
+
+  ## 我的判断
+
+  当前版本大约是：
+
+  专业科研软件工程风格：8/10
+  初学者可读性：5/10
+  普通硕士课程项目感：3/10
+
+  真正重构后应该达到：
+
+  专业科研软件工程风格：4/10
+  初学者可读性：8/10
+  普通硕士课程项目感：8/10
+
+  所以你的判断是准确的：上一轮方向只对了一半。下一步不应该继续逐文件润色，而应该先合并架构、减少文件、删除非必要抽象。测试可以暂时保留在外面，用来保证合并后的计算结果没
+  有变化。
