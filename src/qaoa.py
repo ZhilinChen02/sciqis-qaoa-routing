@@ -1,6 +1,6 @@
-"""Statevector simulation and circuit construction for the two QAOA methods."""
+"""QAOA statevector simulation and equivalent Qiskit circuits."""
 
-from dataclasses import dataclass
+from collections import namedtuple
 
 import numpy as np
 from qiskit import QuantumCircuit, transpile
@@ -9,141 +9,117 @@ from qubo import IsingHamiltonian
 from utils import (
     apply_single_qubit_hamiltonian_rotation,
     apply_warm_start_mixer,
-    mixer_hamiltonian,
     product_state,
 )
 
 
 Q1_PENALTY_X = "Q1 Penalty-X"
 Q2_WARM_START = "Q2 Warm-Start"
+GROVER_GLOBAL = "grover_global"
+X_MATRIX = np.asarray([[0.0, 1.0], [1.0, 0.0]], dtype=np.complex128)
+CircuitStatistics = namedtuple(
+    "CircuitStatistics", "circuit_depth total_gate_count two_qubit_gate_count"
+)
 
 
-@dataclass(frozen=True)
-class CircuitStatistics:
-    circuit_depth: int
-    total_gate_count: int
-    two_qubit_gate_count: int
+def _diagonal(values):
+    values = np.asarray(values, dtype=np.float64)
+    size = values.size
+    if (
+        values.ndim != 1
+        or size < 2
+        or size & (size - 1)
+        or not np.all(np.isfinite(values))
+    ):
+        raise ValueError("cost diagonal must have a finite power-of-two length")
+    return values, size.bit_length() - 1
 
 
-def normalized_diagonal(raw_diagonal):
-    """Scale a cost array to the interval from zero to one."""
+def _parameters(values, depth):
+    depth = int(depth)
+    values = np.asarray(values, dtype=np.float64)
+    if depth < 1 or values.shape != (2 * depth,) or not np.all(np.isfinite(values)):
+        raise ValueError("QAOA needs p gamma values followed by p beta values")
+    return values[:depth], values[depth:]
 
-    raw_diagonal = np.asarray(raw_diagonal, dtype=np.float64)
-    if raw_diagonal.ndim != 1 or len(raw_diagonal) < 2:
+
+def _warm_values(solver, values, num_qubits):
+    if solver == Q1_PENALTY_X:
+        return None
+    if solver != Q2_WARM_START:
+        raise ValueError(f"unsupported solver: {solver}")
+    if values is None or len(values) != num_qubits:
+        raise ValueError("Q2 requires one warm-start value per qubit")
+    return tuple(map(float, values))
+
+
+def normalized_diagonal(values):
+    """Scale QUBO energies to the interval 0..1."""
+
+    values = np.asarray(values, dtype=np.float64)
+    if values.ndim != 1 or len(values) < 2 or not np.all(np.isfinite(values)):
         raise ValueError("invalid cost diagonal")
-    if np.any(~np.isfinite(raw_diagonal)):
-        raise ValueError("invalid cost diagonal")
-
-    shift = float(np.min(raw_diagonal))
-    scale = float(np.max(raw_diagonal) - shift)
-    if scale <= 0.0:
-        scale = 1.0
-
-    normalized = (raw_diagonal - shift) / scale
-    return normalized, shift, scale
+    shift = float(np.min(values))
+    scale = float(np.max(values) - shift) or 1.0
+    return (values - shift) / scale, shift, scale
 
 
-def standard_plus_state(num_qubits: int) -> np.ndarray:
+def standard_plus_state(num_qubits):
     """Return the uniform state |+>^q."""
 
     num_qubits = int(num_qubits)
     if num_qubits < 1:
         raise ValueError("num_qubits must be positive")
-
     dimension = 1 << num_qubits
-    amplitude = 1.0 / np.sqrt(dimension)
-    return np.full(dimension, amplitude, dtype=np.complex128)
+    return np.full(dimension, 1.0 / np.sqrt(dimension), dtype=np.complex128)
 
 
-def apply_x_mixer(state, beta, num_qubits) -> np.ndarray:
-    """Apply the ordinary X mixer to every qubit."""
+def apply_x_mixer(state, beta, num_qubits):
+    """Apply exp(-i beta X) to every qubit."""
 
-    num_qubits = int(num_qubits)
     result = np.asarray(state, dtype=np.complex128).copy()
-    if len(result) != 1 << num_qubits:
-        raise ValueError("statevector_dimension_mismatch")
-
-    x_matrix = np.asarray(
-        [[0.0, 1.0], [1.0, 0.0]],
-        dtype=np.complex128,
-    )
-    for qubit in range(num_qubits):
+    if result.shape != (1 << int(num_qubits),):
+        raise ValueError("statevector dimension does not match num_qubits")
+    for qubit in range(int(num_qubits)):
         result = apply_single_qubit_hamiltonian_rotation(
-            result,
-            qubit,
-            beta,
-            x_matrix,
+            result, qubit, beta, X_MATRIX
         )
     return result
 
 
 def simulate_qaoa_state(
-    normalized_cost_diagonal,
+    cost_diagonal,
     parameters,
     *,
     depth,
     solver,
     warm_start_values=None,
-) -> np.ndarray:
-    """Run exact QAOA evolution using gamma values followed by beta values."""
+):
+    """Alternate cost and mixer layers on an exact statevector."""
 
-    cost_diagonal = np.asarray(normalized_cost_diagonal, dtype=np.float64)
-    is_power_of_two = (
-        len(cost_diagonal) > 0
-        and len(cost_diagonal) & (len(cost_diagonal) - 1) == 0
-    )
-    if cost_diagonal.ndim != 1 or not is_power_of_two:
-        raise ValueError("cost diagonal dimension must be a positive power of two")
+    cost_diagonal, num_qubits = _diagonal(cost_diagonal)
+    gammas, betas = _parameters(parameters, depth)
+    warm = _warm_values(solver, warm_start_values, num_qubits)
+    state = standard_plus_state(num_qubits) if warm is None else product_state(warm)
 
-    num_qubits = len(cost_diagonal).bit_length() - 1
-    depth = int(depth)
-    parameters = np.asarray(parameters, dtype=np.float64)
-    if depth < 1 or parameters.shape != (2 * depth,):
-        raise ValueError("qaoa_parameter_count_mismatch")
-
-    gammas = parameters[:depth]
-    betas = parameters[depth:]
-    mixer_scale = 1.0 / num_qubits
-
-    if solver == Q1_PENALTY_X:
-        state = standard_plus_state(num_qubits)
-    elif solver == Q2_WARM_START:
-        if warm_start_values is None or len(warm_start_values) != num_qubits:
-            raise ValueError("Q2 requires one warm-start value per qubit")
-        state = product_state(warm_start_values)
-    else:
-        raise ValueError(f"unsupported solver: {solver}")
-
-    for layer in range(depth):
-        gamma = float(gammas[layer])
-        beta = float(betas[layer]) / num_qubits
-
-        # Cost layer: each basis amplitude receives an energy-dependent phase.
-        state *= np.exp(-1j * gamma * cost_diagonal)
-
-        # Mixer layer: Q1 and Q2 use different single-qubit Hamiltonians.
-        if solver == Q1_PENALTY_X:
+    for gamma, beta in zip(gammas, betas):
+        state *= np.exp(-1j * gamma * cost_diagonal)  # cost layer: change phases
+        beta = beta / num_qubits
+        if warm is None:
             state = apply_x_mixer(state, beta, num_qubits)
         else:
-            state = apply_warm_start_mixer(state, beta, warm_start_values)
-
+            state = apply_warm_start_mixer(state, beta, warm)
     return state
 
 
-def state_probabilities(state) -> np.ndarray:
-    """Convert complex amplitudes to a normalized probability vector."""
+def state_probabilities(state):
+    """Convert statevector amplitudes to probabilities."""
 
     probabilities = np.abs(np.asarray(state, dtype=np.complex128)) ** 2
-    total_probability = float(np.sum(probabilities))
-    if not np.isfinite(total_probability):
-        raise RuntimeError(
-            f"statevector is not normalized: probability sum={total_probability}"
-        )
-    if not np.isclose(total_probability, 1.0, atol=1e-10):
-        raise RuntimeError(
-            f"statevector is not normalized: probability sum={total_probability}"
-        )
-    return probabilities / total_probability
+    total = float(np.sum(probabilities))
+    if not np.isfinite(total) or not np.isclose(total, 1.0, atol=1e-10):
+        raise RuntimeError(f"statevector is not normalized: probability sum={total}")
+    return probabilities / total
 
 
 def build_qaoa_circuit(
@@ -154,181 +130,101 @@ def build_qaoa_circuit(
     solver,
     normalization_scale,
     warm_start_values=None,
-) -> QuantumCircuit:
-    """Build the Qiskit circuit corresponding to the statevector simulation."""
+):
+    """Build the Qiskit circuit matching ``simulate_qaoa_state``."""
 
     num_qubits = len(ising.h)
-    depth = int(depth)
-    parameters = np.asarray(parameters, dtype=float)
-    if parameters.shape != (2 * depth,):
-        raise ValueError("qaoa_parameter_count_mismatch")
-    if normalization_scale <= 0.0:
+    gammas, betas = _parameters(parameters, depth)
+    warm = _warm_values(solver, warm_start_values, num_qubits)
+    scale = float(normalization_scale)
+    if scale <= 0.0:
         raise ValueError("normalization scale must be positive")
 
-    gammas = parameters[:depth]
-    betas = parameters[depth:]
     circuit = QuantumCircuit(num_qubits, name=solver)
-
-    if solver == Q1_PENALTY_X:
+    thetas = [] if warm is None else [2 * np.arcsin(np.sqrt(value)) for value in warm]
+    if warm is None:
         circuit.h(range(num_qubits))
-    elif solver == Q2_WARM_START:
-        if warm_start_values is None or len(warm_start_values) != num_qubits:
-            raise ValueError("Q2 requires one warm-start value per qubit")
-        for qubit, probability_one in enumerate(warm_start_values):
-            theta = 2.0 * np.arcsin(np.sqrt(float(probability_one)))
-            circuit.ry(theta, qubit)
     else:
-        raise ValueError(f"unsupported solver: {solver}")
+        for qubit, theta in enumerate(thetas):
+            circuit.ry(theta, qubit)
 
-    for layer in range(depth):
-        gamma = float(gammas[layer])
-        scaled_beta = float(betas[layer]) / num_qubits
-
-        # Single-Z and ZZ gates implement the diagonal Ising cost layer.
+    for gamma, beta in zip(gammas, betas):
         for qubit, coefficient in enumerate(ising.h):
-            angle = 2.0 * gamma * float(coefficient) / normalization_scale
-            if angle != 0.0:
+            angle = 2 * gamma * float(coefficient) / scale
+            if angle:
                 circuit.rz(angle, qubit)
-
         for (left, right), coefficient in sorted(ising.coupling.items()):
-            angle = 2.0 * gamma * float(coefficient) / normalization_scale
-            if angle != 0.0:
+            angle = 2 * gamma * float(coefficient) / scale
+            if angle:
                 circuit.rzz(angle, left, right)
 
-        if solver == Q1_PENALTY_X:
+        beta = beta / num_qubits
+        if warm is None:
             for qubit in range(num_qubits):
-                circuit.rx(2.0 * scaled_beta, qubit)
+                circuit.rx(2 * beta, qubit)
         else:
-            for qubit, probability_one in enumerate(warm_start_values):
-                theta = 2.0 * np.arcsin(np.sqrt(float(probability_one)))
+            for qubit, theta in enumerate(thetas):
                 circuit.ry(-theta, qubit)
-                circuit.rz(-2.0 * scaled_beta, qubit)
+                circuit.rz(-2 * beta, qubit)
                 circuit.ry(theta, qubit)
-
     return circuit
 
 
-def circuit_statistics(circuit: QuantumCircuit) -> CircuitStatistics:
+def circuit_statistics(circuit):
     """Transpile to common gates and count circuit resources."""
 
-    decomposed = transpile(
+    circuit = transpile(
         circuit,
         basis_gates=["rz", "sx", "x", "cx"],
         optimization_level=0,
         seed_transpiler=2601,
     )
-    operations = decomposed.count_ops()
-
-    two_qubit_gate_count = 0
-    for instruction in decomposed.data:
-        if instruction.operation.num_qubits == 2:
-            two_qubit_gate_count += 1
-
     return CircuitStatistics(
-        circuit_depth=int(decomposed.depth()),
-        total_gate_count=int(sum(operations.values())),
-        two_qubit_gate_count=two_qubit_gate_count,
+        int(circuit.depth()),
+        int(sum(circuit.count_ops().values())),
+        sum(item.operation.num_qubits == 2 for item in circuit.data),
     )
 
 
-def mixer_ground_state_error(probability_one: float) -> float:
-    """Check that a prepared warm-start qubit is a mixer ground state."""
-
-    probability_one = float(probability_one)
-    state = np.asarray(
-        [np.sqrt(1.0 - probability_one), np.sqrt(probability_one)],
-        dtype=complex,
-    )
-    error_vector = mixer_hamiltonian(probability_one) @ state + state
-    return float(np.max(np.abs(error_vector)))
-
-
-# ---------------------------------------------------------------------------
-# Grover mixer over all edge bit strings
-# ---------------------------------------------------------------------------
-
-GROVER_GLOBAL = "grover_global"
-GLOBAL_GROVER_CONVENTION = (
-    "H_G,all=|s_all><s_all|; "
-    "U_G(beta)=I+(exp(-i*beta)-1)|s_all><s_all|"
-)
-
-
-@dataclass(frozen=True)
 class GlobalGroverMixer:
-    """Memory-efficient Grover mixer over all 2^q states."""
+    """Full-space Grover mixer without a dense matrix."""
 
-    num_qubits: int
-    mixer_name: str = GROVER_GLOBAL
-    convention: str = GLOBAL_GROVER_CONVENTION
-
-    def __post_init__(self):
-        if isinstance(self.num_qubits, bool) or int(self.num_qubits) < 1:
-            raise ValueError("global_grover_num_qubits_must_be_positive")
+    def __init__(self, num_qubits):
+        if isinstance(num_qubits, bool):
+            raise ValueError("num_qubits must be positive")
+        self.num_qubits = int(num_qubits)
+        if self.num_qubits < 1:
+            raise ValueError("num_qubits must be positive")
 
     @property
     def dimension(self):
-        return 1 << int(self.num_qubits)
-
-    @property
-    def uniform_amplitude(self):
-        return float(1.0 / np.sqrt(self.dimension))
+        return 1 << self.num_qubits
 
     def initial_state(self):
         return standard_plus_state(self.num_qubits)
 
     def evolve(self, state, beta):
-        vector = np.asarray(state, dtype=np.complex128)
-        if vector.shape != (self.dimension,):
-            raise ValueError("global_grover_mixer_state_dimension_mismatch")
-
-        overlap = np.sum(vector) * self.uniform_amplitude
-        coefficient = (np.exp(-1j * float(beta)) - 1.0) * overlap
-        return vector + coefficient * self.uniform_amplitude
-
-    def as_dict(self):
-        return {
-            "mixer_name": self.mixer_name,
-            "num_qubits": int(self.num_qubits),
-            "dimension": self.dimension,
-            "uniform_amplitude": self.uniform_amplitude,
-            "convention": self.convention,
-            "implementation": "rank_one_statevector_update_no_dense_matrix",
-        }
+        state = np.asarray(state, dtype=np.complex128)
+        if state.shape != (self.dimension,):
+            raise ValueError("state dimension does not match the Grover mixer")
+        uniform = 1.0 / np.sqrt(self.dimension)
+        overlap = np.sum(state) * uniform
+        return state + (np.exp(-1j * beta) - 1.0) * overlap * uniform
 
 
 def build_global_grover_mixer(num_qubits):
-    return GlobalGroverMixer(int(num_qubits))
+    return GlobalGroverMixer(num_qubits)
 
 
-def simulate_global_grover_state(
-    normalized_cost_diagonal,
-    parameters,
-    *,
-    depth,
-):
+def simulate_global_grover_state(cost_diagonal, parameters, *, depth):
     """Run QAOA with the full-space Grover mixer."""
 
-    diagonal = np.asarray(normalized_cost_diagonal, dtype=np.float64)
-    is_power_of_two = diagonal.size and not diagonal.size & (diagonal.size - 1)
-    if diagonal.ndim != 1 or not is_power_of_two or np.any(~np.isfinite(diagonal)):
-        raise ValueError("global_grover_cost_dimension_must_be_a_power_of_two")
-
-    depth = int(depth)
-    parameters = np.asarray(parameters, dtype=np.float64)
-    if depth < 1 or parameters.shape != (2 * depth,):
-        raise ValueError("global_grover_parameter_count_or_finiteness_error")
-    if np.any(~np.isfinite(parameters)):
-        raise ValueError("global_grover_parameter_count_or_finiteness_error")
-
-    mixer = build_global_grover_mixer(diagonal.size.bit_length() - 1)
+    cost_diagonal, num_qubits = _diagonal(cost_diagonal)
+    gammas, betas = _parameters(parameters, depth)
+    mixer = GlobalGroverMixer(num_qubits)
     state = mixer.initial_state()
-    gammas = parameters[:depth]
-    betas = parameters[depth:]
-
     for gamma, beta in zip(gammas, betas):
-        state *= np.exp(-1j * float(gamma) * diagonal)
-        state = mixer.evolve(state, float(beta))
-
+        state *= np.exp(-1j * gamma * cost_diagonal)
+        state = mixer.evolve(state, beta)
     state_probabilities(state)
     return state

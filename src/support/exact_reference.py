@@ -10,7 +10,6 @@ import networkx as nx
 
 from graph import (
     Edge,
-    edge_order_records,
     get_edge_order,
     path_cost,
     path_edges,
@@ -136,6 +135,19 @@ def compute_exact_reference(
     graph_file = Path(graph_path).resolve()
     graph_sha256 = hashlib.sha256(graph_file.read_bytes()).hexdigest()
 
+    edge_order = []
+    for u, v in get_edge_order(graph):
+        edge = graph.edges[u, v]
+        edge_order.append(
+            {
+                "qubit_index": edge["qubit_index"],
+                "edge_id": edge["edge_id"],
+                "u": u,
+                "v": v,
+                "weight": edge["weight"],
+            }
+        )
+
     route_rows = []
     for rank, route in enumerate(all_routes, start=1):
         row = route.as_dict()
@@ -156,7 +168,7 @@ def compute_exact_reference(
             "target": graph.graph["target"],
             "node_count": graph.number_of_nodes(),
             "edge_count": graph.number_of_edges(),
-            "edge_order": edge_order_records(graph),
+            "edge_order": edge_order,
         },
         "method_a": {
             "name": "networkx_weighted_shortest_path",
