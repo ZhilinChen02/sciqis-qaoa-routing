@@ -243,6 +243,7 @@ class QAOAVisualizationRepository:
         }
 
     def _circuit_description(self, result: dict[str, Any]) -> dict[str, Any]:
+        depth = int(result["depth"])
         phase_kind = str(result["phase_kind"])
         mixer_kind = str(result["mixer_kind"])
         initialization_mode = str(result["initialization_mode"])
@@ -280,6 +281,13 @@ class QAOAVisualizationRepository:
         return {
             "representation": "20-state logical feasible-route register",
             "hardware_gate_decomposition": False,
+            "resources": {
+                "logical_states": len(self._routes),
+                "qaoa_layers": depth,
+                "variational_parameters": 2 * depth,
+                "operator_blocks": 2 * depth,
+                "measurement_outcomes": len(self._routes),
+            },
             "initial": initial,
             "phase": phase,
             "mixer": mixer,

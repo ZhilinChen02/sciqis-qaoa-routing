@@ -32,6 +32,13 @@ def test_gm_threshold_animation_reconstructs_operator_stages_and_energy(
     assert run["circuit"]["phase"]["symbol"] == "U_T"
     assert run["circuit"]["mixer"]["symbol"] == "U_G"
     assert run["circuit"]["hardware_gate_decomposition"] is False
+    assert run["circuit"]["resources"] == {
+        "logical_states": 20,
+        "qaoa_layers": 3,
+        "variational_parameters": 6,
+        "operator_blocks": 6,
+        "measurement_outcomes": 20,
+    }
 
     frame = next(frame for frame in run["frames"] if frame["in_bounds"])
     assert len(frame["gammas"]) == len(frame["betas"]) == 3
