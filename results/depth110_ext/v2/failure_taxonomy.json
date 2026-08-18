@@ -1,0 +1,1322 @@
+[
+  {
+    "algorithm": "penalty_x",
+    "depth": "1",
+    "status": "COMPLETED",
+    "optimizer_reason": "converged"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "2",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "3",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "4",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "5",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "6",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "7",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "8",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "9",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "10",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "11",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "12",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "13",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "14",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "15",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "16",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "17",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "18",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "19",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "20",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "21",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "22",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "23",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "24",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "25",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "26",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "27",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "28",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "29",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "30",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "31",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "32",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "33",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "34",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "35",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "36",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "37",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "38",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "39",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "40",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "41",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "42",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "43",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "44",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "45",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "46",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "47",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "48",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "49",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "50",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "51",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "52",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "53",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "54",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "55",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "56",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "57",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "58",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "59",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "60",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "61",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "62",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "63",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "64",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "65",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "66",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "67",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "68",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "69",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "70",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "71",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "72",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "73",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "74",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "75",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "76",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "77",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "78",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "79",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "80",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "81",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "82",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "83",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "84",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "85",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "86",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "87",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "88",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "89",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "90",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "91",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "92",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "93",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "94",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "95",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "96",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "97",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "98",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "99",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "100",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "101",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "102",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "103",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "104",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "105",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "106",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "107",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "108",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "109",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "penalty_x",
+    "depth": "110",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "1",
+    "status": "COMPLETED",
+    "optimizer_reason": "converged"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "2",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "3",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "4",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "5",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "6",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "7",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "8",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "9",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "10",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "11",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "12",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "13",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "14",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "15",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "16",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "17",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "18",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "19",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "20",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "21",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "22",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "23",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "24",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "25",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "26",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "27",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "28",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "29",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "30",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "31",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "32",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "33",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "34",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "35",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "36",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "37",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "38",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "39",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "40",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "41",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "42",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "43",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "44",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "45",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "46",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "47",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "48",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "49",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "50",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "51",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "52",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "53",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "54",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "55",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "56",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "57",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "58",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "59",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "60",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "61",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "62",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "63",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "64",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "65",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "66",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "67",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "68",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "69",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "70",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "71",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "72",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "73",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "74",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "75",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "76",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "77",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "78",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "79",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "80",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "81",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "82",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "83",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "84",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "85",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "86",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "87",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "88",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "89",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "90",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "91",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "92",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "93",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "94",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "95",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "96",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "97",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "98",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "99",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "100",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "101",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "102",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "103",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "104",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "105",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "106",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "107",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "108",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "109",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  },
+  {
+    "algorithm": "grover_cost_phase",
+    "depth": "110",
+    "status": "BUDGET_LIMITED",
+    "optimizer_reason": "evaluation_budget_exhausted"
+  }
+]
