@@ -48,6 +48,36 @@ with post-hoc solver-specific tuning.
 The complete explanation, layer traces, phase plots, energy landscape, and
 limitations are in [the dynamics deep dive](docs/QAOA_DYNAMICS_DEEP_DIVE.md).
 
+## Depth 1–110 route-cost comparison
+
+The extended main track compares Penalty-X with a feasible-subspace
+Grover-Mixer using the route-cost phase
+
+\[
+U_C(\gamma)|P_i\rangle=e^{-i\gamma C(P_i)}|P_i\rangle
+\]
+
+at every depth from `p=1` to `p=110`. This is distinct from the historical
+incumbent-threshold phase described below: the threshold mask is used only for
+the auxiliary BSP metric in this comparison.
+
+Under the frozen single-seed COBYLA protocol, the route-cost Grover-Mixer first
+reaches `p_opt >= 0.50`, `0.90`, and `0.99` at depths 58, 69, and 88. Its best
+saved result is `p_opt=0.999846` at `p=110`. Penalty-X does not overtake it at
+any saved depth. Under the project-plan definition, the first Grover-over-
+Penalty crossover is `p=1`. The observed saturation-criterion onsets are `p=2`
+for Penalty-X and `p=92` for the Grover-Mixer, using ten consecutive changes
+below `1e-3`. The Penalty-X onset means that no measurable early improvement
+was observed under the frozen budget; it is not evidence of convergence at
+`p=2`.
+
+![Depth-110 optimal-route probability](figures/depth110_ext/v2/figure_1_p_opt_vs_depth.png)
+
+The [Depth-110 report](results/depth110_ext/v2/REPORT.md) contains the complete
+220-row protocol, all three figures, validation details, and limitations.
+`BUDGET_LIMITED` means that the frozen function-evaluation cap was reached; it
+does not mean that the process crashed or exceeded a wall-clock limit.
+
 ## Core pipeline
 
 ```text
@@ -255,6 +285,8 @@ scripts/run_qaoa_dynamics_deep_dive.py
 scripts/make_qaoa_dynamics_figures.py
 scripts/run_qaoa_dynamics_visualizer.py
 scripts/export_qaoa_dynamics_animation.py
+scripts/run_cost_phase_grover_sweep.py
+scripts/make_depth_sweep_v2_figures.py
 scripts/run_course_final.py final GM-Th-QAOA command
 scripts/run_penalty_qaoa.py Penalty-X core command
 scripts/make_course_figures.py
@@ -263,6 +295,7 @@ web/qaoa_dynamics_visualizer/  browser-native ten-panel dynamics demo
 figures/qaoa_dynamics_deep_dive/v1/  17 dynamics/landscape figures
 figures/course/             five presentation figures
 results/qaoa_dynamics_deep_dive/v1/  traced study data and final table
+results/depth110_ext/v2/             saved 220-row route-cost main track
 results/                    immutable historical evidence roots
 notebooks/07_qaoa_dynamics_deep_dive.ipynb
 docs/QAOA_DYNAMICS_DEEP_DIVE.md

@@ -1,0 +1,36 @@
+{
+  "row_count": 220,
+  "penalty_x": {
+    "best_depth": 1,
+    "best_p_opt": 6.1035156249999986e-05,
+    "p50_depth": null,
+    "p90_depth": null,
+    "p99_depth": null,
+    "saturation_depth": 2,
+    "total_optimizer_wall_time_seconds": 3232.7877261998365,
+    "status_counts": {
+      "COMPLETED": 1,
+      "BUDGET_LIMITED": 109
+    }
+  },
+  "grover_cost_phase": {
+    "best_depth": 110,
+    "best_p_opt": 0.9998456619047998,
+    "p50_depth": 58,
+    "p90_depth": 69,
+    "p99_depth": 88,
+    "saturation_depth": 92,
+    "total_optimizer_wall_time_seconds": 297.54166029940825,
+    "status_counts": {
+      "COMPLETED": 1,
+      "BUDGET_LIMITED": 109
+    }
+  },
+  "first_grover_above_penalty_depth": 1,
+  "first_penalty_x_above_grover_depth": null,
+  "figure_files": [
+    "figure_1_p_opt_vs_depth.png",
+    "figure_2_p_feas_vs_depth.png",
+    "figure_3_regret_vs_depth.png"
+  ]
+}
