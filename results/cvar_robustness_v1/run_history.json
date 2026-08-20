@@ -1,0 +1,33 @@
+[
+  {
+    "stage": "freeze",
+    "planned_unique_cells": 140,
+    "completed_now": 0,
+    "failed_now": 0,
+    "skipped_resumed": 0
+  },
+  {
+    "stage": "primary",
+    "selected": 100,
+    "completed_now": 76,
+    "failed_now": 0,
+    "valid_rows_total": 100,
+    "skipped_resumed": 24
+  },
+  {
+    "stage": "primary",
+    "selected": 100,
+    "completed_now": 100,
+    "failed_now": 0,
+    "valid_rows_total": 100,
+    "skipped_resumed": 0
+  },
+  {
+    "stage": "secondary",
+    "selected": 40,
+    "completed_now": 40,
+    "failed_now": 0,
+    "valid_rows_total": 140,
+    "skipped_resumed": 0
+  }
+]

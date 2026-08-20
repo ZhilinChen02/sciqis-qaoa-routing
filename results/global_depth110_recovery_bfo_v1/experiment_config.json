@@ -1,0 +1,78 @@
+{
+  "schema": "sciqis-global-depth110-recovery-bfo",
+  "version": "1.0",
+  "result_namespace": "results/global_depth110_recovery_bfo_v1",
+  "historical_result_root": "results/global_depth110",
+  "historical_config": "configs/global_depth110.json",
+  "graph_path": "data/graph.json",
+  "algorithms": [
+    "penalty_x",
+    "global_grover"
+  ],
+  "depths": [
+    21,
+    22,
+    50,
+    100,
+    110
+  ],
+  "high_depths": [
+    100,
+    110
+  ],
+  "budget_multipliers": [
+    10,
+    25,
+    50
+  ],
+  "fourier_q": [
+    5,
+    10
+  ],
+  "objectives": [
+    "expectation",
+    "cvar_0.10",
+    "cvar_0.25"
+  ],
+  "medium_budget_multiplier": 25,
+  "n_qubits": 14,
+  "search_space_size": 16384,
+  "source": 0,
+  "target": 6,
+  "penalty_coefficient": 6.0,
+  "initial_state": "uniform_full_space_plus_state",
+  "cost_phase_kind": "continuous_raw_penalized_cost",
+  "feasible_projection": false,
+  "threshold_phase": false,
+  "optimizer": "COBYLA",
+  "optimizer_rhobeg": 0.5,
+  "optimizer_tolerance": 1e-08,
+  "max_evals_formula": "budget_multiplier * (2 * p)",
+  "fourier_budget_basis": "2*p, not 2*q",
+  "direct_initialization_source": "IMMUTABLE_HISTORICAL_DIRECT_INITIAL_SCHEDULE",
+  "fourier_initialization_source": "DIRECT_SCHEDULE_LEAST_SQUARES",
+  "material_p_opt_improvement_rule": {
+    "minimum_recovery_factor": 2.0,
+    "minimum_absolute_increase": 0.0001,
+    "rule": "both thresholds must be met"
+  },
+  "p21_p22_collapse_rule": {
+    "persists": "all matched p22/p21 ratios are below 0.5",
+    "disappears": "at least one matched stronger-training p22/p21 ratio is at least 0.8",
+    "weakens": "otherwise"
+  },
+  "seed_base": 2601,
+  "depth_seed_rule": "2601 + 7919*p",
+  "statevector_mode": "ideal_exact_numpy_complex128",
+  "primary_recovery_configuration": {
+    "algorithm": "global_grover",
+    "depth": 110,
+    "budget_multiplier": 25,
+    "parameterization": "FOURIER_Q10",
+    "fourier_q": 10,
+    "objective_kind": "cvar_0.10",
+    "cvar_alpha": 0.1
+  },
+  "development_rows_allowed_in_canonical": false,
+  "claim_quantum_advantage": false
+}

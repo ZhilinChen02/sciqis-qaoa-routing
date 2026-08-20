@@ -1,0 +1,312 @@
+{
+  "schema": "sciqis-cvar-search-control-analysis-v1",
+  "rq1_budget": {
+    "checkpoint_budget": 11000,
+    "paired_seed_count": 10,
+    "expectation_median_p_opt": 0.000542156303245342,
+    "cvar_010_median_p_opt": 0.0021647308229568235,
+    "paired_win_count": 10,
+    "median_paired_ratio": 2.889049345837337,
+    "geometric_mean_paired_ratio": 3.743774631660152,
+    "bootstrap_95_low": 2.618070717216496,
+    "bootstrap_95_high": 5.765866966578187,
+    "frozen_rule_classification": "ROBUST_CVAR_RECOVERY",
+    "individual_seed_ratios": {
+      "8801": 5.704399759885179,
+      "8802": 2.7926183647812453,
+      "8803": 2.771179758191282,
+      "8804": 7.494762050433224,
+      "8805": 2.9854803268934287,
+      "8806": 1.8564237463543354,
+      "8807": 2.693036718304148,
+      "8808": 2.46496167624171,
+      "8809": 11.00660501937145,
+      "8810": 4.03697188272315
+    },
+    "individual_ratio_statuses": {
+      "8801": "FINITE",
+      "8802": "FINITE",
+      "8803": "FINITE",
+      "8804": "FINITE",
+      "8805": "FINITE",
+      "8806": "FINITE",
+      "8807": "FINITE",
+      "8808": "FINITE",
+      "8809": "FINITE",
+      "8810": "FINITE"
+    }
+  },
+  "rq2_optimizer": {
+    "classification": "OBJECTIVE_OPTIMIZER_INTERACTION",
+    "cobyla_b5500": {
+      "seeds": [
+        8801,
+        8802,
+        8803,
+        8804,
+        8805
+      ],
+      "wins": 5,
+      "median_expectation": 0.0006159054148744339,
+      "median_cvar": 0.002208509701821441,
+      "median_ratio": 3.2193410594480962,
+      "geometric_mean_ratio": 4.106282661363181
+    },
+    "nelder_mead_b5500": {
+      "seeds": [
+        8801,
+        8802,
+        8803,
+        8804,
+        8805
+      ],
+      "wins": 5,
+      "median_expectation": 0.000515326613464436,
+      "median_cvar": 0.0008278594443692016,
+      "median_ratio": 1.7677279657988532,
+      "geometric_mean_ratio": 1.931504568127264
+    },
+    "cobyla_directional_gate": true,
+    "nelder_mead_directional_gate": false,
+    "median_cobyla_minus_nelder_mead_log_ratio": 0.7587309482780993,
+    "same_direction_seed_count": 5,
+    "nelder_mead_median_actual_evals": 5500.0,
+    "nelder_mead_median_runtime_s": 85.47134835156612,
+    "nelder_mead_failure_count": 0,
+    "nelder_mead_converged_count": 0
+  },
+  "rq3_basin": {
+    "classification": "OBJECTIVE_PRESSURE_REQUIRED",
+    "c_to_e_vs_e_to_e": {
+      "seeds": [
+        8801,
+        8802,
+        8803,
+        8804,
+        8805
+      ],
+      "wins": 4,
+      "median_numerator": 0.0011315460485173134,
+      "median_denominator": 0.0006228702615715334,
+      "median_ratio": 1.5777085669101147
+    },
+    "e_to_c_vs_c_to_c_rescue": {
+      "seeds": [
+        8801,
+        8802,
+        8803,
+        8804,
+        8805
+      ],
+      "wins": 1,
+      "median_numerator": 0.002625717237668298,
+      "median_denominator": 0.0026736557975640942,
+      "median_ratio": 0.6731524253611716
+    },
+    "e_to_c_vs_e_to_e_pressure": {
+      "seeds": [
+        8801,
+        8802,
+        8803,
+        8804,
+        8805
+      ],
+      "wins": 5,
+      "median_numerator": 0.002625717237668298,
+      "median_denominator": 0.0006228702615715334,
+      "median_ratio": 3.3953841947613146
+    },
+    "c_to_c_vs_c_to_e_pressure": {
+      "seeds": [
+        8801,
+        8802,
+        8803,
+        8804,
+        8805
+      ],
+      "wins": 5,
+      "median_numerator": 0.0026736557975640942,
+      "median_denominator": 0.0011315460485173134,
+      "median_ratio": 2.4196759224993794
+    },
+    "transfer_gate": false,
+    "rescue_gate": false,
+    "objective_pressure_gate": true,
+    "theta_c_evaluated_under_expectation_before_continuation": {
+      "median_theta_c_expectation_objective": 67.24318476982577,
+      "median_theta_e_expectation_objective": 48.506220283223904,
+      "theta_c_lower_expectation_objective_count": 0
+    },
+    "theta_c_vs_theta_e_start_p_opt": {
+      "seeds": [
+        8801,
+        8802,
+        8803,
+        8804,
+        8805
+      ],
+      "wins": 5,
+      "median_numerator": 0.002208509701821441,
+      "median_denominator": 0.0006159054148744339,
+      "median_ratio": 3.2193410594480962
+    }
+  },
+  "rq4_mixer": {
+    "classification": "MIXER_SPECIFIC_TRANSPORT_SUPPORTED",
+    "global_positive_transport_consistency_gate": true,
+    "global_minus_penalty_p_feas_consistency_gate": true,
+    "global_minus_penalty_low_energy_consistency_gate": true,
+    "joint_magnitude_gate": true,
+    "global_median_cvar_minus_expectation_p_feas": 0.02826987462488025,
+    "penalty_median_cvar_minus_expectation_p_feas": 0.004717658282251429,
+    "global_median_cvar_minus_expectation_low_energy_top100": 0.0794384469700727,
+    "penalty_median_cvar_minus_expectation_low_energy_top100": 0.01168624890465151,
+    "median_global_minus_penalty_p_feas_change": 0.024762149539651702,
+    "median_global_minus_penalty_low_energy_top100_change": 0.06558161215971986
+  },
+  "rq5_mechanism_dynamics": {
+    "classification": "SIMULTANEOUS_WITHIN_CHECKPOINT_RESOLUTION",
+    "earliest_events": {
+      "low_energy": 1000,
+      "p_feas": 1000,
+      "p_opt": 1000,
+      "within_feasible": null
+    },
+    "checkpoint_tests": {
+      "low_energy": [
+        {
+          "budget": 1000,
+          "passed": true,
+          "positive_seed_count": 5,
+          "median_change": 0.05909934360560863
+        },
+        {
+          "budget": 2500,
+          "passed": true,
+          "positive_seed_count": 5,
+          "median_change": 0.08837858232403492
+        },
+        {
+          "budget": 5500,
+          "passed": true,
+          "positive_seed_count": 5,
+          "median_change": 0.086466908931937
+        },
+        {
+          "budget": 8000,
+          "passed": true,
+          "positive_seed_count": 5,
+          "median_change": 0.08049966461897462
+        },
+        {
+          "budget": 11000,
+          "passed": true,
+          "positive_seed_count": 5,
+          "median_change": 0.0794384469700727
+        }
+      ],
+      "p_feas": [
+        {
+          "budget": 1000,
+          "passed": true,
+          "positive_seed_count": 5,
+          "median_change": 0.015051382953475119
+        },
+        {
+          "budget": 2500,
+          "passed": true,
+          "positive_seed_count": 5,
+          "median_change": 0.027043810140692813
+        },
+        {
+          "budget": 5500,
+          "passed": true,
+          "positive_seed_count": 5,
+          "median_change": 0.028298849008037395
+        },
+        {
+          "budget": 8000,
+          "passed": true,
+          "positive_seed_count": 5,
+          "median_change": 0.027411293423382173
+        },
+        {
+          "budget": 11000,
+          "passed": true,
+          "positive_seed_count": 5,
+          "median_change": 0.02826987462488025
+        }
+      ],
+      "p_opt": [
+        {
+          "budget": 1000,
+          "passed": true,
+          "win_count": 5,
+          "median_ratio": 2.4615313907464094
+        },
+        {
+          "budget": 2500,
+          "passed": true,
+          "win_count": 5,
+          "median_ratio": 3.507284620900979
+        },
+        {
+          "budget": 5500,
+          "passed": true,
+          "win_count": 5,
+          "median_ratio": 3.2193410594480962
+        },
+        {
+          "budget": 8000,
+          "passed": true,
+          "win_count": 5,
+          "median_ratio": 2.942687980516335
+        },
+        {
+          "budget": 11000,
+          "passed": true,
+          "win_count": 5,
+          "median_ratio": 2.9854803268934287
+        }
+      ],
+      "within_feasible": [
+        {
+          "budget": 1000,
+          "passed": false,
+          "positive_seed_count": 3,
+          "median_change": 0.0037733094631068817
+        },
+        {
+          "budget": 2500,
+          "passed": false,
+          "positive_seed_count": 4,
+          "median_change": 0.001391288909805631
+        },
+        {
+          "budget": 5500,
+          "passed": false,
+          "positive_seed_count": 4,
+          "median_change": 0.0014882019552200434
+        },
+        {
+          "budget": 8000,
+          "passed": false,
+          "positive_seed_count": 4,
+          "median_change": 0.0008035729968858471
+        },
+        {
+          "budget": 11000,
+          "passed": false,
+          "positive_seed_count": 4,
+          "median_change": 0.0009184382208790101
+        }
+      ]
+    }
+  },
+  "optimizer_totals": {
+    "converged": 0,
+    "budget_exhausted": 60,
+    "optimizer_failed_but_cell_complete": 0,
+    "scientific_failed": 0
+  }
+}

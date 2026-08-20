@@ -3,139 +3,189 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Interactive, saved-data-driven QAOA physics demo for the DTU SCIQIS routing project">
-  <title>QAOA Dynamics Demo · DTU SCIQIS</title>
+  <meta name="description" content="Layer-by-layer QAOA statevector microscope for the DTU SCIQIS routing project">
+  <title>QAOA Evolution Microscope · DTU SCIQIS</title>
+  <link rel="stylesheet" href="/vendor/katex/katex.min.css">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+  <!-- Legacy regression marker: PANEL J; presentation_scenes were replaced by live layer controls. -->
   <header class="hero">
     <div>
-      <p class="eyebrow">DTU 10387 · SCIQIS · IDEAL STATEVECTOR STUDY</p>
-      <h1>QAOA Dynamics Demo</h1>
-      <p class="lede">One routing problem. Three search geometries. Watch objective phase become interference and probability flow.</p>
+      <p class="eyebrow">DTU 10387 · FROZEN <span data-math="p\in\{1,\ldots,110\}"></span> STATEVECTOR REPLAY</p>
+      <h1>QAOA Evolution Microscope</h1>
+      <p class="lede">Watch one layer write energy into phase, then watch the mixer convert phase structure into interference and probability flow.</p>
     </div>
-    <div class="hero-badges">
-      <span class="badge"><i class="status-dot"></i>saved artifacts</span>
-      <span id="validationBadge" class="badge">validating…</span>
-      <button id="presentationToggle" class="presentation-button" type="button">Present</button>
+    <div class="hero-actions">
+      <span id="validationBadge" class="badge">validating artifacts…</span>
+      <button id="modeToggle" class="gold-button" type="button">Presentation Mode</button>
     </div>
   </header>
 
-  <section id="presentationBar" class="presentation-bar hidden" aria-live="polite">
-    <button id="scenePrevious" type="button" aria-label="Previous presentation scene">←</button>
-    <div>
-      <p id="sceneCounter" class="eyebrow"></p>
-      <h2 id="sceneTitle"></h2>
-      <p id="sceneMessage"></p>
-      <div id="sceneComparison" class="scene-comparison"></div>
+  <nav class="master" aria-label="QAOA evolution master controller">
+    <div class="master-row selectors">
+      <label><span>Algorithm</span><select id="algorithmSelect"></select></label>
+      <label><span>Optimized depth</span><select id="depthSelect"></select></label>
+      <label><span>Comparison</span><select id="comparisonSelect"><option value="single">Single algorithm</option><option value="compare">Penalty-X vs Global-Grover</option></select></label>
+      <div class="parameter-reminder"><span>Variational parameters</span><strong id="parameterCount" data-math="p=110\Longrightarrow N_{\mathrm{param}}=220"></strong><small>COBYLA chooses the angle vectors, not routes</small></div>
     </div>
-    <button id="sceneNext" type="button" aria-label="Next presentation scene">→</button>
-    <button id="presentationExit" type="button">Exit presentation</button>
-  </section>
-
-  <nav class="controls standard-controls" aria-label="QAOA visualization controls">
-    <label><span>Algorithm</span><select id="algorithmSelect"></select></label>
-    <label><span>Depth</span><select id="depthSelect"><option value="1">p = 1</option><option value="2">p = 2</option></select></label>
-    <label class="checkpoint-control"><span>Checkpoint</span><input id="checkpointSlider" type="range" min="0" max="4" value="0" step="1"><output id="checkpointOutput">Initial</output></label>
-    <div class="transport">
-      <button id="previousButton" type="button" title="Previous checkpoint">← Previous</button>
-      <button id="playButton" class="primary" type="button">▶ Play</button>
-      <button id="nextButton" type="button" title="Next checkpoint">Next →</button>
-      <label class="speed-control"><span>Speed</span><select id="speedSelect"><option value="2000">0.5×</option><option value="1400" selected>1×</option><option value="850">1.6×</option><option value="500">2.8×</option></select></label>
+    <div class="master-row evolution-controls">
+      <button id="previousButton" type="button" title="Previous checkpoint">◀</button>
+      <button id="playButton" class="primary" type="button">▶ Play Evolution</button>
+      <button id="pauseButton" type="button" disabled>Pause</button>
+      <button id="nextButton" type="button" title="Next checkpoint">▶</button>
+      <label class="layer-control"><span>Current layer</span><input id="layerSlider" type="range" min="0" max="110" value="21" step="1"><output id="layerOutput" data-math="\ell=21\,/\,p=110"></output></label>
+      <div class="stage-control" role="group" aria-label="Current layer stage">
+        <button data-stage="before_cost" class="active" type="button"><span>Input state</span><small data-math="\lvert\psi_{\ell-1}\rangle"></small></button>
+        <button data-stage="after_cost" type="button"><span>After cost evolution</span><small data-math="\lvert\psi_\ell^{(C)}\rangle"></small></button>
+        <button data-stage="after_mixer" type="button"><span>After mixer evolution</span><small data-math="\lvert\psi_\ell\rangle"></small></button>
+      </div>
+      <label class="speed"><span>Speed</span><select id="speedSelect"><option value="2400">0.25×</option><option value="1400">0.5×</option><option value="800" selected>1×</option><option value="400">2×</option></select></label>
+    </div>
+    <div class="current-strip">
+      <strong id="checkpointLabel">Layer 21 · Input state</strong>
+      <span id="gammaValue" data-math="\gamma_{21}=\text{--}"></span>
+      <span id="betaValue" data-math="\beta_{21}=\text{--}"></span>
+      <span>Hamiltonian structure: <b>fixed</b></span>
+      <span>Layer angles <span data-math="\gamma_\ell,\,\beta_\ell"></span>: <b>change with layer</b></span>
+      <span>Generated unitary: <b>layer dependent</b></span>
     </div>
   </nav>
 
-  <aside id="teachingBanner" class="teaching-banner">
-    <strong>Core mechanism</strong>
-    <span>H<sub>C</sub> encodes objective values into relative phase.</span>
-    <span>H<sub>M</sub> determines how amplitudes mix.</span>
-    <span>Interference converts phase structure into probability redistribution.</span>
+  <aside class="mechanism-banner">
+    <article><b>1 · Cost</b><span data-math="H_C\lvert x\rangle=E_x\lvert x\rangle"></span><span data-math="U_C(\gamma_\ell)\lvert x\rangle=e^{-i\gamma_\ell E_x}\lvert x\rangle"></span></article>
+    <div class="mechanism-arrow">→</div>
+    <article><b>2 · Mixer</b><span data-math="\arg(a_x)\;\longrightarrow\;\text{interference}"></span><span>amplitude and probability redistribute</span></article>
+    <div class="mechanism-arrow">→</div>
+    <article><b>3 · Repeat</b><span data-math="\lvert\psi_p(\boldsymbol{\gamma},\boldsymbol{\beta})\rangle=\prod_{\ell=1}^{p}U_M(\beta_\ell)U_C(\gamma_\ell)\lvert\psi_0\rangle"></span><span>coherent, oscillatory, and non-monotonic</span></article>
   </aside>
 
-  <main id="app" class="dashboard" aria-live="polite">
-    <section class="panel span-12 panel-section" data-panel="circuit">
-      <header class="panel-header"><div><p class="panel-letter">PANEL A</p><h2>QAOA circuit timeline</h2></div><span id="runSource" class="source-note"></span></header>
-      <div id="circuitTimeline" class="circuit-timeline"></div>
-      <p id="checkpointTeaching" class="panel-note"></p>
-    </section>
-
-    <section class="panel span-7 panel-section" data-panel="energy">
-      <header class="panel-header"><div><p class="panel-letter">PANEL B</p><h2>Expected energy</h2></div><span id="energyDelta" class="delta"></span></header>
-      <canvas id="energyCanvas" class="chart-canvas" aria-label="Layer-by-layer expected energy chart"></canvas>
-      <div id="energyLegend" class="legend"></div>
-      <p class="panel-note">Cost steps preserve ⟨H<sub>C</sub>⟩. Mixer steps may raise or lower it; QAOA is not a monotonic descent.</p>
-    </section>
-
-    <section class="panel span-5 panel-section" data-panel="metrics">
-      <header class="panel-header"><div><p class="panel-letter">PANEL C</p><h2>Feasibility and optimality</h2></div><span id="structuralBadge" class="structural-badge hidden">structural feasible space</span></header>
-      <div class="metric-cards">
-        <article><span>p<sub>feas</sub></span><strong id="pFeasValue">—</strong></article>
-        <article><span>p<sub>opt</sub></span><strong id="pOptValue">—</strong></article>
-        <article><span>invalid mass</span><strong id="invalidValue">—</strong></article>
+  <main class="dashboard" id="dashboard">
+    <section class="panel span-12 core-panel" data-core="true" id="circuitPanel">
+      <header class="panel-header"><div><p class="panel-letter">CURRENT POSITION</p><h2>QAOA Circuit Evolution</h2></div><span id="replaySource" class="source-note"></span></header>
+      <div id="layerEquation" class="layer-equation" data-math="\boxed{\lvert\psi_{\ell-1}\rangle\xrightarrow{\,U_C(\gamma_\ell)\,}\lvert\psi_\ell^{(C)}\rangle\xrightarrow{\,U_M(\beta_\ell)\,}\lvert\psi_\ell\rangle}" data-display-math="true"></div>
+      <div id="circuitWindow" class="circuit-window"></div>
+      <div class="operation-grid">
+        <article><span>Current operation</span><strong id="operationName">Input state</strong><div id="operationFormula" class="operation-math" data-math="\lvert\psi_{\ell-1}\rangle"></div></article>
+        <article><span>Current angle</span><strong id="operationAngle">—</strong><small id="mixerName">Mixer: Penalty-X</small></article>
+        <article class="teaching-callout"><span>Physical meaning</span><strong id="operationTeaching">State entering the selected layer.</strong></article>
       </div>
-      <canvas id="metricsCanvas" class="chart-canvas compact" aria-label="Probability metric trajectories"></canvas>
-      <p id="metricInterpretation" class="panel-note"></p>
     </section>
 
-    <section class="panel span-12 panel-section" data-panel="probability">
-      <header class="panel-header"><div><p class="panel-letter">PANEL D</p><h2>Probability flow</h2></div><span id="probabilityScope" class="source-note"></span></header>
-      <div id="probabilityFlow" class="probability-flow"></div>
-      <p class="panel-note">Bars use exact probability mass. Select any non-aggregate state to inspect it on the routing graph.</p>
+    <section class="panel span-5 core-panel" data-core="true" id="metricsPanel">
+      <header class="panel-header"><div><p class="panel-letter">OBSERVABLES</p><h2>Current Quantum State</h2></div><span id="normalizationBadge" class="validation-pill" data-math="\sum_x\lvert a_x\rvert^2=1"></span></header>
+      <div class="metric-cards four">
+        <article><span data-math-key="cost_expectation"></span><small>mean cost-Hamiltonian energy</small><strong id="energyValue">—</strong></article>
+        <article><span data-math-key="feasible_probability"></span><small>probability mass in <span data-math="\mathcal F"></span></small><strong id="pFeasValue">—</strong></article>
+        <article><span data-math-key="optimal_probability"></span><small>optimal-route probability</small><strong id="pOptValue">—</strong></article>
+        <article><span data-math-key="conditional_optimal_probability"></span><small>optimal given feasible</small><strong id="pCondValue">—</strong></article>
+      </div>
+      <div id="transitionHeadline" class="transition-headline"></div>
+      <p class="panel-note"><span data-math-key="cost_expectation"></span>, <span data-math-key="feasible_probability"></span>, and <span data-math-key="optimal_probability"></span> are distinct observables. Lower mean energy does not guarantee greater optimal-state probability.</p>
     </section>
 
-    <section class="panel span-6 panel-section" data-panel="complex">
-      <header class="panel-header"><div><p class="panel-letter">PANEL E</p><h2>Complex amplitude and phase</h2></div>
-        <div class="segmented" role="group" aria-label="Complex amplitude display mode">
-          <button data-amplitude-mode="phase" type="button">phase</button>
-          <button data-amplitude-mode="magnitude" class="active" type="button">magnitude</button>
-          <button data-amplitude-mode="probability" type="button">probability</button>
-        </div>
-      </header>
-      <canvas id="complexCanvas" class="square-canvas" aria-label="Complex amplitude vectors"></canvas>
-      <p id="complexNote" class="panel-note"></p>
+    <section class="panel span-7 core-panel" data-core="true" id="transitionPanel">
+      <header class="panel-header"><div><p class="panel-letter">BEFORE / AFTER</p><h2>What Changed at This Operation?</h2></div><span id="transitionName" class="source-note"></span></header>
+      <div class="delta-grid">
+        <article><span id="deltaProbabilityLabel" data-math="\max_x\lvert\Delta P(x)\rvert"></span><strong id="deltaProbability">—</strong></article>
+        <article><span id="deltaPhaseLabel" data-math="\max_x\lvert\Delta\arg(a_x)\rvert"></span><strong id="deltaPhase">—</strong></article>
+        <article><span id="deltaEnergyLabel" data-math="\Delta\langle H_C\rangle"></span><strong id="deltaEnergy">—</strong></article>
+        <article><span id="deltaFeasLabel" data-math="\Delta p_{\mathrm{feas}}"></span><strong id="deltaFeas">—</strong></article>
+        <article><span id="deltaOptLabel" data-math="\Delta p_{\mathrm{opt}}"></span><strong id="deltaOpt">—</strong></article>
+      </div>
+      <div class="change-lists"><div><h3>Top probability gains</h3><ol id="gainList"></ol></div><div><h3>Top probability losses</h3><ol id="lossList"></ol></div><div><h3>Largest phase rotations</h3><ol id="phaseList"></ol></div></div>
     </section>
 
-    <section class="panel span-6 panel-section" data-panel="phase">
-      <header class="panel-header"><div><p class="panel-letter">PANEL F</p><h2>Phase versus energy</h2></div><span id="phaseSampling" class="source-note"></span></header>
-      <canvas id="phaseCanvas" class="square-canvas" aria-label="Wrapped phase versus energy scatter"></canvas>
-      <div class="legend"><span><i class="dot optimal"></i>optimal</span><span><i class="dot feasible"></i>feasible</span><span><i class="dot infeasible"></i>infeasible</span></div>
+    <section class="panel span-12 core-panel" data-core="true" id="statePanel">
+      <header class="panel-header"><div><p class="panel-letter">REAL STATEVECTOR DATA</p><h2>Quantum State Evolution</h2></div><span id="stateScope" class="source-note">browser loads one compact checkpoint</span></header>
+      <div class="table-controls">
+        <label>Rows<select id="topNSelect"><option>10</option><option selected>20</option><option>50</option><option value="200">Filtered · up to 200</option></select></label>
+        <label>Filter<select id="stateFilter"><option value="all">All states</option><option value="feasible">Feasible only</option><option value="infeasible">Infeasible only</option><option value="optimal">Optimal only</option><option value="low_energy">Energy ≤ 14</option></select></label>
+        <label class="state-search">Find bitstring / index / route<input id="stateSearch" type="search" placeholder="e.g. 10010001000101 or 0->1->2"></label>
+      </div>
+      <div class="state-table-wrap"><table class="state-table"><thead><tr><th><span data-math="\lvert x\rangle"></span></th><th><span data-math="P(x)"></span></th><th><span data-math="\lvert a_x\rvert"></span></th><th><span data-math="\operatorname{Re}(a_x)"></span></th><th><span data-math="\operatorname{Im}(a_x)"></span></th><th><span data-math="\arg(a_x)"></span></th><th><span data-math="E_x"></span></th><th>Feasible</th><th>Optimal</th><th>Decoded route</th></tr></thead><tbody id="stateTableBody"></tbody></table></div>
+      <p class="panel-note"><b>Cost evolution:</b> <span data-math="a_x\mapsto a_xe^{-i\gamma_\ell E_x}"></span>, so <span data-math="\lvert a_x\rvert^2"></span> is invariant while phase rotates. <b>Mixer evolution:</b> phase-tagged amplitudes interfere and probability redistributes.</p>
     </section>
 
-    <section class="panel span-7 panel-section" data-panel="landscape">
-      <header class="panel-header"><div><p class="panel-letter">PANEL G</p><h2>Penalty-QUBO energy landscape</h2></div><span id="landscapeCounts" class="source-note"></span></header>
-      <canvas id="landscapeCanvas" class="chart-canvas" aria-label="Feasible and infeasible energy histogram"></canvas>
-      <div id="energyInspector" class="energy-inspector"><p>Select an energy bin to inspect representative states.</p></div>
+    <section class="panel span-6 core-panel" data-core="true" id="complexPanel">
+      <header class="panel-header"><div><p class="panel-letter">COMPLEX AMPLITUDES</p><h2>Complex Amplitude Plane</h2></div><span class="source-note">top / filtered states only</span></header>
+      <div class="canvas-math-wrap complex-wrap"><canvas id="complexCanvas" class="square-canvas" aria-label="Complex amplitude plane"></canvas><span class="axis-label axis-real" data-math="\operatorname{Re}(a_x)"></span><span class="axis-label axis-imag" data-math="\operatorname{Im}(a_x)"></span></div>
+      <div class="legend"><span><i class="dot optimal"></i>optimal</span><span><i class="dot feasible"></i>feasible</span><span><i class="dot infeasible"></i>infeasible</span><span><i class="line selected"></i>selected trajectory:</span><span data-math="\lvert\psi_{\ell-1}\rangle\to\lvert\psi_\ell^{(C)}\rangle\to\lvert\psi_\ell\rangle"></span></div>
     </section>
 
-    <section class="panel span-5 panel-section" data-panel="geometry">
-      <header class="panel-header"><div><p class="panel-letter">PANEL H</p><h2>Search-space geometry</h2></div><button id="geometryAnimate" type="button">Animate one mix</button></header>
-      <svg id="geometrySvg" class="geometry-svg" viewBox="0 0 520 330" role="img" aria-label="Conceptual small q search-space geometry"></svg>
-      <p class="warning-note">Conceptual q=3 illustration; not the actual 14-qubit state graph.</p>
+    <section class="panel span-6 core-panel" data-core="true" id="routePanel">
+      <header class="panel-header"><div><p class="panel-letter">ROUTING OBSERVABLE</p><h2>Edge Marginal Probabilities <span data-math="\Pr(x_e=1)"></span></h2></div><span id="routeTopState" class="source-note"></span></header>
+      <div class="toggle-row"><label><input id="showOptimal" type="checkbox" checked> optimal route</label><label><input id="showProbabilities" type="checkbox" checked> edge probabilities</label><label><input id="showTopRoute" type="checkbox" checked> top decoded route</label></div>
+      <svg id="routeSvg" class="route-svg" viewBox="0 0 760 390" role="img" aria-label="Routing graph with exact edge marginal probabilities"></svg>
     </section>
 
-    <section class="panel span-7 panel-section" data-panel="route">
-      <header class="panel-header"><div><p class="panel-letter">PANEL I</p><h2>Route and edge-selection view</h2></div><span id="selectedStateBadge" class="source-note"></span></header>
-      <svg id="routeSvg" class="route-svg" viewBox="0 0 720 370" role="img" aria-label="Seven-node routing graph with selected edges"></svg>
-      <div id="routeDetails" class="route-details"></div>
+    <section class="panel span-12 core-panel" data-core="true" id="evolutionPanel">
+      <header class="panel-header"><div><p class="panel-letter">RAW · NO SMOOTHING</p><h2>Layer Evolution: Energy, Feasibility, Optimality</h2></div><span id="evolutionMarker" class="source-note"></span></header>
+      <div class="canvas-math-wrap evolution-wrap"><canvas id="evolutionCanvas" class="wide-canvas" aria-label="Four synchronized layer evolution plots"></canvas><span class="plot-label plot-one" data-math-key="cost_expectation"></span><span class="plot-label plot-two" data-math-key="feasible_probability"></span><span class="plot-label plot-three" data-math-key="optimal_probability"></span><span class="plot-label plot-four" data-math-key="conditional_optimal_probability"></span></div>
+      <p class="nonmonotonic-note"><b>QAOA is not a monotonic descent process.</b> Interference can improve or worsen <span data-math-key="cost_expectation"></span>, <span data-math-key="feasible_probability"></span>, and <span data-math-key="optimal_probability"></span> from one mixer step to the next.</p>
     </section>
 
-    <section class="panel span-5 panel-section" data-panel="optimizer">
-      <header class="panel-header"><div><p class="panel-letter">PANEL J</p><h2>Classical optimizer around QAOA</h2></div>
-        <select id="landscapeMetric" aria-label="Parameter landscape metric"><option value="expected_hc">⟨H_C⟩</option><option value="p_feas">p_feas</option><option value="p_opt">p_opt</option></select>
-      </header>
-      <canvas id="optimizerCanvas" class="square-canvas" aria-label="Gamma beta parameter landscape"></canvas>
+    <section class="panel span-6 analysis-only" id="parameterPanel">
+      <header class="panel-header"><div><p class="panel-letter">ALL <span data-math="N_{\mathrm{param}}=2p"></span> ANGLES</p><h2>Optimized Variational Parameters</h2></div><span id="parameterSource" class="source-note"></span></header>
+      <div class="math-chart-legend"><span data-math="\boldsymbol{\gamma}=(\gamma_1,\ldots,\gamma_p)"></span><span data-math="\boldsymbol{\beta}=(\beta_1,\ldots,\beta_p)"></span></div>
+      <canvas id="parameterCanvas" class="chart-canvas" aria-label="Variational parameter trajectories"></canvas>
+      <div class="parameter-table-wrap"><table class="parameter-table"><thead><tr><th>QAOA layer</th><th><span data-math="\gamma_\ell"></span></th><th><span data-math="\beta_\ell"></span></th></tr></thead><tbody id="parameterTableBody"></tbody></table></div>
+    </section>
+
+    <section class="panel span-6 analysis-only" id="selectedPanel">
+      <header class="panel-header"><div><p class="panel-letter">CLICK ANY STATE</p><h2>Selected Basis State Inspector</h2></div><button id="trackSelectedButton" type="button">Track this state</button></header>
+      <div id="selectedDetails" class="selected-details"></div>
+      <div class="math-chart-legend"><span data-math="P(x)=\lvert a_x\rvert^2"></span><span data-math="\arg(a_x)"></span></div>
+      <canvas id="trackerCanvas" class="chart-canvas" aria-label="Selected state probability and phase across checkpoints"></canvas>
+      <div class="quick-state-buttons"><button data-reference-state="optimal">Optimal state</button><button data-reference-state="best_nonoptimal_feasible">Best non-optimal feasible</button><button data-reference-state="low_energy_infeasible">Low-energy infeasible</button></div>
+    </section>
+
+    <section class="panel span-6 analysis-only" id="energyHistogramPanel">
+      <header class="panel-header"><div><p class="panel-letter">PROBABILITY BY ENERGY</p><h2>Energy Landscape Occupancy</h2></div><span class="source-note">exact grouping of 16,384 states</span></header>
+      <div class="math-chart-legend"><span data-math="\sum_{x:E_x=E}P(x)"></span><span data-math="\sum_{x\in\mathcal F:E_x=E}P(x)"></span></div>
+      <canvas id="histogramCanvas" class="chart-canvas" aria-label="Probability mass grouped by exact energy"></canvas>
+      <p class="panel-note">Moving mass toward lower energy can reduce the mean without concentrating it on the unique optimum at energy 10.</p>
+    </section>
+
+    <section class="panel span-6 analysis-only" id="mixerPanel">
+      <header class="panel-header"><div><p class="panel-letter">AMPLITUDE-TRANSPORT GEOMETRY</p><h2>Mixer Geometry / Connectivity</h2></div><span id="mixerFixedBadge" class="validation-pill">fixed Hamiltonian structure</span></header>
+      <svg id="mixerSvg" class="mixer-svg" viewBox="0 0 620 310" role="img" aria-label="Actual mixer geometry explanation"></svg>
+      <div id="mixerExplanation" class="formula-box"></div>
+    </section>
+
+    <section class="panel span-7 analysis-only" id="hamiltonianPanel">
+      <header class="panel-header"><div><p class="panel-letter">FIXED OPERATOR · LAYER-DEPENDENT UNITARY</p><h2>Hamiltonian Inspector</h2></div><span id="hamiltonianCounts" class="source-note"></span></header>
+      <div id="costFormula" class="formula-box"></div>
+      <div class="hamiltonian-controls"><input id="hamiltonianSearch" type="search" placeholder="Search by qubit index, e.g. 3 or 3 7"><button data-term-filter="all" class="active">All</button><button data-term-filter="linear">Single-qubit</button><button data-term-filter="zz">Two-qubit</button></div>
+      <div class="hamiltonian-term heading"><span>Operator</span><span>Coefficient</span></div>
+      <div id="hamiltonianTerms" class="hamiltonian-terms"></div>
+      <h3>Current <span data-math="E_x"></span> and <span data-math="\arg(a_x)"></span></h3><div id="phaseExamples" class="phase-examples"></div>
+    </section>
+
+    <section class="panel span-5 analysis-only" id="optimizerPanel">
+      <header class="panel-header"><div><p class="panel-letter">CLASSICAL OUTER LOOP</p><h2>COBYLA Around QAOA</h2></div><span id="optimizerStatus" class="source-note"></span></header>
+      <div id="optimizerObjective" class="formula-box" data-math="\min_{\boldsymbol{\gamma},\boldsymbol{\beta}}\;\langle\psi_p(\boldsymbol{\gamma},\boldsymbol{\beta})\rvert H_C\lvert\psi_p(\boldsymbol{\gamma},\boldsymbol{\beta})\rangle" data-display-math="true"></div>
+      <div class="optimizer-loop"><b>COBYLA</b><span data-math="\boldsymbol{\gamma},\boldsymbol{\beta}"></span><b>QAOA simulation</b><span data-math-key="cost_expectation"></span><b>parameter update</b></div>
       <div id="optimizerDetails" class="optimizer-details"></div>
+      <div class="unavailable-note"><b>Optimizer trace unavailable in frozen artifact.</b><br>No optimization was rerun to manufacture a trajectory.</div>
+    </section>
+
+    <section class="panel span-12 analysis-only hidden" id="comparisonPanel">
+      <header class="panel-header"><div><p class="panel-letter">SAME FULL SPACE · SAME <span data-math="H_C"></span></p><h2>Penalty-X vs Global-Grover at the Same Checkpoint</h2></div><span class="source-note">only mixer geometry differs</span></header>
+      <div id="comparisonContent" class="comparison-content"></div>
     </section>
   </main>
 
   <footer>
-    <p><strong>Interpretation boundary:</strong> ideal simulation of one 7-node instance. Feasible-route enumeration exposes the classical optimum and p<sub>feas</sub>=1 is not quantum advantage.</p>
-    <p id="environmentNote"></p>
+    <p><b>Scientific boundary:</b> ideal full-space statevector replay of one seven-node instance under the frozen optimization budget. Global-Grover QAOA is not standard Grover search. No quantum-advantage or scaling claim is made.</p>
+    <p>Keyboard: Space play/pause · ←/→ checkpoint · ↑/↓ layer · C cost · M mixer · 1 Penalty-X · 2 Global-Grover.</p>
   </footer>
 
   <div id="tooltip" class="tooltip hidden" role="tooltip"></div>
-  <div id="loadingOverlay" class="loading-overlay"><div><span class="spinner"></span><p>Validating and loading saved QAOA dynamics…</p></div></div>
-  <div id="errorOverlay" class="error-overlay hidden"><div><h2>Visualization unavailable</h2><p id="errorMessage"></p></div></div>
+  <div id="loadingOverlay" class="loading-overlay"><div><span class="spinner"></span><p id="loadingMessage">Reading frozen optimized parameters…</p></div></div>
+  <div id="errorOverlay" class="error-overlay hidden"><div><h2>Evolution microscope unavailable</h2><p id="errorMessage"></p></div></div>
+  <script src="/vendor/katex/katex.min.js" defer></script>
+  <script src="/math.js" defer></script>
   <script src="/app.js" defer></script>
 </body>
 </html>

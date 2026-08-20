@@ -157,9 +157,12 @@ def _checkpoint_metrics(
     p_opt = probability_mass(probabilities, optimal_mask)
     infeasible_mass = probability_mass(probabilities, ~feasible_mask)
     other_feasible = probability_mass(probabilities, feasible_mask & ~optimal_mask)
-    order = np.lexsort((np.arange(metadata.dimension), -np.round(probabilities, 15)))
-    top = int(order[0])
-    expected_penalty = float(probabilities @ flow_penalties)
+    # ``np.argmax`` has the same deterministic first-index tie behaviour as
+    # the former full lexicographic sort, without sorting 16,384 values at
+    # every checkpoint. Elementwise sums also avoid thread-pool overhead from
+    # hundreds of tiny BLAS calls during a deep replay.
+    top = int(np.argmax(np.round(probabilities, 15)))
+    expected_penalty = float(np.sum(probabilities * flow_penalties))
     coefficient = metadata.penalty_coefficient
     penalty_contribution = (
         None if coefficient is None else float(coefficient * expected_penalty)
@@ -169,13 +172,13 @@ def _checkpoint_metrics(
         checkpoint=checkpoint,
         operation=operation,
         layer=int(layer),
-        norm=float(np.linalg.norm(vector)),
+        norm=float(np.sqrt(probability_sum)),
         probability_sum=probability_sum,
-        expected_hc=float(probabilities @ total_energies),
-        expected_routing_term=float(probabilities @ route_costs),
+        expected_hc=float(np.sum(probabilities * total_energies)),
+        expected_routing_term=float(np.sum(probabilities * route_costs)),
         expected_flow_penalty=None if coefficient is None else expected_penalty,
         expected_penalty_contribution=penalty_contribution,
-        expected_total_qubo=float(probabilities @ total_energies),
+        expected_total_qubo=float(np.sum(probabilities * total_energies)),
         p_feas=p_feas,
         p_opt=p_opt,
         invalid_mass=infeasible_mass,
@@ -223,7 +226,10 @@ def _validate_physics(
                 checkpoints[2 * layer + 1].expected_hc
                 - checkpoints[2 * layer].expected_hc
             ),
-            cost_norm_delta=float(np.linalg.norm(after_cost) - np.linalg.norm(before)),
+            cost_norm_delta=float(
+                np.sqrt(np.sum(np.abs(after_cost) ** 2))
+                - np.sqrt(np.sum(np.abs(before) ** 2))
+            ),
             cost_state_max_delta=float(np.max(np.abs(after_cost - before))),
             cost_relative_phase_spread=phase_spread,
             cost_changed_phase=bool(phase_spread > TRACE_TOLERANCE),

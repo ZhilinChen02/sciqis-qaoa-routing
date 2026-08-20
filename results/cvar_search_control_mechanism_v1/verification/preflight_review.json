@@ -1,0 +1,212 @@
+{
+  "schema": "sciqis-cvar-search-control-preflight-v1",
+  "checks_passed": 23,
+  "checks_failed": 0,
+  "checks": [
+    {
+      "name": "manifest_schema_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "configuration_hash_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "protocol_hash_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "manifest_exactly_reconstructs_60_cells",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "identity_count_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "experiment_counts_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "evaluation_maximum_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "fresh_seed_ids_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "sensitivity_seed_ids_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "fresh_seeds_do_not_overlap_history",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "immutable_result_path_cannot_be_target",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "historical_file_inventory_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "historical_tree_digest_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "reference_problem_hashes_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "optimal_route_identity_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "intended_factor_contrasts_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "paired_initialization_hashes_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "experiment_c_restart_semantics_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "checkpoint_budgets_not_cells",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "cvar_fractional_cutoff_unchanged",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "thread_environment_exact",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "safe_worker_count",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no_scientific_checkpoint_exists_preflight",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "exact_cell_counts": {
+    "A": 20,
+    "B": 10,
+    "C": 20,
+    "D": 10,
+    "total": 60
+  },
+  "exact_seed_ids": {
+    "primary": [
+      8801,
+      8802,
+      8803,
+      8804,
+      8805,
+      8806,
+      8807,
+      8808,
+      8809,
+      8810
+    ],
+    "sensitivity": [
+      8801,
+      8802,
+      8803,
+      8804,
+      8805
+    ]
+  },
+  "optimizer_settings": {
+    "COBYLA": {
+      "method": "COBYLA",
+      "rhobeg": 0.5,
+      "tol": 1e-08,
+      "catol": 1e-08,
+      "disp": false,
+      "bounds": "gammas [0,2pi], betas [0,pi]",
+      "objective_evaluation_counting": "only calls through the scipy optimizer callback; the explicit pre-optimization start evaluation is index 0 and is not charged"
+    },
+    "Nelder-Mead": {
+      "method": "Nelder-Mead",
+      "maxfev": 5500,
+      "xatol": 1e-08,
+      "fatol": 1e-08,
+      "adaptive": false,
+      "disp": false,
+      "initial_simplex": null,
+      "bounds": "same physical bounds; SciPy bound clipping",
+      "objective_evaluation_counting": "only calls through the scipy optimizer callback; the explicit pre-optimization start evaluation is index 0 and is not charged"
+    }
+  },
+  "evaluation_budgets": {
+    "A": 11000,
+    "B": 5500,
+    "C": 5500,
+    "D": 11000,
+    "total_maximum": 495000
+  },
+  "estimated_runtime": {
+    "historical_global_grover_p110_5500_median_wall_s": 359.82089141895995,
+    "historical_penalty_x_p110_5500_median_wall_s": 2098.092211448122,
+    "projected_serial_cpu_hours": 18.652585174524898,
+    "projected_eight_worker_wall_hours_range": [
+      3.0,
+      4.0
+    ],
+    "basis": "linear evaluation-count projection from matched p=110 historical cells"
+  },
+  "expected_cpu_parallelism": {
+    "worker_processes": 8,
+    "threads_per_worker": 1,
+    "environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    }
+  },
+  "endpoints": {
+    "primary_confirmatory": "Experiment A Global-Grover p_opt at B=11000, 10 paired fresh seeds, historical robustness rule",
+    "secondary_mechanistic": "A trajectories; B optimizer sensitivity; C basin transfer; D mixer control"
+  },
+  "protocol_sha256": "9d59ab2fe9aa35b8cc3f03e145cefe95053899b94f19c8bb5386ad8abae0084c",
+  "manifest_sha256": "21cca6503c74e5b1ef0087c1061bc1bb4a3ade7e7c02b838e44db01f24188602",
+  "old_evidence_preservation": {
+    "tree_digest_sha256": "c0bc2821ee625c53da11308a630a75d56e78bcdf1e5ad778f1c5233485ec6dee",
+    "file_count": 312,
+    "frozen_manifest_sha256": "f468f300e51a82e42e88e9821ed6eb672ce97983b495c5efc1bc4949e0416a11",
+    "canonical_rows_sha256": "1472b97860f8b417fcb09ebe18c65b6d6fb2fcbd481eb507119938d02b3c9710"
+  },
+  "deviations": [],
+  "READY_TO_EXECUTE": "YES"
+}
