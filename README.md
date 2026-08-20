@@ -9,13 +9,21 @@
 ![Validation](https://img.shields.io/badge/validation-ALL_PASS-2EA44F)
 ![State space](https://img.shields.io/badge/state_space-16,384-16324F)
 
-[Full notebook](./QAOA_Routing_Project_Full_Reproduction.ipynb) ·
+[Open the project notebook](./QAOA_Routing.ipynb) ·
 [Results](#results) ·
 [Complete result report](#complete-notebook-result-report) ·
 [Reproduce](#reproduce-the-notebook) ·
 [Repository layout](#repository-layout)
 
 </div>
+
+> [!IMPORTANT]
+> **只需查看并运行 [`QAOA_Routing.ipynb`](./QAOA_Routing.ipynb)。**
+> 它是本项目唯一的完整复现入口；其他文件仅用于提供代码、固定数据和结果图片。
+>
+> **Only open and run [`QAOA_Routing.ipynb`](./QAOA_Routing.ipynb).**
+> It is the single complete reproduction entry point. Everything else only
+> supports the notebook with source code, fixed data, or generated results.
 
 ## Overview
 
@@ -460,15 +468,15 @@ cd sciqis-qaoa-routing
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e ".[notebook]"
-python -m jupyter lab QAOA_Routing_Project_Full_Reproduction.ipynb
+python -m jupyter lab QAOA_Routing.ipynb
 ```
 
 For a non-interactive end-to-end run:
 
 ```bash
 MPLBACKEND=Agg python -m jupyter nbconvert \
-  --to notebook --execute QAOA_Routing_Project_Full_Reproduction.ipynb \
-  --output /tmp/QAOA_Routing_Project_Full_Reproduction.executed.ipynb \
+  --to notebook --execute QAOA_Routing.ipynb \
+  --output /tmp/QAOA_Routing.executed.ipynb \
   --ExecutePreprocessor.kernel_name=python3 \
   --ExecutePreprocessor.timeout=300
 ```
@@ -499,7 +507,7 @@ The notebook checks the scientific-computing chain directly:
 
 ```text
 .
-├── QAOA_Routing_Project_Full_Reproduction.ipynb
+├── QAOA_Routing.ipynb              # the only file readers need to open
 ├── assets/
 │   ├── readme/                     # three curated overview figures
 │   └── notebook-results/           # all 25 notebook result figures
