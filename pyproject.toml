@@ -1,22 +1,22 @@
 [project]
 name = "sciqis-qaoa-routing"
 version = "1.0.0"
-description = "QAOA routing mechanisms for the DTU SCIQIS course project"
+description = "Minimal QAOA routing reproduction notebook"
 readme = "README.md"
 requires-python = ">=3.11,<3.14"
 dependencies = [
     "matplotlib>=3.8,<4",
     "networkx>=3.2,<4",
     "numpy>=2,<3",
-    "qiskit>=2.2,<3",
+    "pandas>=2.2,<4",
     "scipy>=1.15,<2",
 ]
 
 [project.optional-dependencies]
-dev = [
-    "pytest>=8,<10",
-    "python-pptx>=1.0,<2",
-    "reportlab>=4.2,<5",
+notebook = [
+    "ipykernel>=6,<8",
+    "jupyterlab>=4,<5",
+    "nbconvert>=7,<8",
 ]
 
 [build-system]
@@ -26,19 +26,8 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools]
 package-dir = { "" = "src" }
 py-modules = [
-    "feasible_qaoa",
-    "feasible_experiments",
     "graph",
-    "main",
     "metrics",
     "qaoa",
     "qubo",
 ]
-
-[tool.setuptools.packages.find]
-where = ["src"]
-include = ["experiments*", "support*"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-pythonpath = [".", "src"]

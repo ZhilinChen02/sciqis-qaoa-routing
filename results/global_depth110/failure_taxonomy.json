@@ -1,8 +1,0 @@
-{
-  "COMPLETE": "COBYLA reported convergence before the evaluation budget.",
-  "BUDGET_LIMITED": "COBYLA used the declared evaluation budget; this is not a timeout.",
-  "OPTIMIZER_FAILED": "COBYLA stopped for a reason other than convergence or budget exhaustion.",
-  "counts": {
-    "BUDGET_LIMITED": 220
-  }
-}
