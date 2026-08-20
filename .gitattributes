@@ -1,6 +1,0 @@
-# Preserve frozen result evidence byte-for-byte. Several sealed CSV/SVG files
-# intentionally retain their original line endings and path formatting.
-results/** -whitespace
-
-# Treat any locally generated PDF as binary.
-*.pdf binary

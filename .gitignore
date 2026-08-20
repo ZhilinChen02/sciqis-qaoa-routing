@@ -9,6 +9,7 @@ dist/
 .coverage
 htmlcov/
 .ipynb_checkpoints/
+/notebook_output/
 .idea/
 .vscode/
 .DS_Store
@@ -25,22 +26,10 @@ KEY.txt
 *.sqlite-shm
 *.sqlite-wal
 
-# Local presentation/report artifacts
+# Local artifacts unrelated to the reproduction notebook.
+/From_Routing_to_QAOA_DTU_Minimal*.pptx
+/myplot.png
+/paper/
 /presentation/
+/presentation_book/
 /reports/
-scripts/make_course_figures.py
-scripts/make_algorithm_report_cn.py
-scripts/make_final_report_cn.py
-
-# Local narratives and generated visual artifacts; none are runtime inputs.
-/archive/
-/notebooks/
-/docs/
-/figures/
-
-# The final course paper is versioned; ignore only reproducible LaTeX intermediates.
-paper/*.aux
-paper/*.bbl
-paper/*.blg
-paper/*.out
-paper/*.xdv
