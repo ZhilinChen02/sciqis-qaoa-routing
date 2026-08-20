@@ -107,7 +107,7 @@ def build_handler(repository: QAOAVisualizationRepository) -> type[BaseHTTPReque
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Replay retained QAOA gamma, beta, and energy trajectories in a browser."
+        description="Explore built-in QAOA gamma, beta, and energy trajectories in a browser."
     )
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=8765)
@@ -125,7 +125,7 @@ def main() -> None:
         catalog = repository.catalog()
         print(
             f"visualizer inputs: {catalog['method_count']} methods, "
-            f"{catalog['run_count']} retained runs"
+            f"{catalog['run_count']} built-in demo runs"
         )
         return
     if not 0 <= arguments.port <= 65535:

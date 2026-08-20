@@ -1,187 +1,257 @@
-"""Prepare saved feasible-route QAOA runs for the browser animation."""
+"""Build a compact, self-contained QAOA demo for the browser visualizer."""
 
-import json
-from pathlib import Path
+from __future__ import annotations
+
 from typing import Any
 
 import numpy as np
 
-METHOD_ORDER = ("bsp_path_exchange", "gm_qaoa_expectation", "gm_th_qaoa")
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_RESULT_ROOT = (
-    PROJECT_ROOT
-    / "results/q2f_final_improvement"
-    / "q2fi-473475526184d55e7870caee93679b092d4443f5ec87dbd399a017412f430bb1"
+from feasible_experiments import build_grover_feasible_mixer
+from feasible_qaoa import (
+    INCUMBENT_BIASED_FEASIBLE,
+    UNIFORM_FEASIBLE,
+    build_feasible_initial_state,
+    build_feasible_route_basis,
+    build_logical_cost_hamiltonian,
+    build_logical_path_exchange_mixer,
 )
+from graph import load_graph
+
+
+METHOD_ORDER = ("bsp_path_exchange", "gm_qaoa_expectation", "gm_th_qaoa")
 METHOD_DISPLAYS = {
     "bsp_path_exchange": {
         "label": "BSP Path-Exchange QAOA",
         "short": "BSP + Path Exchange",
-        "explanation": "Cost phase, path-exchange mixer, optimize probability below the incumbent cost.",
+        "explanation": "Cost phase, path-exchange mixer, and better-solution probability.",
     },
     "gm_qaoa_expectation": {
         "label": "Grover-Mixer QAOA (Expectation)",
         "short": "GM-QAOA Expectation",
-        "explanation": "Cost phase, Grover feasible mixer, optimize normalized expected route cost.",
+        "explanation": "Cost phase, Grover feasible mixer, and normalized expected route cost.",
     },
     "gm_th_qaoa": {
         "label": "Grover-Mixer Threshold QAOA",
         "short": "GM-Th-QAOA",
-        "explanation": "Incumbent-threshold phase, Grover feasible mixer, optimize better-solution probability.",
+        "explanation": "Incumbent-threshold phase, Grover feasible mixer, and better-solution probability.",
     },
 }
 
+# These deterministic angle sequences are enough to demonstrate all three
+# circuits. Every state and metric is rebuilt from the tracked core code.
+DEMO_RUNS = (
+    {
+        "run_id": "bsp_path_exchange_p1_demo",
+        "method": "bsp_path_exchange",
+        "depth": 1,
+        "seed": 2601,
+        "parameters": (0.5904949711373307, 1.814207376939347),
+    },
+    {
+        "run_id": "gm_qaoa_expectation_p2_demo",
+        "method": "gm_qaoa_expectation",
+        "depth": 2,
+        "seed": 2601,
+        "parameters": (
+            3.0950079456075264e-09,
+            5.673086608771164,
+            2.461793769694505,
+            0.2509334405358042,
+        ),
+    },
+    {
+        "run_id": "gm_th_qaoa_p3_demo",
+        "method": "gm_th_qaoa",
+        "depth": 3,
+        "seed": 2601,
+        "parameters": (
+            2.9806517181260643,
+            2.8789040050030557,
+            2.940387676195214,
+            2.8489898303512913,
+            3.1031165823822953,
+            2.6411237545732305,
+        ),
+    },
+)
+
 
 class VisualizationDataError(RuntimeError):
-    pass
-
-
-def _read_json(path: Path) -> dict[str, Any]:
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as error:
-        raise VisualizationDataError(f"cannot load {path}") from error
-    if not isinstance(data, dict):
-        raise VisualizationDataError(f"expected a JSON object in {path}")
-    return data
+    """Raised when the built-in demonstration cannot be constructed."""
 
 
 class QAOAVisualizationRepository:
-    """Small read-only adapter between saved JSON files and the web page."""
+    """Build browser-ready runs directly from the graph and QAOA primitives."""
 
-    def __init__(self, result_root: str | Path = DEFAULT_RESULT_ROOT):
-        self.result_root = Path(result_root).resolve()
-        self.basis_data = _read_json(self.result_root / "basis.json")
-        basis = self.basis_data["basis"]
-        costs = self.basis_data["cost_hamiltonian"]
-        self.routes = tuple(basis["routes"])
-        if len(self.routes) != 20:
-            raise VisualizationDataError("expected 20 feasible routes")
+    def __init__(self) -> None:
+        try:
+            self.basis = build_feasible_route_basis(load_graph())
+            self.costs = build_logical_cost_hamiltonian(self.basis)
+            self.path_mixer = build_logical_path_exchange_mixer(self.basis)
+            self.grover_mixer = build_grover_feasible_mixer(self.basis.size)
+            self.uniform_initial = build_feasible_initial_state(
+                self.basis, self.costs, mode=UNIFORM_FEASIBLE
+            )
+            self.biased_initial = build_feasible_initial_state(
+                self.basis,
+                self.costs,
+                mode=INCUMBENT_BIASED_FEASIBLE,
+                bias_lambda=1.0,
+            )
+        except (OSError, RuntimeError, ValueError) as error:
+            raise VisualizationDataError("cannot build the visualizer demo") from error
 
-        self.raw_costs = np.asarray(costs["raw_energies"], dtype=float)
-        self.normalized_costs = np.asarray(costs["normalized_energies"], dtype=float)
-        self.shift = float(costs["normalization_shift"])
-        self.scale = float(costs["normalization_scale"])
-        self.better_mask = np.asarray(
-            self.basis_data["incumbent_threshold"]["better_mask"], dtype=bool
+        self.raw_costs = np.asarray(self.costs.raw_energies, dtype=float)
+        self.normalized_costs = np.asarray(
+            self.costs.normalized_energies, dtype=float
         )
+        incumbent_cost = self.raw_costs[self.basis.incumbent_route_id]
+        self.better_mask = self.raw_costs < incumbent_cost
         self.optimal_mask = np.asarray(
-            [route["exact_optimal"] for route in self.routes], dtype=bool
+            [route.exact_optimal for route in self.basis.routes], dtype=bool
         )
-
-        path_hamiltonian = np.asarray(
-            self.basis_data["path_exchange_mixer"]["hamiltonian"], dtype=complex
-        )
-        self.path_eigenvalues, self.path_eigenvectors = np.linalg.eigh(path_hamiltonian)
-        self.uniform_state = np.asarray(
-            self.basis_data["grover_mixer"]["uniform_state_real"], dtype=complex
-        )
-
-        self.runs = {}
-        for path in sorted((self.result_root / "raw").glob("*.json")):
-            result = _read_json(path).get("result")
-            if not isinstance(result, dict) or result.get("method") not in METHOD_ORDER:
-                continue
-            run_id = result.get("run_id")
-            if run_id != path.stem or run_id in self.runs:
-                raise VisualizationDataError(f"invalid run identity: {path}")
-            self.runs[run_id] = result
-        if not self.runs:
-            raise VisualizationDataError("no saved visualization runs found")
+        self.runs = {str(run["run_id"]): run for run in DEMO_RUNS}
+        self.payloads = {
+            run_id: self._build_run(spec) for run_id, spec in self.runs.items()
+        }
 
     def catalog(self) -> dict[str, Any]:
-        """List the available method, depth and seed combinations."""
+        """List the three small built-in method demonstrations."""
 
         rows = []
-        for run_id, result in self.runs.items():
-            display = METHOD_DISPLAYS[result["method"]]
+        for run_id, result in self.payloads.items():
+            display = METHOD_DISPLAYS[str(result["method"])]
             rows.append(
                 {
                     "run_id": run_id,
                     "method": result["method"],
                     "method_label": display["label"],
                     "method_short_label": display["short"],
-                    "depth": int(result["depth"]),
-                    "seed": int(result["seed"]),
-                    "evaluations": int(result["optimizer"]["evaluations"]),
-                    "final_expected_cost": float(result["metrics"]["expected_route_cost"]),
-                    "final_p_opt": float(result["metrics"]["p_opt"]),
+                    "depth": result["depth"],
+                    "seed": result["seed"],
+                    "evaluations": len(result["frames"]),
+                    "final_expected_cost": result["final"]["expected_cost"],
+                    "final_p_opt": result["final"]["p_opt"],
                 }
             )
         method_index = {method: index for index, method in enumerate(METHOD_ORDER)}
-        rows.sort(key=lambda row: (method_index[row["method"]], row["depth"], row["seed"]))
+        rows.sort(key=lambda row: method_index[str(row["method"])])
         return {
             "schema": "dtu-sciqis-qaoa-visualization-catalog",
             "version": "1.0",
-            "result_identity": self.result_root.name,
+            "result_identity": "built-in-core-demo",
             "read_only_replay": True,
-            "method_count": len({row["method"] for row in rows}),
+            "method_count": len(rows),
             "run_count": len(rows),
             "runs": rows,
         }
 
     def load_run(self, run_id: str) -> dict[str, Any]:
-        """Build optimizer frames and circuit labels for one saved run."""
+        """Return one fully reconstructed demonstration run."""
 
-        if run_id not in self.runs:
+        if run_id not in self.payloads:
             raise KeyError(f"unknown_visualization_run:{run_id}")
-        result = self.runs[run_id]
-        method = result["method"]
+        return self.payloads[run_id]
+
+    def _build_run(self, spec: dict[str, object]) -> dict[str, Any]:
+        method = str(spec["method"])
+        depth = int(spec["depth"])
+        final_parameters = np.asarray(spec["parameters"], dtype=float)
+        parameter_rows = (
+            np.zeros(2 * depth, dtype=float),
+            0.5 * final_parameters,
+            final_parameters,
+        )
+        frames = []
+        best_loss = float("inf")
+        for evaluation, parameters in enumerate(parameter_rows, start=1):
+            stages = self._simulate(method, depth, parameters)
+            final_stage = stages[-1]
+            loss = (
+                final_stage["expected_normalized_cost"]
+                if method == "gm_qaoa_expectation"
+                else -final_stage["bsp"]
+            )
+            improved = float(loss) < best_loss
+            if improved:
+                best_loss = float(loss)
+            frames.append(
+                {
+                    "evaluation": evaluation,
+                    "in_bounds": True,
+                    "gammas": list(map(float, parameters[:depth])),
+                    "betas": list(map(float, parameters[depth:])),
+                    "loss": float(loss),
+                    "bsp": final_stage["bsp"],
+                    "p_feas": 1.0,
+                    "expected_normalized_cost": final_stage[
+                        "expected_normalized_cost"
+                    ],
+                    "expected_cost": final_stage["expected_cost"],
+                    "best_objective_so_far": improved,
+                    "stages": stages,
+                }
+            )
+
+        final_stage = frames[-1]["stages"][-1]
+        probabilities = np.asarray(final_stage["probabilities"])
+        most_probable_id = int(np.argmax(probabilities))
+        most_probable = self.basis.routes[most_probable_id]
         display = METHOD_DISPLAYS[method]
-        metrics = result["metrics"]
         return {
             "schema": "dtu-sciqis-qaoa-animation",
             "version": "1.0",
             "source": {
-                "kind": "sealed_optimizer_trace",
-                "result_identity": self.result_root.name,
+                "kind": "built_in_example_trajectory",
+                "result_identity": "built-in-core-demo",
                 "read_only": True,
             },
-            "run_id": run_id,
+            "run_id": spec["run_id"],
             "method": method,
             "method_label": display["label"],
             "method_short_label": display["short"],
             "method_explanation": display["explanation"],
-            "depth": int(result["depth"]),
-            "seed": int(result["seed"]),
-            "circuit": self._circuit(result),
+            "depth": depth,
+            "seed": int(spec["seed"]),
+            "circuit": self._circuit(method, depth),
             "energy": {
                 "label": "Expected route cost",
                 "symbol": "<C>",
                 "minimum_basis_cost": float(self.raw_costs.min()),
                 "maximum_basis_cost": float(self.raw_costs.max()),
-                "normalization_shift": self.shift,
-                "normalization_scale": self.scale,
+                "normalization_shift": self.costs.normalization_shift,
+                "normalization_scale": self.costs.normalization_scale,
             },
             "routes": [
                 {
-                    "route_id": int(route["route_id"]),
-                    "node_sequence": list(route["node_sequence"]),
-                    "routing_cost": float(route["routing_cost"]),
-                    "exact_optimal": bool(route["exact_optimal"]),
+                    "route_id": route.route_id,
+                    "node_sequence": list(route.node_sequence),
+                    "routing_cost": float(route.routing_cost),
+                    "exact_optimal": route.exact_optimal,
                 }
-                for route in self.routes
+                for route in self.basis.routes
             ],
-            "frames": self._frames(result),
+            "frames": frames,
             "final": {
-                "parameters": list(map(float, result["optimizer"]["final_parameters"])),
-                "expected_cost": float(metrics["expected_route_cost"]),
-                "expected_normalized_cost": float(metrics["expected_normalized_cost"]),
-                "p_opt": float(metrics["p_opt"]),
-                "p_feas": float(metrics["p_feas"]),
-                "bsp": float(metrics["bsp"]),
-                "most_probable_route": list(metrics["most_probable_route"]),
-                "most_probable_route_cost": float(metrics["most_probable_route_cost"]),
-                "termination": str(result["optimizer"]["reason"]),
+                "parameters": list(map(float, final_parameters)),
+                "expected_cost": final_stage["expected_cost"],
+                "expected_normalized_cost": final_stage[
+                    "expected_normalized_cost"
+                ],
+                "p_opt": final_stage["p_opt"],
+                "p_feas": 1.0,
+                "bsp": final_stage["bsp"],
+                "most_probable_route": list(most_probable.node_sequence),
+                "most_probable_route_cost": float(most_probable.routing_cost),
+                "termination": "built_in_demo_parameters",
             },
         }
 
     @staticmethod
-    def _circuit(result):
-        depth = int(result["depth"])
-        threshold_phase = result["phase_kind"] == "strict_incumbent_threshold_phase"
-        grover_mixer = result["mixer_kind"] == "logical_grover_feasible_mixer"
-        uniform = result["initialization_mode"] == "uniform_feasible"
+    def _circuit(method: str, depth: int) -> dict[str, Any]:
+        threshold_phase = method == "gm_th_qaoa"
+        grover_mixer = method != "bsp_path_exchange"
+        uniform = method != "bsp_path_exchange"
         return {
             "representation": "20-state logical feasible-route register",
             "hardware_gate_decomposition": False,
@@ -195,66 +265,54 @@ class QAOAVisualizationRepository:
             "initial": (
                 {"symbol": "|F>", "label": "Uniform feasible state"}
                 if uniform
-                else {"symbol": "|psi_inc>", "label": "Incumbent-biased feasible state"}
+                else {
+                    "symbol": "|psi_inc>",
+                    "label": "Incumbent-biased feasible state",
+                }
             ),
             "phase": (
-                {"symbol": "U_T", "label": "Threshold phase", "formula": "exp(-i gamma h_T)"}
+                {
+                    "symbol": "U_T",
+                    "label": "Threshold phase",
+                    "formula": "exp(-i gamma h_T)",
+                }
                 if threshold_phase
-                else {"symbol": "U_C", "label": "Cost phase", "formula": "exp(-i gamma H_C)"}
+                else {
+                    "symbol": "U_C",
+                    "label": "Cost phase",
+                    "formula": "exp(-i gamma H_C)",
+                }
             ),
             "mixer": (
-                {"symbol": "U_G", "label": "Grover feasible mixer", "formula": "exp(-i beta |F><F|)"}
+                {
+                    "symbol": "U_G",
+                    "label": "Grover feasible mixer",
+                    "formula": "exp(-i beta |F><F|)",
+                }
                 if grover_mixer
-                else {"symbol": "U_PE", "label": "Path-exchange mixer", "formula": "exp(-i beta H_PE)"}
+                else {
+                    "symbol": "U_PE",
+                    "label": "Path-exchange mixer",
+                    "formula": "exp(-i beta H_PE)",
+                }
             ),
             "measurement": {"symbol": "M", "label": "Route measurement"},
             "parameter_order": "all gammas, then all betas",
             "layer_order": "phase, then mixer",
         }
 
-    def _frames(self, result):
-        depth = int(result["depth"])
-        frames = []
-        best_loss = float("inf")
-        for record in result["optimizer"]["evaluation_trace"]:
-            parameters = np.asarray(record["parameters"], dtype=float)
-            in_bounds = bool(record["in_bounds"])
-            loss = float(record["loss"])
-            stages = self._simulate(result, parameters) if in_bounds else []
-            normalized = record.get("expected_normalized_cost")
-            expected_cost = None if normalized is None else self.shift + self.scale * float(normalized)
-            improved = in_bounds and loss < best_loss
-            if improved:
-                best_loss = loss
-            frames.append(
-                {
-                    "evaluation": int(record["evaluation_index"]),
-                    "in_bounds": in_bounds,
-                    "gammas": list(map(float, parameters[:depth])),
-                    "betas": list(map(float, parameters[depth:])),
-                    "loss": loss,
-                    "bsp": None if record.get("bsp") is None else float(record["bsp"]),
-                    "p_feas": None if record.get("p_feas") is None else float(record["p_feas"]),
-                    "expected_normalized_cost": None if normalized is None else float(normalized),
-                    "expected_cost": expected_cost,
-                    "best_objective_so_far": bool(improved),
-                    "stages": stages,
-                }
-            )
-        return frames
-
-    def _simulate(self, result, parameters):
-        depth = int(result["depth"])
-        initial_key = (
-            "uniform_initial_state"
-            if result["initialization_mode"] == "uniform_feasible"
-            else "incumbent_biased_initial_state"
+    def _simulate(
+        self, method: str, depth: int, parameters: np.ndarray
+    ) -> list[dict[str, Any]]:
+        initial = (
+            self.biased_initial
+            if method == "bsp_path_exchange"
+            else self.uniform_initial
         )
-        probabilities = np.asarray(self.basis_data[initial_key]["probabilities"])
-        state = np.sqrt(probabilities).astype(complex)
+        state = np.asarray(initial.amplitudes, dtype=complex).copy()
         phase = (
             self.better_mask.astype(float)
-            if result["phase_kind"] == "strict_incumbent_threshold_phase"
+            if method == "gm_th_qaoa"
             else self.normalized_costs
         )
         stages = [self._stage(state, "initial", 0, None)]
@@ -263,17 +321,18 @@ class QAOAVisualizationRepository:
         ):
             state *= np.exp(-1j * gamma * phase)
             stages.append(self._stage(state, "phase", layer, float(gamma)))
-            if result["mixer_kind"] == "logical_grover_feasible_mixer":
-                overlap = np.vdot(self.uniform_state, state)
-                state += (np.exp(-1j * beta) - 1) * self.uniform_state * overlap
-            else:
-                coefficients = self.path_eigenvectors.conj().T @ state
-                phases = np.exp(-1j * beta * self.path_eigenvalues)
-                state = self.path_eigenvectors @ (phases * coefficients)
+            mixer = (
+                self.path_mixer
+                if method == "bsp_path_exchange"
+                else self.grover_mixer
+            )
+            state = mixer.evolve(state, float(beta))
             stages.append(self._stage(state, "mixer", layer, float(beta)))
         return stages
 
-    def _stage(self, state, kind, layer, angle):
+    def _stage(
+        self, state: np.ndarray, kind: str, layer: int, angle: float | None
+    ) -> dict[str, Any]:
         probabilities = np.abs(state) ** 2
         probabilities /= probabilities.sum()
         return {
@@ -281,7 +340,9 @@ class QAOAVisualizationRepository:
             "layer": layer,
             "angle": angle,
             "expected_cost": float(probabilities @ self.raw_costs),
-            "expected_normalized_cost": float(probabilities @ self.normalized_costs),
+            "expected_normalized_cost": float(
+                probabilities @ self.normalized_costs
+            ),
             "bsp": float(probabilities[self.better_mask].sum()),
             "p_opt": float(probabilities[self.optimal_mask].sum()),
             "most_probable_route_id": int(np.argmax(probabilities)),

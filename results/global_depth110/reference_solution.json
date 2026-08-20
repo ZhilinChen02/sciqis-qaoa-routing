@@ -1,0 +1,328 @@
+{
+  "n_qubits": 14,
+  "search_space_size": 16384,
+  "feasible_state_count": 20,
+  "infeasible_state_count": 16364,
+  "optimal_feasible_cost": 10.0,
+  "optimal_state_count": 1,
+  "optimal_bitstrings": [
+    "10010001000101"
+  ],
+  "exact_route": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+  ],
+  "edge_order_q0_to_q13": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      2,
+      4
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      3,
+      5
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      5,
+      6
+    ]
+  ],
+  "feasible_routes": [
+    {
+      "state_index": 4129,
+      "bitstring": "10000100000010",
+      "route": [
+        0,
+        1,
+        4,
+        6
+      ],
+      "route_cost": 14
+    },
+    {
+      "state_index": 4226,
+      "bitstring": "01000001000010",
+      "route": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "route_cost": 12
+    },
+    {
+      "state_index": 4233,
+      "bitstring": "10010001000010",
+      "route": [
+        0,
+        1,
+        2,
+        4,
+        6
+      ],
+      "route_cost": 11
+    },
+    {
+      "state_index": 4612,
+      "bitstring": "00100000010010",
+      "route": [
+        0,
+        3,
+        4,
+        6
+      ],
+      "route_cost": 14
+    },
+    {
+      "state_index": 4625,
+      "bitstring": "10001000010010",
+      "route": [
+        0,
+        1,
+        3,
+        4,
+        6
+      ],
+      "route_cost": 13
+    },
+    {
+      "state_index": 4674,
+      "bitstring": "01000010010010",
+      "route": [
+        0,
+        2,
+        3,
+        4,
+        6
+      ],
+      "route_cost": 13
+    },
+    {
+      "state_index": 4681,
+      "bitstring": "10010010010010",
+      "route": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6
+      ],
+      "route_cost": 12
+    },
+    {
+      "state_index": 8450,
+      "bitstring": "01000000100001",
+      "route": [
+        0,
+        2,
+        5,
+        6
+      ],
+      "route_cost": 13
+    },
+    {
+      "state_index": 8457,
+      "bitstring": "10010000100001",
+      "route": [
+        0,
+        1,
+        2,
+        5,
+        6
+      ],
+      "route_cost": 12
+    },
+    {
+      "state_index": 9220,
+      "bitstring": "00100000001001",
+      "route": [
+        0,
+        3,
+        5,
+        6
+      ],
+      "route_cost": 13
+    },
+    {
+      "state_index": 9233,
+      "bitstring": "10001000001001",
+      "route": [
+        0,
+        1,
+        3,
+        5,
+        6
+      ],
+      "route_cost": 12
+    },
+    {
+      "state_index": 9282,
+      "bitstring": "01000010001001",
+      "route": [
+        0,
+        2,
+        3,
+        5,
+        6
+      ],
+      "route_cost": 12
+    },
+    {
+      "state_index": 9289,
+      "bitstring": "10010010001001",
+      "route": [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6
+      ],
+      "route_cost": 11
+    },
+    {
+      "state_index": 10273,
+      "bitstring": "10000100000101",
+      "route": [
+        0,
+        1,
+        4,
+        5,
+        6
+      ],
+      "route_cost": 13
+    },
+    {
+      "state_index": 10370,
+      "bitstring": "01000001000101",
+      "route": [
+        0,
+        2,
+        4,
+        5,
+        6
+      ],
+      "route_cost": 11
+    },
+    {
+      "state_index": 10377,
+      "bitstring": "10010001000101",
+      "route": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "route_cost": 10
+    },
+    {
+      "state_index": 10756,
+      "bitstring": "00100000010101",
+      "route": [
+        0,
+        3,
+        4,
+        5,
+        6
+      ],
+      "route_cost": 13
+    },
+    {
+      "state_index": 10769,
+      "bitstring": "10001000010101",
+      "route": [
+        0,
+        1,
+        3,
+        4,
+        5,
+        6
+      ],
+      "route_cost": 12
+    },
+    {
+      "state_index": 10818,
+      "bitstring": "01000010010101",
+      "route": [
+        0,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "route_cost": 12
+    },
+    {
+      "state_index": 10825,
+      "bitstring": "10010010010101",
+      "route": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "route_cost": 11
+    }
+  ],
+  "array_hashes": {
+    "energies_sha256": "44ac2d21b3255a2aa149aaa81f80c466ca1517d6cd4c6f066747a562a336266d",
+    "route_cost_sha256": "f50ff33a526aaf17c1297d81ae3333ee7fb3aacf49626bb9483b4322a43d36da",
+    "penalty_cost_sha256": "a99fc8ec4ed9243f946e7ccbdcab94372a5c8aa6d2feebdcdcab66dad071ca71",
+    "is_feasible_sha256": "1c11baaeb0193f9b5f9ad7afbd56514fe756ce7b570dbf4c4392386ba11b8605",
+    "is_optimal_sha256": "ff9462c43c8f475a01ec84c9537ae969d658316e907021cc83f5094baa3e4ca5"
+  }
+}

@@ -1,8 +1,6 @@
-# Preserve sealed Matplotlib SVGs byte-for-byte. Their path-command formatting
-# contains intentional trailing spaces and must not be normalized during review.
-results/**/*.svg -whitespace
-archive/development/q2r/*.md -whitespace
+# Preserve frozen result evidence byte-for-byte. Several sealed CSV/SVG files
+# intentionally retain their original line endings and path formatting.
+results/** -whitespace
 
-# Generated reports are binary; the final Markdown uses deliberate hard breaks.
+# Treat any locally generated PDF as binary.
 *.pdf binary
-reports/QAOA_ROUTING_FINAL_REPORT_CN.md whitespace=-trailing-space

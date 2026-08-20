@@ -25,31 +25,22 @@ KEY.txt
 *.sqlite-shm
 *.sqlite-wal
 
-# Generated presentation render checks are reproducible from the source deck.
-presentation/rendered/
+# Local presentation/report artifacts
+/presentation/
+/reports/
+scripts/make_course_figures.py
+scripts/make_algorithm_report_cn.py
+scripts/make_final_report_cn.py
 
-# Local post-course paper build; it depends on research results outside the course submission.
-paper/
+# Local narratives and generated visual artifacts; none are runtime inputs.
+/archive/
+/notebooks/
+/docs/
+/figures/
 
-# One-off archived fallback render; not part of the course submission.
-archive/development/q2r/fallback_cost_1.png
-
-# Development outputs are ignored. The four course evidence roots are retained.
-results/*
-!results/.gitkeep
-!results/q2_revision_formal/
-!results/q2_revision_formal/**
-!results/q2f_course_extension/
-!results/q2f_course_extension/**
-!results/q2f_final_improvement/
-!results/q2f_final_improvement/**
-!results/qaoa_dynamics_deep_dive/
-!results/qaoa_dynamics_deep_dive/**
-
-# Only the course and dynamics figures used by the submission are versioned.
-figures/*
-!figures/.gitkeep
-!figures/course/
-!figures/course/**
-!figures/qaoa_dynamics_deep_dive/
-!figures/qaoa_dynamics_deep_dive/**
+# The final course paper is versioned; ignore only reproducible LaTeX intermediates.
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/*.xdv

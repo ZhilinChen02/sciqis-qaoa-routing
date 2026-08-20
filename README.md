@@ -1,156 +1,140 @@
-# QAOA Routing — DTU SCIQIS Course Project
+# QAOA Routing
 
-This repository is a teaching implementation of QAOA for one directed,
-weighted routing problem. It follows the complete scientific path:
+A teaching-scale implementation of the Quantum Approximate Optimization
+Algorithm (QAOA) for a directed, weighted routing problem. The project follows
+the complete path from a graph model to a QUBO, an Ising Hamiltonian, optimized
+QAOA states, decoded routes, metrics, and browser visualizations.
+
+It uses ideal statevector simulation and does not claim quantum advantage.
+
+## Problem
+
+The bundled instance has 7 nodes and 14 directed edges. Each edge has a binary
+selection variable. A valid solution must carry one unit of flow from source to
+target while minimizing total edge cost.
+
+The exact reference route is:
 
 ```text
-weighted graph
-  -> edge variables
-  -> routing QUBO
-  -> Ising Hamiltonian
-  -> QAOA state evolution and COBYLA optimization
-  -> measurement probabilities
-  -> decoded routes and p_feas / p_opt
+0 -> 1 -> 2 -> 4 -> 5 -> 6, cost = 10
 ```
 
-The project compares the full 14-qubit bitstring space with a 20-route feasible
-basis and includes the browser visualizations used in the presentation. It uses
-ideal statevector simulation and makes no quantum-advantage claim.
+This route is used to evaluate output distributions; it is not supplied to the
+optimizer.
 
-## Start here
+## Graph -> QUBO -> Ising -> QAOA
 
-Read these files in order:
-
-1. `data/graph.json` — the 7-node, 14-edge course instance.
-2. `src/main.py` — the shortest complete graph-to-QAOA demonstration.
-3. `src/graph.py` — deterministic graph loading, paths, and edge encoding.
-4. `src/qubo.py` — routing constraints, QUBO/Ising mapping, and decoding.
-5. `src/qaoa.py` — state evolution, X/Grover mixers, objectives, and COBYLA.
-6. `src/metrics.py` — `p_feas`, `p_opt`, and distribution summaries.
-7. `src/feasible_qaoa.py` — the verified 20-route logical basis.
-8. `src/feasible_experiments.py` — feasible mixers and retained objectives.
-9. `src/experiments/course_final.py` — the final course comparison.
-
-Run the small end-to-end example from the repository root:
-
-```bash
-python -m src.main
-```
-
-It prints the exact reference route plus QAOA metrics and writes no results.
-
-## Scientific model
-
-Each directed edge has a binary variable `x_i`. The objective is the selected
-edge cost, and the QUBO adds a squared flow-balance constraint at every node:
+The routing QUBO combines edge cost with squared flow-balance penalties:
 
 ```text
 sum_i weight_i x_i
 + A * sum_nodes(outgoing - incoming - supply)^2
 ```
 
-The source supply is `+1`, the target supply is `-1`, and all other supplies
-are zero. Substituting `x_i = (1 - z_i) / 2` gives the Ising coefficients. A
-QAOA layer applies a cost phase followed by a mixer, and COBYLA chooses the
-`gamma` and `beta` angles.
+The source supply is `+1`, the target supply is `-1`, and every other supply is
+zero. Substituting `x_i = (1 - z_i) / 2` produces the Ising coefficients used by
+the phase operator.
 
-The retained objectives are Expectation and fractional-cutoff CVaR. Saved
-course data also records the historical ascending-CVaR schedule. The retained
-mixers are Penalty-X, full-space Global-Grover, path exchange, feasible Grover,
-and the threshold phase used by the final GM-Th course method.
+The implementation includes:
 
-The main metrics are:
+- full-space Penalty-X and Global-Grover QAOA;
+- a 20-route feasible representation with path-exchange and Grover mixers;
+- Expectation and fractional-cutoff CVaR objectives;
+- incumbent-threshold GM-Th-QAOA;
+- deterministic COBYLA optimization;
+- `p_feas`, `p_opt`, conditional route cost, entropy, and related metrics.
 
-- `p_feas`: total probability on valid source-to-target routes;
-- `p_opt`: total probability on the exact optimal route;
-- `p_opt_given_feas = p_opt / p_feas` when `p_feas > 0`;
-- feasible-conditional expected route cost.
+## Installation
 
-Independent shortest-path and exhaustive route checks agree on:
+Python 3.11-3.13 is supported.
 
-```text
-0 -> 1 -> 2 -> 4 -> 5 -> 6, cost = 10
+```bash
+python -m pip install -e ".[dev]"
 ```
 
-This exact solution is used for evaluation, not supplied to the optimizer.
+## Core code
 
-## Course experiments
+- `src/main.py` - the shortest complete graph-to-QAOA demonstration.
+- `src/graph.py` - graph loading, path utilities, and edge encoding.
+- `src/qubo.py` - flow constraints, QUBO/Ising mapping, and route decoding.
+- `src/qaoa.py` - state evolution, X/Grover mixers, objectives, and COBYLA.
+- `src/metrics.py` - distribution and routing metrics.
+- `src/feasible_qaoa.py` - the logical feasible-route basis.
+- `src/feasible_experiments.py` - feasible mixers, Expectation, and GM-Th logic.
+- `data/graph.json` - the routing instance.
+- `src/experiments/` - reusable experiment orchestration.
+- `src/support/` - visualizer data adapters and scientific checks.
+
+## How to run
+
+Run the smallest graph-to-QAOA example:
+
+```bash
+python -m src.main
+```
+
+Run the full-space Penalty-X demonstration or the feasible GM-Th course
+command:
 
 ```bash
 python scripts/run_penalty_qaoa.py
-python scripts/run_course_final.py
-```
-
-For a quick smoke run:
-
-```bash
-python scripts/run_penalty_qaoa.py --budget 4
 python scripts/run_course_final.py --seed 2601 --depth 1
 ```
 
-The optional two-qubit circuit example shows how simple Ising `Z` and `ZZ`
-terms become `RZ` and `CX-RZ-CX` gates:
+For a faster Penalty-X smoke run:
 
 ```bash
-python scripts/show_simple_ising_circuit.py
+python scripts/run_penalty_qaoa.py --budget 4
 ```
 
-## Interactive visualization
+The course command writes nothing unless `--output` is supplied.
 
-Launch the two English-language browser demonstrations with:
+## Results
+
+`results/` contains the retained experiment evidence, including the formal Q2
+revision, feasible-course extensions, dynamics deep dive, CVaR studies, and the
+full depth-1-through-110 Penalty-X/Global-Grover sweep used by the Evolution
+Microscope. These files are read-only evidence; the visualizer never reruns the
+optimizer.
+
+The most useful entry points are each study's configuration, summary,
+validation, and result manifest. Raw traces and saved distributions remain
+available for reproducibility and numerical cross-checks.
+
+## Web visualizers
+
+The general routing visualizer remains a compact demonstration. The QAOA
+dynamics visualizer is the read-only **Evolution Microscope**: it replays the
+frozen Penalty-X and Global-Grover optimized parameters at every cost and mixer
+checkpoint for depths `p=1,...,110`. Intermediate statevectors are reconstructed
+deterministically; no optimization is rerun.
 
 ```bash
 python scripts/run_qaoa_visualizer.py
 python scripts/run_qaoa_dynamics_visualizer.py
 ```
 
-Validate their saved inputs without opening a browser:
+Run the microscope without opening a browser, or execute its complete p=110
+scientific validation:
 
 ```bash
 python scripts/run_qaoa_visualizer.py --check
+python scripts/run_qaoa_dynamics_visualizer.py --no-browser
 python scripts/run_qaoa_dynamics_visualizer.py --check
 ```
 
-## Results, figures, presentation, and report
+The Evolution Microscope reads `results/global_depth110/` directly, exposes all
+depths `p=1,...,110`, and validates replayed final states against saved
+checkpoint metrics and distributions.
 
-The student-facing result report is
-`reports/FINAL_EXPERIMENT_RESULTS_CN.md`, with a matching PDF. The editable
-presentation, PDF, notes, and data audit are under `presentation/`. Course
-figures are in `figures/course/` and can be regenerated only from saved data:
-
-```bash
-python scripts/make_course_figures.py
-```
-
-Saved course evidence is organized as follows:
-
-- `results/q2f_final_improvement/` — final method comparison;
-- `results/qaoa_dynamics_deep_dive/` — layer-by-layer dynamics;
-- `results/q2f_course_extension/` — Expectation/CVaR course extension;
-- `results/q2_revision_formal/` — historical course experiments.
-
-`archive/development/` preserves historical evidence but is not imported by
-the installed runtime or normal test path.
-
-## Install and validate
-
-Python 3.11–3.13 is supported.
+## Tests
 
 ```bash
-python -m pip install -e ".[dev]"
 python -m compileall src scripts
 python -m pytest -q
 ```
 
-The tests cover deterministic graph encoding, exact route identity, all 16,384
-QUBO/Ising basis energies, QAOA normalization, full-space and feasible mixers,
-Expectation and fractional-cutoff CVaR, route decoding, metrics, browser input
-validation, and the course commands.
-
-## Limitations
-
-- This is one teaching-scale graph under ideal statevector simulation.
-- The feasible representation classically enumerates all 20 valid routes.
-- Optimizer comparisons depend on finite budgets and a small seed set.
-- The project does not claim scalable hardware execution, a depth law, or
-  quantum advantage over classical shortest-path algorithms.
+The suite checks deterministic graph encoding, all 16,384 QUBO/Ising basis
+energies, QAOA normalization, Penalty-X and Grover mixers, feasible QAOA,
+Expectation, CVaR, GM-Th behavior, route decoding, metrics, COBYLA, and both web
+visualizers.

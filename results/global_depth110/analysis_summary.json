@@ -1,0 +1,121 @@
+{
+  "algorithms": {
+    "penalty_x": {
+      "threshold_depths": {
+        "p_opt_ge_0.10": null,
+        "p_opt_ge_0.25": null,
+        "p_opt_ge_0.50": null,
+        "p_opt_ge_0.75": null,
+        "p_opt_ge_0.90": null,
+        "p_opt_ge_0.95": null,
+        "p_opt_ge_0.99": null
+      },
+      "best_depth": 21,
+      "best_p_opt": 0.0028331539935815514,
+      "best_p_feas": 0.017946369478107183,
+      "near_p100_best_depth": 105,
+      "near_p100_best_p_opt": 0.0004026084385192199,
+      "p110": {
+        "depth": 110,
+        "p_opt": 0.0003578671392297369,
+        "p_feas": 0.14697022726160758,
+        "p_invalid": 0.8530297727383924,
+        "p_opt_given_feasible": 0.002434963501775989,
+        "expected_penalized_cost": 18.369254680082744,
+        "expected_feasible_route_cost": 13.189673475434448,
+        "entropy": 4.064630897645409,
+        "effective_support_size": 11.195546054651894,
+        "nfev": 504,
+        "evaluation_budget": 504,
+        "status": "BUDGET_LIMITED"
+      },
+      "saturation": {
+        "reached": true,
+        "detection_depth": 12,
+        "window_transitions": 10,
+        "tolerance": 0.001,
+        "p_opt": 0.0019410192157447365,
+        "p_feas": 0.01470861876657102,
+        "optimizer_status_neighborhood": {
+          "BUDGET_LIMITED": 12
+        },
+        "successful_convergence": false,
+        "later_transition_violations": 2,
+        "durable_through_p110": false
+      },
+      "oscillation": {
+        "p_opt_direction_changes_all_depths": 52,
+        "p_opt_direction_changes_p90_p110": 6,
+        "p90_p110_range": 0.00026776695924731397
+      },
+      "budget_limited_rows": 110,
+      "total_wall_time_s": 2284.6487286114134,
+      "mean_p_feas": 0.0946764833998585,
+      "mean_p_opt_given_feasible": 0.022308613977264313
+    },
+    "global_grover": {
+      "threshold_depths": {
+        "p_opt_ge_0.10": null,
+        "p_opt_ge_0.25": null,
+        "p_opt_ge_0.50": null,
+        "p_opt_ge_0.75": null,
+        "p_opt_ge_0.90": null,
+        "p_opt_ge_0.95": null,
+        "p_opt_ge_0.99": null
+      },
+      "best_depth": 110,
+      "best_p_opt": 0.001029783422714649,
+      "best_p_feas": 0.02194609805728336,
+      "near_p100_best_depth": 110,
+      "near_p100_best_p_opt": 0.001029783422714649,
+      "p110": {
+        "depth": 110,
+        "p_opt": 0.001029783422714649,
+        "p_feas": 0.02194609805728336,
+        "p_invalid": 0.9780539019427167,
+        "p_opt_given_feasible": 0.046923303633599214,
+        "expected_penalized_cost": 33.27459464773947,
+        "expected_feasible_route_cost": 12.237095540354105,
+        "entropy": 7.551099029024201,
+        "effective_support_size": 1387.69930794758,
+        "nfev": 504,
+        "evaluation_budget": 504,
+        "status": "BUDGET_LIMITED"
+      },
+      "saturation": {
+        "reached": true,
+        "detection_depth": 11,
+        "window_transitions": 10,
+        "tolerance": 0.001,
+        "p_opt": 6.181735573597232e-05,
+        "p_feas": 0.0012690984547374605,
+        "optimizer_status_neighborhood": {
+          "BUDGET_LIMITED": 12
+        },
+        "successful_convergence": false,
+        "later_transition_violations": 0,
+        "durable_through_p110": true
+      },
+      "oscillation": {
+        "p_opt_direction_changes_all_depths": 50,
+        "p_opt_direction_changes_p90_p110": 9,
+        "p90_p110_range": 0.00032276868958038517
+      },
+      "budget_limited_rows": 110,
+      "total_wall_time_s": 539.0041019127239,
+      "mean_p_feas": 0.010104559466488106,
+      "mean_p_opt_given_feasible": 0.04983149261057064
+    }
+  },
+  "crossover": {
+    "first_global_grover_above_penalty_x": 22,
+    "first_later_penalty_x_overtake": null
+  },
+  "comparative": {
+    "global_grover_has_higher_p_feas_depth_count": 0,
+    "penalty_x_has_higher_p_feas_depth_count": 110,
+    "ties_p_feas_depth_count": 0,
+    "global_grover_has_higher_conditional_optimal_depth_count": 89,
+    "penalty_x_has_higher_conditional_optimal_depth_count": 21
+  }
+}

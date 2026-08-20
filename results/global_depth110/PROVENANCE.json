@@ -1,0 +1,30 @@
+{
+  "schema": "sciqis-global-depth110-provenance",
+  "git_commit": "cd04027e30020936ff1c8f03d24faf9a0c1f8c7d",
+  "working_tree_note": "git commit identifies the base checkout; new experiment files/results may be uncommitted",
+  "experiment_start_utc": "2026-08-18T16:15:27.484237+00:00",
+  "experiment_end_utc": "2026-08-18T16:54:01.205285+00:00",
+  "artifact_generation_utc": "2026-08-18T16:56:38.982434+00:00",
+  "configuration_hash": "9e1e4f1f72071a82e3c72a863f48e8468a8445f1b8fa22eecdf2b356869a6e76",
+  "random_seed_scheme": "2601 + 7919*p",
+  "optimizer_configuration": {
+    "name": "COBYLA",
+    "rhobeg": 0.5,
+    "tolerance": 1e-08,
+    "evaluation_budget_rule": {
+      "formula": "max(120, 2*n_parameters + 64)",
+      "n_parameters": "2*p",
+      "budget_at_p110": 504,
+      "rationale": "at least two parameter-dimension-scaled COBYLA evaluation passes plus 64 evaluations; identical for both mixers"
+    }
+  },
+  "objective_definition": "expected_raw_penalized_cost",
+  "cost_definition": "raw_route_cost_plus_6_times_squared_flow_residual_penalty",
+  "penalty_definition": "6 times the sum of squared node-flow residuals",
+  "mixer_definitions": {
+    "penalty_x": "exp(-i*beta*sum_j X_j), without beta/n scaling",
+    "global_grover": "I + (exp(-i*beta)-1)|s><s| on all 16384 basis states"
+  },
+  "portable_result_namespace": "results/global_depth110",
+  "environment_file": "environment.json"
+}

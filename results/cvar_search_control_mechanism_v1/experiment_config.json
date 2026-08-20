@@ -1,0 +1,148 @@
+{
+  "schema": "sciqis-cvar-search-control-mechanism-v1",
+  "version": "1.0",
+  "study_name": "CVaR Search-Control Mechanism Study v1",
+  "result_namespace": "results/cvar_search_control_mechanism_v1",
+  "immutable_evidence_root": "results/cvar_robustness_v1",
+  "graph_path": "data/graph.json",
+  "depth": 110,
+  "objectives": [
+    "expectation",
+    "cvar_0.10"
+  ],
+  "cvar_alpha": 0.1,
+  "parameterization": "DIRECT",
+  "n_qubits": 14,
+  "search_space_size": 16384,
+  "penalty_coefficient": 6.0,
+  "initial_state": "uniform_full_space_plus_state",
+  "initialization_source": "FRESH_SEEDED_UNIFORM_PHYSICAL_BOUNDS",
+  "initialization_seed_rule": "numpy.default_rng(SeedSequence([seed, depth])); p gammas Uniform[0,2pi], then p betas Uniform[0,pi]",
+  "seed_search_start": 8801,
+  "n_primary_seeds": 10,
+  "n_sensitivity_seeds": 5,
+  "cost_phase_kind": "continuous_raw_penalized_cost",
+  "feasible_projection": false,
+  "threshold_phase": false,
+  "cobyla": {
+    "method": "COBYLA",
+    "rhobeg": 0.5,
+    "tol": 1e-08,
+    "catol": 1e-08,
+    "disp": false,
+    "bounds": "gammas [0,2pi], betas [0,pi]",
+    "objective_evaluation_counting": "only calls through the scipy optimizer callback; the explicit pre-optimization start evaluation is index 0 and is not charged"
+  },
+  "nelder_mead": {
+    "method": "Nelder-Mead",
+    "maxfev": 5500,
+    "xatol": 1e-08,
+    "fatol": 1e-08,
+    "adaptive": false,
+    "disp": false,
+    "initial_simplex": null,
+    "bounds": "same physical bounds; SciPy bound clipping",
+    "objective_evaluation_counting": "only calls through the scipy optimizer callback; the explicit pre-optimization start evaluation is index 0 and is not charged"
+  },
+  "experiment_a": {
+    "algorithm": "global_grover",
+    "optimizer": "COBYLA",
+    "max_evals": 11000,
+    "checkpoint_budgets": [
+      1000,
+      2500,
+      5500,
+      8000,
+      11000
+    ],
+    "seed_count": 10,
+    "cell_count": 20
+  },
+  "experiment_b": {
+    "algorithm": "global_grover",
+    "optimizer": "Nelder-Mead",
+    "max_evals": 5500,
+    "seed_count": 5,
+    "cell_count": 10
+  },
+  "experiment_c": {
+    "algorithm": "global_grover",
+    "optimizer": "COBYLA",
+    "source_checkpoint_budget": 5500,
+    "max_evals": 5500,
+    "branches": [
+      "E_TO_E",
+      "E_TO_C",
+      "C_TO_E",
+      "C_TO_C"
+    ],
+    "seed_count": 5,
+    "cell_count": 20
+  },
+  "experiment_d": {
+    "algorithm": "penalty_x",
+    "optimizer": "COBYLA",
+    "max_evals": 11000,
+    "checkpoint_budgets": [
+      1000,
+      2500,
+      5500,
+      8000,
+      11000
+    ],
+    "seed_count": 5,
+    "cell_count": 10
+  },
+  "planned_unique_cells": 60,
+  "maximum_planned_objective_evaluations": 495000,
+  "primary_robustness_rule": {
+    "robust_label": "ROBUST_CVAR_RECOVERY",
+    "mixed_label": "MIXED_CVAR_RECOVERY",
+    "failure_label": "NOT_REPLICATED",
+    "minimum_wins": 8,
+    "minimum_median_paired_ratio": 2.0,
+    "robust_if": "both thresholds hold",
+    "mixed_if": "exactly one threshold holds",
+    "not_replicated_if": "neither threshold holds"
+  },
+  "five_seed_directional_rule": {
+    "minimum_wins": 4,
+    "minimum_median_paired_ratio": 2.0
+  },
+  "optimizer_interaction_rule": {
+    "minimum_same_direction_seeds": 4,
+    "minimum_absolute_median_log_ratio_difference": 0.6931471805599453
+  },
+  "basin_transfer_rule": {
+    "minimum_wins": 4,
+    "minimum_median_paired_ratio": 2.0,
+    "rescue_noninferiority_ratio": 0.5,
+    "minimum_rescue_noninferiority_seeds": 4
+  },
+  "mixer_transport_rule": {
+    "minimum_consistent_seeds": 4,
+    "minimum_median_global_minus_penalty_p_feas_change": 0.01,
+    "minimum_median_global_minus_penalty_low_energy_top100_change": 0.02
+  },
+  "trajectory_event_rule": {
+    "minimum_consistent_seeds": 4,
+    "low_energy_top100_minimum_median_change": 0.01,
+    "p_feas_minimum_median_change": 0.005,
+    "p_opt_minimum_median_ratio": 2.0,
+    "p_opt_given_feas_minimum_median_change": 0.005
+  },
+  "zero_safe_ratio_tolerance": 1e-15,
+  "bootstrap": {
+    "resamples": 10000,
+    "confidence_level": 0.95,
+    "seed": 3901,
+    "unit": "paired_initialization_seed"
+  },
+  "safe_parallel_workers": 8,
+  "thread_environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1"
+  },
+  "claim_quantum_advantage": false
+}
