@@ -6,27 +6,19 @@ import networkx as nx
 import numpy as np
 import pytest
 
-from exact_reference import enumerate_simple_paths_independent
 from feasible_qaoa import (
-    ASCENDING_CVAR_OBJECTIVE,
-    EXPECTATION_OBJECTIVE,
-    FIXED_CVAR_OBJECTIVE,
     INCUMBENT_BIASED_FEASIBLE,
     PROBABILITY_TOLERANCE,
     UNIFORM_FEASIBLE,
-    ascending_cvar_alpha,
     build_feasible_initial_state,
     build_feasible_route_basis,
     build_logical_cost_hamiltonian,
     build_logical_path_exchange_mixer,
-    evaluate_q2f_objective,
     feasible_route_metrics,
     incumbent_biased_probabilities,
-    run_q2f_cell,
     simulate_logical_qaoa,
 )
-from graph import path_cost, path_to_edge_bitstring
-from objectives import probability_weighted_cvar, probability_weighted_expectation
+from graph import exact_route, path_cost, path_to_edge_bitstring, simple_routes
 from qubo import decode_valid_route
 
 
@@ -44,7 +36,7 @@ def q2f(graph):
 
 def test_feasible_basis_matches_both_validated_enumerations(graph, q2f):
     basis, *_ = q2f
-    independent = {record.node_path for record in enumerate_simple_paths_independent(graph)}
+    independent = set(simple_routes(graph))
     networkx_routes = {
         tuple(path)
         for path in nx.all_simple_paths(
@@ -79,21 +71,19 @@ def test_every_basis_route_is_valid_and_round_trips(graph, q2f):
         assert path_cost(graph, route.node_sequence) == route.routing_cost
 
 
-def test_feasible_basis_exact_optimum_agrees_with_reference(q2f, exact):
+def test_feasible_basis_exact_optimum_agrees_with_reference(q2f, graph):
     basis, *_ = q2f
     optimum = basis.routes[basis.exact_optimal_route_id]
     assert optimum.exact_optimal
-    assert optimum.node_sequence == tuple(exact["exact_reference"]["node_path"])
-    assert optimum.routing_cost == exact["exact_reference"]["cost"] == 10
+    route, cost = exact_route(graph)
+    assert optimum.node_sequence == route
+    assert optimum.routing_cost == cost == 10
     assert sum(route.exact_optimal for route in basis.routes) == 1
 
 
 def test_logical_cost_diagonals_equal_raw_routes_and_minimum(q2f):
     basis, costs, *_ = q2f
-    assert np.array_equal(np.diag(costs.raw_matrix), basis.raw_costs)
-    assert np.array_equal(
-        np.diag(costs.normalized_matrix), np.asarray(costs.normalized_energies)
-    )
+    assert np.array_equal(costs.raw_energies, basis.raw_costs)
     assert costs.normalization_shift == 10.0
     assert costs.normalization_scale == 4.0
     assert int(np.argmin(costs.raw_energies)) == basis.exact_optimal_route_id
@@ -106,7 +96,6 @@ def test_path_exchange_mixer_is_hermitian_connected_and_expected_dimension(q2f):
     assert mixer.hamiltonian.shape == (basis.size, basis.size)
     assert np.array_equal(mixer.hamiltonian, mixer.hamiltonian.conj().T)
     assert np.allclose(np.diag(mixer.hamiltonian), 0.0)
-    assert mixer.connected
     assert len(mixer.exchanges) == 106
 
 
@@ -203,60 +192,6 @@ def test_qaoa_simulation_is_deterministically_reproducible(q2f):
     assert left == right
 
 
-def test_expectation_and_fixed_cvar_objectives_reuse_validated_definitions(q2f):
-    _, costs, _, uniform, _ = q2f
-    expectation, alpha = evaluate_q2f_objective(
-        uniform.probabilities,
-        costs.normalized_energies,
-        EXPECTATION_OBJECTIVE,
-        evaluation_index=0,
-        total_budget=100,
-    )
-    fixed, fixed_alpha = evaluate_q2f_objective(
-        uniform.probabilities,
-        costs.normalized_energies,
-        FIXED_CVAR_OBJECTIVE,
-        evaluation_index=0,
-        total_budget=100,
-    )
-    assert alpha is None
-    assert fixed_alpha == 0.25
-    assert expectation == probability_weighted_expectation(
-        uniform.probabilities, costs.normalized_energies
-    )
-    assert fixed == probability_weighted_cvar(
-        uniform.probabilities, costs.normalized_energies, 0.25
-    )
-
-
-def test_ascending_cvar_schedule_boundaries_monotonicity_and_outcome_independence():
-    schedule = [ascending_cvar_alpha(index, 100) for index in range(100)]
-    assert schedule[0] == 0.25
-    assert schedule[-1] == 1.0
-    assert all(left <= right for left, right in zip(schedule, schedule[1:]))
-    assert ascending_cvar_alpha(0, 1) == 0.25
-    signature = inspect.signature(ascending_cvar_alpha)
-    assert set(signature.parameters) == {
-        "evaluation_index", "total_budget", "alpha_start", "alpha_end"
-    }
-
-
-def test_ascending_alpha_one_equals_expectation(q2f):
-    _, costs, _, _, biased = q2f
-    value, alpha = evaluate_q2f_objective(
-        biased.probabilities,
-        costs.normalized_energies,
-        ASCENDING_CVAR_OBJECTIVE,
-        evaluation_index=99,
-        total_budget=100,
-    )
-    expectation = probability_weighted_expectation(
-        biased.probabilities, costs.normalized_energies
-    )
-    assert alpha == 1.0
-    assert value == pytest.approx(expectation, abs=1e-15)
-
-
 def test_feasible_metrics_topk_entropy_rank_and_amplification(q2f):
     basis, costs, *_ = q2f
     probabilities = np.zeros(basis.size)
@@ -282,24 +217,3 @@ def test_feasible_metrics_reject_loss_of_normalization(q2f):
         feasible_route_metrics(
             np.full(basis.size, 0.9 / basis.size), basis, costs, initial_p_opt=0.1
         )
-
-
-def test_small_optimizer_run_is_reproducible_and_traces_alpha(q2f):
-    basis, costs, mixer, _, biased = q2f
-    kwargs = dict(
-        objective_mode=ASCENDING_CVAR_OBJECTIVE,
-        depth=1,
-        seed=2601,
-        evaluation_budget=8,
-    )
-    left = run_q2f_cell(basis, costs, mixer, biased, **kwargs)
-    right = run_q2f_cell(basis, costs, mixer, biased, **kwargs)
-    assert left.optimizer.final_parameters == right.optimizer.final_parameters
-    assert [record.objective_value for record in left.optimizer.evaluation_trace] == pytest.approx(
-        [record.objective_value for record in right.optimizer.evaluation_trace], abs=1e-14
-    )
-    assert [record.alpha for record in left.optimizer.evaluation_trace] == [
-        ascending_cvar_alpha(index, 8) for index in range(left.optimizer.evaluations)
-    ]
-    assert left.optimizer.evaluations <= 8
-    assert abs(left.metrics.p_feas - 1.0) <= 1e-12

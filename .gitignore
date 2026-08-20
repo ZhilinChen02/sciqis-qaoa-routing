@@ -13,16 +13,28 @@ htmlcov/
 .vscode/
 .DS_Store
 *.swp
+*.swo
+*~
+*.tmp
+*.temp
 *.log
 
-# Local credentials and Codex/session state must never be versioned.
+# Local credentials and machine state must never be versioned.
 KEY.txt
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
 
-# Development outputs are ignored. Selected immutable evidence roots are
-# explicitly retained so a fresh clone can verify and plot the course results.
+# Generated presentation render checks are reproducible from the source deck.
+presentation/rendered/
+
+# Local post-course paper build; it depends on research results outside the course submission.
+paper/
+
+# One-off archived fallback render; not part of the course submission.
+archive/development/q2r/fallback_cost_1.png
+
+# Development outputs are ignored. The four course evidence roots are retained.
 results/*
 !results/.gitkeep
 !results/q2_revision_formal/
@@ -33,17 +45,11 @@ results/*
 !results/q2f_final_improvement/**
 !results/qaoa_dynamics_deep_dive/
 !results/qaoa_dynamics_deep_dive/**
-!results/depth110_ext/
-!results/depth110_ext/v2/
-!results/depth110_ext/v2/**
 
-# Only the consolidated course presentation figures are versioned.
+# Only the course and dynamics figures used by the submission are versioned.
 figures/*
 !figures/.gitkeep
 !figures/course/
 !figures/course/**
 !figures/qaoa_dynamics_deep_dive/
 !figures/qaoa_dynamics_deep_dive/**
-!figures/depth110_ext/
-!figures/depth110_ext/v2/
-!figures/depth110_ext/v2/**

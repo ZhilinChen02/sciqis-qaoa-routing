@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Archived plotter for the superseded comparison outputs."""
-"""Generate the five presentation figures from freshly written result files."""
 
 from __future__ import annotations
 

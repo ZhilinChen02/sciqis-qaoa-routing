@@ -127,7 +127,7 @@ async function loadSelectedRun() {
   if (!selected) return;
   stopPlayback();
   elements.loading.hidden = false;
-  elements.loading.textContent = "正在重建每层量子态与能量…";
+  elements.loading.textContent = "Reconstructing each layer's quantum state and energy…";
   elements.error.hidden = true;
   elements.workspace.hidden = true;
   try {
@@ -150,7 +150,7 @@ function showError(error) {
   elements.loading.hidden = true;
   elements.workspace.hidden = true;
   elements.error.hidden = false;
-  elements.error.textContent = `无法载入可视化：${error.message || error}`;
+  elements.error.textContent = `Unable to load the visualization: ${error.message || error}`;
 }
 
 function currentFrame() {
@@ -243,9 +243,9 @@ function renderCircuit(frame, stage) {
   });
 
   if (!frame.in_bounds) {
-    elements.stageLabel.textContent = "参数越界：该次请求被优化器记录，但未执行状态向量模拟";
+    elements.stageLabel.textContent = "Out-of-bounds parameters: the optimizer recorded this request, but no statevector simulation was run.";
   } else if (!stage || stage.kind === "initial") {
-    elements.stageLabel.textContent = "初始可行态";
+    elements.stageLabel.textContent = "Initial feasible state";
   } else {
     const symbol = stage.kind === "phase" ? "γ" : "β";
     const operation = stage.kind === "phase" ? state.run.circuit.phase.label : state.run.circuit.mixer.label;
@@ -262,7 +262,7 @@ function renderMetrics(frame, stage) {
 
   if (!stage) {
     elements.routeValue.textContent = "—";
-    elements.routeCost.textContent = "没有执行量子态演化";
+    elements.routeCost.textContent = "No statevector evolution was run";
     return;
   }
   const route = state.run.routes[stage.most_probable_route_id];
@@ -419,7 +419,7 @@ function renderDistribution(stage) {
 function stopPlayback() {
   if (state.timer !== null) window.clearInterval(state.timer);
   state.timer = null;
-  elements.play.textContent = "▶ 播放";
+  elements.play.textContent = "▶ Play";
 }
 
 function togglePlayback() {
@@ -431,7 +431,7 @@ function togglePlayback() {
     state.frameIndex = 0;
     state.stageIndex = elements.gateByGate.checked ? 0 : lastStageIndex();
   }
-  elements.play.textContent = "Ⅱ 暂停";
+  elements.play.textContent = "Ⅱ Pause";
   state.timer = window.setInterval(advance, Number(elements.speed.value));
 }
 
