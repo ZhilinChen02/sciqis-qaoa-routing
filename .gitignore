@@ -28,6 +28,9 @@ KEY.txt
 # Generated presentation render checks are reproducible from the source deck.
 presentation/rendered/
 
+# Local post-course paper build; it depends on research results outside the course submission.
+paper/
+
 # One-off archived fallback render; not part of the course submission.
 archive/development/q2r/fallback_cost_1.png
 
