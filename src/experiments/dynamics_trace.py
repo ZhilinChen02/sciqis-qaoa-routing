@@ -5,6 +5,8 @@ from typing import Callable, Sequence
 
 import numpy as np
 
+from metrics import probability_mass, shannon_entropy
+
 
 TRACE_TOLERANCE = 1e-10
 
@@ -151,11 +153,10 @@ def _checkpoint_metrics(
     flow_penalties = np.asarray(metadata.flow_penalties, dtype=np.float64)
     total_energies = np.asarray(metadata.total_energies, dtype=np.float64)
 
-    p_feas = float(np.sum(probabilities[feasible_mask]))
-    p_opt = float(np.sum(probabilities[optimal_mask]))
-    infeasible_mass = float(np.sum(probabilities[~feasible_mask]))
-    other_feasible = float(np.sum(probabilities[feasible_mask & ~optimal_mask]))
-    positive = probabilities[probabilities > 0.0]
+    p_feas = probability_mass(probabilities, feasible_mask)
+    p_opt = probability_mass(probabilities, optimal_mask)
+    infeasible_mass = probability_mass(probabilities, ~feasible_mask)
+    other_feasible = probability_mass(probabilities, feasible_mask & ~optimal_mask)
     order = np.lexsort((np.arange(metadata.dimension), -np.round(probabilities, 15)))
     top = int(order[0])
     expected_penalty = float(probabilities @ flow_penalties)
@@ -181,7 +182,7 @@ def _checkpoint_metrics(
         optimum_feasible_mass=p_opt,
         other_feasible_mass=other_feasible,
         infeasible_mass=infeasible_mass,
-        shannon_entropy=float(-np.sum(positive * np.log(positive))),
+        shannon_entropy=shannon_entropy(probabilities),
         max_basis_probability=float(probabilities[top]),
         top_basis_index=top,
         top_basis_label=metadata.basis_labels[top],

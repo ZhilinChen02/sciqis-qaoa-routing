@@ -1,66 +1,83 @@
-"""Start here: the routing problem from graph to QUBO in one short file."""
+"""Small graph -> QUBO -> Ising -> QAOA -> route-metrics example."""
 
-import networkx as nx
+import numpy as np
 
-from graph import load_graph, path_cost, path_to_edge_bitstring
-from qubo import build_qubo, flow_penalty, routing_cost
+from graph import load_graph
+from metrics import distribution_metrics
+from qaoa import EXPECTATION, GROVER_MIXER, X_MIXER, normalized_diagonal, optimize
+from qubo import (
+    build_qubo,
+    enumerate_state_space,
+    max_qubo_ising_error,
+    minimum_energy_states,
+)
 
 
-def run(penalty=6.0):
-    """Return the main intermediate values of the routing problem."""
+PENALTY = 6.0
+DEPTH = 1
+SEED = 2601
+EVALUATION_BUDGET = 100
+OBJECTIVE = EXPECTATION
+MIXERS = (X_MIXER, GROVER_MIXER)
 
-    # 1. Read the seven nodes and fourteen directed edges.
+
+def run(*, penalty=PENALTY, depth=DEPTH, seed=SEED, evaluation_budget=EVALUATION_BUDGET):
+
+
     graph = load_graph()
-    source = graph.graph["source"]
-    target = graph.graph["target"]
-
-    # 2. Find the classical shortest route.  This is our reference answer.
-    shortest_route = nx.shortest_path(
-        graph,
-        source=source,
-        target=target,
-        weight="weight",
-    )
-    shortest_route = tuple(shortest_route)
-    shortest_cost = path_cost(graph, shortest_route)
-
-    # 3. Convert the route into one bit for every edge.
-    edge_bits = path_to_edge_bitstring(graph, shortest_route)
-
-    # 4. Build the QUBO and evaluate the reference route.
+    states = enumerate_state_space(graph)
     qubo = build_qubo(graph, penalty)
-    direct_cost = routing_cost(graph, edge_bits)
-    constraint_penalty = flow_penalty(graph, edge_bits)
-    qubo_energy = qubo.evaluate(edge_bits)
+    if max_qubo_ising_error(states, [qubo]):
+        raise RuntimeError("QUBO and Ising energies disagree")
+
+    exact_cost, ground = minimum_energy_states(states, penalty)
+    if len(ground) != 1 or ground[0].decoded_route is None:
+        raise RuntimeError("ground state does not match the exact route")
+
+    raw_energies = np.asarray([float(qubo.evaluate(state.edge_vector)) for state in states])
+    energies, _, _ = normalized_diagonal(raw_energies)
+    results = {}
+    for mixer in MIXERS:
+        optimizer, final_probabilities = optimize(
+            energies,
+            depth=depth,
+            mixer=mixer,
+            objective=OBJECTIVE,
+            seed=seed,
+            evaluation_budget=evaluation_budget,
+        )
+        metrics = distribution_metrics(
+            final_probabilities, states, optimal_cost=float(exact_cost)
+        )
+        results[mixer] = {
+            "optimizer": optimizer,
+            "p_feas": metrics.p_feas,
+            "p_opt": metrics.p_opt,
+            "p_opt_given_feas": metrics.p_opt_given_feas,
+        }
 
     return {
-        "node_count": graph.number_of_nodes(),
-        "edge_count": graph.number_of_edges(),
-        "source": source,
-        "target": target,
-        "shortest_route": shortest_route,
-        "shortest_cost": shortest_cost,
-        "edge_bits": edge_bits,
-        "direct_cost": direct_cost,
-        "flow_penalty": constraint_penalty,
-        "qubo_energy": float(qubo_energy),
-        "penalty_coefficient": float(penalty),
+        "edges": graph.number_of_edges(),
+        "states": len(states),
+        "exact_route": ground[0].decoded_route,
+        "exact_cost": int(exact_cost),
+        "depth": int(depth),
+        "seed": int(seed),
+        "results": results,
     }
 
 
 def print_summary(result):
-    """Print the pipeline result without any report-specific formatting."""
-
-    route_text = " -> ".join(str(node) for node in result["shortest_route"])
-    bit_text = "".join(str(bit) for bit in result["edge_bits"])
-
-    print(f"graph: {result['node_count']} nodes, {result['edge_count']} edges")
-    print(f"source and target: {result['source']} -> {result['target']}")
-    print(f"shortest route: {route_text}")
-    print(f"route cost: {result['shortest_cost']}")
-    print(f"edge bits: {bit_text}")
-    print(f"flow penalty: {result['flow_penalty']}")
-    print(f"QUBO energy: {result['qubo_energy']:g}")
+    route = "->".join(map(str, result["exact_route"]))
+    print(f"routing: {result['edges']} edges, {result['states']} bit strings")
+    print(f"exact route: {route}, cost={result['exact_cost']}")
+    for mixer, values in result["results"].items():
+        optimizer = values["optimizer"]
+        print(
+            f"{mixer}: evals={optimizer.evaluations}, {optimizer.reason}; "
+            f"p_feas={values['p_feas']:.8g}, p_opt={values['p_opt']:.8g}, "
+            f"p_opt|feas={values['p_opt_given_feas']:.8g}"
+        )
 
 
 if __name__ == "__main__":

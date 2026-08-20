@@ -22,11 +22,8 @@ from experiments.course_final import (  # noqa: E402
 )
 
 
-def _write_development_output(path: Path, payload: dict[str, object]) -> None:
+def _write_output(path: Path, payload: dict[str, object]) -> None:
     path = path.resolve()
-    sealed_root = (PROJECT / "results").resolve()
-    if path == sealed_root or sealed_root in path.parents:
-        raise ValueError("development_output_must_not_be_inside_results")
     if path.exists():
         raise FileExistsError(f"refusing_to_overwrite:{path}")
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -83,11 +80,11 @@ def main() -> None:
     )
     print(f"median_p_opt={median_p_opt:.16g}")
     if arguments.output is not None:
-        _write_development_output(
+        _write_output(
             arguments.output,
             course_final_payload(config, context, runs),
         )
-        print(f"development_output={arguments.output.resolve()}")
+        print(f"output={arguments.output.resolve()}")
 
 
 if __name__ == "__main__":

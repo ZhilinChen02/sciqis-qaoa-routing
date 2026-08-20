@@ -18,15 +18,15 @@ import numpy as np
 from scipy.optimize import Bounds, minimize
 
 from graph import path_cost
-from utils import distribution_metrics
-from utils import (
+from metrics import distribution_metrics
+from qaoa import (
     CVAR,
     EXPECTATION,
     OBJECTIVE_MODES,
     evaluate_optimization_objective,
     probability_weighted_expectation,
 )
-from utils import (
+from qaoa import (
     EvaluationBudgetExhausted,
     INITIALIZATION_STRATEGIES,
     OptimizationResult,
@@ -40,7 +40,7 @@ from qaoa import (
     simulate_qaoa_state,
     state_probabilities,
 )
-from utils import greedy_incumbent_route, incumbent_relaxation, product_state
+from support.warm_start import greedy_incumbent_route, incumbent_relaxation, product_state
 
 
 METHOD_REVISION = "Q2-R literature-guided v1"

@@ -8,13 +8,13 @@ dependencies = [
     "matplotlib>=3.8,<4",
     "networkx>=3.2,<4",
     "numpy>=2,<3",
-    "qiskit>=2.2,<3",
     "scipy>=1.15,<2",
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=8,<10",
+    "reportlab>=4.2,<5",
 ]
 
 [build-system]
@@ -28,9 +28,9 @@ py-modules = [
     "feasible_experiments",
     "graph",
     "main",
+    "metrics",
     "qaoa",
     "qubo",
-    "utils",
 ]
 
 [tool.setuptools.packages.find]

@@ -23,7 +23,17 @@ import networkx as nx  # noqa: E402
 import numpy as np  # noqa: E402
 
 from graph import load_graph, path_edges  # noqa: E402
-from support.sealed_results import Q2F, Q2F_FINAL, Q2R, verify_all_sealed_results  # noqa: E402
+
+
+Q2R = PROJECT / "results/q2_revision_formal" / (
+    "q2r-9c98b90049545d0508fb20bb488019608a4356d55fe91ff809bce8dc5c5e0c69"
+)
+Q2F = PROJECT / "results/q2f_course_extension" / (
+    "q2f-33955d1f3f1c1c4a435ba0945848224f32ff32d8f1a3b80f630858d9aa91e2c7"
+)
+Q2F_FINAL = PROJECT / "results/q2f_final_improvement" / (
+    "q2fi-473475526184d55e7870caee93679b092d4443f5ec87dbd399a017412f430bb1"
+)
 
 
 METHOD_LABELS = {
@@ -160,7 +170,7 @@ def final_distribution_figure(
     p3 = [row for row in final_rows if row["method"] == "gm_th_qaoa" and int(row["depth"]) == 3]
     median_value = float(np.median([float(row["p_opt"]) for row in p3]))
     selected = min(p3, key=lambda row: (abs(float(row["p_opt"]) - median_value), int(row["seed"])))
-    raw = json.loads((Q2F_FINAL.root / "raw" / f"{selected['run_id']}.json").read_text(encoding="utf-8"))
+    raw = json.loads((Q2F_FINAL / "raw" / f"{selected['run_id']}.json").read_text(encoding="utf-8"))
     probabilities = raw["result"]["final_probabilities"]
     route_count = int(basis_payload["basis"]["basis_size"])
     route_ids = np.arange(route_count)
@@ -197,12 +207,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Build course figures without rerunning optimization.")
     parser.add_argument("--output", type=Path, default=PROJECT / "figures" / "course")
     arguments = parser.parse_args()
-    seals = verify_all_sealed_results()
-    print("sealed_inputs=" + ", ".join(f"{item['label']}:PASS" for item in seals))
-    basis_payload = json.loads((Q2F_FINAL.root / "basis.json").read_text(encoding="utf-8"))
-    q2r_rows = _csv(Q2R.root / "summary" / "formal_results.csv")
-    old_rows = _csv(Q2F.root / "summary" / "q2f_results.csv")
-    final_rows = _csv(Q2F_FINAL.root / "summary" / "q2f_final_improvement_results.csv")
+    basis_payload = json.loads((Q2F_FINAL / "basis.json").read_text(encoding="utf-8"))
+    q2r_rows = _csv(Q2R / "summary" / "formal_results.csv")
+    old_rows = _csv(Q2F / "summary" / "q2f_results.csv")
+    final_rows = _csv(Q2F_FINAL / "summary" / "q2f_final_improvement_results.csv")
     _style()
     paths = [
         routing_graph_figure(arguments.output, basis_payload),

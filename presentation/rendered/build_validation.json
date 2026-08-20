@@ -1,0 +1,22 @@
+{
+  "outputs": {
+    "pptx": "/home/zwq152/PycharmProjects/sciqis-qaoa-routing/presentation/QAOA_Routing_Final_Presentation.pptx",
+    "pdf": "/home/zwq152/PycharmProjects/sciqis-qaoa-routing/presentation/QAOA_Routing_Final_Presentation.pdf",
+    "notes": "/home/zwq152/PycharmProjects/sciqis-qaoa-routing/presentation/QAOA_Routing_Final_Presentation_Notes.md",
+    "audit": "/home/zwq152/PycharmProjects/sciqis-qaoa-routing/presentation/PRESENTATION_DATA_AUDIT.md",
+    "contact_sheet": "/home/zwq152/PycharmProjects/sciqis-qaoa-routing/presentation/rendered/contact_sheet.png"
+  },
+  "validation": {
+    "slide_count": 17,
+    "notes_count": 17,
+    "chart_count": 5,
+    "shape_bounds_failures": 0,
+    "text_overflow_failures": 0
+  },
+  "hashes": {
+    "pptx": "1bfa6c8007468af0005b483012a2e06ee28a1b5714e98b4d358ae382076fdb44",
+    "pdf": "13049cb3594a92916196f80e6812fa4a53f53366ece1d7547daddc9908440ad3",
+    "notes": "311cadb3d94572f468d99cb5d8c7dfb649ccc62ea271b72d6e6f37342df12413",
+    "audit": "6baf43bfd62e1219d5a48912c48efd651f76d28054baa76b57ff784aab21a261"
+  }
+}

@@ -5,7 +5,7 @@ saves CSV/JSON files for the figures.
 """
 
 import csv
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from hashlib import sha256
 from importlib.metadata import version as package_version
 import json
@@ -17,7 +17,6 @@ from typing import Any, Callable, Sequence
 
 import numpy as np
 
-from support.exact_reference import compute_exact_reference
 from feasible_qaoa import (
     UNIFORM_FEASIBLE,
     FeasibleRouteBasis,
@@ -31,12 +30,10 @@ from qaoa import (
     build_global_grover_mixer,
     simulate_global_grover_state,
 )
-from graph import DEFAULT_GRAPH_PATH, EXPECTED_EDGE_COUNT, load_graph
+from graph import DEFAULT_GRAPH_PATH, EXPECTED_EDGE_COUNT, exact_route, load_graph
 from qubo import max_qubo_ising_error, qubo_to_ising
 from feasible_experiments import (
     EXPECTATION_LOSS,
-    GM_QAOA_EXPECTATION,
-    FinalOptimizationResult,
     GroverFeasibleMixer,
     build_grover_feasible_mixer,
     build_incumbent_threshold,
@@ -44,16 +41,17 @@ from feasible_experiments import (
     simulate_final_improvement,
 )
 from qaoa import (
-    Q1_PENALTY_X,
+    OptimizationResult,
+    X_MIXER,
     apply_x_mixer,
+    initial_state,
     normalized_diagonal,
-    simulate_qaoa_state,
-    standard_plus_state,
-    state_probabilities,
+    optimize_cobyla,
+    qaoa_state,
+    probabilities,
 )
 from experiments.dynamics_trace import BasisMetadata, EvolutionTrace, trace_qaoa_evolution
 from qubo import StateRecord, build_qubo, enumerate_state_space
-from utils import OptimizationResult, optimize_cobyla
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -216,7 +214,7 @@ def prepare_study_context(*, penalty: float = 6.0) -> StudyContext:
     timings: dict[str, float] = {}
     started = perf_counter()
     graph = load_graph(DEFAULT_GRAPH_PATH)
-    exact_payload, _ = compute_exact_reference(graph, graph_path=DEFAULT_GRAPH_PATH)
+    optimum_route, optimum_cost = exact_route(graph)
     states = enumerate_state_space(graph)
     qubo = build_qubo(graph, float(penalty))
     ising = qubo_to_ising(qubo)
@@ -227,12 +225,10 @@ def prepare_study_context(*, penalty: float = 6.0) -> StudyContext:
     qubo_ising_error = float(max_qubo_ising_error(states, [qubo]))
     timings["full_model_qubo_ising_build_seconds"] = perf_counter() - started
 
-    exact_route = tuple(exact_payload["exact_reference"]["node_path"])
-    exact_cost = int(exact_payload["exact_reference"]["cost"])
-    full_metadata = _full_metadata(states, float(penalty), exact_cost)
+    full_metadata = _full_metadata(states, float(penalty), optimum_cost)
 
     started = perf_counter()
-    full_initial = standard_plus_state(EXPECTED_EDGE_COUNT)
+    full_initial = initial_state(EXPECTED_EDGE_COUNT)
     timings["penalty_x_state_mixer_build_seconds"] = perf_counter() - started
     started = perf_counter()
     global_mixer = build_global_grover_mixer(EXPECTED_EDGE_COUNT)
@@ -285,8 +281,8 @@ def prepare_study_context(*, penalty: float = 6.0) -> StudyContext:
         graph=graph,
         states=tuple(states),
         basis=basis,
-        exact_route=exact_route,
-        exact_cost=exact_cost,
+        exact_route=optimum_route,
+        exact_cost=optimum_cost,
         penalty=float(penalty),
         raw_full_diagonal=raw,
         normalized_full_diagonal=normalized,
@@ -327,9 +323,7 @@ def _optimize_full(
 ) -> OptimizationResult:
     if algorithm == PENALTY_X:
         def simulator(diagonal, parameters, *, depth):
-            return simulate_qaoa_state(
-                diagonal, parameters, depth=depth, solver=Q1_PENALTY_X
-            )
+            return qaoa_state(diagonal, parameters, depth=depth, mixer=X_MIXER)
     elif algorithm == GROVER_GLOBAL:
         simulator = simulate_global_grover_state
     else:
@@ -339,8 +333,8 @@ def _optimize_full(
         state = simulator(
             context.normalized_full_diagonal, parameters, depth=int(depth)
         )
-        probabilities = state_probabilities(state)
-        return float(probabilities @ context.normalized_full_diagonal)
+        values = probabilities(state)
+        return float(values @ context.normalized_full_diagonal)
 
     return optimize_cobyla(
         objective,
@@ -360,7 +354,7 @@ def _optimize_feasible(
     evaluation_budget: int,
     rhobeg: float,
     tolerance: float,
-) -> FinalOptimizationResult:
+) -> OptimizationResult:
     raw_costs = np.asarray(context.feasible_metadata.route_costs)
     incumbent_cost = raw_costs[context.basis.incumbent_route_id]
     threshold = build_incumbent_threshold(raw_costs, float(incumbent_cost))
@@ -439,7 +433,7 @@ def run_algorithm(
             rhobeg=rhobeg,
             tolerance=tolerance,
         )
-        parameters = feasible_optimized.final_parameters
+        parameters = feasible_optimized.parameters
         metadata = context.feasible_metadata
         initial = context.feasible_initial_state
         phase = context.normalized_feasible_diagonal
@@ -449,7 +443,7 @@ def run_algorithm(
         evaluations = feasible_optimized.evaluations
         success = feasible_optimized.success
         reason = feasible_optimized.reason
-        optimizer_runtime = feasible_optimized.runtime_seconds
+        optimizer_runtime = feasible_optimized.wall_time
 
     started = perf_counter()
     trace = trace_qaoa_evolution(
@@ -721,7 +715,6 @@ def save_study_artifacts(
             "scipy": package_version("scipy"),
             "matplotlib": package_version("matplotlib"),
             "networkx": package_version("networkx"),
-            "qiskit": package_version("qiskit"),
             "optimizer": "scipy.optimize.minimize(method=COBYLA)",
             "statevector_mode": "ideal_exact_numpy_complex128",
         },
@@ -888,11 +881,11 @@ def regression_comparison(context: StudyContext, run: StudyRun) -> dict[str, obj
     """Compare traced final states with the untouched historical simulators."""
 
     if run.algorithm == PENALTY_X:
-        reference = simulate_qaoa_state(
+        reference = qaoa_state(
             context.normalized_full_diagonal,
             run.optimized_parameters,
             depth=run.depth,
-            solver=Q1_PENALTY_X,
+            mixer=X_MIXER,
         )
     elif run.algorithm == GROVER_FEASIBLE:
         reference = np.asarray(

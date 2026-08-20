@@ -14,14 +14,15 @@ from qiskit.quantum_info import Statevector
 from support.exact_reference import compute_exact_reference
 from graph import DEFAULT_GRAPH_PATH, load_graph, path_cost
 from qubo import qubo_to_ising
-from utils import distribution_metrics, top_state_rows
-from utils import optimize_cobyla, seeded_initial_parameters
+from metrics import distribution_metrics, top_state_rows
 from qaoa import (
     Q1_PENALTY_X,
     Q2_WARM_START,
     build_qaoa_circuit,
     circuit_statistics,
     normalized_diagonal,
+    optimize_cobyla,
+    seeded_initial_parameters,
     simulate_qaoa_state,
     standard_plus_state,
     state_probabilities,
@@ -33,7 +34,7 @@ from qubo import (
     flow_feasibility_verdict,
     minimum_energy_states,
 )
-from utils import greedy_incumbent_route, incumbent_relaxation, product_state
+from support.warm_start import greedy_incumbent_route, incumbent_relaxation, product_state
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]

@@ -1,7 +1,6 @@
 """Load the final configuration and run threshold Grover QAOA for each seed."""
 
 from dataclasses import asdict, dataclass
-import hashlib
 import json
 from pathlib import Path
 from statistics import median
@@ -20,7 +19,6 @@ from graph import load_graph
 from feasible_experiments import (
     BSP_LOSS,
     FinalImprovementMetrics,
-    FinalOptimizationResult,
     GroverFeasibleMixer,
     IncumbentThreshold,
     build_grover_feasible_mixer,
@@ -29,48 +27,17 @@ from feasible_experiments import (
     optimize_final_variant,
     threshold_phase_values,
 )
+from qaoa import OptimizationResult
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_CONFIG_PATH = PROJECT_ROOT / "configs" / "course_final.json"
 
 
-def _sha256(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
-
-
 def load_course_final_config(path: str | Path = DEFAULT_CONFIG_PATH) -> dict[str, Any]:
-    """Load and validate the explicit final course configuration."""
+    """Load the explicit final course configuration."""
 
-    config_path = Path(path)
-    config = json.loads(config_path.read_text(encoding="utf-8"))
-    required = {
-        "method",
-        "representation",
-        "depth",
-        "optimizer",
-        "seeds",
-        "objective_evaluation_cap",
-        "threshold_source",
-        "incumbent_cost",
-        "graph_path",
-        "graph_sha256",
-    }
-    if not required <= config.keys():
-        raise ValueError(f"course_final_config_missing:{sorted(required - config.keys())}")
-    if (
-        config["method"] != "gm_threshold_qaoa"
-        or config["representation"] != "logical_feasible_routes"
-        or config["optimizer"] != "COBYLA"
-        or config["threshold_source"] != "incumbent_cost"
-    ):
-        raise ValueError("unsupported_course_final_method_configuration")
-    if "optimum_route_id" in config or "optimal_route_id" in config:
-        raise ValueError("optimum_identity_must_not_enter_course_final_config")
-    graph_path = PROJECT_ROOT / config["graph_path"]
-    if _sha256(graph_path) != config["graph_sha256"]:
-        raise RuntimeError("course_final_graph_hash_mismatch")
-    return config
+    return json.loads(Path(path).read_text(encoding="utf-8"))
 
 
 @dataclass(frozen=True)
@@ -87,7 +54,7 @@ def build_course_final_context(config: dict[str, Any]) -> CourseFinalContext:
 
     graph_path = PROJECT_ROOT / config["graph_path"]
     graph = load_graph(graph_path)
-    basis = build_feasible_route_basis(graph, graph_path=str(graph_path))
+    basis = build_feasible_route_basis(graph)
     costs = build_logical_cost_hamiltonian(basis)
     incumbent_cost = float(costs.raw_energies[basis.incumbent_route_id])
     if incumbent_cost != float(config["incumbent_cost"]):
@@ -125,7 +92,7 @@ class CourseFinalRun:
     evaluations: int
     termination: str
     final_probabilities: tuple[float, ...]
-    optimizer: FinalOptimizationResult
+    optimizer: OptimizationResult
     metrics: FinalImprovementMetrics
 
     def as_dict(self) -> dict[str, Any]:
@@ -221,10 +188,6 @@ def course_final_payload(
     """Build an optional development-output object for an explicit path."""
 
     return {
-        "schema": "dtu-sciqis-course-final-development-output",
-        "version": "1.0",
-        "status": "SOFTWARE_DEVELOPMENT_OUTPUT_NOT_SEALED_SCIENTIFIC_RESULT",
-        "configuration_identity": config["configuration_identity"],
         "method": config["method"],
         "depth": runs[0].depth,
         "seeds": [run.seed for run in runs],

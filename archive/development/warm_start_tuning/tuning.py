@@ -15,14 +15,16 @@ import numpy as np
 from support.exact_reference import compute_exact_reference
 from graph import DEFAULT_GRAPH_PATH, load_graph, path_cost, path_to_edge_bitstring
 from qubo import IsingHamiltonian, qubo_to_ising
-from utils import DistributionMetrics, distribution_metrics, top_state_rows
-from utils import SOURCE_UNIFORM, initial_parameters, optimize_cobyla
+from metrics import DistributionMetrics, distribution_metrics, top_state_rows
 from qaoa import (
     Q2_WARM_START,
     CircuitStatistics,
     build_qaoa_circuit,
     circuit_statistics,
+    initial_parameters,
     normalized_diagonal,
+    optimize_cobyla,
+    SOURCE_UNIFORM,
     simulate_qaoa_state,
     state_probabilities,
 )
@@ -33,7 +35,7 @@ from qubo import (
     edge_vector_to_state_index,
     enumerate_state_space,
 )
-from utils import greedy_incumbent_route, incumbent_relaxation, product_state
+from support.warm_start import greedy_incumbent_route, incumbent_relaxation, product_state
 
 
 @dataclass(frozen=True)

@@ -3,12 +3,12 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from utils import (
+from qaoa import (
     CVAR,
     EXPECTATION,
-    evaluate_optimization_objective,
-    probability_weighted_cvar,
-    probability_weighted_expectation,
+    cvar as probability_weighted_cvar,
+    expectation as probability_weighted_expectation,
+    objective_value as evaluate_optimization_objective,
 )
 
 

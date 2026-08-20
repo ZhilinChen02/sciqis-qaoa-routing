@@ -9,7 +9,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from utils import SMALL_RANDOM, SOURCE_UNIFORM, initial_parameters
+from qaoa import SMALL_RANDOM, SOURCE_UNIFORM, initial_parameters
 from tuning import (
     build_tuning_context,
     degenerate_parameters,
@@ -17,7 +17,7 @@ from tuning import (
     run_tuning_start,
     warm_start_probabilities,
 )
-from utils import clip_relaxed_values, incumbent_relaxation
+from support.warm_start import clip_relaxed_values, incumbent_relaxation
 
 
 ROOT = Path(__file__).resolve().parents[1]

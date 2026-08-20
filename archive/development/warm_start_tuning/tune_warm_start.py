@@ -12,7 +12,7 @@ from typing import Iterable, Sequence
 
 import numpy as np
 
-from utils import SMALL_RANDOM, SOURCE_UNIFORM
+from qaoa import SMALL_RANDOM, SOURCE_UNIFORM
 from tuning import (
     TuningContext,
     TuningRun,
@@ -25,7 +25,7 @@ from tuning import (
     summarize_runs,
     top_rows_for_run,
 )
-from utils import incumbent_relaxation
+from support.warm_start import incumbent_relaxation
 
 
 ROOT = Path(__file__).resolve().parents[1]

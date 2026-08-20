@@ -3,8 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from support.exact_reference import compute_exact_reference
-from graph import DEFAULT_GRAPH_PATH, load_graph
+from graph import load_graph
 from qubo import build_qubo, enumerate_state_space
 from qaoa import normalized_diagonal
 
@@ -17,11 +16,6 @@ def graph():
 @pytest.fixture(scope="session")
 def states(graph):
     return enumerate_state_space(graph)
-
-
-@pytest.fixture(scope="session")
-def exact(graph):
-    return compute_exact_reference(graph, graph_path=DEFAULT_GRAPH_PATH)[0]
 
 
 @pytest.fixture(scope="session")

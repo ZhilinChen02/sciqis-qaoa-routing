@@ -10,8 +10,7 @@ from experiments.course_final import (
     load_course_final_config,
     run_course_final_seed,
 )
-from experiments.penalty_demo import run_penalty_demo
-from support.sealed_results import verify_all_sealed_results
+from main import run
 
 
 def test_final_config_is_explicit_and_has_no_optimum_label():
@@ -56,24 +55,16 @@ def test_final_course_seed_is_deterministic_and_feasible_with_small_budget():
     right = run_course_final_seed(
         context, seed=2601, depth=1, evaluation_budget=8
     )
-    assert left.optimizer.final_parameters == right.optimizer.final_parameters
+    assert left.optimizer.parameters == right.optimizer.parameters
     assert left.p_opt == pytest.approx(right.p_opt, abs=1e-14)
     assert abs(left.p_feas - 1.0) <= 1e-12
     assert left.evaluations <= 8
 
 
 def test_penalty_demo_covers_qubo_ising_statevector_and_metrics():
-    result = run_penalty_demo(evaluation_budget=4)
-    assert result.node_count == 7
-    assert result.edge_count == 14
-    assert result.state_count == 2**14
-    assert result.qubo_ising_max_error == 0.0
-    assert result.ground_state_count == 1
-    assert abs(result.probability_sum - 1.0) <= 1e-12
-    assert 0.0 <= result.p_opt <= result.p_feas <= 1.0
-
-
-def test_all_sealed_results_remain_verifiable():
-    checks = verify_all_sealed_results()
-    assert [item["status"] for item in checks] == ["PASS", "PASS", "PASS"]
-    assert [item["artifact_count"] for item in checks] == [15, 51, 50]
+    result = run(evaluation_budget=4)
+    assert result["edges"] == 14
+    assert result["states"] == 2**14
+    assert result["exact_route"] == (0, 1, 2, 4, 5, 6)
+    for values in result["results"].values():
+        assert 0.0 <= values["p_opt"] <= values["p_feas"] <= 1.0

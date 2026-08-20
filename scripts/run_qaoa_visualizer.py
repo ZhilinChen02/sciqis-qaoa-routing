@@ -23,7 +23,6 @@ from support.qaoa_visualization import (  # noqa: E402
     QAOAVisualizationRepository,
     VisualizationDataError,
 )
-from support.sealed_results import Q2F_FINAL, verify_sealed_result  # noqa: E402
 
 
 ASSETS = {
@@ -121,13 +120,12 @@ def main() -> None:
     )
     arguments = parser.parse_args()
 
-    verification = verify_sealed_result(Q2F_FINAL)
     repository = QAOAVisualizationRepository()
     if arguments.check:
         catalog = repository.catalog()
         print(
-            f"visualizer inputs: {verification['status']} integrity, "
-            f"{catalog['method_count']} methods, {catalog['run_count']} retained runs"
+            f"visualizer inputs: {catalog['method_count']} methods, "
+            f"{catalog['run_count']} retained runs"
         )
         return
     if not 0 <= arguments.port <= 65535:

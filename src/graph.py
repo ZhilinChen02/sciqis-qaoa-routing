@@ -136,3 +136,53 @@ def path_to_edge_bitstring(graph: nx.DiGraph, path) -> EdgeVector:
     if missing:
         raise ValueError(f"path uses absent directed edges: {sorted(missing)}")
     return tuple(int(edge in selected) for edge in get_edge_order(graph))
+
+
+def simple_routes(graph: nx.DiGraph) -> tuple[tuple[int, ...], ...]:
+    """Return all source-target routes, ordered by cost and node sequence."""
+
+    validate_graph(graph)
+    routes = nx.all_simple_paths(
+        graph, source=graph.graph["source"], target=graph.graph["target"]
+    )
+    return tuple(sorted(map(tuple, routes), key=lambda route: (path_cost(graph, route), route)))
+
+
+def exact_route(graph: nx.DiGraph) -> tuple[tuple[int, ...], int]:
+    """Cross-check enumeration and NetworkX, then return the unique optimum."""
+
+    routes = simple_routes(graph)
+    if not routes:
+        raise ValueError("the graph has no source-to-target route")
+    route = tuple(
+        nx.shortest_path(
+            graph,
+            source=graph.graph["source"],
+            target=graph.graph["target"],
+            weight="weight",
+        )
+    )
+    cost = path_cost(graph, route)
+    if routes[0] != route or sum(path_cost(graph, item) == cost for item in routes) != 1:
+        raise RuntimeError("shortest-route calculations disagree")
+    return route, cost
+
+
+def greedy_route(graph: nx.DiGraph) -> tuple[int, ...]:
+    """Repeatedly take the cheapest edge that can still reach the target."""
+
+    validate_graph(graph)
+    target = graph.graph["target"]
+    route = [graph.graph["source"]]
+    while route[-1] != target:
+        node = route[-1]
+        choices = [
+            (graph.edges[node, next_node]["weight"], next_node)
+            for next_node in graph.successors(node)
+            if next_node not in route
+            and (next_node == target or nx.has_path(graph, next_node, target))
+        ]
+        if not choices:
+            raise RuntimeError("greedy route reached a dead end")
+        route.append(min(choices)[1])
+    return tuple(route)
