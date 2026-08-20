@@ -1,13 +1,67 @@
-"""Metrics computed from the complete exact probability distribution."""
-
-from __future__ import annotations
+"""Metrics calculated from a complete QAOA probability distribution."""
 
 from dataclasses import dataclass
-from typing import Sequence
 
 import numpy as np
 
-from qubo import StateRecord
+
+def probability_mass(probabilities, mask=None) -> float:
+    """Add total probability, optionally restricted by a Boolean mask."""
+
+    probabilities = np.asarray(probabilities)
+    if mask is None:
+        return float(np.sum(probabilities))
+    return float(np.sum(probabilities[np.asarray(mask, dtype=bool)]))
+
+
+def indexed_probability_mass(probabilities, indices) -> float:
+    """Add probability on an explicit collection of state indices."""
+
+    return float(np.sum(np.asarray(probabilities)[np.asarray(indices, dtype=int)]))
+
+
+def conditional_probability(part: float, whole: float) -> float | None:
+    """Return ``part / whole``, or ``None`` when the conditioning mass is zero."""
+
+    return float(part / whole) if whole > 0.0 else None
+
+
+def shannon_entropy(probabilities) -> float:
+    """Return Shannon entropy in nats, ignoring zero-probability states."""
+
+    probabilities = np.asarray(probabilities, dtype=float)
+    positive = probabilities[probabilities > 0.0]
+    return float(-np.sum(positive * np.log(positive)))
+
+
+def conditional_entropy(probabilities, mask) -> float | None:
+    """Return entropy after conditioning on the selected states."""
+
+    probabilities = np.asarray(probabilities, dtype=float)
+    mask = np.asarray(mask, dtype=bool)
+    mass = probability_mass(probabilities, mask)
+    return None if mass == 0.0 else shannon_entropy(probabilities[mask] / mass)
+
+
+def lowest_energy_mass(probabilities, energies, count) -> float:
+    """Add probability on the ``count`` lowest-energy basis states."""
+
+    probabilities = np.asarray(probabilities)
+    energies = np.asarray(energies)
+    order = np.lexsort((np.arange(len(energies)), energies))
+    return indexed_probability_mass(probabilities, order[: int(count)])
+
+
+def expected_feasible_cost(probabilities, feasible, costs) -> float | None:
+    """Return expected route cost conditioned on the decoded feasible states."""
+
+    probabilities = np.asarray(probabilities, dtype=float)
+    feasible = np.asarray(feasible, dtype=bool)
+    p_feas = probability_mass(probabilities, feasible)
+    if p_feas == 0.0:
+        return None
+    costs = np.asarray(costs, dtype=float)
+    return float(probabilities[feasible] @ costs[feasible] / p_feas)
 
 
 @dataclass(frozen=True)
@@ -23,52 +77,66 @@ class DistributionMetrics:
     best_state_optimal: bool
     optimal_state_rank: int
 
+    @property
+    def p_opt_given_feas(self) -> float | None:
+        """Probability of an optimal route conditioned on feasibility."""
+
+        return conditional_probability(self.p_opt, self.p_feas)
+
+
+def _probability_order(probabilities):
+    """Sort high probability first and use the state index for ties."""
+
+    indices = np.arange(len(probabilities))
+    return np.lexsort((indices, -np.round(probabilities, 15)))
+
 
 def distribution_metrics(
-    probabilities: Sequence[float],
-    states: Sequence[StateRecord],
+    probabilities,
+    states,
     *,
-    optimal_cost: int,
-    threshold: float = 1e-15,
+    optimal_cost,
+    threshold=1e-15,
 ) -> DistributionMetrics:
-    """Calculate route metrics from all ``2^q`` probabilities, never top-k."""
+    """Calculate feasibility, optimality and the most likely decoded route."""
 
-    probs = np.asarray(probabilities, dtype=np.float64)
-    if probs.ndim != 1 or len(probs) != len(states):
-        raise ValueError("distribution and state-space sizes differ")
-    if np.any(probs < -threshold) or not np.isclose(np.sum(probs), 1.0, atol=1e-10):
+    probabilities = np.asarray(probabilities, dtype=float)
+    if len(probabilities) != len(states) or not np.isclose(probabilities.sum(), 1):
         raise ValueError("invalid probability distribution")
-    feasible = np.asarray([state.is_decoder_valid for state in states], dtype=bool)
-    optimal = np.asarray(
-        [state.is_decoder_valid and state.routing_cost == int(optimal_cost) for state in states],
-        dtype=bool,
-    )
-    p_feas = float(np.sum(probs[feasible]))
-    p_opt = float(np.sum(probs[optimal]))
-    conditional = None
-    if p_feas > threshold:
-        costs = np.asarray([state.routing_cost for state in states], dtype=float)
-        conditional = float(probs[feasible] @ costs[feasible] / p_feas)
+    if np.any(probabilities < -threshold):
+        raise ValueError("invalid probability distribution")
 
-    # Round only for deterministic tie handling; stored probabilities remain raw.
-    order = np.lexsort((np.arange(len(probs)), -np.round(probs, 15)))
+    feasible = np.array([state.is_decoder_valid for state in states])
+    optimal = np.array(
+        [state.is_decoder_valid and state.routing_cost == optimal_cost for state in states]
+    )
+    p_feas = probability_mass(probabilities, feasible)
+    p_opt = probability_mass(probabilities, optimal)
+    costs = np.array([state.routing_cost for state in states], dtype=float)
+
+    order = _probability_order(probabilities)
     best_index = int(order[0])
     best_state = states[best_index]
-    feasible_order = [int(index) for index in order if states[int(index)].is_decoder_valid]
-    best_decoded = states[feasible_order[0]] if feasible_order else None
-    optimal_probabilities = probs[optimal]
+    best_decoded = next(
+        (states[int(i)] for i in order if states[int(i)].is_decoder_valid), None
+    )
+
+    optimal_probabilities = probabilities[optimal]
     if len(optimal_probabilities) == 0:
-        raise RuntimeError("no globally optimal feasible basis state found")
-    best_optimal_probability = float(np.max(optimal_probabilities))
-    optimal_rank = 1 + int(np.sum(probs > best_optimal_probability + 1e-14))
+        raise RuntimeError("no optimal feasible state found")
+    best_optimal_probability = float(optimal_probabilities.max())
+    optimal_rank = 1 + int(np.sum(probabilities > best_optimal_probability + 1e-14))
+
     return DistributionMetrics(
         p_feas=p_feas,
         p_opt=p_opt,
-        feasible_conditional_cost=conditional,
+        feasible_conditional_cost=expected_feasible_cost(
+            probabilities, feasible, costs
+        ),
         best_decoded_route=None if best_decoded is None else best_decoded.decoded_route,
         best_decoded_cost=None if best_decoded is None else best_decoded.routing_cost,
         best_state_index=best_index,
-        best_state_probability=float(probs[best_index]),
+        best_state_probability=float(probabilities[best_index]),
         best_state_valid=best_state.is_decoder_valid,
         best_state_optimal=bool(optimal[best_index]),
         optimal_state_rank=optimal_rank,
@@ -76,31 +144,35 @@ def distribution_metrics(
 
 
 def top_state_rows(
-    probabilities: Sequence[float],
-    states: Sequence[StateRecord],
+    probabilities,
+    states,
     *,
-    optimal_cost: int,
-    top_k: int = 12,
+    optimal_cost,
+    top_k=12,
 ) -> list[dict[str, object]]:
-    """Return presentation rows only; scientific metrics use the full vector."""
+    """Return a small printable table of the most probable states."""
 
-    probs = np.asarray(probabilities, dtype=float)
-    if len(probs) != len(states) or int(top_k) < 1:
+    probabilities = np.asarray(probabilities, dtype=float)
+    if len(probabilities) != len(states) or int(top_k) < 1:
         raise ValueError("invalid top-state request")
-    order = np.lexsort((np.arange(len(probs)), -np.round(probs, 15)))[: int(top_k)]
+
     rows = []
-    for rank, index in enumerate(order, start=1):
+    for rank, index in enumerate(
+        _probability_order(probabilities)[: int(top_k)], start=1
+    ):
         state = states[int(index)]
         valid = state.is_decoder_valid
         rows.append(
             {
                 "rank": rank,
                 "bitstring": state.canonical_bitstring,
-                "probability": float(probs[int(index)]),
+                "probability": float(probabilities[index]),
                 "valid": valid,
-                "optimal": bool(valid and state.routing_cost == int(optimal_cost)),
-                "decoded_route": "" if not valid else "->".join(map(str, state.decoded_route)),
-                "decoded_cost": "" if not valid else state.routing_cost,
+                "optimal": bool(valid and state.routing_cost == optimal_cost),
+                "decoded_route": (
+                    "->".join(map(str, state.decoded_route)) if valid else ""
+                ),
+                "decoded_cost": state.routing_cost if valid else "",
                 "invalid_reason": "" if valid else (
                     "flow_constraints_violated"
                     if state.flow_penalty > 0

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Archived one-off warm-start tuning controller."""
-"""Local epsilon, multistart, and optimizer-budget study for Q2."""
 
 from __future__ import annotations
 
@@ -13,7 +12,7 @@ from typing import Iterable, Sequence
 
 import numpy as np
 
-from optimization import SMALL_RANDOM, SOURCE_UNIFORM
+from qaoa import SMALL_RANDOM, SOURCE_UNIFORM
 from tuning import (
     TuningContext,
     TuningRun,
@@ -26,7 +25,7 @@ from tuning import (
     summarize_runs,
     top_rows_for_run,
 )
-from warm_start import incumbent_relaxation
+from support.warm_start import incumbent_relaxation
 
 
 ROOT = Path(__file__).resolve().parents[1]

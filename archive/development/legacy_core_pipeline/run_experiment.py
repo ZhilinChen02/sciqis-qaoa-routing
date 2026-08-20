@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Archived entry point for the superseded comparison pipeline."""
-"""Canonical command for regenerating all numerical experiment outputs."""
 
 from __future__ import annotations
 

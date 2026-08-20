@@ -1,197 +1,383 @@
-"""Exact-statevector Q1 and Q2 circuits for the 14-edge routing encoding."""
-
-from __future__ import annotations
+"""Exact QAOA evolution, Expectation/CVaR objectives, and COBYLA."""
 
 from dataclasses import dataclass
-from typing import Sequence
+from math import pi
+from time import perf_counter
 
 import numpy as np
-from qiskit import QuantumCircuit, transpile
+from scipy.optimize import Bounds, minimize
 
-from ising import IsingHamiltonian
-from warm_start import (
-    apply_single_qubit_hamiltonian_rotation,
-    apply_warm_start_mixer,
-    mixer_hamiltonian,
-    product_state,
-)
+X_MIXER = "x"
+GROVER_MIXER = "grover"
+EXPECTATION = "expectation"
+CVAR = "cvar"
+SOURCE_UNIFORM = "source_uniform"
+SMALL_RANDOM = "small_random"
+
+GROVER_GLOBAL = "grover_global"
 
 
-Q1_PENALTY_X = "Q1 Penalty-X"
-Q2_WARM_START = "Q2 Warm-Start"
+class EvaluationBudgetExhausted(RuntimeError):
+    pass
 
 
 @dataclass(frozen=True)
-class CircuitStatistics:
-    circuit_depth: int
-    total_gate_count: int
-    two_qubit_gate_count: int
+class OptimizationResult:
+    parameters: tuple[float, ...]
+    objective_value: float
+    initial_objective: float
+    evaluations: int
+    success: bool
+    reason: str
+    wall_time: float
 
 
-def normalized_diagonal(raw_diagonal: Sequence[float]) -> tuple[np.ndarray, float, float]:
-    """Return an affine normalization and its shift/scale."""
-
-    raw = np.asarray(raw_diagonal, dtype=np.float64)
-    if raw.ndim != 1 or len(raw) < 2 or np.any(~np.isfinite(raw)):
-        raise ValueError("invalid cost diagonal")
-    shift = float(np.min(raw))
-    scale = float(np.max(raw) - shift)
-    if scale <= 0.0:
-        scale = 1.0
-    return (raw - shift) / scale, shift, scale
-
-
-def standard_plus_state(num_qubits: int) -> np.ndarray:
-    if int(num_qubits) < 1:
-        raise ValueError("num_qubits must be positive")
-    dimension = 1 << int(num_qubits)
-    return np.full(dimension, 1.0 / np.sqrt(dimension), dtype=np.complex128)
+def _cost_diagonal(values):
+    values = np.asarray(values, dtype=np.float64)
+    size = values.size
+    if (
+        values.ndim != 1
+        or size < 2
+        or size & (size - 1)
+        or not np.all(np.isfinite(values))
+    ):
+        raise ValueError("cost diagonal must have a finite power-of-two length")
+    return values, size.bit_length() - 1
 
 
-def apply_x_mixer(state: np.ndarray, beta: float, num_qubits: int) -> np.ndarray:
-    """Apply the ordinary separable X mixer using source little-endian order."""
-
-    x_matrix = np.asarray([[0.0, 1.0], [1.0, 0.0]], dtype=np.complex128)
-    result = np.asarray(state, dtype=np.complex128).copy()
-    if len(result) != 1 << int(num_qubits):
-        raise ValueError("statevector_dimension_mismatch")
-    for qubit in range(int(num_qubits)):
-        result = apply_single_qubit_hamiltonian_rotation(
-            result, qubit, beta, x_matrix
-        )
-    return result
+def _angles(values, depth):
+    values, depth = np.asarray(values, dtype=np.float64), int(depth)
+    if depth < 1 or values.shape != (2 * depth,) or not np.all(np.isfinite(values)):
+        raise ValueError("QAOA needs p gamma values followed by p beta values")
+    return values[:depth], values[depth:]
 
 
-def simulate_qaoa_state(
-    normalized_cost_diagonal: Sequence[float],
-    parameters: Sequence[float],
-    *,
-    depth: int,
-    solver: str,
-    warm_start_values: Sequence[float] | None = None,
-) -> np.ndarray:
-    """Evolve the exact state with source Q2 layer and angle conventions.
+def initial_parameters(depth, seed, *, strategy=SOURCE_UNIFORM, small_random_scale=0.3):
+    """Draw the frozen seed-based gamma and beta initialization."""
 
-    Parameters are ``[gamma_1,...,gamma_p,beta_1,...,beta_p]``.  Each layer
-    applies cost evolution followed by mixer evolution. The retained course
-    convention scales the mixer angle by ``1/q``.
-    """
-
-    diagonal = np.asarray(normalized_cost_diagonal, dtype=np.float64)
-    if diagonal.ndim != 1 or len(diagonal) == 0 or len(diagonal) & (len(diagonal) - 1):
-        raise ValueError("cost diagonal dimension must be a positive power of two")
-    num_qubits = len(diagonal).bit_length() - 1
     depth = int(depth)
-    values = np.asarray(parameters, dtype=np.float64)
-    if depth < 1 or values.shape != (2 * depth,):
-        raise ValueError("qaoa_parameter_count_mismatch")
-    gammas, betas = values[:depth], values[depth:]
-    mixer_scale = 1.0 / float(num_qubits)
-    if solver == Q1_PENALTY_X:
-        state = standard_plus_state(num_qubits)
-    elif solver == Q2_WARM_START:
-        if warm_start_values is None or len(warm_start_values) != num_qubits:
-            raise ValueError("Q2 requires one warm-start value per qubit")
-        state = product_state(warm_start_values)
+    if depth < 1:
+        raise ValueError("depth_must_be_positive")
+    random = np.random.default_rng(int(seed))
+    if strategy == SOURCE_UNIFORM:
+        gamma_high, beta_high = 2 * pi, pi
+    elif strategy == SMALL_RANDOM and 0 < float(small_random_scale) <= pi:
+        gamma_high = beta_high = float(small_random_scale)
     else:
-        raise ValueError(f"unsupported solver: {solver}")
-    for gamma, beta in zip(gammas, betas):
-        state *= np.exp(-1j * float(gamma) * diagonal)
-        scaled_beta = float(beta) * mixer_scale
-        if solver == Q1_PENALTY_X:
-            state = apply_x_mixer(state, scaled_beta, num_qubits)
-        else:
-            state = apply_warm_start_mixer(
-                state, scaled_beta, warm_start_values  # type: ignore[arg-type]
-            )
+        raise ValueError(f"unsupported initialization strategy: {strategy}")
+    return np.concatenate(
+        (random.uniform(0, gamma_high, depth), random.uniform(0, beta_high, depth))
+    ).astype(float)
+
+
+def normalized_diagonal(values):
+    """Shift and scale energies to 0..1."""
+
+    values = np.asarray(values, dtype=np.float64)
+    if values.ndim != 1 or len(values) < 2 or not np.all(np.isfinite(values)):
+        raise ValueError("invalid cost diagonal")
+    shift = float(values.min())
+    scale = float(values.max() - shift) or 1.0
+    return (values - shift) / scale, shift, scale
+
+
+def initial_state(num_qubits):
+    """Uniform |+> state over all edge bit strings."""
+
+    dimension = 1 << int(num_qubits)
+    if dimension < 2:
+        raise ValueError("num_qubits must be positive")
+    return np.full(dimension, 1 / np.sqrt(dimension), dtype=np.complex128)
+
+
+def apply_cost(state, energies, gamma):
+    """Apply exp(-i gamma H_C); probabilities stay unchanged."""
+
+    state = np.asarray(state, dtype=np.complex128).copy()
+    energies = np.asarray(energies, dtype=np.float64)
+    if state.shape != energies.shape:
+        raise ValueError("state and cost diagonal must have the same size")
+    state *= np.exp(-1j * float(gamma) * energies)
     return state
 
 
-def state_probabilities(state: np.ndarray) -> np.ndarray:
-    probabilities = np.abs(np.asarray(state, dtype=np.complex128)) ** 2
-    total = float(np.sum(probabilities))
-    if not np.isfinite(total) or not np.isclose(total, 1.0, atol=1e-10):
-        raise RuntimeError(f"statevector is not normalized: probability sum={total}")
-    return probabilities / total
+def apply_x_mixer(state, beta, num_qubits):
+    """Apply exp(-i beta X) independently to every qubit."""
+
+    state = np.asarray(state, dtype=np.complex128).copy()
+    if state.shape != (1 << int(num_qubits),):
+        raise ValueError("statevector dimension does not match num_qubits")
+    cosine, sine = np.cos(float(beta)), np.sin(float(beta))
+    for qubit in range(int(num_qubits)):
+        blocks = state.reshape(-1, 2, 1 << qubit)
+        zero, one = blocks[:, 0, :].copy(), blocks[:, 1, :].copy()
+        blocks[:, 0, :] = cosine * zero - 1j * sine * one
+        blocks[:, 1, :] = cosine * one - 1j * sine * zero
+    return state
 
 
-def build_qaoa_circuit(
-    ising: IsingHamiltonian,
-    parameters: Sequence[float],
-    *,
-    depth: int,
-    solver: str,
-    normalization_scale: float,
-    warm_start_values: Sequence[float] | None = None,
-) -> QuantumCircuit:
-    """Build the circuit equivalent used to compute reproducible resources."""
+def apply_grover_mixer(state, beta):
+    """Apply exp(-i beta |s><s|) without constructing a dense matrix."""
 
-    num_qubits = len(ising.h)
-    values = np.asarray(parameters, dtype=float)
-    if values.shape != (2 * int(depth),):
-        raise ValueError("qaoa_parameter_count_mismatch")
-    if normalization_scale <= 0.0:
-        raise ValueError("normalization scale must be positive")
-    gammas, betas = values[:depth], values[depth:]
-    circuit = QuantumCircuit(num_qubits, name=solver)
-    if solver == Q1_PENALTY_X:
-        circuit.h(range(num_qubits))
-    elif solver == Q2_WARM_START:
-        if warm_start_values is None or len(warm_start_values) != num_qubits:
-            raise ValueError("Q2 requires one warm-start value per qubit")
-        for qubit, probability_one in enumerate(warm_start_values):
-            theta = 2.0 * np.arcsin(np.sqrt(float(probability_one)))
-            circuit.ry(theta, qubit)
-    else:
-        raise ValueError(f"unsupported solver: {solver}")
+    state = np.asarray(state, dtype=np.complex128)
+    dimension = len(state)
+    if dimension < 2 or dimension & (dimension - 1):
+        raise ValueError("state length must be a power of two")
+    uniform = 1 / np.sqrt(dimension)
+    overlap = np.sum(state) * uniform
+    return state + (np.exp(-1j * float(beta)) - 1) * overlap * uniform
 
-    mixer_scale = 1.0 / float(num_qubits)
+
+def qaoa_state(energies, parameters, *, depth, mixer=X_MIXER, scale_x=True):
+    """Alternate cost and mixer operations for p QAOA layers."""
+
+    energies, num_qubits = _cost_diagonal(energies)
+    gammas, betas = _angles(parameters, depth)
+    state = initial_state(num_qubits)
     for gamma, beta in zip(gammas, betas):
-        for qubit, coefficient in enumerate(ising.h):
-            angle = 2.0 * float(gamma) * float(coefficient) / normalization_scale
-            if angle:
-                circuit.rz(angle, qubit)
-        for (left, right), coefficient in sorted(ising.coupling.items()):
-            angle = 2.0 * float(gamma) * float(coefficient) / normalization_scale
-            if angle:
-                circuit.rzz(angle, left, right)
-        scaled_beta = float(beta) * mixer_scale
-        if solver == Q1_PENALTY_X:
-            for qubit in range(num_qubits):
-                circuit.rx(2.0 * scaled_beta, qubit)
+        state = apply_cost(state, energies, gamma)
+        if mixer == X_MIXER:
+            angle = beta / num_qubits if scale_x else beta
+            state = apply_x_mixer(state, angle, num_qubits)
+        elif mixer == GROVER_MIXER:
+            state = apply_grover_mixer(state, beta)
         else:
-            for qubit, probability_one in enumerate(warm_start_values):  # type: ignore[arg-type]
-                theta = 2.0 * np.arcsin(np.sqrt(float(probability_one)))
-                # exp(-i beta H), H=-RY(theta) Z RY(-theta)
-                circuit.ry(-theta, qubit)
-                circuit.rz(-2.0 * scaled_beta, qubit)
-                circuit.ry(theta, qubit)
-    return circuit
+            raise ValueError(f"unknown mixer: {mixer}")
+    return state
 
 
-def circuit_statistics(circuit: QuantumCircuit) -> CircuitStatistics:
-    """Count a backend-independent ``rz/sx/x/cx`` decomposition."""
+def probabilities(state):
+    """Convert normalized amplitudes to probabilities."""
 
-    decomposed = transpile(
-        circuit,
-        basis_gates=["rz", "sx", "x", "cx"],
-        optimization_level=0,
-        seed_transpiler=2601,
+    values = np.abs(np.asarray(state, dtype=np.complex128)) ** 2
+    total = float(values.sum())
+    if not np.isfinite(total) or not np.isclose(total, 1, atol=1e-10):
+        raise RuntimeError(f"statevector is not normalized: probability sum={total}")
+    return values / total
+
+
+def _distribution(probability_values, energies, negative_tolerance, sum_tolerance):
+    probability_values = np.asarray(probability_values, dtype=float)
+    energies = np.asarray(energies, dtype=float)
+    if probability_values.ndim != 1 or probability_values.shape != energies.shape:
+        raise ValueError("probabilities and energies must be equal non-empty vectors")
+    if len(probability_values) == 0 or np.any(~np.isfinite(probability_values + energies)):
+        raise ValueError("probabilities and energies must be finite")
+    if negative_tolerance < 0 or sum_tolerance < 0:
+        raise ValueError("probability tolerances must be non-negative")
+    if np.any(probability_values < -negative_tolerance):
+        raise ValueError("probabilities contain a negative value beyond tolerance")
+    had_negative = bool(np.any(probability_values < 0))
+    probability_values = np.maximum(probability_values, 0)
+    total = float(probability_values.sum())
+    if not np.isfinite(total) or total <= 0:
+        raise ValueError("probability mass must be positive and finite")
+    if not np.isclose(total, 1, rtol=0, atol=sum_tolerance):
+        raise ValueError(f"probabilities must sum to one within tolerance; got {total}")
+    if had_negative:
+        probability_values /= total
+    return probability_values, energies
+
+
+def expectation(
+    probability_values,
+    energies,
+    *,
+    negative_probability_tolerance=1e-12,
+    normalization_tolerance=1e-10,
+):
+    """Probability-weighted mean energy."""
+
+    probability_values, energies = _distribution(
+        probability_values,
+        energies,
+        negative_probability_tolerance,
+        normalization_tolerance,
     )
-    operations = decomposed.count_ops()
-    two_qubit = sum(
-        1 for instruction in decomposed.data if instruction.operation.num_qubits == 2
+    return float(probability_values @ energies)
+
+
+def cvar(
+    probability_values,
+    energies,
+    alpha,
+    *,
+    negative_probability_tolerance=1e-12,
+    normalization_tolerance=1e-10,
+):
+    """Mean energy of the lowest-energy alpha probability mass."""
+
+    alpha = float(alpha)
+    if not np.isfinite(alpha) or not 0 < alpha <= 1:
+        raise ValueError("cvar alpha must satisfy 0 < alpha <= 1")
+    probability_values, energies = _distribution(
+        probability_values,
+        energies,
+        negative_probability_tolerance,
+        normalization_tolerance,
     )
-    return CircuitStatistics(
-        circuit_depth=int(decomposed.depth()),
-        total_gate_count=int(sum(operations.values())),
-        two_qubit_gate_count=int(two_qubit),
+    if alpha == 1:
+        return float(probability_values @ energies)
+    remaining, weighted_energy = alpha, 0.0
+    for index in np.argsort(energies, kind="stable"):
+        used = min(float(probability_values[index]), remaining)
+        weighted_energy += used * float(energies[index])
+        remaining -= used
+        if remaining <= 0:
+            break
+    if remaining > normalization_tolerance:
+        raise RuntimeError("distribution does not contain the requested CVaR mass")
+    return weighted_energy / alpha
+
+
+def objective_value(probability_values, energies, objective, alpha=None):
+    """Choose the ordinary expectation or CVaR objective."""
+
+    if objective == EXPECTATION and alpha is None:
+        return expectation(probability_values, energies)
+    if objective == CVAR and alpha is not None:
+        return cvar(probability_values, energies, alpha)
+    if objective == EXPECTATION:
+        raise ValueError("cvar_alpha must be None in expectation mode")
+    if objective == CVAR:
+        raise ValueError("cvar_alpha is required in cvar mode")
+    raise ValueError(f"unsupported optimization objective mode: {objective}")
+
+
+def optimize_cobyla(
+    objective,
+    *,
+    depth,
+    seed,
+    evaluation_budget,
+    gamma_bounds=(0.0, 2.0 * pi),
+    beta_bounds=(0.0, pi),
+    tolerance=1e-8,
+    rhobeg=0.5,
+    initialization_strategy=SOURCE_UNIFORM,
+    small_random_scale=0.3,
+):
+    """Bounded COBYLA with the frozen evaluation-counting policy."""
+
+    depth, budget = int(depth), int(evaluation_budget)
+    if depth < 1 or budget < 1:
+        raise ValueError("invalid_optimizer_depth_or_budget")
+    lower = np.array([gamma_bounds[0]] * depth + [beta_bounds[0]] * depth)
+    upper = np.array([gamma_bounds[1]] * depth + [beta_bounds[1]] * depth)
+    start = initial_parameters(
+        depth, seed, strategy=initialization_strategy, small_random_scale=small_random_scale
+    )
+    evaluations, initial_value = 0, None
+    best_value, best_parameters = float("inf"), start.copy()
+
+    def counted(parameters):
+        nonlocal evaluations, initial_value, best_value, best_parameters
+        if evaluations >= budget:
+            raise EvaluationBudgetExhausted
+        evaluations += 1
+        parameters = np.asarray(parameters, dtype=float)
+        outside = float(
+            np.maximum(lower - parameters, 0).sum()
+            + np.maximum(parameters - upper, 0).sum()
+        )
+        value = 1_000_000 + outside if outside else float(objective(parameters))
+        if not np.isfinite(value):
+            raise ValueError("non_finite_optimizer_objective")
+        if initial_value is None:
+            initial_value = value
+        if not outside and value < best_value:
+            best_value, best_parameters = value, parameters.copy()
+        return value
+
+    started, scipy_result, exhausted = perf_counter(), None, False
+    try:
+        scipy_result = minimize(
+            counted,
+            start,
+            method="COBYLA",
+            bounds=Bounds(lower, upper),
+            options={
+                "maxiter": budget,
+                "rhobeg": float(rhobeg),
+                "tol": float(tolerance),
+                "catol": float(tolerance),
+            },
+        )
+    except EvaluationBudgetExhausted:
+        exhausted = True
+    if evaluations == 0 or initial_value is None:
+        raise RuntimeError("optimizer_performed_no_evaluations")
+    if scipy_result is not None:
+        candidate = np.asarray(scipy_result.x, dtype=float)
+        if np.all(candidate >= lower) and np.all(candidate <= upper) and float(
+            scipy_result.fun
+        ) < best_value:
+            best_value, best_parameters = float(scipy_result.fun), candidate
+    success = bool(scipy_result is not None and scipy_result.success and not exhausted)
+    if exhausted or evaluations >= budget:
+        reason = "evaluation_budget_exhausted"
+    elif success:
+        reason = "converged"
+    else:
+        reason = f"optimizer_failed:{getattr(scipy_result, 'message', 'unknown_failure')}"
+    return OptimizationResult(
+        tuple(map(float, best_parameters)),
+        float(best_value),
+        float(initial_value),
+        evaluations,
+        success,
+        reason,
+        float(perf_counter() - started),
     )
 
 
-def mixer_ground_state_error(probability_one: float) -> float:
-    """Numerical check that the prepared qubit is the mixer's -1 eigenstate."""
+def optimize(
+    energies,
+    *,
+    depth,
+    mixer,
+    objective=EXPECTATION,
+    alpha=None,
+    seed=2601,
+    evaluation_budget=100,
+):
+    """Optimize one mixer/objective and return its result and probabilities."""
 
-    c_value = float(probability_one)
-    state = np.asarray([np.sqrt(1.0 - c_value), np.sqrt(c_value)], dtype=complex)
-    return float(np.max(np.abs(mixer_hamiltonian(c_value) @ state + state)))
+    energies = np.asarray(energies, dtype=float)
+
+    def loss(parameters):
+        values = probabilities(qaoa_state(energies, parameters, depth=depth, mixer=mixer))
+        return objective_value(values, energies, objective, alpha)
+
+    result = optimize_cobyla(
+        loss, depth=depth, seed=seed, evaluation_budget=evaluation_budget
+    )
+    final = probabilities(qaoa_state(energies, result.parameters, depth=depth, mixer=mixer))
+    return result, final
+
+
+class GlobalGroverMixer:
+    """Small object adapter used by the saved experiment code."""
+
+    def __init__(self, num_qubits):
+        self.num_qubits = int(num_qubits)
+        if isinstance(num_qubits, bool) or self.num_qubits < 1:
+            raise ValueError("num_qubits must be positive")
+
+    @property
+    def dimension(self):
+        return 1 << self.num_qubits
+
+    def initial_state(self):
+        return initial_state(self.num_qubits)
+
+    def evolve(self, state, beta):
+        return apply_grover_mixer(state, beta)
+
+
+def build_global_grover_mixer(num_qubits):
+    return GlobalGroverMixer(num_qubits)
+
+
+def simulate_global_grover_state(cost_diagonal, parameters, *, depth):
+    return qaoa_state(cost_diagonal, parameters, depth=depth, mixer=GROVER_MIXER)

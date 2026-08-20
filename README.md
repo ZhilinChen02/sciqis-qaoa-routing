@@ -1,326 +1,156 @@
 # QAOA Routing — DTU SCIQIS Course Project
 
-## Project question
-
-This project studies how QAOA encodes and samples routes in a small weighted
-directed graph. The primary dynamics study holds the routing problem fixed and
-compares three quantum search geometries:
-
-1. **Penalty-X QAOA:** all edge bitstrings with local Hamming-neighbor mixing;
-2. **Global Grover-Mixer QAOA:** the same full bitstring space and byte-identical
-   Penalty-QUBO, with a rank-one global projector mixer;
-3. **Feasible Grover-Mixer QAOA:** the 20-route logical feasible basis with the
-   existing rank-one feasible projector mixer.
-
-> The cost Hamiltonian encodes objective information into relative phases; the
-> mixer converts those phase differences into interference and probability
-> redistribution.
-
-The central question is how search-space restriction and mixer geometry change
-probability flow, feasibility, optimality, and energy in shallow p=1/p=2 QAOA.
-This teaching-scale ideal-simulation project does not claim quantum advantage
-or superiority over classical shortest-path algorithms.
-
-## Primary p=1/p=2 dynamics result
-
-All six cells use COBYLA, seed 2601, at most 100 objective evaluations, and the
-existing grouped parameter convention. The two full-space methods use exactly
-the same normalized Penalty-QUBO diagonal and the same uniform initial state.
-
-| Method | p | search dimension | p_feas | p_opt | invalid mass | raw `<H_C>` | `E[C|feasible]` | evals | optimize s |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Penalty-X | 1 | 16,384 | 0.00122070 | 0.00006104 | 0.99877930 | 86.0000 | 12.2000 | 50 | 1.206 |
-| Penalty-X | 2 | 16,384 | 0.00122070 | 0.00006104 | 0.99877930 | 86.0000 | 12.2000 | 73 | 1.566 |
-| Global-Grover | 1 | 16,384 | 0.00122070 | 0.00006104 | 0.99877930 | 86.0000 | 12.2000 | 32 | 0.224 |
-| Global-Grover | 2 | 16,384 | 0.00417370 | 0.00021337 | 0.99582630 | 61.9427 | 12.1891 | 100 | 1.088 |
-| Feasible-Grover | 1 | 20 | 1.00000000 | 0.05000000 | 0 | 12.2000 | 12.2000 | 23 | 0.050 |
-| Feasible-Grover | 2 | 20 | 1.00000000 | 0.17092702 | 0 | 11.3066 | 11.3066 | 100 | 0.181 |
-
-The full-space initial baseline is `p_opt=1/16,384`; the feasible-basis
-baseline is `p_opt=1/20`. The p=1 optimizer retained these baselines under the
-fixed single-start protocol. This is reported as observed rather than repaired
-with post-hoc solver-specific tuning.
-
-![Probability mass](figures/qaoa_dynamics_deep_dive/v1/06_probability_mass_decomposition.png)
-
-![Layer energy](figures/qaoa_dynamics_deep_dive/v1/07_layer_by_layer_expected_hc.png)
-
-The complete explanation, layer traces, phase plots, energy landscape, and
-limitations are in [the dynamics deep dive](docs/QAOA_DYNAMICS_DEEP_DIVE.md).
-
-## Depth 1–110 route-cost comparison
-
-The extended main track compares Penalty-X with a feasible-subspace
-Grover-Mixer using the route-cost phase
-
-\[
-U_C(\gamma)|P_i\rangle=e^{-i\gamma C(P_i)}|P_i\rangle
-\]
-
-at every depth from `p=1` to `p=110`. This is distinct from the historical
-incumbent-threshold phase described below: the threshold mask is used only for
-the auxiliary BSP metric in this comparison.
-
-Under the frozen single-seed COBYLA protocol, the route-cost Grover-Mixer first
-reaches `p_opt >= 0.50`, `0.90`, and `0.99` at depths 58, 69, and 88. Its best
-saved result is `p_opt=0.999846` at `p=110`. Penalty-X does not overtake it at
-any saved depth. Under the project-plan definition, the first Grover-over-
-Penalty crossover is `p=1`. The observed saturation-criterion onsets are `p=2`
-for Penalty-X and `p=92` for the Grover-Mixer, using ten consecutive changes
-below `1e-3`. The Penalty-X onset means that no measurable early improvement
-was observed under the frozen budget; it is not evidence of convergence at
-`p=2`.
-
-![Depth-110 optimal-route probability](figures/depth110_ext/v2/figure_1_p_opt_vs_depth.png)
-
-The [Depth-110 report](results/depth110_ext/v2/REPORT.md) contains the complete
-220-row protocol, all three figures, validation details, and limitations.
-`BUDGET_LIMITED` means that the frozen function-evaluation cap was reached; it
-does not mean that the process crashed or exceeded a wall-clock limit.
-
-## Core pipeline
+This repository is a teaching implementation of QAOA for one directed,
+weighted routing problem. It follows the complete scientific path:
 
 ```text
 weighted graph
-    -> edge variables
-    -> flow-constrained QUBO
-    -> Ising Hamiltonian
-    -> Penalty-X QAOA
-    -> statevector measurement probabilities
-    -> route decoding and p_feas / p_opt
+  -> edge variables
+  -> routing QUBO
+  -> Ising Hamiltonian
+  -> QAOA state evolution and COBYLA optimization
+  -> measurement probabilities
+  -> decoded routes and p_feas / p_opt
 ```
 
-The fixed graph has 7 nodes and 14 directed weighted edges. Flow conservation
-is enforced with penalty `A=6`. Independent shortest-path and exhaustive
-simple-route calculations agree on the unique cost-10 reference route:
+The project compares the full 14-qubit bitstring space with a 20-route feasible
+basis and includes the browser visualizations used in the presentation. It uses
+ideal statevector simulation and makes no quantum-advantage claim.
 
-```text
-0 -> 1 -> 2 -> 4 -> 5 -> 6
-```
+## Start here
 
-The reference is used to evaluate `p_opt`; it does not enter QAOA parameter
-optimization.
+Read these files in order:
 
-## Preserved feasible-threshold extension
+1. `data/graph.json` — the 7-node, 14-edge course instance.
+2. `src/main.py` — the shortest complete graph-to-QAOA demonstration.
+3. `src/graph.py` — deterministic graph loading, paths, and edge encoding.
+4. `src/qubo.py` — routing constraints, QUBO/Ising mapping, and decoding.
+5. `src/qaoa.py` — state evolution, X/Grover mixers, objectives, and COBYLA.
+6. `src/metrics.py` — `p_feas`, `p_opt`, and distribution summaries.
+7. `src/feasible_qaoa.py` — the verified 20-route logical basis.
+8. `src/feasible_experiments.py` — feasible mixers and retained objectives.
+9. `src/experiments/course_final.py` — the final course comparison.
 
-The edge representation has
-
-```text
-2^14 = 16,384 computational states.
-```
-
-The logical feasible representation classically enumerates the actual
-
-```text
-20 valid simple source-to-target routes.
-```
-
-Every logical coordinate is therefore feasible. The uniform logical initial
-state has `p_feas=1` structurally and places `1/20 = 5%` probability on each
-route.
-
-The deterministic greedy incumbent is
-
-```text
-0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6, cost 11.
-```
-
-The final threshold is constructed without an optimum label:
-
-```text
-marked(P) = 1 when raw_cost(P) < incumbent_cost = 11.
-```
-
-Exactly one of the 20 routes satisfies this threshold on the course instance.
-Only after threshold construction is that route compared with the classical
-reference for reporting `p_opt`.
-
-GM-Th-QAOA starts in the uniform feasible state, applies the Boolean threshold
-phase, and mixes with the rank-one Grover feasible mixer
-
-\[
-U_G(\beta)=e^{-i\beta|F\rangle\langle F|}
-=I+(e^{-i\beta}-1)|F\rangle\langle F|.
-\]
-
-The evolution never leaves the 20-dimensional feasible basis.
-
-## Historical feasible-threshold results
-
-The immutable three-seed descriptive study gives:
-
-| Configuration | Median p_opt | p_feas |
-|---|---:|---:|
-| Uniform feasible initialization | 5.00% | ≈100% |
-| GM-Th-QAOA p=1 | 39.20% | ≈100% |
-| GM-Th-QAOA p=2 | 81.608% | ≈100% |
-| GM-Th-QAOA p=3 | **99.8712%** | ≈100% |
-
-This behavior is similar to amplitude amplification: alternating selective
-phases and global feasible-space mixing concentrates mass on the marked set.
-It is an instance-specific mechanism demonstration, not a scaling result.
-
-## Limitations
-
-- All feasible routes are enumerated classically before logical simulation.
-- The logical Hilbert space has only 20 states.
-- Exactly one route lies below the incumbent threshold on this instance.
-- Structural `p_feas=1` is not empirical quantum advantage.
-- This is not a scalable routing algorithm or hardware implementation.
-- No quantum-advantage or statistical-significance claim is made.
-- The shortest-path problem itself is not claimed to be NP-hard.
-
-## Installation
-
-Python 3.11–3.13 is supported.
+Run the small end-to-end example from the repository root:
 
 ```bash
-python -m pip install -e ".[dev]"
+python -m src.main
 ```
 
-## Quick start
+It prints the exact reference route plus QAOA metrics and writes no results.
 
-Run the complete three-geometry dynamics experiment in its isolated result and
-figure namespaces:
+## Scientific model
 
-```bash
-python scripts/run_qaoa_dynamics_deep_dive.py
+Each directed edge has a binary variable `x_i`. The objective is the selected
+edge cost, and the QUBO adds a squared flow-balance constraint at every node:
+
+```text
+sum_i weight_i x_i
++ A * sum_nodes(outgoing - incoming - supply)^2
 ```
 
-The command refuses to overwrite a non-empty result namespace. Regenerate all
-17 dynamics figures from the saved tables without rerunning optimization:
+The source supply is `+1`, the target supply is `-1`, and all other supplies
+are zero. Substituting `x_i = (1 - z_i) / 2` gives the Ising coefficients. A
+QAOA layer applies a cost phase followed by a mixer, and COBYLA chooses the
+`gamma` and `beta` angles.
 
-```bash
-python scripts/make_qaoa_dynamics_figures.py
+The retained objectives are Expectation and fractional-cutoff CVaR. Saved
+course data also records the historical ascending-CVaR schedule. The retained
+mixers are Penalty-X, full-space Global-Grover, path exchange, feasible Grover,
+and the threshold phase used by the final GM-Th course method.
+
+The main metrics are:
+
+- `p_feas`: total probability on valid source-to-target routes;
+- `p_opt`: total probability on the exact optimal route;
+- `p_opt_given_feas = p_opt / p_feas` when `p_feas > 0`;
+- feasible-conditional expected route cost.
+
+Independent shortest-path and exhaustive route checks agree on:
+
+```text
+0 -> 1 -> 2 -> 4 -> 5 -> 6, cost = 10
 ```
 
-Run the final three-seed course method. It prints results and does not write to
-the immutable result roots:
+This exact solution is used for evaluation, not supplied to the optimizer.
 
-```bash
-python scripts/run_course_final.py
-```
-
-Optional development overrides are explicit:
-
-```bash
-python scripts/run_course_final.py --seed 2601 --depth 3 --output /tmp/q2f-smoke.json
-```
-
-Run the readable Penalty-X course core:
+## Course experiments
 
 ```bash
 python scripts/run_penalty_qaoa.py
+python scripts/run_course_final.py
 ```
 
-## Interactive QAOA circuit replay
+For a quick smoke run:
 
-Replay the retained optimizer trajectories in a local browser interface:
+```bash
+python scripts/run_penalty_qaoa.py --budget 4
+python scripts/run_course_final.py --seed 2601 --depth 1
+```
+
+The optional two-qubit circuit example shows how simple Ising `Z` and `ZZ`
+terms become `RZ` and `CX-RZ-CX` gates:
+
+```bash
+python scripts/show_simple_ising_circuit.py
+```
+
+## Interactive visualization
+
+Launch the two English-language browser demonstrations with:
 
 ```bash
 python scripts/run_qaoa_visualizer.py
-```
-
-The visualizer contains all three final algorithms at depths `p=1..4` and all
-three retained seeds. It animates the phase and mixer operations while showing
-the current `gamma`, `beta`, expected route cost, optimizer loss, better-solution
-probability, and the probability distribution over all 20 feasible routes.
-
-The interface reads the sealed result files without modifying them. Its
-gate-by-gate state reconstruction is the exact 20-dimensional logical model;
-it is deliberately labelled as an operator circuit rather than a hardware gate
-decomposition. Use `--no-browser` when starting it on a remote machine, or
-`--check` to validate the visualization inputs without starting the server.
-
-## Interactive QAOA Dynamics Demo
-
-Launch the complete saved-data-driven physics dashboard:
-
-```bash
 python scripts/run_qaoa_dynamics_visualizer.py
 ```
 
-The unified demo supports Penalty-X, Global-Grover, and Feasible-Grover at
-`p=1` and `p=2`. Its synchronized checkpoint slider advances the circuit,
-expected-energy decomposition, exact `p_feas`/`p_opt`/invalid probability mass,
-top-state probability flow, complex amplitudes, phase-versus-energy scatter,
-all-state energy histogram, conceptual mixer geometry, original routing graph,
-and saved `p=1` parameter landscapes. Autoplay and a seven-scene presentation
-mode are built in.
-
-The server reads `results/qaoa_dynamics_deep_dive/v1/`, never reruns the
-optimizer, and checks reconstructed statevectors against the saved traces before
-serving the interface. Cost checkpoints visibly rotate phases while preserving
-basis probabilities and `⟨H_C⟩`; mixer checkpoints show the resulting
-interference and probability redistribution.
-
-Validate without launching a server using:
+Validate their saved inputs without opening a browser:
 
 ```bash
+python scripts/run_qaoa_visualizer.py --check
 python scripts/run_qaoa_dynamics_visualizer.py --check
 ```
 
-See [Dynamic QAOA Visualization](docs/DYNAMIC_QAOA_VISUALIZATION.md) for all ten
-panels, presentation controls, data provenance, exports, and limitations. The
-new demo is isolated from the existing feasible-route optimizer replay above.
+## Results, figures, presentation, and report
 
-## Tests
-
-```bash
-pytest -q
-```
-
-The retained tests cover graph/reference consistency, QUBO/Ising equivalence,
-statevector normalization, Penalty-X evolution, route decoding, feasible-basis
-ordering, path-exchange connectivity, Grover/threshold unitaries, incumbent-only
-threshold construction, deterministic seeds, and the `p_feas=1` invariant.
-
-## Repository structure
-
-```text
-configs/                    final explicit course configuration
-data/                       fixed graph and frozen reference contracts
-src/                        core and feasible/logical scientific modules
-scripts/run_qaoa_dynamics_deep_dive.py
-scripts/make_qaoa_dynamics_figures.py
-scripts/run_qaoa_dynamics_visualizer.py
-scripts/export_qaoa_dynamics_animation.py
-scripts/run_cost_phase_grover_sweep.py
-scripts/make_depth_sweep_v2_figures.py
-scripts/run_course_final.py final GM-Th-QAOA command
-scripts/run_penalty_qaoa.py Penalty-X core command
-scripts/make_course_figures.py
-tests/                      focused scientific tests
-web/qaoa_dynamics_visualizer/  browser-native ten-panel dynamics demo
-figures/qaoa_dynamics_deep_dive/v1/  17 dynamics/landscape figures
-figures/course/             five presentation figures
-results/qaoa_dynamics_deep_dive/v1/  traced study data and final table
-results/depth110_ext/v2/             saved 220-row route-cost main track
-results/                    immutable historical evidence roots
-notebooks/07_qaoa_dynamics_deep_dive.ipynb
-docs/QAOA_DYNAMICS_DEEP_DIVE.md
-docs/DYNAMIC_QAOA_VISUALIZATION.md
-docs/PRESENTATION_STORY.md
-docs/methods/               concise method descriptions
-archive/development/        non-runtime historical development material
-```
-
-## Reproduce figures
-
-The plotter verifies the three sealed manifests and reads their existing CSV,
-JSON, and probability vectors. It does not rerun an optimizer.
+The student-facing result report is
+`reports/FINAL_EXPERIMENT_RESULTS_CN.md`, with a matching PDF. The editable
+presentation, PDF, notes, and data audit are under `presentation/`. Course
+figures are in `figures/course/` and can be regenerated only from saved data:
 
 ```bash
 python scripts/make_course_figures.py
 ```
 
-Use a temporary output directory for a smoke test:
+Saved course evidence is organized as follows:
+
+- `results/q2f_final_improvement/` — final method comparison;
+- `results/qaoa_dynamics_deep_dive/` — layer-by-layer dynamics;
+- `results/q2f_course_extension/` — Expectation/CVaR course extension;
+- `results/q2_revision_formal/` — historical course experiments.
+
+`archive/development/` preserves historical evidence but is not imported by
+the installed runtime or normal test path.
+
+## Install and validate
+
+Python 3.11–3.13 is supported.
 
 ```bash
-python scripts/make_course_figures.py --output /tmp/sciqis-course-figures
+python -m pip install -e ".[dev]"
+python -m compileall src scripts
+python -m pytest -q
 ```
 
-The immutable result roots are identified and checked by
-`src/sealed_results.py`. Detailed feasible-space and final-threshold definitions
-are in `docs/methods/Q2F_FEASIBLE_WARM_START.md` and
-`docs/methods/Q2F_FINAL_IMPROVEMENT.md`.
+The tests cover deterministic graph encoding, exact route identity, all 16,384
+QUBO/Ising basis energies, QAOA normalization, full-space and feasible mixers,
+Expectation and fractional-cutoff CVaR, route decoding, metrics, browser input
+validation, and the course commands.
+
+## Limitations
+
+- This is one teaching-scale graph under ideal statevector simulation.
+- The feasible representation classically enumerates all 20 valid routes.
+- Optimizer comparisons depend on finite budgets and a small seed set.
+- The project does not claim scalable hardware execution, a depth law, or
+  quantum advantage over classical shortest-path algorithms.

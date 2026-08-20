@@ -13,12 +13,9 @@ from feasible_qaoa import (
     build_logical_cost_hamiltonian,
     build_logical_path_exchange_mixer,
 )
-from q2f_final_improvement import (
+from feasible_experiments import (
     BSP_LOSS,
-    BSP_PATH_EXCHANGE,
     EXPECTATION_LOSS,
-    GM_QAOA_EXPECTATION,
-    GM_TH_QAOA,
     better_solution_probability,
     better_than_incumbent_mask,
     build_grover_feasible_mixer,
@@ -26,7 +23,6 @@ from q2f_final_improvement import (
     evaluate_final_loss,
     final_improvement_metrics,
     optimize_final_variant,
-    run_final_improvement_cell,
     simulate_final_improvement,
     threshold_phase_values,
 )
@@ -148,13 +144,13 @@ def test_gm_th_normalization_and_feasible_support(final_study, depth):
 
 
 @pytest.mark.parametrize(
-    "method", [BSP_PATH_EXCHANGE, GM_QAOA_EXPECTATION, GM_TH_QAOA]
+    "method", ["bsp_path_exchange", "gm_qaoa_expectation", "gm_th_qaoa"]
 )
 def test_all_zero_angles_return_the_method_initial_state(final_study, method):
     _, costs, path_mixer, grover, uniform, biased, threshold = final_study
-    if method == BSP_PATH_EXCHANGE:
+    if method == "bsp_path_exchange":
         initial, mixer, phase = biased, path_mixer, costs.normalized_energies
-    elif method == GM_QAOA_EXPECTATION:
+    elif method == "gm_qaoa_expectation":
         initial, mixer, phase = uniform, grover, costs.normalized_energies
     else:
         initial, mixer = uniform, grover
@@ -191,26 +187,3 @@ def test_metrics_keep_feasibility_and_exact_bsp(final_study):
         better_solution_probability(uniform.probabilities, threshold.better_mask)
     )
     assert metrics.p_opt == pytest.approx(uniform.p_opt)
-
-
-@pytest.mark.parametrize("method", [BSP_PATH_EXCHANGE, GM_QAOA_EXPECTATION, GM_TH_QAOA])
-def test_small_final_cells_are_seed_deterministic_and_feasible(final_study, method):
-    basis, costs, path_mixer, grover, uniform, biased, threshold = final_study
-    kwargs = dict(
-        method=method,
-        depth=1,
-        seed=2601,
-        evaluation_budget=8,
-    )
-    left = run_final_improvement_cell(
-        basis, costs, path_mixer, grover, biased, uniform, threshold, **kwargs
-    )
-    right = run_final_improvement_cell(
-        basis, costs, path_mixer, grover, biased, uniform, threshold, **kwargs
-    )
-    assert left.optimizer.final_parameters == right.optimizer.final_parameters
-    assert [item.loss for item in left.optimizer.evaluation_trace] == pytest.approx(
-        [item.loss for item in right.optimizer.evaluation_trace], abs=1e-14
-    )
-    assert left.optimizer.evaluations <= 8
-    assert abs(left.metrics.p_feas - 1.0) <= 1e-12

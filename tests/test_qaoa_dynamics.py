@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 from scipy.linalg import expm
 
-from dynamics_study import (
+from experiments.dynamics_study import (
     GROVER_FEASIBLE,
     GROVER_GLOBAL,
     PENALTY_X,
@@ -14,11 +14,11 @@ from dynamics_study import (
     prepare_study_context,
     regression_comparison,
 )
-from global_grover import build_global_grover_mixer, simulate_global_grover_state
-from ising import qubo_to_ising
-from q2f_final_improvement import simulate_final_improvement
-from qaoa import Q1_PENALTY_X, simulate_qaoa_state, standard_plus_state
-from qaoa_dynamics import BasisMetadata, apply_cost_layer, trace_qaoa_evolution
+from qaoa import build_global_grover_mixer, simulate_global_grover_state
+from qubo import qubo_to_ising
+from feasible_experiments import simulate_final_improvement
+from qaoa import X_MIXER, initial_state, qaoa_state
+from experiments.dynamics_trace import BasisMetadata, apply_cost_layer, trace_qaoa_evolution
 from qubo import decode_valid_route, state_index_to_edge_vector
 
 
@@ -82,7 +82,7 @@ def test_qubo_and_ising_basis_energies_match_exactly(dynamics_context):
 
 
 def test_cost_identity_probability_energy_norm_and_nontrivial_phase():
-    initial = standard_plus_state(2)
+    initial = initial_state(2)
     diagonal = np.asarray([0.0, 0.2, 0.7, 1.0])
     after = apply_cost_layer(initial, diagonal, 0.9)
     assert np.allclose(np.abs(after) ** 2, np.abs(initial) ** 2, atol=1e-15)
@@ -121,7 +121,7 @@ def test_trace_count_normalization_and_probability_identities(depth):
 
 def test_global_gamma_zero_and_mixer_beta_zero_identities():
     diagonal = np.asarray([0.0, 0.2, 0.7, 1.0])
-    initial = standard_plus_state(2)
+    initial = initial_state(2)
     mixer = build_global_grover_mixer(2)
     assert np.array_equal(apply_cost_layer(initial, diagonal, 0.0), initial)
     phased = apply_cost_layer(initial, diagonal, 0.8)
@@ -130,11 +130,11 @@ def test_global_gamma_zero_and_mixer_beta_zero_identities():
 
 def test_existing_penalty_x_state_evolution_regression(dynamics_context):
     parameters = np.asarray([0.41, 1.07, 0.28, 0.63])
-    reference = simulate_qaoa_state(
+    reference = qaoa_state(
         dynamics_context.normalized_full_diagonal,
         parameters,
         depth=2,
-        solver=Q1_PENALTY_X,
+        mixer=X_MIXER,
     )
     trace = trace_qaoa_evolution(
         dynamics_context.full_initial_state,

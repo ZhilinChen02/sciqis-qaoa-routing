@@ -10,7 +10,7 @@ from urllib.request import urlopen
 import numpy as np
 import pytest
 
-from qaoa_dynamics_visualization import (
+from support.qaoa_dynamics_visualization import (
     ALGORITHM_ORDER,
     CHECKPOINTS,
     QAOADynamicsVisualizationRepository,

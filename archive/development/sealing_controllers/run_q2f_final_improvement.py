@@ -39,7 +39,7 @@ from feasible_qaoa import (
     build_logical_path_exchange_mixer,
 )
 from graph import load_graph
-from q2f_final_improvement import (
+from feasible_experiments import (
     BSP_PATH_EXCHANGE,
     FINAL_METHODS,
     GM_QAOA_EXPECTATION,
@@ -59,7 +59,7 @@ Q2R_ROOT = PROJECT / "results" / "q2_revision_formal" / Q2R_IDENTITY
 Q2R_MANIFEST_SHA256 = "896fdbf45bbf19d04f74a802e78739714d286beabf322db6ef8f3594679411d1"
 RESULT_PARENT = PROJECT / "results" / "q2f_final_improvement"
 SOURCE_PATHS = (
-    PROJECT / "src" / "q2f_final_improvement.py",
+    PROJECT / "src" / "feasible_experiments.py",
     PROJECT / "scripts" / "run_q2f_final_improvement.py",
 )
 EVIDENCE_SOURCE_PATHS = SOURCE_PATHS + (

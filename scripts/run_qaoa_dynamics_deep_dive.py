@@ -11,8 +11,8 @@ import sys
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from dynamics_figures import generate_figures_from_saved  # noqa: E402
-from dynamics_study import (  # noqa: E402
+from support.dynamics_figures import generate_figures_from_saved  # noqa: E402
+from experiments.dynamics_study import (  # noqa: E402
     DEFAULT_CONFIG_PATH,
     GROVER_FEASIBLE,
     PENALTY_X,

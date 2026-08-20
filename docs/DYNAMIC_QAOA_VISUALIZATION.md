@@ -211,7 +211,7 @@ pre-binned server-side.
 
 The implementation is isolated in:
 
-- `src/qaoa_dynamics_visualization.py`;
+- `src/support/qaoa_dynamics_visualization.py`;
 - `scripts/run_qaoa_dynamics_visualizer.py`;
 - `web/qaoa_dynamics_visualizer/`;
 - `tests/test_qaoa_dynamics_visualization.py`.

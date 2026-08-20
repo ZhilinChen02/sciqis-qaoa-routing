@@ -2,3 +2,7 @@
 # contains intentional trailing spaces and must not be normalized during review.
 results/**/*.svg -whitespace
 archive/development/q2r/*.md -whitespace
+
+# Generated reports are binary; the final Markdown uses deliberate hard breaks.
+*.pdf binary
+reports/QAOA_ROUTING_FINAL_REPORT_CN.md whitespace=-trailing-space
