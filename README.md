@@ -58,6 +58,22 @@ mechanism and trade-offs of the algorithms, not to claim quantum advantage.
 | Optimal route cost | **10** |
 | QAOA depths studied | $p=1,\ldots,110$ |
 
+## QUBO energy landscape
+
+The routing cost and flow penalty assign an exact energy $Q(x)$ to every one
+of the 16,384 computational-basis states. With $A=6$, the complete energy
+range is 10–207; the 20 decoder-valid routes are highlighted in cyan and the
+unique optimum is marked with a gold star.
+
+<p align="center">
+  <img src="./assets/readme/qubo_energy_landscape.png" alt="Three-dimensional QUBO energy landscape over all 16,384 basis states, with feasible routes and the unique optimum highlighted" width="980">
+</p>
+
+The two horizontal coordinates split the 14-bit basis index into two 7-bit
+blocks only for visualization. The vertical values are the exact, unsmoothed
+QUBO energies; the connecting surface does not imply a continuous search
+space.
+
 ## Results
 
 The plots below use the frozen depth sweep in
@@ -148,7 +164,7 @@ The notebook checks the scientific-computing chain directly:
 ```text
 .
 ├── QAOA_Routing_Project_Full_Reproduction.ipynb
-├── assets/readme/                  # two curated README figures
+├── assets/readme/                  # three curated README figures
 ├── data/graph.json                 # fixed routing instance
 ├── results/global_depth110/
 │   ├── depth_by_depth.csv          # p = 1,…,110 summary
@@ -162,5 +178,5 @@ The notebook checks the scientific-computing chain directly:
 ```
 
 Figures and tables generated during a local notebook run are written to
-`notebook_output/qaoa_project_reproduction/` and ignored by Git. Only the two
+`notebook_output/qaoa_project_reproduction/` and ignored by Git. Only the three
 curated figures used on this page are versioned.
